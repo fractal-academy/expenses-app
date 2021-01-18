@@ -2,9 +2,15 @@
   "compilerOptions": {
     "baseUrl": "src/",
     "paths": {
-      "domains": ["./domains/*"],
-      "services": ["./services/*"],
-      "constants": ["./constants/*"]
+      "app": [ "./app/*" ],
+      "components": [ "./app/components/*" ],
+      "services": ["./app/services/*"]
     }
-  }
+  },
+  "exclude": [
+    "**/node_modules/*",
+    "dist",
+    "coverage",
+    "node_modules"
+  ]
 }

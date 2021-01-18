@@ -1,0 +1,2 @@
+const route = {}
+export { route }
