@@ -33,7 +33,8 @@ module.exports = {
         jsxBracketSameLine: true,
         printWidth: 80,
         tabWidth: 2,
-        useTabs: false
+        useTabs: false,
+        endOfLine: 'auto'
       }
     ]
   }
