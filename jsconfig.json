@@ -2,9 +2,9 @@
   "compilerOptions": {
     "baseUrl": "src/",
     "paths": {
-      // "context": [ "./context/*" ],
-      // "roots": [ "./roots/*" ],
-      // "config": [ "./config/*" ]
+      "domains": ["./domains/*"],
+      "services": ["./services/*"],
+      "constants": ["./constants/*"]
     }
   }
 }
