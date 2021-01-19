@@ -1,5 +1,10 @@
+import { Typography } from '@material-ui/core'
+
 const RoleSimpleView = (props) => {
-  return <div>RoleSimpleView</div>
+  let { role } = props
+  role = role || 'admin'
+
+  return <Typography>{role}</Typography>
 }
 
 RoleSimpleView.propTypes = {}
