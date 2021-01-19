@@ -1,0 +1,2 @@
+const CURRENCY = {}
+export { CURRENCY }

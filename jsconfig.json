@@ -2,9 +2,9 @@
   "compilerOptions": {
     "baseUrl": "src/",
     "paths": {
-      "domains": ["./domains/*"],
-      "services": ["./services/*"],
-      "constants": ["./constants/*"]
+      "app": ["./app/*"],
+      "components": ["./app/components/*","./app/components"],
+      "domains/*": ["./app/domains/*"]
     }
   }
 }
