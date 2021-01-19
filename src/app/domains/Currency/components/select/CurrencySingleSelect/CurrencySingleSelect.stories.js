@@ -10,4 +10,8 @@ const Template = (args) => <CurrencySingleSelect {...args} />
 
 export const CurrencySingleSelectStory = Template.bind({})
 
-CurrencySingleSelectStory.args = {}
+CurrencySingleSelectStory.args = {
+  itemProps: {
+    dense: true
+  }
+}
