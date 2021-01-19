@@ -9,8 +9,7 @@ const { CURRENCY, CURRENCY_KEYS } = currency
 
 const CurrencySingleSelect = (props) => {
   const { itemProps } = props
-  const [currencySign, setCurrencySign] = useState(CURRENCY.USD.name)
-
+  const [currencySign, setCurrencySign] = useState(CURRENCY.UAH.cc)
   const handleSelect = (event) => {
     setCurrencySign(event.target.value)
   }
@@ -20,7 +19,7 @@ const CurrencySingleSelect = (props) => {
       defaultValue={currencySign}
       onChange={handleSelect}>
       {CURRENCY_KEYS.map((item) => (
-        <MenuItem {...itemProps} value={CURRENCY[item].name}>
+        <MenuItem {...itemProps} value={CURRENCY[item].cc}>
           {CURRENCY[item].sign}
         </MenuItem>
       ))}

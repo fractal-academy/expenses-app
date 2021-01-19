@@ -15,9 +15,9 @@
 import getSymbolFromCurrency from 'currency-symbol-map'
 
 const CURRENCY = {
+  UAH: { rate: 1 },
   USD: {},
-  EUR: {},
-  UAH: { rate: 1 }
+  EUR: {}
 }
 
 const CURRENCY_KEYS = Object.keys(CURRENCY)
