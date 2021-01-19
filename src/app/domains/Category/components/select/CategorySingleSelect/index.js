@@ -1,1 +1,1 @@
-export { default as CategorySingleSelect } from './CategorySingleSelect.template.js'
+export { default as CategorySingleSelect } from './CategorySingleSelect.template'

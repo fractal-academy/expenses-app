@@ -1,1 +1,1 @@
-export { default as PurchaseAdvancedView } from './PurchaseAdvancedView.template.js'
+export { default as PurchaseAdvancedView } from './PurchaseAdvancedView.template'

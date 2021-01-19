@@ -1,1 +1,1 @@
-export { default as CartAll } from './CartAll.layout.js'
+export { default as CartAll } from './CartAll.layout'

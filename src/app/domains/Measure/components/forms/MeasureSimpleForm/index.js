@@ -1,1 +1,1 @@
-export { default as MeasureSimpleForm } from './MeasureSimpleForm.template.js'
+export { default as MeasureSimpleForm } from './MeasureSimpleForm.template'

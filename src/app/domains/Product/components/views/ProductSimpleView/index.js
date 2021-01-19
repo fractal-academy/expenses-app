@@ -1,1 +1,1 @@
-export { default as ProductSimpleView } from './ProductSimpleView.template.js'
+export { default as ProductSimpleView } from './ProductSimpleView.template'

@@ -1,1 +1,1 @@
-export { default as MemberEdit } from './MemberEdit.layout.js'
+export { default as MemberEdit } from './MemberEdit.layout'

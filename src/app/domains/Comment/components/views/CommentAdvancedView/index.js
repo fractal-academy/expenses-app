@@ -1,1 +1,1 @@
-export { default as CommentAdvancedView } from './CommentAdvancedView.template.js'
+export { default as CommentAdvancedView } from './CommentAdvancedView.template'

@@ -1,1 +1,1 @@
-export { default as ProductSimpleForm } from './ProductSimpleForm.template.js'
+export { default as ProductSimpleForm } from './ProductSimpleForm.template'

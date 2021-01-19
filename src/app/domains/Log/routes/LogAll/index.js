@@ -1,1 +1,1 @@
-export { default as LogAll } from './LogAll.layout.js'
+export { default as LogAll } from './LogAll.layout'

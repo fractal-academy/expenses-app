@@ -1,1 +1,1 @@
-export { default as StatisticAdvancedFilter } from './StatisticAdvancedFilter.template.js'
+export { default as StatisticAdvancedFilter } from './StatisticAdvancedFilter.template'

@@ -1,1 +1,1 @@
-export { default as PurchaseAll } from './PurchaseAll.layout.js'
+export { default as PurchaseAll } from './PurchaseAll.layout'

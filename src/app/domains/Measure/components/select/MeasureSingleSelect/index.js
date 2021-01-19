@@ -1,1 +1,1 @@
-export { default as MeasureSingleSelect } from './MeasureSingleSelect.template.js'
+export { default as MeasureSingleSelect } from './MeasureSingleSelect.template'

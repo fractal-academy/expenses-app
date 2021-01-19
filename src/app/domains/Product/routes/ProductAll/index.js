@@ -1,1 +1,1 @@
-export { default as ProductAll } from './ProductAll.layout.js'
+export { default as ProductAll } from './ProductAll.layout'

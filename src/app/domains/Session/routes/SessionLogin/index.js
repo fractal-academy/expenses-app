@@ -1,1 +1,1 @@
-export { default as SessionLogin } from './SessionLogin.layout.js'
+export { default as SessionLogin } from './SessionLogin.layout'

@@ -1,1 +1,1 @@
-export { default as RoleSimpleView } from './RoleSimpleView.template.js'
+export { default as RoleSimpleView } from './RoleSimpleView.template'

@@ -1,1 +1,1 @@
-export { default as MemberSingleSelect } from './MemberSingleSelect.template.js'
+export { default as MemberSingleSelect } from './MemberSingleSelect.template'

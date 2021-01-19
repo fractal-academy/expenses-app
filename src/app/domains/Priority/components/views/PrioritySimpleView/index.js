@@ -1,1 +1,1 @@
-export { default as PrioritySimpleView } from './PrioritySimpleView.template.js'
+export { default as PrioritySimpleView } from './PrioritySimpleView.template'

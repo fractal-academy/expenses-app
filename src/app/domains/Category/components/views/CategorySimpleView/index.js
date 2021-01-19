@@ -1,1 +1,1 @@
-export { default as CategorySimpleView } from './CategorySimpleView.template.js'
+export { default as CategorySimpleView } from './CategorySimpleView.template'

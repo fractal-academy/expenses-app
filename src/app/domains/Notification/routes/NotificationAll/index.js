@@ -1,1 +1,1 @@
-export { default as NotificationAll } from './NotificationAll.layout.js'
+export { default as NotificationAll } from './NotificationAll.layout'

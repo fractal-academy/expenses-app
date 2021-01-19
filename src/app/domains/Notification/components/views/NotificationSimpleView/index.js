@@ -1,1 +1,1 @@
-export { default as NotificationSimpleView } from './NotificationSimpleView.template.js'
+export { default as NotificationSimpleView } from './NotificationSimpleView.template'

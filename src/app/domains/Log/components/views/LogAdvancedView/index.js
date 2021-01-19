@@ -1,1 +1,1 @@
-export { default as LogAdvancedView } from './LogAdvancedView.template.js'
+export { default as LogAdvancedView } from './LogAdvancedView.template'

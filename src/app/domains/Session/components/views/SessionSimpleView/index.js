@@ -1,1 +1,1 @@
-export { default as SessionSimpleView } from './SessionSimpleView.template.js'
+export { default as SessionSimpleView } from './SessionSimpleView.template'

@@ -1,1 +1,1 @@
-export { default as WishAll } from './WishAll.layout.js'
+export { default as WishAll } from './WishAll.layout'

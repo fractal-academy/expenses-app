@@ -1,1 +1,1 @@
-export { default as PrioritySingleSelect } from './PrioritySingleSelect.template.js'
+export { default as PrioritySingleSelect } from './PrioritySingleSelect.template'

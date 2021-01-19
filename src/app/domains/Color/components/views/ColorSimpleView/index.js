@@ -1,1 +1,1 @@
-export { default as ColorSimpleView } from './ColorSimpleView.template.js'
+export { default as ColorSimpleView } from './ColorSimpleView.template'

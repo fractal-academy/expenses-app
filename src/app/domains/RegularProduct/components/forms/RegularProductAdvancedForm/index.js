@@ -1,1 +1,1 @@
-export { default as RegularProductAdvancedForm } from './RegularProductAdvancedForm.template.js'
+export { default as RegularProductAdvancedForm } from './RegularProductAdvancedForm.template'

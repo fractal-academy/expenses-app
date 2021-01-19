@@ -1,1 +1,1 @@
-export { default as CategoryAll } from './CategoryAll.layout.js'
+export { default as CategoryAll } from './CategoryAll.layout'

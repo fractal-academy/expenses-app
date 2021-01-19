@@ -1,1 +1,1 @@
-export { default as RegularProductSingleSelect } from './RegularProductSingleSelect.template.js'
+export { default as RegularProductSingleSelect } from './RegularProductSingleSelect.template'

@@ -1,1 +1,1 @@
-export { default as CurrencySimpleView } from './CurrencySimpleView.template.js'
+export { default as CurrencySimpleView } from './CurrencySimpleView.template'

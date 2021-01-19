@@ -1,1 +1,1 @@
-export { default as CurrencySingleSelect } from './CurrencySingleSelect.template.js'
+export { default as CurrencySingleSelect } from './CurrencySingleSelect.template'

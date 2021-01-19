@@ -1,1 +1,1 @@
-export { default as StatisticAdvancedView } from './StatisticAdvancedView.template.js'
+export { default as StatisticAdvancedView } from './StatisticAdvancedView.template'

@@ -1,1 +1,1 @@
-export { default as MemberSimpleView } from './MemberSimpleView.template.js'
+export { default as MemberSimpleView } from './MemberSimpleView.template'

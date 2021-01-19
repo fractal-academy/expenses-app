@@ -1,1 +1,1 @@
-export { default as MemberShow } from './MemberShow.layout.js'
+export { default as MemberShow } from './MemberShow.layout'

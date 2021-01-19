@@ -1,1 +1,1 @@
-export { default as CategoryAdvancedView } from './CategoryAdvancedView.template.js'
+export { default as CategoryAdvancedView } from './CategoryAdvancedView.template'

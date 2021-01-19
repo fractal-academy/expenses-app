@@ -1,1 +1,1 @@
-export { default as ProductShow } from './ProductShow.layout.js'
+export { default as ProductShow } from './ProductShow.layout'

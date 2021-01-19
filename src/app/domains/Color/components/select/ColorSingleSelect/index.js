@@ -1,1 +1,1 @@
-export { default as ColorSingleSelect } from './ColorSingleSelect.template.js'
+export { default as ColorSingleSelect } from './ColorSingleSelect.template'
