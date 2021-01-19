@@ -16,10 +16,14 @@ const SessionSimpleView = (props) => {
   const classes = useStyles(props)
   return (
     <Container>
-      <Box display="flex" justifyContent="center" mt={2}>
+      <Box display="flex" justifyContent="center">
         <Typography variant="h4">Sign in</Typography>
       </Box>
-      <Box display="flex" p={1} className={classes.root}>
+      <Box
+        display="flex"
+        p={1}
+        justifyContent="center"
+        className={classes.root}>
         <Typography variant="subtitle2">
           Use your company Google account @senseteq.io to log in.
         </Typography>
