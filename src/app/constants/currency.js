@@ -23,7 +23,7 @@ const CURRENCY = {
 const CURRENCY_KEYS = Object.keys(CURRENCY)
 
 CURRENCY_KEYS.forEach((key) => {
-  CURRENCY[key].name = key
+  CURRENCY[key].cc = key
   CURRENCY[key].sign = getSymbolFromCurrency(key)
 })
 
