@@ -8,18 +8,21 @@ import { currency } from 'app/constants'
 const { CURRENCY, CURRENCY_KEYS } = currency
 
 const CurrencySingleSelect = (props) => {
-  const { itemProps } = props
+  const { menuItemProps, onChange, ...rest } = props
   const [currencySign, setCurrencySign] = useState(CURRENCY.UAH.cc)
   const handleSelect = (event) => {
-    setCurrencySign(event.target.value)
+    const selectedCurrency = event.target.value
+    setCurrencySign(selectedCurrency)
+    onChange && onChange(event, CURRENCY[selectedCurrency])
   }
   return (
     <Select
       value={currencySign}
       defaultValue={currencySign}
-      onChange={handleSelect}>
+      onChange={handleSelect}
+      {...rest}>
       {CURRENCY_KEYS.map((item) => (
-        <MenuItem {...itemProps} value={CURRENCY[item].cc}>
+        <MenuItem {...menuItemProps} value={CURRENCY[item].cc}>
           {CURRENCY[item].sign}
         </MenuItem>
       ))}
@@ -28,12 +31,12 @@ const CurrencySingleSelect = (props) => {
 }
 
 CurrencySingleSelect.propTypes = {
-  itemProps: PropTypes.shape({
+  menuItemProps: PropTypes.shape({
     dense: PropTypes.bool
   })
 }
 CurrencySingleSelect.defaultProps = {
-  itemProps: {
+  menuItemProps: {
     dense: true
   }
 }
