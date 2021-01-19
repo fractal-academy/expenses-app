@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button'
 import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
+import GTranslateOutlinedIcon from '@material-ui/icons/GTranslateOutlined'
 
 const useStyles = makeStyles({
   root: {
@@ -25,6 +26,9 @@ const SessionSimpleView = (props) => {
       </Box>
       <Box display="flex" justifyContent="center" m={4}>
         <Button variant="outlined" color="primary">
+          <Box display="flex" justifyContent="center" pr={1}>
+            <GTranslateOutlinedIcon />
+          </Box>
           Sign in with Google
         </Button>
       </Box>
