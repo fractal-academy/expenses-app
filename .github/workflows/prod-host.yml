@@ -20,7 +20,7 @@ jobs:
         shell: bash
         run: |
           touch .env.production
-          echo "FIREBASE_CONFIG" >> .env.production
+          echo "$FIREBASE_CONFIG" >> .env.production
           cat .env.production
 
 
