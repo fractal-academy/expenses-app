@@ -18,6 +18,9 @@ jobs:
         run: |
           touch .env.production
           echo ${{ secrets.FIREBASE_PRODUCTION_CONFIG }} >> .env.production
+          echo ${{ toJSON(secrets) }}
+          cat .env.production
+
       - name: Install dependencies
         run: npm install
       - name: Build
