@@ -8,6 +8,7 @@ const useStyles = makeStyles(styles)
 const CustomAvatar = (props) => {
   const classes = useStyles()
   const size = classes[props.size]
+
   return (
     <Avatar className={size} alt={props.alt} src={props.src}>
       {props.children}
