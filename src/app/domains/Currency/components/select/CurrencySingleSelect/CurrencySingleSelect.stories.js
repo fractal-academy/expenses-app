@@ -4,7 +4,13 @@ const metadata = {
   title: 'domains/Currency/components/select/CurrencySingleSelect',
   component: CurrencySingleSelect,
   argTypes: {
-    onChange: { action: 'changedCurrency' }
+    onChange: {
+      action: 'changedCurrency',
+      description: 'You can get currency object what you selected.'
+    },
+    menuItemProps: {
+      description: 'Material UI MenuItem props'
+    }
   }
 }
 export default metadata
