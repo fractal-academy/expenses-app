@@ -17,12 +17,12 @@ jobs:
       - name: Setup env
         env:
           FIREBASE_CONFIG: ${{ secrets.FIREBASE_PRODUCTION_CONFIG }}
+        shell: bash
         run: |
           touch .env.production
-          echo "$FIREBASE_CONFIG" >> .env.production
-          echo ${{ toJSON(secrets) }}
-          echo ${{ toJSON(env) }}
+          echo "FIREBASE_CONFIG" >> .env.production
           cat .env.production
+
 
       - name: Install dependencies
         run: npm install
