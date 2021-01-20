@@ -10,7 +10,7 @@
     "cc": "EUR",
     "exchangedate": "19.01.2021"
   }
-*/
+
 
 import getSymbolFromCurrency from 'currency-symbol-map'
 
@@ -30,3 +30,5 @@ CURRENCY_KEYS.forEach((key) => {
 const CURRENCY_VALUES = Object.values(CURRENCY)
 
 export { CURRENCY, CURRENCY_KEYS, CURRENCY_VALUES }
+
+*/

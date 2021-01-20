@@ -1,5 +1,6 @@
+import { Box } from '@material-ui/core'
 const MemberSimpleView = (props) => {
-  return <div>MemberSimpleView</div>
+  return <Box></Box>
 }
 
 MemberSimpleView.propTypes = {}

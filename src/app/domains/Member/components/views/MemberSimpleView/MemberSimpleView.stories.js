@@ -6,7 +6,7 @@ const metadata = {
 }
 export default metadata
 
-const Template = (args) => <MemberSimpleView {...args} />
+const Template = (args) => <MemberSimpleView horizontal {...args} />
 
 export const MemberSimpleViewStory = Template.bind({})
 
