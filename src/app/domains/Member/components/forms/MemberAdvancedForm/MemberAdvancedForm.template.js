@@ -8,7 +8,10 @@ import {
   InputLabel,
   FormControl
 } from '@material-ui/core'
-import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
+import {
+  KeyboardDatePicker,
+  MuiPickersUtilsProvider
+} from '@material-ui/pickers'
 import DateFnsUtils from '@date-io/date-fns'
 import { Avatar } from 'components'
 import PropTypes from 'prop-types'
@@ -19,11 +22,12 @@ import styles from './MemberAdvancedForm.styles'
 const useStyles = makeStyles(styles)
 
 const MemberAdvancedForm = (props) => {
+  var moment = require('moment')
   const classes = useStyles()
-  const { register, handleSubmit } = useForm()
+  const { register, handleSubmit, setValue } = useForm()
   const [role, setRole] = useState(props.role)
   const [date, setDate] = useState(props.date)
-  console.log(role)
+  console.log('data', date)
   const onSubmit = (data) => {
     console.log(data)
   }
@@ -31,8 +35,10 @@ const MemberAdvancedForm = (props) => {
     setRole(event.target.value)
   }
   const handleDateChange = (event) => {
-    setDate(event.target.value)
-    console.log(event.target.value)
+    setDate(event)
+    setValue('data', event)
+
+    console.log('data', event)
   }
 
   return (
@@ -79,7 +85,20 @@ const MemberAdvancedForm = (props) => {
           </Box>
           <Box className="col-12 mb-2">
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <DatePicker value={date} onChange={() => handleDateChange()} />
+              <KeyboardDatePicker
+                value={date}
+                name="b"
+                disableToolbar
+                variant="inline"
+                format="MM/dd/yyyy"
+                margin="normal"
+                id="date-picker-inline"
+                label="Date picker inline"
+                onChange={handleDateChange}
+                KeyboardButtonProps={{
+                  'aria-label': 'change date'
+                }}
+              />
             </MuiPickersUtilsProvider>
           </Box>
           <Box className="col-12 mb-2">

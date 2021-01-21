@@ -18,5 +18,5 @@ MemberAdvancedFormStory.args = {
   role: 'User',
   email: 'olenashevchuk0@gmail.com',
   phone: '+3809457152',
-  date: '2001-11-21'
+  date: new Date('2001-11-21')
 }
