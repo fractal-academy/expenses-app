@@ -19,8 +19,8 @@ jobs:
           FIREBASE_CONFIG: ${{ secrets.FIREBASE_DEVELOPMENT_CONFIG }}
         shell: bash
         run: |
-          touch .env.production
-          echo "$FIREBASE_CONFIG" >> .env.production
+          touch .env.development
+          echo "$FIREBASE_CONFIG" >> .env.development
 
       - name: Install dependencies
         run: npm install
