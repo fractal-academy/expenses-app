@@ -15,9 +15,12 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
       - name: Setup env
+        env:
+          FIREBASE_CONFIG: ${{ secrets.FIREBASE_DEVELOPMENT_CONFIG }}
+        shell: bash
         run: |
-          touch .env.development
-          echo  ${{ secrets.FIREBASE_DEVELOPMENT_CONFIG }} >> .env.development
+          touch .env.production
+          echo "$FIREBASE_CONFIG" >> .env.production
 
       - name: Install dependencies
         run: npm install
