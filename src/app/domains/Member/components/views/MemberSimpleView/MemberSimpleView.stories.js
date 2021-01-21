@@ -11,7 +11,7 @@ const Template = (args) => <MemberSimpleView withName {...args} />
 export const MemberSimpleViewStory = Template.bind({})
 
 MemberSimpleViewStory.args = {
-  name: 'Olena',
+  /*name: 'Olena',
   avatar:
-    'https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/girl_avatar_child_kid-512.png'
+    'https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/girl_avatar_child_kid-512.png'*/
 }

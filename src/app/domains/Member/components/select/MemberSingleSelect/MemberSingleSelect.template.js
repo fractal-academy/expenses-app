@@ -1,5 +1,19 @@
+import { useState } from 'react'
+import MenuItem from '@material-ui/core/MenuItem'
+import Select from '@material-ui/core/Select'
+
+const users = ['Olena', 'Dima', 'Sasha', 'Rolic', 'Max', 'Ruslana']
 const MemberSingleSelect = (props) => {
-  return <div>MemberSingleSelect</div>
+  const [member, setMember] = useState(users[0])
+  return (
+    <Select value={member}>
+      {users.map((user) => (
+        <MenuItem key={user} value={user} onClick={() => setMember(user)}>
+          {user}
+        </MenuItem>
+      ))}
+    </Select>
+  )
 }
 
 MemberSingleSelect.propTypes = {}

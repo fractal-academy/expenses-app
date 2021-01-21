@@ -12,6 +12,7 @@
   }
 
 
+*/
 import getSymbolFromCurrency from 'currency-symbol-map'
 
 const CURRENCY = {
@@ -30,5 +31,3 @@ CURRENCY_KEYS.forEach((key) => {
 const CURRENCY_VALUES = Object.values(CURRENCY)
 
 export { CURRENCY, CURRENCY_KEYS, CURRENCY_VALUES }
-
-*/

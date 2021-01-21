@@ -16,13 +16,8 @@ import DateFnsUtils from '@date-io/date-fns'
 import { Avatar } from 'components'
 import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
-import { makeStyles } from '@material-ui/core/styles'
-import styles from './MemberAdvancedForm.styles'
-
-const useStyles = makeStyles(styles)
 
 const MemberAdvancedForm = (props) => {
-  const classes = useStyles()
   const { register, handleSubmit, setValue } = useForm()
   const [role, setRole] = useState(props.role)
   const [date, setDate] = useState(props.date)
@@ -38,9 +33,7 @@ const MemberAdvancedForm = (props) => {
   }
   const handleDateChange = (event) => {
     setDate(event)
-
     setValue('data', event)
-    console.log('data', event)
   }
 
   return (

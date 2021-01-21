@@ -1,5 +1,5 @@
 import { Fragment } from 'react'
-import { Box, Typography } from '@material-ui/core'
+import { Box, Typography, Button } from '@material-ui/core'
 import { Avatar } from 'components'
 import PropTypes from 'prop-types'
 
@@ -9,9 +9,10 @@ const MemberAdvancedView = (props) => {
       <Box className="row">
         <Box
           className={props.horizontal ? 'col-auto' : 'col-12'}
-          mb={1}
+          mb={!props.horizontal && 1}
           display="flex"
-          justifyContent="center">
+          justifyContent="center"
+          alignItems={props.horizontal && 'center'}>
           <Avatar size={props.horizontal ? 'sm' : 'lg'}>TT</Avatar>
         </Box>
         <Box className="col" textAlign={props.horizontal ? 'left' : 'center'}>
@@ -42,6 +43,13 @@ const MemberAdvancedView = (props) => {
                   </Box>
                 )}
               </Fragment>
+            )}
+            {!props.horizontal && (
+              <Box className="col-12">
+                <Button variant="contained" color="primary">
+                  Edit
+                </Button>
+              </Box>
             )}
           </Box>
         </Box>
