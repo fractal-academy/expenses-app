@@ -22,13 +22,15 @@ import styles from './MemberAdvancedForm.styles'
 const useStyles = makeStyles(styles)
 
 const MemberAdvancedForm = (props) => {
-  var moment = require('moment')
   const classes = useStyles()
   const { register, handleSubmit, setValue } = useForm()
   const [role, setRole] = useState(props.role)
   const [date, setDate] = useState(props.date)
-  console.log('data', date)
+  const [avatar, setAvatar] = useState(props.avatar)
+
   const onSubmit = (data) => {
+    data.date = Date.parse(date) / 1000
+    data.avatar = avatar
     console.log(data)
   }
   const handleChange = (event) => {
@@ -36,103 +38,133 @@ const MemberAdvancedForm = (props) => {
   }
   const handleDateChange = (event) => {
     setDate(event)
-    setValue('data', event)
 
+    setValue('data', event)
     console.log('data', event)
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Box className="container">
-        <Box className="row" textAlign="center" justifyContent="center">
-          <Box className="col-auto  mb-2">
-            <Avatar size="md" src={props.avatar}></Avatar>
-          </Box>
-          <Box className="col-12 mb-2">
-            <TextField
-              value={props.name}
-              id="memberName"
-              name="memberName"
-              label="name"
-              required
-              inputRef={register}
-            />
-          </Box>
-          <Box className="col-12 mb-2">
-            <TextField
-              value={props.surname}
-              id="memberSurname"
-              name="memberSurname"
-              label="surname"
-              required
-              inputRef={register}
-            />
-          </Box>
-          <Box className="col-12 mb-2">
-            <FormControl>
-              <InputLabel id="demo-simple-select-label">Role</InputLabel>
-              <Select
-                autoWidth
-                onChange={handleChange}
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={role}>
-                <MenuItem value={'User'}>User</MenuItem>
-                <MenuItem value={'Admin'}>Admin</MenuItem>
-                <MenuItem value={'Observer'}>Observer</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
-          <Box className="col-12 mb-2">
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <KeyboardDatePicker
-                value={date}
-                name="b"
-                disableToolbar
-                variant="inline"
-                format="MM/dd/yyyy"
-                margin="normal"
-                id="date-picker-inline"
-                label="Date picker inline"
-                onChange={handleDateChange}
-                KeyboardButtonProps={{
-                  'aria-label': 'change date'
-                }}
-              />
-            </MuiPickersUtilsProvider>
-          </Box>
-          <Box className="col-12 mb-2">
-            <TextField
-              value={props.email}
-              id="memberEmail"
-              name="memberEmail"
-              label="email"
-              required
-              inputRef={register}
-            />
-          </Box>
-          <Box className="col-12 mb-2">
-            <TextField
-              value={props.phone}
-              id="memberPhone"
-              name="memberPhone"
-              label="phone"
-              required
-              inputRef={register}
-            />
-          </Box>
-          <Box className="col-12 mb-2">
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              size="small">
-              Save
-            </Button>
-          </Box>
+    <Box className="container-fluid">
+      <Box className="row" justifyContent="center">
+        <Box className="col-12 col-md-6 col-lg-3">
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Box className="container-sm">
+              <Box className="row">
+                <Box
+                  className="col-12 col-sm-12 mb-2"
+                  justifyContent="center"
+                  display="flex">
+                  <Avatar size="md" src={props.avatar}></Avatar>
+                </Box>
+                <Box className="col-12 col-md mb-2">
+                  <TextField
+                    fullWidth
+                    inputProps={{ pattern: '([a-zA-Z])+' }}
+                    value={props.name}
+                    id="memberName"
+                    name="memberName"
+                    label="name"
+                    required
+                    inputRef={register}
+                  />
+                </Box>
+                <Box className="col-12 col-md mb-2">
+                  <TextField
+                    fullWidth
+                    inputProps={{ pattern: '([a-zA-Z])+' }}
+                    value={props.surname}
+                    id="memberSurname"
+                    name="memberSurname"
+                    label="surname"
+                    required
+                    inputRef={register}
+                  />
+                </Box>
+                <Box className="col-12 mb-2">
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Role</InputLabel>
+                    <Select
+                      autoWidth
+                      onChange={handleChange}
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={role}>
+                      <MenuItem value={'User'}>User</MenuItem>
+                      <MenuItem value={'Admin'}>Admin</MenuItem>
+                      <MenuItem value={'Observer'}>Observer</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Box>
+                <Box className="col-12 mb-2">
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <KeyboardDatePicker
+                      fullWidth
+                      value={date}
+                      name="b"
+                      disableToolbar
+                      variant="inline"
+                      format="MM/dd/yyyy"
+                      margin="normal"
+                      id="date-picker-inline"
+                      label="Date picker inline"
+                      onChange={handleDateChange}
+                      KeyboardButtonProps={{
+                        'aria-label': 'change date'
+                      }}
+                    />
+                  </MuiPickersUtilsProvider>
+                </Box>
+                <Box className="col-12 mb-2">
+                  <TextField
+                    fullWidth
+                    inputProps={{
+                      pattern:
+                        '^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+.)?[a-zA-Z]+.)?gmail.com$'
+                    }}
+                    value={props.email}
+                    id="memberEmail"
+                    name="memberEmail"
+                    label="email"
+                    required
+                    inputRef={register}
+                  />
+                </Box>
+                <Box className="col-12 mb-4">
+                  <TextField
+                    fullWidth
+                    type="number"
+                    value={props.phone}
+                    id="memberPhone"
+                    name="memberPhone"
+                    label="phone"
+                    inputRef={register}
+                  />
+                </Box>
+                <Box
+                  className="col-12 mb-2"
+                  display="flex"
+                  justifyContent="space-around">
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="secondary"
+                    size="small">
+                    Delete
+                  </Button>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    size="small">
+                    Save
+                  </Button>
+                </Box>
+              </Box>
+            </Box>
+          </form>
         </Box>
       </Box>
-    </form>
+    </Box>
   )
 }
 
