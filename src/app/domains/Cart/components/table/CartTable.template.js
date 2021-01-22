@@ -88,9 +88,7 @@ const CartTable = (props) => {
           <TableContainer>
             <Table size="small">
               <TableHead>
-                <TableRow
-                  color="primary.main"
-                  style={{ backgroundColor: '#90CA59' }}>
+                <TableRow style={{ backgroundColor: '#F8F9F9' }}>
                   <TableCell padding="none">
                     <Checkbox color="primary" />
                   </TableCell>
