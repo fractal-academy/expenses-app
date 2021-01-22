@@ -1,19 +1,23 @@
 import React from 'react'
-import Button from '@material-ui/core/Button'
-import TextField from '@material-ui/core/TextField'
-import Dialog from '@material-ui/core/Dialog'
-import DialogActions from '@material-ui/core/DialogActions'
-import DialogContent from '@material-ui/core/DialogContent'
-import Box from '@material-ui/core/Box'
-import DialogTitle from '@material-ui/core/DialogTitle'
-import Fab from '@material-ui/core/Fab'
+import {
+  Button,
+  InputLabel,
+  FormControl,
+  TextField,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  Box,
+  DialogTitle,
+  Fab
+} from '@material-ui/core'
+import { useForm, Controller } from 'react-hook-form'
 import AddIcon from '@material-ui/icons/Add'
-import { MemberSingleSelect } from '../../select'
-import { useForm } from 'react-hook-form'
+import { RoleSingleSelect } from 'app/domains/Role/components/select'
 
 const MemberCombined = () => {
   const [open, setOpen] = React.useState(false)
-  const { register, handleSubmit, setValue } = useForm()
+  const { register, handleSubmit, control } = useForm()
 
   const onSubmit = (data) => {
     console.log(data)
@@ -46,12 +50,22 @@ const MemberCombined = () => {
               label="Email Address"
               type="email"
               fullWidth
+              required
               inputRef={register}
             />
           </DialogContent>
           <DialogContent>
             <Box display="flex" justifyContent="center">
-              <MemberSingleSelect inputRef={register} name="role" />
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Role</InputLabel>
+                <Controller
+                  control={control}
+                  name="role"
+                  render={({ onChange, value }) => (
+                    <RoleSingleSelect role={value} onChange={onChange} />
+                  )}
+                />
+              </FormControl>
             </Box>
           </DialogContent>
           <DialogActions>

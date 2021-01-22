@@ -2,9 +2,7 @@ import { useState } from 'react'
 import {
   Box,
   TextField,
-  Select,
   Button,
-  MenuItem,
   InputLabel,
   FormControl
 } from '@material-ui/core'
@@ -19,7 +17,9 @@ import { useForm, Controller } from 'react-hook-form'
 import { RoleSingleSelect } from 'app/domains/Role/components/select'
 
 const MemberAdvancedForm = (props) => {
-  const { register, handleSubmit, setValue, control } = useForm()
+  const { handleSubmit, setValue, control, register } = useForm({
+    defaultValues: { ...props }
+  })
 
   const [date, setDate] = useState(props.date)
   const [avatar, setAvatar] = useState(props.avatar)
@@ -53,7 +53,7 @@ const MemberAdvancedForm = (props) => {
                     inputProps={{ pattern: '([a-zA-Z])+' }}
                     value={props.name}
                     id="memberName"
-                    name="memberName"
+                    name="name"
                     label="name"
                     required
                     inputRef={register}
@@ -65,7 +65,7 @@ const MemberAdvancedForm = (props) => {
                     inputProps={{ pattern: '([a-zA-Z])+' }}
                     value={props.surname}
                     id="memberSurname"
-                    name="memberSurname"
+                    name="surname"
                     label="surname"
                     required
                     inputRef={register}
@@ -88,7 +88,7 @@ const MemberAdvancedForm = (props) => {
                     <KeyboardDatePicker
                       fullWidth
                       value={new Date(+date)}
-                      name="b"
+                      name="date"
                       disableToolbar
                       variant="inline"
                       format="dd/MM/yyyy"
@@ -111,7 +111,7 @@ const MemberAdvancedForm = (props) => {
                     }}
                     value={props.email}
                     id="memberEmail"
-                    name="memberEmail"
+                    name="email"
                     label="email"
                     required
                     inputRef={register}
@@ -122,7 +122,7 @@ const MemberAdvancedForm = (props) => {
                     fullWidth
                     value={props.phone}
                     id="memberPhone"
-                    name="memberPhone"
+                    name="phone"
                     label="phone"
                     inputRef={register}
                   />

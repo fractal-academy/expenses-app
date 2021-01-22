@@ -1,7 +1,8 @@
 import { MenuItem, Select } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useState } from 'react'
-import { ROLE, ROLE_VALUES } from 'app/constants'
+import { ROLE_VALUES } from 'app/constants'
+import PropTypes from 'prop-types'
 
 const useStyles = makeStyles({
   roleSingleSelect: {
@@ -11,8 +12,9 @@ const useStyles = makeStyles({
 })
 
 const RoleSingleSelect = (props) => {
-  const { onChange } = props
-  const [currentRole, setCurrentRole] = useState('admin')
+  const { onChange, value } = props
+
+  const [currentRole, setCurrentRole] = useState(value)
 
   const classes = useStyles()
 
@@ -21,20 +23,24 @@ const RoleSingleSelect = (props) => {
     setCurrentRole(selectedRole)
     onChange && onChange(selectedRole, event)
   }
-
   return (
     <Select
       className={classes.roleSingleSelect}
       value={currentRole}
       onChange={handleSelect}>
       {ROLE_VALUES.map((item) => (
-        <MenuItem value={item}>{item}</MenuItem>
+        <MenuItem key={item} value={item}>
+          {item}
+        </MenuItem>
       ))}
     </Select>
   )
 }
 
-RoleSingleSelect.propTypes = {}
+RoleSingleSelect.propTypes = {
+  onChange: PropTypes.func,
+  value: PropTypes.string
+}
 RoleSingleSelect.defaultProps = {}
 
 export default RoleSingleSelect
