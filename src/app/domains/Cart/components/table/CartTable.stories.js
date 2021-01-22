@@ -10,4 +10,9 @@ const Template = (args) => <CartTable {...args} />
 
 export const CartTableStory = Template.bind({})
 
-CartTableStory.args = {}
+CartTableStory.args = {
+  productName: 'Sugar',
+  productCategory: 'Kitchen',
+  member: 'Rostik',
+  assignedUser: 'Ruslan'
+}

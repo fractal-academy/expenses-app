@@ -1,16 +1,16 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import { useState } from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import { CheckIcon, DeleteIcon } from '@material-ui/icons'
+import { Box, Button, IconButton, Checkbox, Toolbar } from '@material-ui/core/'
 import {
-  Box,
   Table,
-  Button,
-  Toolbar,
-  Checkbox,
+  TableHead,
   TableRow,
   TableCell,
-  TableHead,
-  TableSortLabel,
   TableContainer,
-  makeStyles
+  TableSortLabel
 } from '@material-ui/core/'
 
 const headCells = [
@@ -36,29 +36,7 @@ const headCells = [
 ]
 const rows = [
   createData('Ruslan', 'Rostik', 'Sugar', 'Kitchen'),
-  createData('Ruslan', 'Lena', 'Waffles', 'Kitchen'),
-  createData('Ruslan', 'Rostik', 'Sugar', 'Kitchen'),
-  createData('Ruslan', 'Rostik', 'Sugar', 'Kitchen'),
-  createData('Ruslan', 'Rostik', 'Sugar', 'Kitchen'),
-  createData('Ruslan', 'Rostik', 'Sugar', 'Kitchen'),
-  createData('Ruslan', 'Rostik', 'Sugar', 'Kitchen'),
-  createData('Ruslan', 'Rostik', 'Sugar', 'Kitchen'),
-  createData('Ruslan', 'Rostik', 'Sugar', 'Kitchen'),
-  createData('Ruslan', 'Rostik', 'Sugar', 'Kitchen'),
-  createData('Ruslan', 'Rostik', 'Sugar', 'Kitchen'),
-  createData('Ruslan', 'Rostik', 'Sugar', 'Kitchen'),
-  createData('Ruslan', 'Rostik', 'Sugar', 'Kitchen'),
-  createData('Ruslan', 'Rostik', 'Sugar', 'Kitchen'),
-  createData('Ruslan', 'Rostik', 'Sugar', 'Kitchen'),
-  createData('Ruslan', 'Rostik', 'Sugar', 'Kitchen'),
-  createData('Ruslan', 'Rostik', 'Sugar', 'Kitchen'),
-  createData('Ruslan', 'Rostik', 'Sugar', 'Kitchen'),
-  createData('Ruslan', 'Rostik', 'Sugar', 'Kitchen'),
-  createData('Ruslan', 'Rostik', 'Sugar', 'Kitchen'),
-  createData('Ruslan', 'Rostik', 'Sugar', 'Kitchen'),
-  createData('Ruslan', 'Rostik', 'Sugar', 'Kitchen'),
-  createData('Ruslan', 'Rostik', 'Sugar', 'Kitchen'),
-  createData('Ruslan', 'Rostik', 'Sugar', 'Kitchen')
+  createData('Ruslan', 'Lena', 'Waffles', 'Kitchen')
 ]
 
 function createData(assignedUser, member, productName, productCategory) {
@@ -67,28 +45,65 @@ function createData(assignedUser, member, productName, productCategory) {
 
 const useStyles = makeStyles({
   root: {
-    width: '100%',
-    justifyContent: 'space-around'
+    width: '100%'
+  },
+  tableRow: {
+    backgroundColor: '#F8F9F9'
   }
 })
 
 const CartTable = (props) => {
   const classes = useStyles(props)
+  const [order, setOrder] = React.useState('asc')
+  const [orderBy, setOrderBy] = React.useState('productName')
+  const [selectedCheckbox, setSelectedCheckbox] = useState([])
+
+  const handleRequestSort = (event, property) => {
+    const isAsc = orderBy === property && order === 'asc'
+    setOrder(isAsc ? 'desc' : 'asc')
+    setOrderBy(property)
+  }
+
+  const handleSelectAllClick = (event) => {
+    if (event.target.checked) {
+      const newSelecteds = rows.map((n) => n.name)
+      setSelectedCheckbox(newSelecteds)
+      return
+    }
+    setSelectedCheckbox([])
+  }
 
   return (
     <Box className="container-fluid">
       <Box className="row">
         <Box className="col-auto">
           <Toolbar>
-            <Box className={classes.root} display="flex">
-              <Button color="primary">Wishes</Button>
-              <Button color="primary">Cart</Button>
-            </Box>
+            {false ? (
+              <Box
+                className={classes.root}
+                display="flex"
+                justifyContent="flex-end">
+                <IconButton aria-label="check" color="primary">
+                  <CheckIcon />
+                </IconButton>
+                <IconButton aria-label="delete" color="primary">
+                  <DeleteIcon />
+                </IconButton>
+              </Box>
+            ) : (
+              <Box
+                className={classes.root}
+                display="flex"
+                justifyContent="space-around">
+                <Button color="primary">Wishes</Button>
+                <Button color="primary">Cart</Button>
+              </Box>
+            )}
           </Toolbar>
           <TableContainer>
             <Table size="small">
               <TableHead>
-                <TableRow style={{ backgroundColor: '#F8F9F9' }}>
+                <TableRow className={classes.tableRow}>
                   <TableCell padding="none">
                     <Checkbox color="primary" />
                   </TableCell>
@@ -98,17 +113,15 @@ const CartTable = (props) => {
                     </TableCell>
                   ))}
                 </TableRow>
-                {rows.map((row) => (
-                  <TableRow>
-                    <TableCell padding="none">
-                      <Checkbox color="primary" />
-                    </TableCell>
-                    <TableCell align="right">{row.assignedUser}</TableCell>
-                    <TableCell align="right">{row.member}</TableCell>
-                    <TableCell align="right">{row.productName}</TableCell>
-                    <TableCell align="right">{row.productCategory}</TableCell>
-                  </TableRow>
-                ))}
+                <TableRow>
+                  <TableCell padding="none">
+                    <Checkbox color="primary" />
+                  </TableCell>
+                  <TableCell align="center">{props.assignedUser}</TableCell>
+                  <TableCell align="center">{props.member}</TableCell>
+                  <TableCell align="center">{props.productName}</TableCell>
+                  <TableCell align="center">{props.productCategory}</TableCell>
+                </TableRow>
               </TableHead>
             </Table>
           </TableContainer>
@@ -118,7 +131,19 @@ const CartTable = (props) => {
   )
 }
 
-CartTable.propTypes = {}
+CartTable.propTypes = {
+  // classes: PropTypes.object.isRequired,
+  // numSelected: PropTypes.number.isRequired,
+  // onRequestSort: PropTypes.func.isRequired,
+  // onSelectAllClick: PropTypes.func.isRequired,
+  // order: PropTypes.oneOf(['asc', 'desc']).isRequired,
+  // orderBy: PropTypes.string.isRequired,
+  // rowCount: PropTypes.number.isRequired,
+  productName: PropTypes.string.isRequired,
+  productCategory: PropTypes.string,
+  member: PropTypes.string.isRequired,
+  assignedUser: PropTypes.string
+}
 CartTable.defaultProps = {}
 
 export default CartTable
