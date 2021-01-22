@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { CheckIcon, DeleteIcon } from '@material-ui/icons'
 import { Box, Button, IconButton, Checkbox, Toolbar } from '@material-ui/core/'
 import {
   Table,
@@ -12,6 +11,8 @@ import {
   TableContainer,
   TableSortLabel
 } from '@material-ui/core/'
+import CheckIcon from '@material-ui/icons/Check'
+import DeleteIcon from '@material-ui/icons/Delete'
 
 const headCells = [
   {
@@ -78,7 +79,7 @@ const CartTable = (props) => {
       <Box className="row">
         <Box className="col-auto">
           <Toolbar>
-            {false ? (
+            {props.checkboxChecked ? (
               <Box
                 className={classes.root}
                 display="flex"
@@ -109,7 +110,7 @@ const CartTable = (props) => {
                   </TableCell>
                   {headCells.map((headCell) => (
                     <TableCell align="center" key={headCell.id} padding="none">
-                      <TableSortLabel> {headCell.label}</TableSortLabel>
+                      <TableSortLabel>{headCell.label}</TableSortLabel>
                     </TableCell>
                   ))}
                 </TableRow>
@@ -132,13 +133,6 @@ const CartTable = (props) => {
 }
 
 CartTable.propTypes = {
-  // classes: PropTypes.object.isRequired,
-  // numSelected: PropTypes.number.isRequired,
-  // onRequestSort: PropTypes.func.isRequired,
-  // onSelectAllClick: PropTypes.func.isRequired,
-  // order: PropTypes.oneOf(['asc', 'desc']).isRequired,
-  // orderBy: PropTypes.string.isRequired,
-  // rowCount: PropTypes.number.isRequired,
   productName: PropTypes.string.isRequired,
   productCategory: PropTypes.string,
   member: PropTypes.string.isRequired,

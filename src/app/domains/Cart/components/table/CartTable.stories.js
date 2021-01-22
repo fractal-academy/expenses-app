@@ -11,6 +11,7 @@ const Template = (args) => <CartTable {...args} />
 export const CartTableStory = Template.bind({})
 
 CartTableStory.args = {
+  checkboxChecked: true,
   productName: 'Sugar',
   productCategory: 'Kitchen',
   member: 'Rostik',
