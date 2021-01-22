@@ -14,12 +14,27 @@ import {
 import { useForm, Controller } from 'react-hook-form'
 import AddIcon from '@material-ui/icons/Add'
 import { RoleSingleSelect } from 'app/domains/Role/components/select'
+import { db } from 'app/constants'
+var md5 = require('md5')
 
-const MemberCombined = () => {
+const MemberCombined = (props) => {
   const [open, setOpen] = React.useState(false)
   const { register, handleSubmit, control } = useForm()
 
   const onSubmit = (data) => {
+    db.collection('users')
+      .doc(md5(data.email))
+      .set({
+        email: data.email,
+        role: data.role,
+        isPending: true
+      })
+      .then(function () {
+        console.log('Document successfully written!')
+      })
+      .catch(function (error) {
+        console.error('Error writing document: ', error)
+      })
     console.log(data)
   }
   const handleClickOpen = () => {
@@ -30,7 +45,7 @@ const MemberCombined = () => {
     setOpen(false)
   }
   return (
-    <Box>
+    <>
       <Fab color="primary" aria-label="add" onClick={handleClickOpen}>
         <AddIcon />
       </Fab>
@@ -43,13 +58,14 @@ const MemberCombined = () => {
           <DialogTitle id="form-dialog-title">Create user</DialogTitle>
           <DialogContent>
             <TextField
-              autoFocus
-              name="email"
-              margin="dense"
-              id="name"
-              label="Email Address"
-              type="email"
               fullWidth
+              inputProps={{
+                pattern:
+                  '^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+.)?[a-zA-Z]+.)?gmail.com$'
+              }}
+              id="memberEmail"
+              name="email"
+              label="email"
               required
               inputRef={register}
             />
@@ -59,6 +75,7 @@ const MemberCombined = () => {
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Role</InputLabel>
                 <Controller
+                  rules={{ required: 'Required' }}
                   control={control}
                   name="role"
                   render={({ onChange, value }) => (
@@ -78,7 +95,7 @@ const MemberCombined = () => {
           </DialogActions>
         </form>
       </Dialog>
-    </Box>
+    </>
   )
 }
 
