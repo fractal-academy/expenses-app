@@ -15,25 +15,23 @@ import {
 import DateFnsUtils from '@date-io/date-fns'
 import { Avatar } from 'components'
 import PropTypes from 'prop-types'
-import { useForm } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
+import { RoleSingleSelect } from 'app/domains/Role/components/select'
 
 const MemberAdvancedForm = (props) => {
-  const { register, handleSubmit, setValue } = useForm()
-  const [role, setRole] = useState(props.role)
+  const { register, handleSubmit, setValue, control } = useForm()
+
   const [date, setDate] = useState(props.date)
   const [avatar, setAvatar] = useState(props.avatar)
 
   const onSubmit = (data) => {
-    data.date = Date.parse(date) / 1000
     data.avatar = avatar
     console.log(data)
   }
-  const handleChange = (event) => {
-    setRole(event.target.value)
-  }
+
   const handleDateChange = (event) => {
     setDate(event)
-    setValue('data', event)
+    setValue('data', Date(date).getTime)
   }
 
   return (
@@ -76,27 +74,24 @@ const MemberAdvancedForm = (props) => {
                 <Box className="col-12 mb-2">
                   <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">Role</InputLabel>
-                    <Select
-                      autoWidth
-                      onChange={handleChange}
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      value={role}>
-                      <MenuItem value={'User'}>User</MenuItem>
-                      <MenuItem value={'Admin'}>Admin</MenuItem>
-                      <MenuItem value={'Observer'}>Observer</MenuItem>
-                    </Select>
+                    <Controller
+                      control={control}
+                      name="role"
+                      render={({ onChange, value }) => (
+                        <RoleSingleSelect value={value} onChange={onChange} />
+                      )}
+                    />
                   </FormControl>
                 </Box>
                 <Box className="col-12 mb-2">
                   <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <KeyboardDatePicker
                       fullWidth
-                      value={date}
+                      value={new Date(+date)}
                       name="b"
                       disableToolbar
                       variant="inline"
-                      format="MM/dd/yyyy"
+                      format="dd/MM/yyyy"
                       margin="normal"
                       id="date-picker-inline"
                       label="Date picker inline"
@@ -125,7 +120,6 @@ const MemberAdvancedForm = (props) => {
                 <Box className="col-12 mb-4">
                   <TextField
                     fullWidth
-                    type="number"
                     value={props.phone}
                     id="memberPhone"
                     name="memberPhone"
@@ -137,11 +131,7 @@ const MemberAdvancedForm = (props) => {
                   className="col-12 mb-2"
                   display="flex"
                   justifyContent="space-around">
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    color="secondary"
-                    size="small">
+                  <Button variant="contained" color="secondary" size="small">
                     Delete
                   </Button>
                   <Button
