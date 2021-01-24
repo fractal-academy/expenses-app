@@ -23,6 +23,7 @@ const RoleSingleSelect = (props) => {
     setCurrentRole(selectedRole)
     onChange && onChange(selectedRole, event)
   }
+
   return (
     <Select
       className={classes.roleSingleSelect}

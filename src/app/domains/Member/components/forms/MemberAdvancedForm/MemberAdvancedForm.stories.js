@@ -11,6 +11,7 @@ const Template = (args) => <MemberAdvancedForm {...args} />
 export const MemberAdvancedFormStory = Template.bind({})
 
 MemberAdvancedFormStory.args = {
+  /*
   avatar:
     'https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/girl_avatar_child_kid-512.png',
   name: 'Olena',
@@ -18,5 +19,5 @@ MemberAdvancedFormStory.args = {
   role: 'admin',
   email: 'olenashevchuk0@gmail.com',
   phone: '+3809457152',
-  date: '1732492800000'
+  date: '1732492800000'*/
 }

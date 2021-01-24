@@ -2,7 +2,7 @@
 /node_modules
 /.pnp
 .pnp.js
-
+/src/app/components/FileInput
 # testing
 /coverage
 

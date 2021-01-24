@@ -4,7 +4,8 @@ import {
   TextField,
   Button,
   InputLabel,
-  FormControl
+  FormControl,
+  FormHelperText
 } from '@material-ui/core'
 import {
   KeyboardDatePicker,
@@ -15,9 +16,13 @@ import { Avatar } from 'components'
 import PropTypes from 'prop-types'
 import { useForm, Controller } from 'react-hook-form'
 import { RoleSingleSelect } from 'app/domains/Role/components/select'
+import { makeStyles } from '@material-ui/core/styles'
+import styles from './MemberAdvancedForm.styles'
+
+const useStyles = makeStyles(styles)
 
 const MemberAdvancedForm = (props) => {
-  const { handleSubmit, setValue, control, register } = useForm({
+  const { handleSubmit, setValue, control, register, errors } = useForm({
     defaultValues: { ...props }
   })
 
@@ -39,111 +44,140 @@ const MemberAdvancedForm = (props) => {
       <Box className="row" justifyContent="center">
         <Box className="col-12 col-md-6 col-lg-3">
           <form onSubmit={handleSubmit(onSubmit)}>
-            <Box className="container-sm">
-              <Box className="row">
-                <Box
-                  className="col-12 col-sm-12 mb-2"
-                  justifyContent="center"
-                  display="flex">
-                  <Avatar size="md" src={props.avatar}></Avatar>
-                </Box>
-                <Box className="col-12 col-md mb-2">
-                  <TextField
-                    fullWidth
-                    inputProps={{ pattern: '([a-zA-Z])+' }}
-                    value={props.name}
-                    id="memberName"
-                    name="name"
-                    label="name"
-                    required
-                    inputRef={register}
-                  />
-                </Box>
-                <Box className="col-12 col-md mb-2">
-                  <TextField
-                    fullWidth
-                    inputProps={{ pattern: '([a-zA-Z])+' }}
-                    value={props.surname}
-                    id="memberSurname"
-                    name="surname"
-                    label="surname"
-                    required
-                    inputRef={register}
-                  />
-                </Box>
-                <Box className="col-12 mb-2">
-                  <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Role</InputLabel>
-                    <Controller
-                      control={control}
-                      name="role"
-                      render={({ onChange, value }) => (
-                        <RoleSingleSelect value={value} onChange={onChange} />
-                      )}
-                    />
-                  </FormControl>
-                </Box>
-                <Box className="col-12 mb-2">
-                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <KeyboardDatePicker
+            <FormControl>
+              <Box className="container-sm">
+                <Box className="row">
+                  <Box
+                    className="col-12 col-sm-12 mb-2"
+                    justifyContent="center"
+                    display="flex">
+                    <Avatar size="md" src={props.avatar}></Avatar>
+                  </Box>
+
+                  <Box className="col-12 col-md mb-2">
+                    <TextField
+                      label="name"
+                      name="Name"
                       fullWidth
-                      value={new Date(+date)}
-                      name="date"
-                      disableToolbar
-                      variant="inline"
-                      format="dd/MM/yyyy"
-                      margin="normal"
-                      id="date-picker-inline"
-                      label="Date picker inline"
-                      onChange={handleDateChange}
-                      KeyboardButtonProps={{
-                        'aria-label': 'change date'
-                      }}
+                      error={!!errors.name}
+                      helperText={
+                        errors.name?.message ? errors.name.message : ' '
+                      }
+                      inputRef={register({
+                        pattern: {
+                          value: new RegExp('([a-zA-Z])+'),
+                          message: 'Enter a valid email address'
+                        },
+                        required: 'Enter email'
+                      })}
+                      value={props.name}
                     />
-                  </MuiPickersUtilsProvider>
-                </Box>
-                <Box className="col-12 mb-2">
-                  <TextField
-                    fullWidth
-                    inputProps={{
-                      pattern:
-                        '^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+.)?[a-zA-Z]+.)?gmail.com$'
-                    }}
-                    value={props.email}
-                    id="memberEmail"
-                    name="email"
-                    label="email"
-                    required
-                    inputRef={register}
-                  />
-                </Box>
-                <Box className="col-12 mb-4">
-                  <TextField
-                    fullWidth
-                    value={props.phone}
-                    id="memberPhone"
-                    name="phone"
-                    label="phone"
-                    inputRef={register}
-                  />
-                </Box>
-                <Box
-                  className="col-12 mb-2"
-                  display="flex"
-                  justifyContent="space-around">
-                  <Button variant="contained" color="secondary" size="small">
-                    Delete
-                  </Button>
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                    size="small">
-                    Save
-                  </Button>
+                  </Box>
+                  <Box className="col-12 col-md mb-2">
+                    <TextField
+                      label="surname"
+                      name="Surname"
+                      fullWidth
+                      error={!!errors.surname}
+                      helperText={
+                        errors.surname?.message ? errors.surname.message : ' '
+                      }
+                      inputRef={register({
+                        pattern: {
+                          value: new RegExp('([a-zA-Z])+'),
+                          message: 'Enter a valid surname'
+                        },
+                        required: 'Enter surname'
+                      })}
+                      value={props.name}
+                    />
+                  </Box>
+                  <Box
+                    className="col-12 mb-2"
+                    display="flex"
+                    justifyContent="center">
+                    <FormControl>
+                      <InputLabel id="demo-simple-select-label">
+                        Role
+                      </InputLabel>
+                      <Controller
+                        rules={{ required: 'Enter a role' }}
+                        control={control}
+                        name="role"
+                        render={({ onChange, value }) => (
+                          <RoleSingleSelect value={value} onChange={onChange} />
+                        )}
+                      />
+                      <FormHelperText error>
+                        {errors.role ? errors.role.message : <> &nbsp;</>}
+                      </FormHelperText>
+                    </FormControl>
+                  </Box>
+                  <Box className="col-12 mb-2">
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                      <KeyboardDatePicker
+                        fullWidth
+                        value={new Date(+date)}
+                        name="date"
+                        disableToolbar
+                        variant="inline"
+                        format="dd/MM/yyyy"
+                        margin="normal"
+                        id="date-picker-inline"
+                        label="Date picker inline"
+                        onChange={handleDateChange}
+                        KeyboardButtonProps={{
+                          'aria-label': 'change date'
+                        }}
+                      />
+                    </MuiPickersUtilsProvider>
+                  </Box>
+                  <Box className="col-12 mb-2">
+                    <TextField
+                      fullWidth
+                      label="Email"
+                      name="email"
+                      error={!!errors.email}
+                      helperText={
+                        errors.email?.message ? errors.email.message : ' '
+                      }
+                      inputRef={register({
+                        pattern: {
+                          value: new RegExp(
+                            '^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+.)?[a-zA-Z]+.)?gmail.com$'
+                          ),
+                          message: 'Enter a valid email address'
+                        },
+                        required: 'Enter email'
+                      })}
+                    />
+                  </Box>
+                  <Box className="col-12 mb-4">
+                    <TextField
+                      fullWidth
+                      label="Phone"
+                      name="phone"
+                      error={!!errors.phone}
+                      helperText={
+                        errors.phone?.message ? errors.phone.message : ' '
+                      }
+                      inputRef={register({
+                        required: 'Enter phone'
+                      })}
+                    />
+                  </Box>
+                  <Box
+                    className="col-12 mb-2"
+                    display="flex"
+                    justifyContent="space-around">
+                    <Button variant="contained">Delete</Button>
+                    <Button variant="contained" color="primary" type="submit">
+                      Save
+                    </Button>
+                  </Box>
                 </Box>
               </Box>
-            </Box>
+            </FormControl>
           </form>
         </Box>
       </Box>
