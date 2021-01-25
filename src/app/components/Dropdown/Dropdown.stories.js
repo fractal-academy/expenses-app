@@ -2,7 +2,7 @@ import Dropdown from './Dropdown.template'
 import IconButton from '@material-ui/core/IconButton'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import React from 'react'
-import { MenuList } from '@material-ui/core'
+import { Box, MenuList } from '@material-ui/core'
 import MenuItem from '@material-ui/core/MenuItem'
 
 const metadata = {
@@ -13,13 +13,13 @@ const metadata = {
 export default metadata
 
 const DropdownList = (
-  <>
+  <Box>
     <MenuItem>Profile</MenuItem>
     <MenuItem>Profile</MenuItem>
     <MenuItem>Profile</MenuItem>
     <MenuItem>Profile</MenuItem>
     <MenuItem>Profile</MenuItem>
-  </>
+  </Box>
 )
 
 const Template = (args) => (

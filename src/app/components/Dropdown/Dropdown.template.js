@@ -1,6 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Menu from '@material-ui/core/Menu'
+import { Box } from '@material-ui/core'
 
 // const useStyles = makeStyles((theme) => ({
 //   root: {
@@ -19,7 +20,7 @@ const Dropdown = (props) => {
   // const classes = useStyles()
   const [anchorEl, setAnchorEl] = React.useState(null)
   const open = Boolean(anchorEl)
-
+  console.log(overlay)
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget)
   }
@@ -28,7 +29,7 @@ const Dropdown = (props) => {
     setAnchorEl(null)
   }
   return (
-    <div>
+    <Box>
       {React.cloneElement(children, { onClick: handleMenu })}
       <Menu
         id="menu-appbar"
@@ -46,7 +47,7 @@ const Dropdown = (props) => {
         onClose={handleClose}>
         {React.cloneElement(overlay, { onClick: handleClose })}
       </Menu>
-    </div>
+    </Box>
   )
 }
 export default Dropdown
