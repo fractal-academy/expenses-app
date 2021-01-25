@@ -13,13 +13,13 @@ const metadata = {
 export default metadata
 
 const DropdownList = (
-  <MenuList>
+  <>
     <MenuItem>Profile</MenuItem>
     <MenuItem>Profile</MenuItem>
     <MenuItem>Profile</MenuItem>
     <MenuItem>Profile</MenuItem>
     <MenuItem>Profile</MenuItem>
-  </MenuList>
+  </>
 )
 
 const Template = (args) => (

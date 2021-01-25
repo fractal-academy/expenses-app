@@ -9,6 +9,7 @@ import Badge from '@material-ui/core/Badge'
 import Dropdown from '../Dropdown/Dropdown.template'
 import { MenuList } from '@material-ui/core'
 import MenuItem from '@material-ui/core/MenuItem'
+import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,11 +17,18 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 const DropdownList = (
-  <MenuList>
-    <MenuItem>Profile</MenuItem>
-    <MenuItem>Log out</MenuItem>
-  </MenuList>
+  <>
+    <MenuItem>
+      <AccountCircle />
+      Profile
+    </MenuItem>
+    <MenuItem>
+      <ExitToAppIcon />
+      Log out
+    </MenuItem>
+  </>
 )
+
 const Header = (props) => {
   const classes = useStyles()
 
