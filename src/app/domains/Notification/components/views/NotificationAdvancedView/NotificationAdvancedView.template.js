@@ -3,9 +3,11 @@ import {
   ListItemText,
   ListItem,
   Avatar,
+  Typography,
   Divider
 } from '@material-ui/core'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
+import { Row, Col, Container } from '@qonsoll/react-design'
 import { makeStyles } from '@material-ui/core/styles'
 import PropTypes from 'prop-types'
 
@@ -24,22 +26,24 @@ const NotificationAdvancedView = (props) => {
   const classes = useStyles()
 
   return (
-    <div>
-      <ListItem>
-        <ListItemAvatar className={classes.avatarField}>
+    <Container>
+      <Row p="2" v="center">
+        <Col cw={[2]}>
           {notificationAvatar ? (
             <Avatar alt="User" src={notificationAvatar} />
           ) : (
             <AccountCircleIcon />
           )}
-        </ListItemAvatar>
-        <ListItemText>{notificationText}</ListItemText>
-        <ListItemText className={classes.notificationTimeField}>
-          {notificationTime / 3600}h
-        </ListItemText>
-      </ListItem>
+        </Col>
+        <Col cw={[8]}>
+          <Typography>{notificationText}</Typography>
+        </Col>
+        <Col cw={2}>
+          <Typography>{notificationTime / 3600}h</Typography>
+        </Col>
+      </Row>
       <Divider />
-    </div>
+    </Container>
   )
 }
 
