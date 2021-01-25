@@ -1,29 +1,10 @@
-import {
-  ListItemAvatar,
-  ListItemText,
-  ListItem,
-  Avatar,
-  Typography,
-  Divider
-} from '@material-ui/core'
+import { Avatar, Typography, Divider } from '@material-ui/core'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import { Row, Col, Container } from '@qonsoll/react-design'
-import { makeStyles } from '@material-ui/core/styles'
 import PropTypes from 'prop-types'
-
-const useStyles = makeStyles({
-  notificationTimeField: {
-    maxWidth: 'fit-content'
-  },
-  avatarField: {
-    minWidth: 'fit-content',
-    marginRight: 16
-  }
-})
 
 const NotificationAdvancedView = (props) => {
   const { notificationAvatar, notificationText, notificationTime } = props
-  const classes = useStyles()
 
   return (
     <Container>
