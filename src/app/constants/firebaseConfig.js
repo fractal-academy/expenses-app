@@ -1,6 +1,7 @@
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
+import 'firebase/storage'
 import 'firebase/database'
 
 const firebaseConfig = {
@@ -11,8 +12,8 @@ const firebaseConfig = {
   messagingSenderId: process.env.REACT_APP_AUTH_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_AUTH_APP_ID
 }
-let expensesProject = firebase.initializeApp(firebaseConfig)
-
+const expensesProject = firebase.initializeApp(firebaseConfig)
+const storage = firebase.storage()
 const db = firebase.firestore()
 export default expensesProject
-export { firebaseConfig, db }
+export { firebaseConfig, db, storage }

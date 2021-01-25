@@ -102,7 +102,7 @@ const MemberCombined = (props) => {
                   </Box>
                   <Box display="flex" justifyContent="center">
                     <FormHelperText error>
-                      {errors.role ? errors.role.message : <> &nbsp;</>}
+                      {errors.role ? errors.role.message : <> ' ' </>}
                     </FormHelperText>
                   </Box>
                   <TextField

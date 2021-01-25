@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import {
   Box,
   TextField,
@@ -11,38 +11,48 @@ import {
   KeyboardDatePicker,
   MuiPickersUtilsProvider
 } from '@material-ui/pickers'
+import CloudUploadIcon from '@material-ui/icons/CloudUpload'
 import DateFnsUtils from '@date-io/date-fns'
 import { Avatar } from 'components'
 import PropTypes from 'prop-types'
 import { useForm, Controller } from 'react-hook-form'
 import { RoleSingleSelect } from 'app/domains/Role/components/select'
-import { makeStyles } from '@material-ui/core/styles'
-import styles from './MemberAdvancedForm.styles'
 
-const useStyles = makeStyles(styles)
+import { expensesProject } from '../../../../../constants'
 
 const MemberAdvancedForm = (props) => {
   const { handleSubmit, setValue, control, register, errors } = useForm({
     defaultValues: { ...props }
   })
+  const fileUpload = useRef(null)
 
-  const [date, setDate] = useState(props.date)
+  const [date, setDate] = useState(props.date ? props.date : '1609855440000')
   const [avatar, setAvatar] = useState(props.avatar)
 
   const onSubmit = (data) => {
     data.avatar = avatar
+    setValue('date', new Date(date).getTime())
     console.log(data)
   }
 
   const handleDateChange = (event) => {
-    setDate(event)
-    setValue('data', Date(date).getTime)
+    setDate(new Date(event).getTime())
+  }
+  const fileUploadClick = (event) => {
+    fileUpload.current.click()
+  }
+  const changeAvatar = async () => {
+    var file = fileUpload.current.files[0]
+    var storageRef = expensesProject.storage().ref()
+    var fileRef = storageRef.child(file.name)
+    await fileRef.put(file)
+    setAvatar(await fileRef.getDownloadURL())
   }
 
   return (
     <Box className="container-fluid">
       <Box className="row" justifyContent="center">
-        <Box className="col-12 col-md-6 col-lg-3">
+        <Box className="col-12 col-md-6">
           <form onSubmit={handleSubmit(onSubmit)}>
             <FormControl>
               <Box className="container-sm">
@@ -51,45 +61,64 @@ const MemberAdvancedForm = (props) => {
                     className="col-12 col-sm-12 mb-2"
                     justifyContent="center"
                     display="flex">
-                    <Avatar size="md" src={props.avatar}></Avatar>
+                    <Avatar size="lg" src={avatar}></Avatar>
+                  </Box>
+                  <Box
+                    className="col-12 col-sm-12 mb-2"
+                    justifyContent="center"
+                    display="flex">
+                    <Button
+                      size="small"
+                      onClick={(event) => fileUploadClick(event)}
+                      variant="contained"
+                      color="default"
+                      component={'span'}>
+                      <CloudUploadIcon className="mr-2" />
+                      Upload photo
+                    </Button>
+                    <input
+                      accept="image/*"
+                      style={{ display: 'none' }}
+                      type="file"
+                      ref={fileUpload}
+                      onChange={changeAvatar}
+                    />
                   </Box>
 
                   <Box className="col-12 col-md mb-2">
                     <TextField
-                      label="name"
-                      name="Name"
                       fullWidth
+                      label="Name"
+                      name="name"
                       error={!!errors.name}
                       helperText={
                         errors.name?.message ? errors.name.message : ' '
                       }
                       inputRef={register({
                         pattern: {
-                          value: new RegExp('([a-zA-Z])+'),
-                          message: 'Enter a valid email address'
+                          value: new RegExp('^[a-zA-Z]+$'),
+                          message: 'Enter a valid name'
                         },
-                        required: 'Enter email'
+                        required: 'Enter name'
                       })}
-                      value={props.name}
                     />
                   </Box>
                   <Box className="col-12 col-md mb-2">
                     <TextField
-                      label="surname"
-                      name="Surname"
                       fullWidth
+                      label="Surname"
+                      name="surname"
                       error={!!errors.surname}
                       helperText={
                         errors.surname?.message ? errors.surname.message : ' '
                       }
                       inputRef={register({
                         pattern: {
-                          value: new RegExp('([a-zA-Z])+'),
+                          value: new RegExp('^[A-Za-z]+$'),
                           message: 'Enter a valid surname'
                         },
                         required: 'Enter surname'
                       })}
-                      value={props.name}
                     />
                   </Box>
                   <Box
@@ -109,7 +138,7 @@ const MemberAdvancedForm = (props) => {
                         )}
                       />
                       <FormHelperText error>
-                        {errors.role ? errors.role.message : <> &nbsp;</>}
+                        {errors.role ? errors.role.message : ' '}
                       </FormHelperText>
                     </FormControl>
                   </Box>
@@ -117,15 +146,20 @@ const MemberAdvancedForm = (props) => {
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                       <KeyboardDatePicker
                         fullWidth
-                        value={new Date(+date)}
-                        name="date"
-                        disableToolbar
-                        variant="inline"
-                        format="dd/MM/yyyy"
                         margin="normal"
-                        id="date-picker-inline"
-                        label="Date picker inline"
+                        id="date-picker-dialog"
+                        label="Date picker dialog"
+                        name="date"
+                        format="dd/MM/yyyy"
                         onChange={handleDateChange}
+                        inputValue={
+                          new Date(+date).getUTCDate() +
+                          1 +
+                          '/' +
+                          (new Date(+date).getUTCMonth() + 1) +
+                          '/' +
+                          new Date(+date).getUTCFullYear()
+                        }
                         KeyboardButtonProps={{
                           'aria-label': 'change date'
                         }}
@@ -192,7 +226,7 @@ MemberAdvancedForm.propTypes = {
   role: PropTypes.string,
   email: PropTypes.string,
   phone: PropTypes.string,
-  date: PropTypes.instanceOf(Date)
+  date: PropTypes.string
 }
 MemberAdvancedForm.defaultProps = {}
 

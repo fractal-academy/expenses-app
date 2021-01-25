@@ -2,6 +2,7 @@ import { Fragment } from 'react'
 import { Box, Typography, Button } from '@material-ui/core'
 import { Avatar } from 'components'
 import PropTypes from 'prop-types'
+import { RoleSimpleView } from '../../../../Role/components/views'
 
 const MemberAdvancedView = (props) => {
   return (
@@ -23,9 +24,7 @@ const MemberAdvancedView = (props) => {
               </Typography>
             </Box>
             <Box className="col-12">
-              <Typography variant="body2" color="textSecondary">
-                {props.role}
-              </Typography>
+              <RoleSimpleView role={props.role} />
             </Box>
             {!props.horizontal && (
               <Fragment>

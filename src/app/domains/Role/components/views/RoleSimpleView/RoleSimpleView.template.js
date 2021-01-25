@@ -8,3 +8,5 @@ const RoleSimpleView = (props) => {
 }
 
 RoleSimpleView.propTypes = {}
+
+export default RoleSimpleView
