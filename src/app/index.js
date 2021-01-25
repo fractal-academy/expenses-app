@@ -1,17 +1,26 @@
-import { Navbar } from 'components'
-import { MemberShow } from 'domains/Member/routes'
-import { LogAll } from 'app/domains/Log/routes'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from 'react-router-dom'
+import { route } from './constants'
 
-import { firebaseConfig } from 'app/constants'
+import 'bootstrap/dist/css/bootstrap-grid.min.css'
+import './styles/bootstrap-grid-override.css'
+
+const { ROUTES_VALUE } = route
 
 const App = () => {
-  console.log(firebaseConfig)
   return (
-    <div>
-      <Navbar />
-      <MemberShow />
-      <LogAll />
-    </div>
+    <Router>
+      <Switch>
+        {ROUTES_VALUE.map((route) => (
+          <Route key={route.path} {...route} />
+        ))}
+        <Redirect to="/login" />
+      </Switch>
+    </Router>
   )
 }
 
