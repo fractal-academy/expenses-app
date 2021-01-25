@@ -11,36 +11,26 @@ import PropTypes from 'prop-types'
 const Modal = (props) => {
   const {
     open,
-    setOpen,
     title,
     children,
-    onClick,
-    onChange,
-    onOk,
-    onCancel
+    onCancel,
+    onSubmit,
+    buttonSubmitProps,
+    buttonCancelProps
   } = props
 
   return (
-    <Dialog open={open} aria-labelledby="form-dialog-title">
+    <Dialog open={open}>
       <DialogTitle>
         <Typography>{title}</Typography>
       </DialogTitle>
       <DialogContent>{children}</DialogContent>
       <DialogActions>
-        <Button
-          onClick={onCancel}
-          variant="contained"
-          size="small"
-          color="primary">
+        <Button onClick={onCancel} {...buttonCancelProps}>
           Cancel
         </Button>
-        <Button
-          onClick={onOk}
-          variant="contained"
-          size="small"
-          color="secondary"
-          type="submit">
-          Save
+        <Button onClick={onSubmit} type="submit" {...buttonSubmitProps}>
+          Submit
         </Button>
       </DialogActions>
     </Dialog>
