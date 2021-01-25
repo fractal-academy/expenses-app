@@ -15,7 +15,6 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const Dropdown = (props) => {
-  // const { children } = props
   const { overlay, children } = props
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = React.useState(null)
@@ -45,7 +44,6 @@ const Dropdown = (props) => {
         }}
         open={open}
         onClose={handleClose}>
-        {/*{DropdownList}*/}
         {React.cloneElement(overlay, { onClick: handleClose })}
       </Menu>
     </div>
