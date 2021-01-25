@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 
 const NotificationList = (props) => {
   const { notificationData } = props
+
   const [notifications, setNotifications] = useState(notificationData)
 
   return (
@@ -24,10 +25,10 @@ const NotificationList = (props) => {
 NotificationList.propTypes = {
   notificationData: PropTypes.arrayOf(
     PropTypes.shape({
-      notificationAvatar: PropTypes.string,
-      notificationText: PropTypes.string,
-      notificationTime: PropTypes.number
-    })
+      notificationAvatar: PropTypes.string.isRequired,
+      notificationText: PropTypes.string.isRequired,
+      notificationTime: PropTypes.number.isRequired
+    }).isRequired
   )
 }
 NotificationList.defaultProps = {}

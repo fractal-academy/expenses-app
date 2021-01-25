@@ -44,9 +44,9 @@ const NotificationAdvancedView = (props) => {
 }
 
 NotificationAdvancedView.propTypes = {
-  notificationAvatar: PropTypes.string,
-  notificationText: PropTypes.string,
-  notificationTime: PropTypes.number
+  notificationAvatar: PropTypes.string.isRequired,
+  notificationText: PropTypes.string.isRequired,
+  notificationTime: PropTypes.number.isRequired
 }
 NotificationAdvancedView.defaultProps = {}
 
