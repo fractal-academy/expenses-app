@@ -11,8 +11,9 @@ const useStyles = makeStyles({
 })
 
 const RoleSingleSelect = (props) => {
-  const [currentRole, setCurrentRole] = useState('admin')
   const classes = useStyles()
+
+  const [currentRole, setCurrentRole] = useState('admin')
 
   return (
     <Select
