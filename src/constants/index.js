@@ -1,6 +1,0 @@
-export { default as firebaseConfig } from './firebaseConfig.js'
-export { default as currency } from './currency.js'
-export { default as route } from './route.js'
-export { default as color } from './color.js'
-export { default as role } from './role.js'
-export { default as priority } from './priority.js'

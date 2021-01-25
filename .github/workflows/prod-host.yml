@@ -1,0 +1,55 @@
+name: Build and Deploy to Firebase with production environment
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+
+  build:
+    environment: firebase-production
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Setup env
+        env:
+          FIREBASE_CONFIG: ${{ secrets.FIREBASE_PRODUCTION_CONFIG }}
+        shell: bash
+        run: |
+          touch .env.production
+          echo "$FIREBASE_CONFIG" >> .env.production
+
+      - name: Install dependencies
+        run: npm install
+      - name: Build
+        run: npm run build:production
+      - name: Archive Production Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: build
+          path: build
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Download Production Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+          path: ${{ github.workspace }}/build
+
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting -P production
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+
