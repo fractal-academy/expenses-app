@@ -27,17 +27,22 @@ const Modal = (props) => {
       <DialogContent>{children}</DialogContent>
       <DialogActions>
         <Button onClick={onCancel} {...buttonCancelProps}>
-          Cancel
+          {buttonCancelProps?.text ? buttonCancelProps.text : 'Cancel'}
         </Button>
-        <Button onClick={onSubmit} type="submit" {...buttonSubmitProps}>
-          Submit
+        <Button onClick={onSubmit} {...buttonSubmitProps}>
+          {buttonSubmitProps?.text ? buttonSubmitProps.text : 'Submit'}
         </Button>
       </DialogActions>
     </Dialog>
   )
 }
 Modal.propTypes = {
-  title: PropTypes.string
+  open: PropTypes.bool,
+  title: PropTypes.string,
+  children: PropTypes.object,
+  onSubmit: PropTypes.func,
+  onCancel: PropTypes.func,
+  buttonSubmitProps: PropTypes.object,
+  buttonCancelProps: PropTypes.object
 }
-Modal.defaultProps = {}
 export default Modal
