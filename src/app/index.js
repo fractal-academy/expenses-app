@@ -1,17 +1,16 @@
+import { Box } from '@material-ui/core'
 import { Navbar } from 'components'
 import { MemberShow } from 'domains/Member/routes'
 import { LogAll } from 'app/domains/Log/routes'
-
-import { firebaseConfig } from 'app/constants'
+import { MemberCombined } from 'app/domains/Member/components/combined'
+import 'bootstrap/dist/css/bootstrap-grid.min.css'
+import './styles/bootstrap-grid-override.css'
 
 const App = () => {
-  console.log(firebaseConfig)
   return (
-    <div>
-      <Navbar />
-      <MemberShow />
-      <LogAll />
-    </div>
+    <Box className={'container'}>
+      <MemberCombined />
+    </Box>
   )
 }
 
