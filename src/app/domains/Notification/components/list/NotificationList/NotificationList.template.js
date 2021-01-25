@@ -11,6 +11,7 @@ const NotificationList = (props) => {
     <List>
       {notifications.map((item) => (
         <NotificationAdvancedView
+          key={item.id}
           notificationAvatar={item.avatar}
           notificationText={item.notificationText}
           notificationTime={item.notificationTime}

@@ -1,4 +1,5 @@
 import RoleSimpleView from './RoleSimpleView.template'
+import PropTypes from 'prop-types'
 
 const metadata = {
   title: 'domains/Role/components/views/RoleSimpleView',
@@ -10,4 +11,6 @@ const Template = (args) => <RoleSimpleView {...args} />
 
 export const RoleSimpleViewStory = Template.bind({})
 
-RoleSimpleViewStory.args = {}
+RoleSimpleViewStory.args = {
+  role: 'admin'
+}
