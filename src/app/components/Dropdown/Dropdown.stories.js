@@ -14,11 +14,11 @@ export default metadata
 
 const DropdownList = (
   <MenuList>
-    <MenuItem onClick={() => console.log('xxxx')}>Profile</MenuItem>
-    <MenuItem onClick={() => console.log('yyyy')}>Profile</MenuItem>
-    <MenuItem onClick={() => console.log('zzzzz')}>Profile</MenuItem>
-    <MenuItem onClick={() => console.log('1111')}>Profile</MenuItem>
-    <MenuItem onClick={() => console.log('2222')}>Profile</MenuItem>
+    <MenuItem>Profile</MenuItem>
+    <MenuItem>Profile</MenuItem>
+    <MenuItem>Profile</MenuItem>
+    <MenuItem>Profile</MenuItem>
+    <MenuItem>Profile</MenuItem>
   </MenuList>
 )
 
