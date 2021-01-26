@@ -22,17 +22,18 @@ const MemberAdvancedForm = (props) => {
     defaultValues: { ...props }
   })
 
-  const [date, setDate] = useState(props.date ? props.date : '1609855440000')
+  const [dateInSeconds, setDateInSeconds] = useState(
+    props.dateInSeconds ? props.dateInSeconds : 946677600000
+  )
 
   const onSubmit = (data) => {
-    data.date = date
+    data.dateInSeconds = dateInSeconds
     console.log(data)
   }
 
   const handleDateChange = (event) => {
-    setDate(new Date(event).getTime())
+    setDateInSeconds(new Date(event).getTime())
   }
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormControl>
@@ -41,7 +42,7 @@ const MemberAdvancedForm = (props) => {
             <FormControl>
               <Controller
                 control={control}
-                name="avatar"
+                name="avatarUrl"
                 render={({ onChange, value }) => (
                   <AvatarUploader value={value} onChange={onChange} />
                 )}
@@ -113,15 +114,14 @@ const MemberAdvancedForm = (props) => {
                 label="Date picker dialog"
                 name="date"
                 format="dd/MM/yyyy"
-                onChange={handleDateChange}
                 inputValue={
-                  new Date(+date).getUTCDate() +
-                  1 +
+                  new Date(dateInSeconds).getDate() +
                   '/' +
-                  (new Date(+date).getUTCMonth() + 1) +
+                  (new Date(dateInSeconds).getMonth() + 1) +
                   '/' +
-                  new Date(+date).getUTCFullYear()
+                  new Date(dateInSeconds).getFullYear()
                 }
+                onChange={handleDateChange}
                 KeyboardButtonProps={{
                   'aria-label': 'change date'
                 }}

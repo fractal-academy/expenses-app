@@ -6,8 +6,8 @@ import { Container, Row, Col } from '@qonsoll/react-design'
 const MemberSimpleView = (props) => {
   return (
     <Container>
-      <Row alignItems="center">
-        <Col cw="auto" mr={2}>
+      <Row>
+        <Col cw="auto" mr={3}>
           <Avatar size="sm" src={props.avatar}></Avatar>
         </Col>
         {props.withName && (
@@ -22,7 +22,7 @@ const MemberSimpleView = (props) => {
 
 MemberSimpleView.propTypes = {
   withName: PropTypes.bool,
-  avatar: PropTypes.string,
+  avatarUrl: PropTypes.string,
   name: PropTypes.string
 }
 MemberSimpleView.defaultProps = {}

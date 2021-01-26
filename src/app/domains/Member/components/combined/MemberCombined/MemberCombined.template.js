@@ -16,9 +16,8 @@ import { useForm, Controller } from 'react-hook-form'
 import { Alert } from '@material-ui/lab'
 import AddIcon from '@material-ui/icons/Add'
 import { RoleSingleSelect } from 'app/domains/Role/components/select'
-import { db } from 'app/constants'
-
-var md5 = require('md5')
+import { STORE } from '../../../../../constants'
+import md5 from 'md5'
 
 const MemberCombined = (props) => {
   const [open, setOpen] = React.useState(false)
@@ -27,7 +26,7 @@ const MemberCombined = (props) => {
   const { register, handleSubmit, control, errors } = useForm()
 
   const onSubmit = (data) => {
-    db.collection('users')
+    STORE.collection('users')
       .doc(md5(data.email))
       .set({
         email: data.email,
@@ -41,8 +40,8 @@ const MemberCombined = (props) => {
         setOpenSnackbarError(true)
       })
     setOpen(false)
-    console.log(data)
   }
+
   const handleClickOpen = () => {
     setOpen(true)
   }

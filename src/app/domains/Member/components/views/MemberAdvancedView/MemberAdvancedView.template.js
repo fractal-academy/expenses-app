@@ -8,7 +8,7 @@ import { Container, Row, Col } from '@qonsoll/react-design'
 const MemberAdvancedView = (props) => {
   return (
     <Container>
-      <Row h="center">
+      <Row h={!props.horizontal && 'center'}>
         <Row>
           <Col h="center" v="center" mr={props.horizontal && 3}>
             <Avatar size={props.horizontal ? 'sm' : 'lg'} />
