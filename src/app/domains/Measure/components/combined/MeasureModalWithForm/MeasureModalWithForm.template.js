@@ -1,16 +1,16 @@
-import { IconButton, TextField } from '@material-ui/core'
-import { Modal } from 'app/components/Lib'
+import { IconButton } from '@material-ui/core'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
-import { MeasureSimpleForm } from '../../forms'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { Modal } from 'app/components/Lib/Modal'
+import { MeasureSimpleForm } from '../../forms'
 
 const MeasureModalWithForm = () => {
   const [open, setOpen] = useState(false)
   const measureForm = useForm()
 
   const onSubmit = ({ measure }) => {
-    alert(measure)
+    console.log(measure)
     setOpen(false)
   }
   const onCancel = () => {
@@ -24,32 +24,24 @@ const MeasureModalWithForm = () => {
       </IconButton>
       <Modal
         open={open}
-        setOpen={setOpen}
-        title="some title text"
-        onSubmit={onSubmit}
-        onCancel={onCancel}
+        title="Create new measure"
         buttonSubmitProps={{
+          type: 'submit',
+          form: 'measure-form',
+          size: 'small',
           color: 'primary',
           variant: 'contained'
         }}
         buttonCancelProps={{
+          onClick: onCancel,
+          size: 'small',
           color: 'secondary',
           variant: 'contained'
         }}>
-        <form onSubmit={measureForm.handleSubmit(onSubmit)}>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="measure"
-            name="measure"
-            label="measure"
-            inputRef={measureForm.register}
-            fullWidth
-          />
-        </form>
+        <MeasureSimpleForm formContext={measureForm} formSubmit={onSubmit} />
       </Modal>
     </>
   )
 }
-MeasureModalWithForm.propTypes = {}
+
 export default MeasureModalWithForm

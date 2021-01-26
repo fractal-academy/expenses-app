@@ -1,8 +1,15 @@
+import { Typography } from '@material-ui/core'
+import PropTypes from 'prop-types'
+
 const MeasureSimpleView = (props) => {
-  return <div>MeasureSimpleView</div>
+  const { textProps, text } = props
+
+  return <Typography {...textProps}>{text}</Typography>
 }
 
-MeasureSimpleView.propTypes = {}
-MeasureSimpleView.defaultProps = {}
+MeasureSimpleView.propTypes = {
+  textProps: PropTypes.object,
+  text: PropTypes.string
+}
 
 export default MeasureSimpleView

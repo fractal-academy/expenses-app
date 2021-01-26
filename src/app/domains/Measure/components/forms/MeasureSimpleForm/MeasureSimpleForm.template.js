@@ -1,26 +1,30 @@
 import { TextField } from '@material-ui/core'
+import { PropTypes } from 'prop-types'
 
 const MeasureSimpleForm = (props) => {
-  const { formContext } = props
-  const onSubmit = ({ measure }) => {
-    console.log(measure)
-  }
+  const { formContext, formSubmit, textFieldProps } = props
 
   return (
-    <form onSubmit={formContext.handleSubmit(onSubmit)}>
+    <form
+      id="measure-form"
+      onSubmit={
+        formSubmit && formContext && formContext.handleSubmit(formSubmit)
+      }>
       <TextField
         autoFocus
-        margin="dense"
-        id="measure"
         name="measure"
         label="measure"
-        inputRef={formContext.register}
-        fullWidth
+        inputRef={formContext && formContext.register}
+        {...textFieldProps}
       />
     </form>
   )
 }
 
-MeasureSimpleForm.propTypes = {}
+MeasureSimpleForm.propTypes = {
+  formContext: PropTypes.object.isRequired,
+  formSubmit: PropTypes.func.isRequired,
+  textFieldProps: PropTypes.object.isRequired
+}
 
 export default MeasureSimpleForm

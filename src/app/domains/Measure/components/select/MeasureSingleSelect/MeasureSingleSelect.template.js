@@ -1,29 +1,25 @@
-import { Select, FormControl, InputLabel } from '@material-ui/core'
+import { TextField, MenuItem } from '@material-ui/core'
 import { useState } from 'react'
+import PropTypes from 'prop-types'
 
 const MeasureSingleSelect = (props) => {
-  const [state, setState] = useState('')
-
-  const handleChange = (event) => {
-    // console.log(event.target.value)
-    setState(event.target.text)
-  }
+  const { value, onChange } = props
+  const [currentMeasure, setCurrentMeasure] = useState(value)
+  const MEASURES = ['кг', 'г', 'л', 'мм', 'см', 'м']
   return (
-    <>
-      <FormControl size="large">
-        <InputLabel htmlFor="age-native-simple">Measure</InputLabel>
-        <Select native value={state} onChange={handleChange} name="measure">
-          <option aria-label="None" value="" />
-          <option value={10}>Ten</option>
-          <option value={20}>Twenty</option>
-          <option value={30}>Thirty</option>
-        </Select>
-      </FormControl>
-    </>
+    <TextField
+      select
+      onChange={(e) => setCurrentMeasure(e.target.value)}
+      value={currentMeasure}>
+      {MEASURES.map((item) => (
+        <MenuItem key={item} value={item}>
+          {item}
+        </MenuItem>
+      ))}
+    </TextField>
   )
 }
 
 MeasureSingleSelect.propTypes = {}
-MeasureSingleSelect.defaultProps = {}
 
 export default MeasureSingleSelect
