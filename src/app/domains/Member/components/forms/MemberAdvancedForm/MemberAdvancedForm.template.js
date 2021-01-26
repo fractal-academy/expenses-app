@@ -1,6 +1,5 @@
 import { useState, useRef } from 'react'
 import {
-  Box,
   TextField,
   Button,
   InputLabel,
@@ -17,11 +16,11 @@ import { Avatar } from 'components'
 import PropTypes from 'prop-types'
 import { useForm, Controller } from 'react-hook-form'
 import { RoleSingleSelect } from 'app/domains/Role/components/select'
-
+import { Container, Row, Col } from '@qonsoll/react-design'
 import { expensesProject } from '../../../../../constants'
 
 const MemberAdvancedForm = (props) => {
-  const { handleSubmit, setValue, control, register, errors } = useForm({
+  const { handleSubmit, control, register, errors } = useForm({
     defaultValues: { ...props }
   })
   const fileUpload = useRef(null)
@@ -31,7 +30,8 @@ const MemberAdvancedForm = (props) => {
 
   const onSubmit = (data) => {
     data.avatar = avatar
-    setValue('date', new Date(date).getTime())
+    data.date = date
+
     console.log(data)
   }
 
@@ -50,172 +50,172 @@ const MemberAdvancedForm = (props) => {
   }
 
   return (
-    <Box className="container-fluid">
-      <Box className="row" justifyContent="center">
-        <Box className="col-12 col-md-6">
+    <Container>
+      <Row h="center">
+        <Col cw={[12, 6]}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <FormControl>
-              <Box className="container-sm">
-                <Box className="row">
-                  <Box
-                    className="col-12 col-sm-12 mb-2"
-                    justifyContent="center"
-                    display="flex">
-                    <Avatar size="lg" src={avatar}></Avatar>
-                  </Box>
-                  <Box
-                    className="col-12 col-sm-12 mb-2"
-                    justifyContent="center"
-                    display="flex">
-                    <Button
-                      size="small"
-                      onClick={(event) => fileUploadClick(event)}
-                      variant="contained"
-                      color="default"
-                      component={'span'}>
-                      <CloudUploadIcon className="mr-2" />
-                      Upload photo
-                    </Button>
-                    <input
-                      accept="image/*"
-                      style={{ display: 'none' }}
-                      type="file"
-                      ref={fileUpload}
-                      onChange={changeAvatar}
+              <Row h="center" mb={2}>
+                <Col cw={'auto'}>
+                  <Avatar size="lg" src={avatar}></Avatar>
+                </Col>
+              </Row>
+              <Row h="center" mb={2}>
+                <Col cw={'auto'}>
+                  <Button
+                    size="small"
+                    onClick={(event) => fileUploadClick(event)}
+                    variant="contained"
+                    color="default"
+                    component={'span'}>
+                    <CloudUploadIcon className="mr-2" />
+                    Upload photo
+                  </Button>
+                  <input
+                    accept="image/*"
+                    style={{ display: 'none' }}
+                    type="file"
+                    ref={fileUpload}
+                    onChange={changeAvatar}
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col cw={[12, 6]} h="center">
+                  {/*can`t add margin-right between 'name' and 'surname' */}
+                  <TextField
+                    fullWidth
+                    label="Name"
+                    name="name"
+                    error={!!errors.name}
+                    helperText={
+                      errors.name?.message ? errors.name.message : ' '
+                    }
+                    inputRef={register({
+                      pattern: {
+                        value: new RegExp('^[a-zA-Z]+$'),
+                        message: 'Enter a valid name'
+                      },
+                      required: 'Enter name'
+                    })}
+                  />
+                </Col>
+                <Col cw={[12, 6]}>
+                  <TextField
+                    fullWidth
+                    label="Surname"
+                    name="surname"
+                    error={!!errors.surname}
+                    helperText={
+                      errors.surname?.message ? errors.surname.message : ' '
+                    }
+                    inputRef={register({
+                      pattern: {
+                        value: new RegExp('^[A-Za-z]+$'),
+                        message: 'Enter a valid surname'
+                      },
+                      required: 'Enter surname'
+                    })}
+                  />
+                </Col>
+              </Row>
+              <Row h="center">
+                <Col cw={'auto'}>
+                  <FormControl>
+                    <InputLabel id="demo-simple-select-label">Role</InputLabel>
+                    <Controller
+                      rules={{ required: 'Enter a role' }}
+                      control={control}
+                      name="role"
+                      render={({ onChange, value }) => (
+                        <RoleSingleSelect value={value} onChange={onChange} />
+                      )}
                     />
-                  </Box>
-
-                  <Box className="col-12 col-md mb-2">
-                    <TextField
+                    <FormHelperText error>
+                      {errors.role ? errors.role.message : ' '}
+                    </FormHelperText>
+                  </FormControl>
+                </Col>
+              </Row>
+              <Row mb={2}>
+                <Col cw={12}>
+                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <KeyboardDatePicker
                       fullWidth
-                      label="Name"
-                      name="name"
-                      error={!!errors.name}
-                      helperText={
-                        errors.name?.message ? errors.name.message : ' '
+                      margin="normal"
+                      id="date-picker-dialog"
+                      label="Date picker dialog"
+                      name="date"
+                      format="dd/MM/yyyy"
+                      onChange={handleDateChange}
+                      inputValue={
+                        new Date(+date).getUTCDate() +
+                        1 +
+                        '/' +
+                        (new Date(+date).getUTCMonth() + 1) +
+                        '/' +
+                        new Date(+date).getUTCFullYear()
                       }
-                      inputRef={register({
-                        pattern: {
-                          value: new RegExp('^[a-zA-Z]+$'),
-                          message: 'Enter a valid name'
-                        },
-                        required: 'Enter name'
-                      })}
+                      KeyboardButtonProps={{
+                        'aria-label': 'change date'
+                      }}
                     />
-                  </Box>
-                  <Box className="col-12 col-md mb-2">
-                    <TextField
-                      fullWidth
-                      label="Surname"
-                      name="surname"
-                      error={!!errors.surname}
-                      helperText={
-                        errors.surname?.message ? errors.surname.message : ' '
-                      }
-                      inputRef={register({
-                        pattern: {
-                          value: new RegExp('^[A-Za-z]+$'),
-                          message: 'Enter a valid surname'
-                        },
-                        required: 'Enter surname'
-                      })}
-                    />
-                  </Box>
-                  <Box
-                    className="col-12 mb-2"
-                    display="flex"
-                    justifyContent="center">
-                    <FormControl>
-                      <InputLabel id="demo-simple-select-label">
-                        Role
-                      </InputLabel>
-                      <Controller
-                        rules={{ required: 'Enter a role' }}
-                        control={control}
-                        name="role"
-                        render={({ onChange, value }) => (
-                          <RoleSingleSelect value={value} onChange={onChange} />
-                        )}
-                      />
-                      <FormHelperText error>
-                        {errors.role ? errors.role.message : ' '}
-                      </FormHelperText>
-                    </FormControl>
-                  </Box>
-                  <Box className="col-12 mb-2">
-                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                      <KeyboardDatePicker
-                        fullWidth
-                        margin="normal"
-                        id="date-picker-dialog"
-                        label="Date picker dialog"
-                        name="date"
-                        format="dd/MM/yyyy"
-                        onChange={handleDateChange}
-                        inputValue={
-                          new Date(+date).getUTCDate() +
-                          1 +
-                          '/' +
-                          (new Date(+date).getUTCMonth() + 1) +
-                          '/' +
-                          new Date(+date).getUTCFullYear()
-                        }
-                        KeyboardButtonProps={{
-                          'aria-label': 'change date'
-                        }}
-                      />
-                    </MuiPickersUtilsProvider>
-                  </Box>
-                  <Box className="col-12 mb-2">
-                    <TextField
-                      fullWidth
-                      label="Email"
-                      name="email"
-                      error={!!errors.email}
-                      helperText={
-                        errors.email?.message ? errors.email.message : ' '
-                      }
-                      inputRef={register({
-                        pattern: {
-                          value: new RegExp(
-                            '^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+.)?[a-zA-Z]+.)?gmail.com$'
-                          ),
-                          message: 'Enter a valid email address'
-                        },
-                        required: 'Enter email'
-                      })}
-                    />
-                  </Box>
-                  <Box className="col-12 mb-4">
-                    <TextField
-                      fullWidth
-                      label="Phone"
-                      name="phone"
-                      error={!!errors.phone}
-                      helperText={
-                        errors.phone?.message ? errors.phone.message : ' '
-                      }
-                      inputRef={register({
-                        required: 'Enter phone'
-                      })}
-                    />
-                  </Box>
-                  <Box
-                    className="col-12 mb-2"
-                    display="flex"
-                    justifyContent="space-around">
-                    <Button variant="contained">Delete</Button>
-                    <Button variant="contained" color="primary" type="submit">
-                      Save
-                    </Button>
-                  </Box>
-                </Box>
-              </Box>
+                  </MuiPickersUtilsProvider>
+                </Col>
+              </Row>
+              <Row mb={2}>
+                <Col cw={12}>
+                  <TextField
+                    fullWidth
+                    label="Email"
+                    name="email"
+                    error={!!errors.email}
+                    helperText={
+                      errors.email?.message ? errors.email.message : ' '
+                    }
+                    inputRef={register({
+                      pattern: {
+                        value: new RegExp(
+                          '^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+.)?[a-zA-Z]+.)?gmail.com$'
+                        ),
+                        message: 'Enter a valid email address'
+                      },
+                      required: 'Enter email'
+                    })}
+                  />
+                </Col>
+              </Row>
+              <Row mb={2}>
+                <Col cw={12}>
+                  <TextField
+                    fullWidth
+                    label="Phone"
+                    name="phone"
+                    error={!!errors.phone}
+                    helperText={
+                      errors.phone?.message ? errors.phone.message : ' '
+                    }
+                    inputRef={register({
+                      required: 'Enter phone'
+                    })}
+                  />
+                </Col>
+              </Row>
+              <Row h="around" mb={2}>
+                <Col cw={'auto'}>
+                  <Button variant="contained">Delete</Button>
+                </Col>
+                <Col cw={'auto'}>
+                  <Button variant="contained" color="primary" type="submit">
+                    Save
+                  </Button>
+                </Col>
+              </Row>
             </FormControl>
           </form>
-        </Box>
-      </Box>
-    </Box>
+        </Col>
+      </Row>
+    </Container>
   )
 }
 

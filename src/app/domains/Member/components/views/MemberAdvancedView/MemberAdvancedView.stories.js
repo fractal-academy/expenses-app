@@ -11,7 +11,7 @@ const Template = (args) => <MemberAdvancedView {...args} />
 export const MemberAdvancedViewStory = Template.bind({})
 
 MemberAdvancedViewStory.args = {
-  horizontal: true,
+  horizontal: false,
   name: 'Olena',
   surname: 'Shevchuk',
   role: 'Admin',
