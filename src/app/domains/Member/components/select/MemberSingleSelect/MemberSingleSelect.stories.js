@@ -1,4 +1,5 @@
 import MemberSingleSelect from './MemberSingleSelect.template'
+import { getMembersForSelectComponent } from '../../../../../services'
 
 const metadata = {
   title: 'domains/Member/components/select/MemberSingleSelect',
@@ -10,4 +11,6 @@ const Template = (args) => <MemberSingleSelect {...args} />
 
 export const MemberSingleSelectStory = Template.bind({})
 
-MemberSingleSelectStory.args = {}
+MemberSingleSelectStory.args = {
+  onChange: (selectedUser, event) => console.log(selectedUser)
+}
