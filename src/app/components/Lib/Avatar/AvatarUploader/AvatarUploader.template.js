@@ -4,14 +4,18 @@ import PropTypes from 'prop-types'
 import CloudUploadIcon from '@material-ui/icons/CloudUpload'
 import { Row, Col, Container } from '@qonsoll/react-design'
 import { Avatar } from '../Avatar'
-import { EXPENSES_PROJECT } from 'app/constants'
+import { STORAGE } from 'app/constants'
 import styles from './AvatarUploader.styles'
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles(styles)
 
 const CustomAvatarUploader = (props) => {
+  // can choose and upload photo to form
+  // after will see a selected photo
   const { onChange, value } = props
+  //onChange - function provides the ability to attach a parent component to it
+  //value is props for this component (it is avatarUrl)
 
   const fileUpload = useRef(null)
 
@@ -22,13 +26,13 @@ const CustomAvatarUploader = (props) => {
   }
 
   const changeAvatar = async () => {
-    var fileRef = EXPENSES_PROJECT.storage()
-      .ref()
-      .child(fileUpload.current.files[0].name)
-    await fileRef.put(fileUpload.current.files[0])
+    //upload photo to storage and form
+    var fileRef = STORAGE.ref().child(fileUpload.current.files[0].name)
+    await fileRef.put(fileUpload.current.files[0]) //add url to storage
     fileRef.getDownloadURL().then((url) => {
+      //get url from storage
       setAvatarUrl(url)
-      onChange(url)
+      onChange(url) //this value will be will be available in the parent component
     })
   }
 
