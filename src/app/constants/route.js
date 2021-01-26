@@ -1,2 +1,2 @@
-const route = {}
-export { route }
+const ROUTES = {}
+export { ROUTES }
