@@ -4,4 +4,5 @@ import { route } from './route.js'
 import { color } from './color.js'
 import { role } from './role.js'
 import { priority } from './priority.js'
-export { firebaseConfig, currency, route, color, role, priority }
+import * as tableCells from './tableCells.js'
+export { firebaseConfig, currency, route, color, role, priority, tableCells }

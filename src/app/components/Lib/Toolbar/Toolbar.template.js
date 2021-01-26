@@ -19,10 +19,10 @@ const Tolbar = (props) => {
                     </Typography>
                   </Col>
                   <Col cw="auto">
-                    <IconButton aria-label="check" color="primary">
+                    <IconButton color="primary">
                       <CheckIcon />
                     </IconButton>
-                    <IconButton aria-label="delete" color="primary">
+                    <IconButton color="primary">
                       <DeleteIcon />
                     </IconButton>
                   </Col>
