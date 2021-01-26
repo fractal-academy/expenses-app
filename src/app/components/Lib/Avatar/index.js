@@ -1,3 +1,3 @@
-import Avatar from './Avatar.template'
-
-export default Avatar
+import Avatar from './Avatar/Avatar.template'
+import AvatarUploader from './AvatarUploader/AvatarUploader.template'
+export { Avatar, AvatarUploader }

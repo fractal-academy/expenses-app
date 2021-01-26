@@ -12,7 +12,7 @@ export const MemberAdvancedFormStory = Template.bind({})
 
 MemberAdvancedFormStory.args = {
   avatar:
-    'https://firebasestorage.googleapis.com/v0/b/expenses-senseteq.appspot.com/o/IMG_20201128_153151-032.jpg?alt=media&token=f8948226-e234-4e1f-9a5c-82d53f594401',
+    'https://firebasestorage.googleapis.com/v0/b/expenses-senseteq.appspot.com/o/photo_2020-11-27_19-32-45.jpg?alt=media&token=cf2e4d18-fed4-4dc8-bec5-5ae803a2053f',
   name: 'Olena',
   surname: 'Shevchuk',
   role: 'admin',

@@ -3,7 +3,7 @@ import { Typography, Button } from '@material-ui/core'
 import { Avatar } from 'components'
 import PropTypes from 'prop-types'
 import { RoleSimpleView } from '../../../../Role/components/views'
-import { Container, Row, Col, Box } from '@qonsoll/react-design'
+import { Container, Row, Col } from '@qonsoll/react-design'
 
 const MemberAdvancedView = (props) => {
   return (
