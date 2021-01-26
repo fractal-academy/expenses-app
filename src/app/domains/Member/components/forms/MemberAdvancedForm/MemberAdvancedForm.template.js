@@ -12,7 +12,7 @@ import {
 } from '@material-ui/pickers'
 import DateFnsUtils from '@date-io/date-fns'
 import { AvatarUploader } from 'components/Lib/Avatar'
-import PropTypes from 'prop-types'
+import { PropTypes } from 'prop-types'
 import { useForm, Controller } from 'react-hook-form'
 import { RoleSingleSelect } from 'app/domains/Role/components/select'
 import { Row, Col } from '@qonsoll/react-design'
@@ -177,16 +177,7 @@ const MemberAdvancedForm = (props) => {
     </form>
   )
 }
-
-MemberAdvancedForm.propTypes = {
-  avatar: PropTypes.string,
-  name: PropTypes.string,
-  surname: PropTypes.string,
-  role: PropTypes.string,
-  email: PropTypes.string,
-  phone: PropTypes.string,
-  date: PropTypes.string
-}
+MemberAdvancedForm.propTypes = {}
 MemberAdvancedForm.defaultProps = {}
 
 export default MemberAdvancedForm

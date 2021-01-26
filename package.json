@@ -37,6 +37,7 @@
     "start": "craco start",
     "build:production": "env-cmd -f .env.production craco build",
     "build:development": "env-cmd -f .env.development craco build ",
+    "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
