@@ -178,6 +178,5 @@ const MemberAdvancedForm = (props) => {
   )
 }
 MemberAdvancedForm.propTypes = {}
-MemberAdvancedForm.defaultProps = {}
 
 export default MemberAdvancedForm

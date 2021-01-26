@@ -1,23 +1,18 @@
 import { useState } from 'react'
-import MenuItem from '@material-ui/core/MenuItem'
-import Select from '@material-ui/core/Select'
+import { MenuItem, Select } from '@material-ui/core'
+import styles from './ColorSingleSelect.styles'
 import { makeStyles } from '@material-ui/core/styles'
+import { COLORS_VALUE } from 'app/constants'
 
-import { COLOR_VALUE } from '../../../../../constants'
-
-const useStyles = makeStyles((theme) => ({
-  selectColor: {
-    minWidth: 120,
-    textAlign: 'center'
-  }
-}))
+const useStyles = makeStyles(styles)
 
 const ColorSingleSelect = (props) => {
   const classes = useStyles()
-  const [color, setColor] = useState(COLOR_VALUE[0].name)
+
+  const [color, setColor] = useState(COLORS_VALUE[0].name)
   return (
     <Select className={classes.selectColor} value={color}>
-      {COLOR_VALUE.map((colorItem) => (
+      {COLORS_VALUE.map((colorItem) => (
         <MenuItem
           value={colorItem.name}
           style={{ backgroundColor: `${colorItem.color}` }}
@@ -31,6 +26,5 @@ const ColorSingleSelect = (props) => {
 }
 
 ColorSingleSelect.propTypes = {}
-ColorSingleSelect.defaultProps = {}
 
 export default ColorSingleSelect

@@ -3,6 +3,5 @@ const CurrencySingleSelect = (props) => {
 }
 
 CurrencySingleSelect.propTypes = {}
-CurrencySingleSelect.defaultProps = {}
 
 export default CurrencySingleSelect

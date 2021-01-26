@@ -2,7 +2,7 @@ import { useState, useRef } from 'react'
 import { Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import CloudUploadIcon from '@material-ui/icons/CloudUpload'
-import { Row, Col } from '@qonsoll/react-design'
+import { Row, Col, Container } from '@qonsoll/react-design'
 import { Avatar } from '../Avatar'
 import { EXPENSES_PROJECT } from 'app/constants'
 import styles from './AvatarUploader.styles'
@@ -20,6 +20,7 @@ const CustomAvatarUploader = (props) => {
   const fileUploadClick = (event) => {
     fileUpload.current.click()
   }
+
   const changeAvatar = async () => {
     var fileRef = EXPENSES_PROJECT.storage()
       .ref()
@@ -33,7 +34,7 @@ const CustomAvatarUploader = (props) => {
 
   const classes = useStyles()
   return (
-    <>
+    <Container>
       <Row h="center" mb={2}>
         <Col cw={'auto'}>
           <Avatar src={avatarUrl} size="lg" />
@@ -60,12 +61,13 @@ const CustomAvatarUploader = (props) => {
           />
         </Col>
       </Row>
-    </>
+    </Container>
   )
 }
 
 CustomAvatarUploader.propTypes = {
-  size: PropTypes.oneOf(['sm', 'md', 'lg'])
+  value: PropTypes.string,
+  onChange: PropTypes.func
 }
 
 export default CustomAvatarUploader

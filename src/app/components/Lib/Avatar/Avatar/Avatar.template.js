@@ -5,6 +5,8 @@ import PropTypes from 'prop-types'
 
 const useStyles = makeStyles(styles)
 
+const sizeAvatar = ['sm', 'md', 'lg']
+
 const CustomAvatar = (props) => {
   const classes = useStyles()
   const size = classes[props.size]
@@ -17,7 +19,7 @@ const CustomAvatar = (props) => {
 }
 
 CustomAvatar.propTypes = {
-  size: PropTypes.oneOf(['sm', 'md', 'lg'])
+  size: PropTypes.oneOf(sizeAvatar)
 }
 
 export default CustomAvatar

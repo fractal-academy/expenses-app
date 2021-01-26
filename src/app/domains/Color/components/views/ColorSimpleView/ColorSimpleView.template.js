@@ -3,6 +3,5 @@ const ColorSimpleView = (props) => {
 }
 
 ColorSimpleView.propTypes = {}
-ColorSimpleView.defaultProps = {}
 
 export default ColorSimpleView

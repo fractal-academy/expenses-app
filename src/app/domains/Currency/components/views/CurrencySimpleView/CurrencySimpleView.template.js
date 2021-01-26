@@ -3,6 +3,5 @@ const CurrencySimpleView = (props) => {
 }
 
 CurrencySimpleView.propTypes = {}
-CurrencySimpleView.defaultProps = {}
 
 export default CurrencySimpleView

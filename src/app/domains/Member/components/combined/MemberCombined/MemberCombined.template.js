@@ -16,7 +16,7 @@ import { useForm, Controller } from 'react-hook-form'
 import { Alert } from '@material-ui/lab'
 import AddIcon from '@material-ui/icons/Add'
 import { RoleSingleSelect } from 'app/domains/Role/components/select'
-import { STORE } from '../../../../../constants'
+import { STORE } from 'app/constants'
 import md5 from 'md5'
 
 const MemberCombined = (props) => {
