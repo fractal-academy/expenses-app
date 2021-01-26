@@ -6,20 +6,16 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import BarChartIcon from '@material-ui/icons/BarChart'
 import SettingsIcon from '@material-ui/icons/Settings'
 import { AppBar } from '@material-ui/core'
+import styles from './Navbar.style'
 
-const useStyles = makeStyles((theme) => ({
-  appBar: {
-    top: 'auto',
-    bottom: 0
-  }
-}))
+const useStyles = makeStyles(styles)
 
 const Navbar = (props) => {
   const classes = useStyles()
   const [value, setValue] = React.useState(0)
 
   return (
-    <AppBar position="fixed" className={classes.appBar}>
+    <AppBar className={classes.root}>
       <BottomNavigation
         value={value}
         onChange={(event, newValue) => {

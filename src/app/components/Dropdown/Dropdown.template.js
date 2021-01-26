@@ -1,38 +1,38 @@
 import React from 'react'
 import Menu from '@material-ui/core/Menu'
 import { Box } from '@material-ui/core'
+import styles from './Dropdown.style'
+import { makeStyles } from '@material-ui/core/styles'
+
+const useStyles = makeStyles(styles)
 
 const Dropdown = (props) => {
-  const { overlay, children } = props
+  const classes = useStyles()
+  const { overlay, children, idMenu } = props
   const [anchorEl, setAnchorEl] = React.useState(null)
   const open = Boolean(anchorEl)
-  const handleMenu = (event) => {
+  const handleOpen = (event) => {
     setAnchorEl(event.currentTarget)
   }
-
   const handleClose = () => {
     setAnchorEl(null)
   }
+
   return (
     <Box>
-      {React.cloneElement(children, { onClick: handleMenu })}
+      {React.cloneElement(children, { onClick: handleOpen })}
       <Menu
-        id="menu-appbar"
+        id={idMenu}
         anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right'
-        }}
         keepMounted
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right'
-        }}
         open={open}
         onClose={handleClose}>
-        {React.cloneElement(overlay, { onClick: handleClose })}
+        <Box>{React.cloneElement(overlay, { onClick: handleClose })}</Box>
       </Menu>
     </Box>
   )
 }
+Dropdown.propTypes = {}
+Dropdown.defaultProps = {}
+
 export default Dropdown

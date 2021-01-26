@@ -7,17 +7,15 @@ import AccountCircle from '@material-ui/icons/AccountCircle'
 import NotificationsIcon from '@material-ui/icons/Notifications'
 import Badge from '@material-ui/core/Badge'
 import Dropdown from '../Dropdown/Dropdown.template'
-import { MenuList } from '@material-ui/core'
 import MenuItem from '@material-ui/core/MenuItem'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
+import { Box } from '@material-ui/core'
+import styles from './Header.style'
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    alignSelf: 'flex-end'
-  }
-}))
+const useStyles = makeStyles(styles)
+
 const DropdownList = (
-  <>
+  <div>
     <MenuItem>
       <AccountCircle />
       Profile
@@ -26,29 +24,30 @@ const DropdownList = (
       <ExitToAppIcon />
       Log out
     </MenuItem>
-  </>
+  </div>
 )
 
 const Header = (props) => {
   const classes = useStyles()
 
   return (
-    <AppBar position="fixed" color="inherit">
-      <Toolbar className={classes.root}>
-        <IconButton color="inherit">
+    <AppBar className={classes.appBar}>
+      <Toolbar className={classes.toolBar}>
+        <IconButton>
           <Badge badgeContent={11} color="secondary">
             <NotificationsIcon />
           </Badge>
         </IconButton>
-        <Dropdown overlay={DropdownList}>
-          <IconButton
-            aria-label="account of current user"
-            aria-controls="menu-appbar"
-            aria-haspopup="true"
-            color="inherit">
-            <AccountCircle />
-          </IconButton>
-        </Dropdown>
+        <Box>
+          <Dropdown overlay={DropdownList}>
+            <IconButton
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true">
+              <AccountCircle />
+            </IconButton>
+          </Dropdown>
+        </Box>
       </Toolbar>
     </AppBar>
   )

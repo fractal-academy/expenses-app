@@ -2,8 +2,9 @@ import Dropdown from './Dropdown.template'
 import IconButton from '@material-ui/core/IconButton'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import React from 'react'
-import { Box, MenuList } from '@material-ui/core'
 import MenuItem from '@material-ui/core/MenuItem'
+import { Container, Row, Col } from '@qonsoll/react-design'
+import { Typography } from '@material-ui/core'
 
 const metadata = {
   title: 'components/Dropdown',
@@ -13,25 +14,49 @@ const metadata = {
 export default metadata
 
 const DropdownList = (
-  <Box>
-    <MenuItem>Profile</MenuItem>
-    <MenuItem>Profile</MenuItem>
-    <MenuItem>Profile</MenuItem>
-    <MenuItem>Profile</MenuItem>
-    <MenuItem>Profile</MenuItem>
-  </Box>
+  <Container>
+    <MenuItem>
+      <AccountCircle />
+      <Typography>Profile</Typography>
+    </MenuItem>
+    <MenuItem>
+      <AccountCircle />
+      <Typography>Profile</Typography>
+    </MenuItem>
+    <MenuItem>
+      <AccountCircle />
+      <Typography>Profile</Typography>
+    </MenuItem>
+    <MenuItem>
+      <AccountCircle />
+      <Typography>Profile</Typography>
+    </MenuItem>
+    <MenuItem>
+      <AccountCircle />
+      <Typography>Profile</Typography>
+    </MenuItem>
+    <MenuItem>
+      <Typography>Log out</Typography>
+    </MenuItem>
+  </Container>
 )
 
 const Template = (args) => (
-  <Dropdown overlay={DropdownList}>
-    <IconButton
-      aria-label="account of current user"
-      aria-controls="menu-appbar"
-      aria-haspopup="true"
-      color="inherit">
-      <AccountCircle />
-    </IconButton>
-  </Dropdown>
+  <Container>
+    <Row h="center" v="center">
+      <Col cw="auto">
+        <Dropdown overlay={DropdownList}>
+          <IconButton
+            aria-label="account of current user"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            color="inherit">
+            <AccountCircle />
+          </IconButton>
+        </Dropdown>
+      </Col>
+    </Row>
+  </Container>
 )
 
 export const DropdownStory = Template.bind({})
