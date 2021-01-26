@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import Typography from '@material-ui/core/Typography'
-import { Box } from '@material-ui/core'
 import { PRIORITY } from 'app/constants'
+import { Row } from '@qonsoll/react-design'
 
 const { PRIORITY_VALUE } = PRIORITY
 
@@ -9,10 +9,10 @@ const PrioritySimpleView = (props) => {
   const { priority } = props //use props for view priority product
 
   return (
-    <Box display="flex" justifyContent="space-between">
+    <Row h="between">
       <Typography variant="body1">Priority</Typography>
       <Typography variant="body1">{priority}</Typography>
-    </Box>
+    </Row>
   )
 }
 
