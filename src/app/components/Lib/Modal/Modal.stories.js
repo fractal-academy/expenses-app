@@ -6,11 +6,12 @@ const metadata = {
   argTypes: {
     buttonSubmitProps: {
       description:
-        'May contain all the Material-UI Button props and custom property text to set Button text'
+        'Must contain onClick or "type: submit" and "form: formId" for Form,' +
+        ' can get all the Material-UI Button props and custom property "text" to set Button text'
     },
     buttonCancelProps: {
       description:
-        'May contain all the Material-UI Button props and custom property text to set Button text'
+        'Must contain onClick, can get all the Material-UI Button props and custom property "text" to set Button text'
     },
     open: {
       description:

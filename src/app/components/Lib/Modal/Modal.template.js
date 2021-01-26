@@ -9,15 +9,7 @@ import {
 import PropTypes from 'prop-types'
 
 const Modal = (props) => {
-  const {
-    open,
-    title,
-    children,
-    onCancel,
-    onSubmit,
-    buttonSubmitProps,
-    buttonCancelProps
-  } = props
+  const { open, title, children, buttonSubmitProps, buttonCancelProps } = props
 
   return (
     <Dialog open={open}>
@@ -26,10 +18,10 @@ const Modal = (props) => {
       </DialogTitle>
       <DialogContent>{children}</DialogContent>
       <DialogActions>
-        <Button onClick={onCancel} {...buttonCancelProps}>
+        <Button {...buttonCancelProps}>
           {buttonCancelProps?.text ? buttonCancelProps.text : 'Cancel'}
         </Button>
-        <Button onClick={onSubmit} {...buttonSubmitProps}>
+        <Button {...buttonSubmitProps}>
           {buttonSubmitProps?.text ? buttonSubmitProps.text : 'Submit'}
         </Button>
       </DialogActions>
@@ -37,12 +29,10 @@ const Modal = (props) => {
   )
 }
 Modal.propTypes = {
-  open: PropTypes.bool,
+  open: PropTypes.bool.isRequired,
   title: PropTypes.string,
-  children: PropTypes.object,
-  onSubmit: PropTypes.func,
-  onCancel: PropTypes.func,
-  buttonSubmitProps: PropTypes.object,
-  buttonCancelProps: PropTypes.object
+  children: PropTypes.object.isRequired,
+  buttonSubmitProps: PropTypes.object.isRequired,
+  buttonCancelProps: PropTypes.object.isRequired
 }
 export default Modal
