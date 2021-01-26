@@ -25,6 +25,5 @@ MemberSimpleView.propTypes = {
   avatarUrl: PropTypes.string,
   name: PropTypes.string
 }
-MemberSimpleView.defaultProps = {}
 
 export default MemberSimpleView

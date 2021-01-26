@@ -73,6 +73,4 @@ MemberAdvancedView.propTypes = {
   phone: PropTypes.string,
   birthday: PropTypes.string
 }
-MemberAdvancedView.defaultProps = {}
-
 export default MemberAdvancedView

@@ -13,6 +13,5 @@ const RoleSimpleView = (props) => {
 RoleSimpleView.propTypes = {
   role: PropTypes.string.isRequired
 }
-RoleSimpleView.defaultProps = {}
 
 export default RoleSimpleView

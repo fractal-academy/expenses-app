@@ -41,6 +41,4 @@ MemberSingleSelect.propTypes = {
   onChange: PropTypes.func.isRequired
 }
 
-MemberSingleSelect.defaultProps = {}
-
 export default MemberSingleSelect

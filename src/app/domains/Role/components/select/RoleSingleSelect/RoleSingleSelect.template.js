@@ -42,6 +42,5 @@ RoleSingleSelect.propTypes = {
   onChange: PropTypes.func,
   value: PropTypes.string
 }
-RoleSingleSelect.defaultProps = {}
 
 export default RoleSingleSelect
