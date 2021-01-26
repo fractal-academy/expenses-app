@@ -13,7 +13,7 @@ import {
   FormHelperText
 } from '@material-ui/core'
 import { useForm, Controller } from 'react-hook-form'
-import Alert from '@material-ui/lab/Alert'
+import { Alert } from '@material-ui/lab'
 import AddIcon from '@material-ui/icons/Add'
 import { RoleSingleSelect } from 'app/domains/Role/components/select'
 import { db } from 'app/constants'
@@ -102,7 +102,7 @@ const MemberCombined = (props) => {
                   </Box>
                   <Box display="flex" justifyContent="center">
                     <FormHelperText error>
-                      {errors.role ? errors.role.message : <> ' ' </>}
+                      {errors.role ? errors.role.message : <> &nbsp;</>}
                     </FormHelperText>
                   </Box>
                   <TextField

@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "development": "expenses-app-development-9ba1c",
+    "production": "expenses-app-production"
+  }
+}
