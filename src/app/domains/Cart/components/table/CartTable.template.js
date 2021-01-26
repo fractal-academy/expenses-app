@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { Box, Button, IconButton, Checkbox, Toolbar } from '@material-ui/core/'
+import { Button, IconButton, Checkbox, Toolbar } from '@material-ui/core/'
 import {
   Table,
   TableHead,
@@ -13,7 +13,7 @@ import {
 } from '@material-ui/core/'
 import CheckIcon from '@material-ui/icons/Check'
 import DeleteIcon from '@material-ui/icons/Delete'
-
+import { Box, Container, Row, Col } from '@qonsoll/react-design'
 const headCells = [
   {
     id: 'assignedUser',
@@ -75,9 +75,9 @@ const CartTable = (props) => {
   }
 
   return (
-    <Box className="container-fluid">
-      <Box className="row">
-        <Box className="col-auto">
+    <Container className="container-fluid">
+      <Row className="row">
+        <Col className="col-auto">
           <Toolbar>
             {props.checkboxChecked ? (
               <Box
@@ -126,9 +126,9 @@ const CartTable = (props) => {
               </TableHead>
             </Table>
           </TableContainer>
-        </Box>
-      </Box>
-    </Box>
+        </Col>
+      </Row>
+    </Container>
   )
 }
 
