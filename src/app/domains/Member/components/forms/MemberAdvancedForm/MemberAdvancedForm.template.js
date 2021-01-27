@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types'
 import Button from '@material-ui/core/Button'
-import { AvatarUploader } from 'components/Lib/Avatar'
-import { RoleSingleSelect } from 'app/domains/Role/components/select'
 import {
   Form,
   FormGenerator,
   FormButtons,
   useForm
 } from 'mui-form-generator-fractal-band-2'
+import { AvatarUploader } from 'components/Lib/Avatar'
+import { RoleSingleSelect } from 'app/domains/Role/components/select'
 
 const config = [
   {
@@ -96,7 +96,8 @@ const MemberAdvancedForm = (props) => {
 MemberAdvancedForm.propTypes = {
   formData: PropTypes.object,
   onSubmit: PropTypes.func,
-  onSubmitFail: PropTypes.func
+  onSubmitFail: PropTypes.func,
+  show: PropTypes.array
 }
 
 export default MemberAdvancedForm
