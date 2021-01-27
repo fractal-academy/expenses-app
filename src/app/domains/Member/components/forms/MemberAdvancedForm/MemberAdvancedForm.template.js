@@ -29,7 +29,6 @@ const MemberAdvancedForm = (props) => {
 
   const onSubmit = (data) => {
     data.dateInSeconds = dateInSeconds
-    console.log(data)
   }
 
   const handleDateChange = (event) => {
