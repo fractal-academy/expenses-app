@@ -1,46 +1,29 @@
-import { MenuItem, Select } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
+import { TextField, MenuItem } from '@material-ui/core'
 import { useState } from 'react'
 import { ROLE_VALUES } from 'app/constants'
 import PropTypes from 'prop-types'
 
-const useStyles = makeStyles({
-  roleSingleSelect: {
-    minWidth: 100,
-    textAlign: 'center'
-  }
-})
-
 const RoleSingleSelect = (props) => {
-  const { onChange, value } = props
+  const { value, onChange } = props
 
   const [currentRole, setCurrentRole] = useState(value)
 
-  const classes = useStyles()
-
-  const handleSelect = (event) => {
-    const selectedRole = event.target.value
-    setCurrentRole(selectedRole)
-    onChange && onChange(selectedRole, event)
-  }
-
   return (
-    <Select
-      className={classes.roleSingleSelect}
-      value={currentRole}
-      onChange={handleSelect}>
+    <TextField
+      select
+      onChange={(e) => onChange(e, setCurrentRole)}
+      value={currentRole}>
       {ROLE_VALUES.map((item) => (
-        <MenuItem key={item} value={item}>
-          {item}
-        </MenuItem>
+        <MenuItem value={item}>{item}</MenuItem>
       ))}
-    </Select>
+    </TextField>
   )
 }
 
 RoleSingleSelect.propTypes = {
-  onChange: PropTypes.func,
-  value: PropTypes.string
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired
 }
+RoleSingleSelect.defaultProps = {}
 
 export default RoleSingleSelect
