@@ -16,7 +16,15 @@ export default metadata
 
 const DropdownList = (
   <Container>
-    <DropdownItem danger divider>
+    <DropdownItem danger="true" divider>
+      <AccountCircle />
+      <Typography>Profile22222</Typography>
+    </DropdownItem>
+    <DropdownItem divider>
+      <AccountCircle />
+      <Typography>Profile</Typography>
+    </DropdownItem>
+    <DropdownItem success divider>
       <AccountCircle />
       <Typography>Profile</Typography>
     </DropdownItem>
@@ -24,19 +32,11 @@ const DropdownList = (
       <AccountCircle />
       <Typography>Profile</Typography>
     </DropdownItem>
-    <DropdownItem success="true" divider>
-      <AccountCircle />
-      <Typography>Profile</Typography>
-    </DropdownItem>
     <DropdownItem divider>
       <AccountCircle />
       <Typography>Profile</Typography>
     </DropdownItem>
-    <DropdownItem divider>
-      <AccountCircle />
-      <Typography>Profile</Typography>
-    </DropdownItem>
-    <DropdownItem danger="true">
+    <DropdownItem danger>
       <ExitToAppIcon />
       <Typography>Log out</Typography>
     </DropdownItem>
