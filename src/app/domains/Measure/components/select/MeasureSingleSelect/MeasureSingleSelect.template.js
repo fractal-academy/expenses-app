@@ -1,11 +1,11 @@
 import { TextField, MenuItem } from '@material-ui/core'
 import { useState } from 'react'
-import PropTypes from 'prop-types'
+
+const MEASURES = ['kg', 'g', 'mm', 'cm', 'm']
 
 const MeasureSingleSelect = (props) => {
   const { value, onChange } = props
   const [currentMeasure, setCurrentMeasure] = useState(value)
-  const MEASURES = ['кг', 'г', 'л', 'мм', 'см', 'м']
   return (
     <TextField
       select

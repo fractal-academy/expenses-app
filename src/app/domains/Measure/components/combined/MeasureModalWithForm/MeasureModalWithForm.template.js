@@ -10,7 +10,6 @@ const MeasureModalWithForm = () => {
   const measureForm = useForm()
 
   const onSubmit = ({ measure }) => {
-    console.log(measure)
     setOpen(false)
   }
   const onCancel = () => {
