@@ -1,7 +1,6 @@
 const styleSelect = (theme) => ({
   root: {
-    minWidth: 100,
-    textAlign: 'center'
+    minWidth: 100
   }
 })
 export default styleSelect

@@ -2,7 +2,6 @@ import Select from './Select.template'
 import { PRIORITY } from 'app/constants'
 import MenuItem from '@material-ui/core/MenuItem'
 
-const { PRIORITY_VALUE } = PRIORITY
 const metadata = {
   title: 'components/Select',
   component: Select
@@ -22,6 +21,6 @@ const Template = (args) => (
 export const SelectStory = Template.bind({})
 
 SelectStory.args = {
-  value: PRIORITY_VALUE[0],
-  data: PRIORITY_VALUE
+  value: PRIORITY[0],
+  data: PRIORITY
 }

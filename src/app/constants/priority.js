@@ -1,2 +1,2 @@
-const priority = {}
-export { priority }
+const PRIORITY = ['Top', 'Height', 'Medium', 'Low']
+export { PRIORITY }
