@@ -15,7 +15,8 @@ import { AvatarUploader } from 'components/Lib/Avatar'
 import { PropTypes } from 'prop-types'
 import { useForm, Controller } from 'react-hook-form'
 import { RoleSingleSelect } from 'app/domains/Role/components/select'
-import { Row, Col } from '@qonsoll/react-design'
+import { Row, Col, Box } from '@qonsoll/react-design'
+import moment from 'moment'
 
 const MemberAdvancedForm = (props) => {
   const { handleSubmit, control, register, errors } = useForm({
@@ -34,6 +35,7 @@ const MemberAdvancedForm = (props) => {
   const handleDateChange = (event) => {
     setDateInSeconds(new Date(event).getTime())
   }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormControl>
@@ -52,38 +54,42 @@ const MemberAdvancedForm = (props) => {
         </Row>
         <Row>
           <Col cw={[12, 6]} h="center">
-            <TextField
-              fullWidth
-              label="Name"
-              name="name"
-              error={!!errors.name}
-              helperText={errors.name?.message ? errors.name.message : ' '}
-              inputRef={register({
-                pattern: {
-                  value: new RegExp('^[a-zA-Z]+$'),
-                  message: 'Enter a valid name'
-                },
-                required: 'Enter name'
-              })}
-            />
+            <Box>
+              <TextField
+                fullWidth
+                label="Name"
+                name="name"
+                error={!!errors.name}
+                helperText={errors.name?.message ? errors.name.message : ' '}
+                inputRef={register({
+                  pattern: {
+                    value: new RegExp('^[a-zA-Z]+$'),
+                    message: 'Enter a valid name'
+                  },
+                  required: 'Enter name'
+                })}
+              />
+            </Box>
           </Col>
           <Col cw={[12, 6]}>
-            <TextField
-              fullWidth
-              label="Surname"
-              name="surname"
-              error={!!errors.surname}
-              helperText={
-                errors.surname?.message ? errors.surname.message : ' '
-              }
-              inputRef={register({
-                pattern: {
-                  value: new RegExp('^[A-Za-z]+$'),
-                  message: 'Enter a valid surname'
-                },
-                required: 'Enter surname'
-              })}
-            />
+            <Box>
+              <TextField
+                fullWidth
+                label="Surname"
+                name="surname"
+                error={!!errors.surname}
+                helperText={
+                  errors.surname?.message ? errors.surname.message : ' '
+                }
+                inputRef={register({
+                  pattern: {
+                    value: new RegExp('^[A-Za-z]+$'),
+                    message: 'Enter a valid surname'
+                  },
+                  required: 'Enter surname'
+                })}
+              />
+            </Box>
           </Col>
         </Row>
         <Row h="center">
@@ -114,13 +120,7 @@ const MemberAdvancedForm = (props) => {
                 label="Date picker dialog"
                 name="date"
                 format="dd/MM/yyyy"
-                inputValue={
-                  new Date(dateInSeconds).getDate() +
-                  '/' +
-                  (new Date(dateInSeconds).getMonth() + 1) +
-                  '/' +
-                  new Date(dateInSeconds).getFullYear()
-                }
+                inputValue={moment(dateInSeconds).format('DD/MM/YYYY')}
                 onChange={handleDateChange}
                 KeyboardButtonProps={{
                   'aria-label': 'change date'

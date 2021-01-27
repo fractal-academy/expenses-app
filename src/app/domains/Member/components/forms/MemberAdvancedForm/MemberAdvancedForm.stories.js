@@ -17,6 +17,6 @@ MemberAdvancedFormStory.args = {
   surname: 'Shevchuk',
   role: 'admin',
   email: 'olenashevchuk0@gmail.com',
-  phone: '+3809457152'
-  //dateInSeconds: '1455753600000'
+  phone: '+3809457152',
+  dateInSeconds: 1455753600000
 }
