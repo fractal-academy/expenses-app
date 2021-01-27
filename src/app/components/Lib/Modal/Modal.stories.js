@@ -13,6 +13,9 @@ const metadata = {
       description:
         'Must contain onClick, can get all the Material-UI Button props and custom property "text" to set Button text'
     },
+    typographyProps: {
+      description: 'Can get all the Material-UI Typography props'
+    },
     open: {
       description:
         'Contain boolean state of Modal window if open - true, else - false, default: false'
