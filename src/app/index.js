@@ -4,23 +4,22 @@ import {
   Route,
   Redirect
 } from 'react-router-dom'
-import { route } from './constants'
-
-import 'bootstrap/dist/css/bootstrap-grid.min.css'
-import './styles/bootstrap-grid-override.css'
-
-const { ROUTES_VALUE } = route
+import { ROUTES_VALUE } from './constants'
+import { ThemeProvider } from '@qonsoll/react-design'
+import Theme from 'app/config/theme'
 
 const App = () => {
   return (
-    <Router>
-      <Switch>
-        {ROUTES_VALUE.map((route) => (
-          <Route key={route.path} {...route} />
-        ))}
-        <Redirect to="/login" />
-      </Switch>
-    </Router>
+    <ThemeProvider theme={Theme}>
+      <Router>
+        <Switch>
+          {ROUTES_VALUE.map((route) => (
+            <Route key={route.path} {...route} />
+          ))}
+          <Redirect to="/login" />
+        </Switch>
+      </Router>
+    </ThemeProvider>
   )
 }
 

@@ -11,7 +11,7 @@ import { WishAll } from 'domains/Wish/routes'
 import { CartAll } from 'domains/Cart/routes'
 import { StatisticAll } from 'domains/Statistic/routes'
 
-import { ROUTES_PATHS } from './routePaths'
+import ROUTES_PATHS from './routePaths'
 
 const ROUTES = {
   LOGIN: {
@@ -81,4 +81,5 @@ const ROUTES = {
 const ROUTES_VALUE = Object.values(ROUTES)
 const ROUTES_KEYS = Object.keys(ROUTES)
 
-export { ROUTES, ROUTES_VALUE, ROUTES_KEYS }
+export default ROUTES
+export { ROUTES_VALUE, ROUTES_KEYS }
