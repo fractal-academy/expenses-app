@@ -1,9 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import styles from './CartTable.styles'
 import { Toolbar, TableHead } from 'components'
 import { makeStyles } from '@material-ui/core/styles'
 import { TableRow, TableCell, Checkbox, Table } from '@material-ui/core'
 import { Container, Row, Col } from '@qonsoll/react-design'
+
+const useStyles = makeStyles(styles)
 
 function createData(assignedUser, member, productName, productCategory) {
   return { assignedUser, member, productName, productCategory }
@@ -13,17 +16,8 @@ const rows = [
   createData('Ruslan', 'Lena', 'Waffles', 'Kitchen'),
   createData('Ruslan', 'Rostik', 'Sugar', 'Kitchen'),
   createData('Ruslan', 'Rostik', 'Sugar', 'Kitchen'),
-  createData('Ruslan', 'Rostik', 'Sugar', 'Kitchen'),
   createData('Ruslan', 'Rostik', 'Sugar', 'Kitchen')
 ]
-
-const useStyles = makeStyles({
-  root: {
-    width: '75px',
-    textAlign: 'center',
-    padding: '6px'
-  }
-})
 
 const CartTable = (props) => {
   const classes = useStyles(props)
@@ -32,8 +26,8 @@ const CartTable = (props) => {
       <Row h="center">
         <Col cw="auto">
           <Toolbar numberChecked={props.number} />
-          <Table size="small">
-            <TableHead page="CART" />
+          <Table>
+            <TableHead page="cart" />
             <Container display="box">
               <Row>
                 <Col>
@@ -42,16 +36,28 @@ const CartTable = (props) => {
                       <TableCell padding="checkbox">
                         <Checkbox color="primary" />
                       </TableCell>
-                      <TableCell align="center" className={classes.root}>
+                      <TableCell
+                        align="left"
+                        padding="none"
+                        className={classes.root}>
                         {row.assignedUser}
                       </TableCell>
-                      <TableCell align="center" className={classes.root}>
+                      <TableCell
+                        align="left"
+                        padding="none"
+                        className={classes.root}>
                         {row.member}
                       </TableCell>
-                      <TableCell align="center" className={classes.root}>
+                      <TableCell
+                        align="left"
+                        padding="none"
+                        className={classes.root}>
                         {row.productName}
                       </TableCell>
-                      <TableCell align="center" className={classes.root}>
+                      <TableCell
+                        align="left"
+                        padding="none"
+                        className={classes.root}>
                         {row.productCategory}
                       </TableCell>
                     </TableRow>
@@ -67,10 +73,10 @@ const CartTable = (props) => {
 }
 
 CartTable.propTypes = {
-  assignedUser: PropTypes.string,
-  member: PropTypes.string.isRequired,
-  productName: PropTypes.string.isRequired,
-  productCategory: PropTypes.string,
+  // assignedUser: PropTypes.string,
+  // member: PropTypes.string.isRequired,
+  // productName: PropTypes.string.isRequired,
+  // productCategory: PropTypes.string,
   number: PropTypes.number.isRequired
 }
 

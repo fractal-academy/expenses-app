@@ -1,6 +1,7 @@
-import PropTypes from 'prop-types'
 import { React } from 'react'
-import { tableCells } from 'app/constants'
+import PropTypes from 'prop-types'
+import styles from './TableHead.styles'
+import { TABLE_CELLS } from 'app/constants'
 import { makeStyles } from '@material-ui/core/styles'
 import { Container, Row, Col } from '@qonsoll/react-design'
 import {
@@ -11,25 +12,15 @@ import {
   Checkbox
 } from '@material-ui/core/'
 
-const ROUTS = {
-  cart: 'CART',
-  wishes: 'WISHES'
-}
-
-const useStyles = makeStyles({
-  root: {
-    width: '75px',
-    textAlign: 'center',
-    padding: '6px'
-  }
-})
+const COLLECTIONS = ['wishes', 'cart']
+const useStyles = makeStyles(styles)
 
 const CustomTableHead = (props) => {
   const classes = useStyles(props)
   const cells =
-    props.page === ROUTS.cart ? tableCells.CART_CELLS : tableCells.WISH_CELLS
+    props.page === 'cart' ? TABLE_CELLS.CART_CELLS : TABLE_CELLS.WISH_CELLS
   return (
-    <Container display="box">
+    <Container>
       <Row>
         <Col cw="12">
           <TableHead>
@@ -39,7 +30,8 @@ const CustomTableHead = (props) => {
               </TableCell>
               {cells.map((cell) => (
                 <TableCell
-                  align="center"
+                  align="left"
+                  padding="none"
                   key={cell.id}
                   className={classes.root}>
                   <TableSortLabel>{cell.label}</TableSortLabel>
@@ -53,6 +45,6 @@ const CustomTableHead = (props) => {
   )
 }
 CustomTableHead.propTypes = {
-  page: PropTypes.oneOf(['WISHES', 'CART'])
+  page: PropTypes.oneOf(COLLECTIONS)
 }
 export default CustomTableHead

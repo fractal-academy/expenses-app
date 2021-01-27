@@ -1,2 +1,1 @@
-import { CartTable } from './table'
-export { CartTable }
+export { default as CartTable } from './table'

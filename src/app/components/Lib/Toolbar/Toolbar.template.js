@@ -4,18 +4,18 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import { Container, Row, Col } from '@qonsoll/react-design'
 import { Button, Toolbar, IconButton, Typography } from '@material-ui/core/'
 
-const Tolbar = (props) => {
+const CustomToolbar = (props) => {
   return (
-    <Container display="box">
+    <Container>
       <Row>
         <Col>
           <Toolbar>
-            {props.numberChecked > 0 ? (
-              <Container display="box">
+            {props.numberChecked ? (
+              <Container>
                 <Row h="right" v="center">
                   <Col>
                     <Typography variant="button">
-                      {props.numberChecked + ' selected'}
+                      {`${props.numberChecked} selected`}
                     </Typography>
                   </Col>
                   <Col cw="auto">
@@ -44,8 +44,7 @@ const Tolbar = (props) => {
     </Container>
   )
 }
-Tolbar.propTypes = {
+CustomToolbar.propTypes = {
   numberChecked: PropTypes.number.isRequired
 }
-Tolbar.defaultProps = {}
-export default Tolbar
+export default CustomToolbar
