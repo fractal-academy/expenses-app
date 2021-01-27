@@ -22,18 +22,18 @@ const CustomAvatarUploader = (props) => {
 
   const [avatarUrl, setAvatarUrl] = useState(value)
 
-  const fileUploadClick = (event) => {
+  const fileUploadClick = () => {
     fileUpload.current.click()
   }
 
   const changeAvatar = async () => {
     //upload photo to storage and form
-    var fileRef = STORAGE.ref().child(fileUpload.current.files[0].name)
+    const fileRef = STORAGE.ref().child(fileUpload.current.files[0].name)
     await fileRef.put(fileUpload.current.files[0]) //add url to storage
     fileRef.getDownloadURL().then((url) => {
       //get url from storage
       setAvatarUrl(url)
-      onChange(url) //this value will be will be available in the parent component
+      onChange(url) //this value will be available in the parent component
     })
   }
 
@@ -49,7 +49,7 @@ const CustomAvatarUploader = (props) => {
           <Button
             size="small"
             color="primary"
-            onClick={(event) => fileUploadClick(event)}
+            onClick={fileUploadClick}
             variant="contained"
             className={classes.button}
             component={'span'}

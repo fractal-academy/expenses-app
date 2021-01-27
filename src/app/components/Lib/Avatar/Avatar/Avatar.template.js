@@ -8,18 +8,21 @@ const useStyles = makeStyles(styles)
 const sizeAvatar = ['sm', 'md', 'lg']
 
 const CustomAvatar = (props) => {
+  const { alt, src, children } = props
   const classes = useStyles()
   const size = classes[props.size]
 
   return (
-    <Avatar className={size} alt={props.alt} src={props.src}>
-      {props.children}
+    <Avatar className={size} alt={alt} src={src}>
+      {children}
     </Avatar>
   )
 }
 
 CustomAvatar.propTypes = {
-  size: PropTypes.oneOf(sizeAvatar)
+  size: PropTypes.oneOf(sizeAvatar),
+  alt: PropTypes.string,
+  src: PropTypes.string
 }
 
 export default CustomAvatar

@@ -4,15 +4,16 @@ import { Typography } from '@material-ui/core'
 import { Container, Row, Col } from '@qonsoll/react-design'
 
 const MemberSimpleView = (props) => {
+  const { avatarUrl, withName, name } = props
   return (
     <Container>
       <Row>
         <Col cw="auto" mr={3}>
-          <Avatar size="sm" src={props.avatar}></Avatar>
+          <Avatar size="sm" src={avatarUrl} />
         </Col>
-        {props.withName && (
+        {withName && (
           <Col mr={2}>
-            <Typography variant="h6">{props.name}</Typography>
+            <Typography variant="h6">{name}</Typography>
           </Col>
         )}
       </Row>

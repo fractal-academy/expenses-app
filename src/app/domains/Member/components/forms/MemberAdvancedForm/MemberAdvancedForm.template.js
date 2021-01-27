@@ -81,12 +81,12 @@ const config = [
 ]
 
 const MemberAdvancedForm = (props) => {
-  const { formData, show, ...rest } = props
+  const { formData, show, onSubmit, onSubmitFail } = props
   const form = useForm({
     defaultValues: { ...formData }
   })
   return (
-    <Form form={form} {...rest}>
+    <Form form={form} onSubmit={onSubmit} onSubmitFail={onSubmitFail}>
       <FormGenerator config={config} show={show} />
       <FormButtons Button={Button} visibleCancel={false} />
     </Form>

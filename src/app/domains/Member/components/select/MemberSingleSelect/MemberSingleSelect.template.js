@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { MenuItem, TextField } from '@material-ui/core'
 import PropTypes from 'prop-types'
-import { db } from 'app/constants'
+import { STORE } from 'app/constants'
 
 const MemberSingleSelect = (props) => {
   const { onChange } = props
@@ -9,13 +9,12 @@ const MemberSingleSelect = (props) => {
   const [members, setMembers] = useState([])
 
   useEffect(() => {
-    let tmpdata = []
-    db.collection('users')
+    STORE.collection('users')
       .get()
-      .then((snapshot) => snapshot.forEach((doc) => tmpdata.push(doc.data())))
-      .then(() => {
-        setMembers(tmpdata)
-        setCurrentUser(tmpdata[0].email)
+      .then((snapshot) => snapshot.docs.map((doc) => doc.data()))
+      .then((useData) => {
+        setMembers(useData)
+        setCurrentUser(useData[0].email)
       })
   }, [])
 
