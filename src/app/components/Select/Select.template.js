@@ -1,14 +1,9 @@
 import { TextField } from '@material-ui/core'
 import { useState } from 'react'
 import PropTypes from 'prop-types'
-import { makeStyles } from '@material-ui/core/styles'
-import styleSelect from './Select.style'
 
-const useStyles = makeStyles(styleSelect)
 const Select = (props) => {
-  const classes = useStyles()
-  const { value, onChange, data, children, ...rest } = props
-
+  const { value, onChange, data, children, className, ...rest } = props
   const [currentValue, setCurrentValue] = useState(value)
 
   const handleSelect = (event) => {
@@ -19,7 +14,7 @@ const Select = (props) => {
   return (
     <TextField
       select
-      className={classes.root}
+      className={className}
       onChange={handleSelect}
       value={currentValue}
       {...rest}>
