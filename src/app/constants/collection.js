@@ -1,11 +1,11 @@
-const collection = {
+const COLLECTIONS = {
   USERS: 'users',
-  WISH: 'wish',
+  WISHES: 'wishes',
   CART: 'cart',
   PRODUCTS: 'products',
-  PURCHASE: 'purchase',
+  PURCHASES: 'purchases',
   LOGS: 'logs',
-  NOTIFICATION: 'notification'
+  NOTIFICATIONS: 'notifications'
 }
 
-export { collection }
+export default COLLECTIONS

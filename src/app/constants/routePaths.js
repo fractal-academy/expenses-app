@@ -1,10 +1,10 @@
 const ROUTES_PATHS = {
   LOGIN: '/login',
-  MEMBER_SHOW: '/member/:id',
-  MEMBER_EDIT: '/member/:id/edit',
+  MEMBER_SHOW: '/members/:id',
+  MEMBER_EDIT: '/members/:id/edit',
   MEMBERS_ALL: '/members',
-  PRODUCT_SHOW: '/product/:id',
-  PRODUCT_EDIT: '/product/:id/edit',
+  PRODUCT_SHOW: '/products/:id',
+  PRODUCT_EDIT: '/products/:id/edit',
   PRODUCTS_ALL: '/products',
   REGULAR_PRODUCTS_ALL: '/regularProducts',
   PURCHASE_ALL: '/purchases',
@@ -12,9 +12,9 @@ const ROUTES_PATHS = {
   CATEGORIES_ALL: '/categories',
   LOGS_ALL: '/logs',
   WISHES_ALL: '/wishes',
-  CART_ALL: '/carts',
+  CART_ALL: '/cart',
   STATISTICS_ALL: '/statistics',
   SETTINGS: '/settings'
 }
 
-export { ROUTES_PATHS }
+export default ROUTES_PATHS
