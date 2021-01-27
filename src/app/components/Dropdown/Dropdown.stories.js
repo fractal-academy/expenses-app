@@ -2,9 +2,10 @@ import Dropdown from './Dropdown.template'
 import IconButton from '@material-ui/core/IconButton'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import React from 'react'
-import MenuItem from '@material-ui/core/MenuItem'
 import { Container, Row, Col } from '@qonsoll/react-design'
 import { Typography } from '@material-ui/core'
+import DropdownItem from './DropdownItem/DropdownItem.template'
+import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 
 const metadata = {
   title: 'components/Dropdown',
@@ -15,29 +16,30 @@ export default metadata
 
 const DropdownList = (
   <Container>
-    <MenuItem>
+    <DropdownItem danger divider>
       <AccountCircle />
       <Typography>Profile</Typography>
-    </MenuItem>
-    <MenuItem>
+    </DropdownItem>
+    <DropdownItem divider>
       <AccountCircle />
       <Typography>Profile</Typography>
-    </MenuItem>
-    <MenuItem>
+    </DropdownItem>
+    <DropdownItem success="true" divider>
       <AccountCircle />
       <Typography>Profile</Typography>
-    </MenuItem>
-    <MenuItem>
+    </DropdownItem>
+    <DropdownItem divider>
       <AccountCircle />
       <Typography>Profile</Typography>
-    </MenuItem>
-    <MenuItem>
+    </DropdownItem>
+    <DropdownItem divider>
       <AccountCircle />
       <Typography>Profile</Typography>
-    </MenuItem>
-    <MenuItem>
+    </DropdownItem>
+    <DropdownItem danger="true">
+      <ExitToAppIcon />
       <Typography>Log out</Typography>
-    </MenuItem>
+    </DropdownItem>
   </Container>
 )
 

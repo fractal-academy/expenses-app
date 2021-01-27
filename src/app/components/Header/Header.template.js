@@ -11,19 +11,20 @@ import MenuItem from '@material-ui/core/MenuItem'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import { Box } from '@material-ui/core'
 import styles from './Header.style'
+import DropdownItem from '../Dropdown/DropdownItem/DropdownItem.template'
 
 const useStyles = makeStyles(styles)
 
 const DropdownList = (
   <div>
-    <MenuItem>
+    <DropdownItem divider>
       <AccountCircle />
       Profile
-    </MenuItem>
-    <MenuItem>
+    </DropdownItem>
+    <DropdownItem divider danger>
       <ExitToAppIcon />
       Log out
-    </MenuItem>
+    </DropdownItem>
   </div>
 )
 
