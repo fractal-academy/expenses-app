@@ -17,6 +17,7 @@ import { Alert } from '@material-ui/lab'
 import AddIcon from '@material-ui/icons/Add'
 import { RoleSingleSelect } from 'app/domains/Role/components/select'
 import { STORE } from 'app/constants'
+import { Modal } from 'app/components/Lib/Modal'
 import md5 from 'md5'
 
 const MemberCombined = (props) => {

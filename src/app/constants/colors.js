@@ -1,4 +1,4 @@
-const COLORS = {
+const COLOR = {
   GREEN: {
     name: 'Green',
     color: 'rgba(0, 245, 127, 0.25)'
@@ -21,8 +21,8 @@ const COLORS = {
   }
 }
 
-const COLORS_VALUE = Object.values(COLORS)
-const COLORS_KEYS = Object.keys(COLORS)
+const COLOR_VALUE = Object.values(COLOR)
+const COLOR_KEYS = Object.keys(COLOR)
 
-export default COLORS
-export { COLORS_VALUE, COLORS_KEYS }
+export default COLOR
+export { COLOR, COLOR_VALUE, COLOR_KEYS }
