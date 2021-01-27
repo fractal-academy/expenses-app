@@ -4,6 +4,22 @@ const metadata = {
   title: 'components/Lib/Modal',
   component: Modal,
   argTypes: {
+    open: {
+      description:
+        'Contain boolean state of Modal window if open - true, else - false, default: false'
+    },
+    dialogProps: {
+      description: 'Can get all the Material-UI Dialog props'
+    },
+    title: {
+      description: 'Text for modal title'
+    },
+    typographyProps: {
+      description: 'Can get all the Material-UI Typography props'
+    },
+    children: {
+      description: 'Can contain any node'
+    },
     buttonSubmitProps: {
       description:
         'Must contain onClick or "type: submit" and "form: formId" for Form,' +
@@ -12,19 +28,6 @@ const metadata = {
     buttonCancelProps: {
       description:
         'Must contain onClick, can get all the Material-UI Button props and custom property "text" to set Button text'
-    },
-    typographyProps: {
-      description: 'Can get all the Material-UI Typography props'
-    },
-    open: {
-      description:
-        'Contain boolean state of Modal window if open - true, else - false, default: false'
-    },
-    children: {
-      description: 'Can contain any node'
-    },
-    title: {
-      description: 'Text for modal title'
     }
   }
 }

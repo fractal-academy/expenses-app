@@ -11,15 +11,16 @@ import PropTypes from 'prop-types'
 const Modal = (props) => {
   const {
     open,
+    dialogProps,
     title,
-    children,
     typographyProps,
+    children,
     buttonSubmitProps,
     buttonCancelProps
   } = props
 
   return (
-    <Dialog open={open}>
+    <Dialog open={open} {...dialogProps}>
       <DialogTitle>
         <Typography {...typographyProps}>{title}</Typography>
       </DialogTitle>
@@ -37,6 +38,7 @@ const Modal = (props) => {
 }
 Modal.propTypes = {
   open: PropTypes.bool.isRequired,
+  dialogProps: PropTypes.object,
   title: PropTypes.string,
   typographyProps: PropTypes.object,
   children: PropTypes.elementType,
