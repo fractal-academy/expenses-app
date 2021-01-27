@@ -4,15 +4,11 @@ import { useState } from 'react'
 import PropTypes from 'prop-types'
 
 const NotificationSimpleView = (props) => {
-  const { notificationsNumber } = props
-
-  const [notificationQuantity, setNotificationQuantity] = useState(
-    notificationsNumber
-  )
+  const { notificationsNumber, buttonSize } = props
 
   return (
-    <IconButton size="large">
-      <Badge badgeContent={notificationQuantity} max={99} color="secondary">
+    <IconButton size={buttonSize}>
+      <Badge badgeContent={notificationsNumber} max={99} color="secondary">
         <NotificationsNoneRoundedIcon />
       </Badge>
     </IconButton>
@@ -20,8 +16,8 @@ const NotificationSimpleView = (props) => {
 }
 
 NotificationSimpleView.propTypes = {
-  notificationsNumber: PropTypes.number.isRequired
+  notificationsNumber: PropTypes.number.isRequired,
+  buttonSize: PropTypes.string.isRequired
 }
-NotificationSimpleView.defaultProps = {}
 
 export default NotificationSimpleView

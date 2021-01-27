@@ -1,36 +1,27 @@
 import { NotificationAdvancedView } from '../../views/NotificationAdvancedView'
-import { useState } from 'react'
-import { List } from '@material-ui/core'
 import PropTypes from 'prop-types'
+import { ListWithDataFromCollection } from '../../../../../components/ListHOC'
 
-const NotificationList = (props) => {
-  const { notificationData } = props
-
-  const [notifications, setNotifications] = useState(notificationData)
-
+const NotificationList = ({ collectionName }) => {
   return (
-    <List>
-      {notifications.map((item) => (
+    <ListWithDataFromCollection collectionName={collectionName}>
+      {(item) => (
         <NotificationAdvancedView
           key={item.id}
           notificationAvatar={item.avatar}
           notificationText={item.notificationText}
           notificationTime={item.notificationTime}
+          verticalAlignment="center"
+          horizontalAlignment="around"
+          textMaxWidth="210px"
         />
-      ))}
-    </List>
+      )}
+    </ListWithDataFromCollection>
   )
 }
 
 NotificationList.propTypes = {
-  notificationData: PropTypes.arrayOf(
-    PropTypes.shape({
-      notificationAvatar: PropTypes.string.isRequired,
-      notificationText: PropTypes.string.isRequired,
-      notificationTime: PropTypes.number.isRequired
-    }).isRequired
-  )
+  collectionName: PropTypes.string.isRequired
 }
-NotificationList.defaultProps = {}
 
 export default NotificationList

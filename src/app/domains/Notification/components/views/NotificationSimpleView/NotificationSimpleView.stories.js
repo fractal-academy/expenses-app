@@ -10,4 +10,7 @@ const Template = (args) => <NotificationSimpleView {...args} />
 
 export const NotificationSimpleViewStory = Template.bind({})
 
-NotificationSimpleViewStory.args = { notificationsNumber: 10 }
+NotificationSimpleViewStory.args = {
+  notificationsNumber: 10,
+  buttonSize: 'large'
+}

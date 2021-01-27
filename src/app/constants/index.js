@@ -1,17 +1,21 @@
-import { firebaseConfig } from './firebaseConfig.js'
-import * as currency from './currency.js'
-import { route } from './route.js'
-import { color } from './color.js'
-import ROLE, { ROLE_KEYS, ROLE_VALUES } from './role.js'
-import { priority } from './priority.js'
+import {
+  FIREBASE_CONFIG,
+  FIRESTORE,
+  EXPENSES_PROJECT
+} from './firebaseConfig.js'
+import * as CURRENCIES from './currency.js'
+import { ROUTES } from './route.js'
+import { COLORS } from './color.js'
+import { ROLE } from './role.js'
+import { PRIORITIES } from './priority.js'
 
 export {
-  firebaseConfig,
-  currency,
-  route,
-  color,
+  FIREBASE_CONFIG,
+  FIRESTORE,
+  EXPENSES_PROJECT,
+  CURRENCIES,
+  ROUTES,
+  COLORS,
   ROLE,
-  ROLE_KEYS,
-  ROLE_VALUES,
-  priority
+  PRIORITIES
 }

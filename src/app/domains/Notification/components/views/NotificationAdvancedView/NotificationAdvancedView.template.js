@@ -1,26 +1,34 @@
 import { Avatar, Typography, Divider } from '@material-ui/core'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
-import { Row, Col, Container } from '@qonsoll/react-design'
+import { Row, Col, Container, Box } from '@qonsoll/react-design'
 import PropTypes from 'prop-types'
+import moment from 'moment'
 
 const NotificationAdvancedView = (props) => {
-  const { notificationAvatar, notificationText, notificationTime } = props
+  const {
+    notificationAvatar,
+    notificationText,
+    notificationTime,
+    verticalAlignment,
+    horizontalAlignment,
+    textMaxWidth
+  } = props
 
   return (
     <Container>
-      <Row p="2" v="center">
-        <Col cw={[2]}>
-          {notificationAvatar ? (
-            <Avatar alt="User" src={notificationAvatar} />
-          ) : (
+      <Row v={verticalAlignment} h={horizontalAlignment}>
+        <Col cw="2">
+          <Avatar alt="user" src={notificationAvatar}>
             <AccountCircleIcon />
-          )}
+          </Avatar>
         </Col>
-        <Col cw={[8]}>
+        <Col cw="8" maxWidth={textMaxWidth}>
           <Typography>{notificationText}</Typography>
         </Col>
-        <Col cw={2}>
-          <Typography>{notificationTime / 3600}h</Typography>
+        <Col cw="2">
+          <Typography>
+            {moment(notificationTime).format('Qo MMM, hA')}
+          </Typography>
         </Col>
       </Row>
       <Divider />
@@ -29,10 +37,12 @@ const NotificationAdvancedView = (props) => {
 }
 
 NotificationAdvancedView.propTypes = {
-  notificationAvatar: PropTypes.string.isRequired,
+  notificationAvatar: PropTypes.string,
   notificationText: PropTypes.string.isRequired,
-  notificationTime: PropTypes.number.isRequired
+  notificationTime: PropTypes.number.isRequired,
+  verticalAlignment: PropTypes.string,
+  horizontalAlignment: PropTypes.string,
+  textMaxWidth: PropTypes.string
 }
-NotificationAdvancedView.defaultProps = {}
 
 export default NotificationAdvancedView
