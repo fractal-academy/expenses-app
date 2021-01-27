@@ -18,7 +18,7 @@ const DropdownList = (
   <Container>
     <DropdownItem danger="true" divider>
       <AccountCircle />
-      <Typography>Profile22222</Typography>
+      <Typography>Profile</Typography>
     </DropdownItem>
     <DropdownItem divider>
       <AccountCircle />
@@ -36,7 +36,7 @@ const DropdownList = (
       <AccountCircle />
       <Typography>Profile</Typography>
     </DropdownItem>
-    <DropdownItem danger>
+    <DropdownItem danger="true">
       <ExitToAppIcon />
       <Typography>Log out</Typography>
     </DropdownItem>
