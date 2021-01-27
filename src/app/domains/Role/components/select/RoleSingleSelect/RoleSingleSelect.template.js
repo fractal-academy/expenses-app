@@ -1,29 +1,22 @@
-import { TextField, MenuItem } from '@material-ui/core'
-import { useState } from 'react'
-import { ROLE_VALUES } from 'app/constants'
+import { MenuItem } from '@material-ui/core'
+import { ROLES } from 'app/constants'
 import PropTypes from 'prop-types'
+import { useStyles } from './RoleSingleSelect.styles'
+import { Select } from 'app/components'
 
 const RoleSingleSelect = (props) => {
-  const { value, onChange } = props
-
-  const [currentRole, setCurrentRole] = useState(value)
-
+  const classes = useStyles()
   return (
-    <TextField
-      select
-      onChange={(e) => onChange(e, setCurrentRole)}
-      value={currentRole}>
-      {ROLE_VALUES.map((item) => (
-        <MenuItem value={item}>{item}</MenuItem>
-      ))}
-    </TextField>
+    <Select data={ROLES} value={ROLES[0]} className={classes.root}>
+      {(item) => (
+        <MenuItem value={item} key={item}>
+          {item}
+        </MenuItem>
+      )}
+    </Select>
   )
 }
 
-RoleSingleSelect.propTypes = {
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired
-}
-RoleSingleSelect.defaultProps = {}
+RoleSingleSelect.propTypes = {}
 
 export default RoleSingleSelect

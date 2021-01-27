@@ -10,7 +10,4 @@ const Template = (args) => <RoleSingleSelect {...args} />
 
 export const RoleSingleSelectStory = Template.bind({})
 
-RoleSingleSelectStory.args = {
-  value: 'admin',
-  onChange: (e, setter) => setter(e.target.value)
-}
+RoleSingleSelectStory.args = {}
