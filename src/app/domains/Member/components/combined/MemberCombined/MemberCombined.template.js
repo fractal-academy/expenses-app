@@ -17,13 +17,14 @@ import { Alert } from '@material-ui/lab'
 import AddIcon from '@material-ui/icons/Add'
 import { RoleSingleSelect } from 'app/domains/Role/components/select'
 import { STORE } from 'app/constants'
+import { Modal } from 'app/components/Lib/Modal'
 import md5 from 'md5'
 
 const MemberCombined = (props) => {
   const [open, setOpen] = React.useState(false)
   const [openSnackbarSuccess, setOpenSnackbarSuccess] = React.useState(false)
   const [openSnackbarError, setOpenSnackbarError] = React.useState(false)
-  const { register, handleSubmit, control, errors } = useForm()
+  const { register, handleSubmit, errors, control } = useForm()
 
   const onSubmit = (data) => {
     STORE.collection('users')
