@@ -11,6 +11,7 @@ import { makeStyles } from '@material-ui/core/styles'
 const useStyles = makeStyles(styles)
 
 const CustomAvatarUploader = (props) => {
+  const classes = useStyles()
   // can choose and upload photo to form
   // after will see a selected photo
   const { onChange, value } = props
@@ -36,7 +37,6 @@ const CustomAvatarUploader = (props) => {
     })
   }
 
-  const classes = useStyles()
   return (
     <Container>
       <Row h="center" mb={2}>

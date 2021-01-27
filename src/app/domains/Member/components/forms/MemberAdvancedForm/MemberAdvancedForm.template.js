@@ -2,7 +2,6 @@ import { useState } from 'react'
 import {
   TextField,
   Button,
-  InputLabel,
   FormControl,
   FormHelperText
 } from '@material-ui/core'
@@ -94,7 +93,6 @@ const MemberAdvancedForm = (props) => {
         <Row h="center">
           <Col cw={'auto'}>
             <FormControl>
-              <InputLabel id="demo-simple-select-label">Role</InputLabel>
               <Controller
                 rules={{ required: 'Enter a role' }}
                 control={control}

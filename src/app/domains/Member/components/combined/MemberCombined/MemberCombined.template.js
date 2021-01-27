@@ -24,7 +24,7 @@ const MemberCombined = (props) => {
   const [open, setOpen] = React.useState(false)
   const [openSnackbarSuccess, setOpenSnackbarSuccess] = React.useState(false)
   const [openSnackbarError, setOpenSnackbarError] = React.useState(false)
-  const { register, handleSubmit, control, errors } = useForm()
+  const { register, handleSubmit, errors, control } = useForm()
 
   const onSubmit = (data) => {
     STORE.collection('users')

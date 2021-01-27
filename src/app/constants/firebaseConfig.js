@@ -12,6 +12,7 @@ const FIREBASE_CONFIG = {
   messagingSenderId: process.env.REACT_APP_AUTH_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_AUTH_APP_ID
 }
+
 const EXPENSES_PROJECT = firebase.initializeApp(FIREBASE_CONFIG)
 const STORAGE = firebase.storage()
 const STORE = firebase.firestore()
