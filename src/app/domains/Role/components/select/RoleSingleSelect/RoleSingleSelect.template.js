@@ -1,4 +1,4 @@
-import { MenuItem, Select } from '@material-ui/core'
+import { MenuItem, TextField } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useState } from 'react'
 import { ROLE_VALUES } from 'app/constants'
@@ -7,12 +7,20 @@ import PropTypes from 'prop-types'
 const useStyles = makeStyles({
   roleSingleSelect: {
     minWidth: 100,
-    textAlign: 'center'
+    textTransform: 'capitalize'
   }
 })
 
 const RoleSingleSelect = (props) => {
-  const { onChange, value } = props
+  const {
+    menuItemProps,
+    onChange,
+    value,
+    errorText,
+    label,
+    inputProps,
+    ...rest
+  } = props
 
   const [currentRole, setCurrentRole] = useState(value)
 
@@ -25,16 +33,25 @@ const RoleSingleSelect = (props) => {
   }
 
   return (
-    <Select
+    <TextField
+      select
       className={classes.roleSingleSelect}
+      label={label}
       value={currentRole}
-      onChange={handleSelect}>
+      onChange={handleSelect}
+      helperText={errorText}
+      {...inputProps}
+      {...rest}>
       {ROLE_VALUES.map((item) => (
-        <MenuItem key={item} value={item}>
+        <MenuItem
+          {...menuItemProps}
+          value={item}
+          key={item}
+          className={classes.roleSingleSelect}>
           {item}
         </MenuItem>
       ))}
-    </Select>
+    </TextField>
   )
 }
 
