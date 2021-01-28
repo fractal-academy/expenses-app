@@ -1,6 +1,5 @@
 import DropdownItem from './DropdownItem.template'
 import { Col, Container, Row } from '@qonsoll/react-design'
-import React from 'react'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import Typography from '@material-ui/core/Typography'
 

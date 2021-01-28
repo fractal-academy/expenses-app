@@ -1,5 +1,5 @@
-import { Header } from 'components'
-import { Navbar } from 'components'
+import PropTypes from 'prop-types'
+import { Header, Navbar } from 'components'
 
 const Layout = (props) => {
   const { children } = props
@@ -12,7 +12,7 @@ const Layout = (props) => {
     </>
   )
 }
-Layout.propTypes = {}
-Layout.defaultProps = {}
-
+Layout.propTypes = {
+  children: PropTypes.elementType
+}
 export default Layout

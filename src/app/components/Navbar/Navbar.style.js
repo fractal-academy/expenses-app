@@ -6,5 +6,3 @@ export const useStyles = makeStyles({
     bottom: 0
   }
 })
-
-export default useStyles

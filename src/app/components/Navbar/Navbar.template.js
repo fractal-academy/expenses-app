@@ -1,4 +1,3 @@
-import React from 'react'
 import BottomNavigation from '@material-ui/core/BottomNavigation'
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
@@ -6,12 +5,11 @@ import BarChartIcon from '@material-ui/icons/BarChart'
 import SettingsIcon from '@material-ui/icons/Settings'
 import { AppBar } from '@material-ui/core'
 import { useStyles } from './Navbar.style'
-
-// const classes = makeStyles(styles)
+import { useState } from 'react'
 
 const Navbar = (props) => {
   const classes = useStyles()
-  const [value, setValue] = React.useState(0)
+  const [value, setValue] = useState(0)
 
   return (
     <AppBar className={classes.root}>
@@ -28,8 +26,4 @@ const Navbar = (props) => {
     </AppBar>
   )
 }
-
-Navbar.propTypes = {}
-Navbar.defaultProps = {}
-
 export default Navbar

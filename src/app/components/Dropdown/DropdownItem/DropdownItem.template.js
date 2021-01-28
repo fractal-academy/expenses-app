@@ -23,7 +23,4 @@ const DropdownItem = styled(MenuItem)((props) => {
   }
 })
 
-DropdownItem.propTypes = {}
-DropdownItem.defaultProps = {}
-
 export default DropdownItem

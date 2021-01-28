@@ -1,7 +1,6 @@
 import Dropdown from './Dropdown.template'
 import IconButton from '@material-ui/core/IconButton'
 import AccountCircle from '@material-ui/icons/AccountCircle'
-import React from 'react'
 import { Container, Row, Col } from '@qonsoll/react-design'
 import { Typography } from '@material-ui/core'
 import DropdownItem from './DropdownItem/DropdownItem.template'
@@ -43,7 +42,7 @@ const DropdownList = (
   </Container>
 )
 
-const Template = (args) => (
+const Template = () => (
   <Container>
     <Row h="center" v="center">
       <Col cw="auto">
