@@ -1,6 +1,6 @@
 import { NotificationAdvancedView } from '../../views/NotificationAdvancedView'
 import PropTypes from 'prop-types'
-import { ListHOC } from 'app/components'
+import { ListHOC } from 'app/components/HOCs'
 
 const NotificationList = ({ collectionName }) => {
   return (

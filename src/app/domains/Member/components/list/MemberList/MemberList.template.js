@@ -41,7 +41,8 @@ const MemberList = () => {
                       withName
                       role={user.role}
                       name={user.name}
-                      avatarUrl="https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/girl_avatar_child_kid-512.png"></MemberAdvancedView>
+                      avatarUrl="https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/girl_avatar_child_kid-512.png"
+                    />
                   </ListItem>
                   <Divider />
                 </>
