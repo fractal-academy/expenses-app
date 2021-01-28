@@ -1,14 +1,9 @@
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import IconButton from '@material-ui/core/IconButton'
-import AccountCircle from '@material-ui/icons/AccountCircle'
-import NotificationsIcon from '@material-ui/icons/Notifications'
-import ExitToAppIcon from '@material-ui/icons/ExitToApp'
-import Badge from '@material-ui/core/Badge'
+import { Badge, Toolbar, AppBar, IconButton } from '@material-ui/core'
+import { AccountCircle, Notifications, ExitToApp } from '@material-ui/icons'
 import Dropdown from '../Dropdown/Dropdown.template'
 import { Box } from '@qonsoll/react-design'
 import { useStyles } from './Header.style'
-import DropdownItem from '../Dropdown/DropdownItem/DropdownItem.template'
+import { DropdownItem } from '../Dropdown/DropdownItem'
 
 const DropdownList = (
   <div>
@@ -17,7 +12,7 @@ const DropdownList = (
       Profile
     </DropdownItem>
     <DropdownItem divider danger>
-      <ExitToAppIcon />
+      <ExitToApp />
       Log out
     </DropdownItem>
   </div>
@@ -31,7 +26,7 @@ const Header = () => {
       <Toolbar className={classes.toolBar}>
         <IconButton>
           <Badge badgeContent={11} color="secondary">
-            <NotificationsIcon />
+            <Notifications />
           </Badge>
         </IconButton>
         <Box>

@@ -1,1 +1,1 @@
-export { default as Layout } from './DropdownItem.template.js'
+export { default as DropdownItem } from './DropdownItem.template.js'
