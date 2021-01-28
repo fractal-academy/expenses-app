@@ -1,16 +1,25 @@
-import { Box } from '@material-ui/core'
-import { Navbar } from 'components'
-import { MemberShow } from 'domains/Member/routes'
-import { LogAll } from 'app/domains/Log/routes'
-import { MemberCombined } from 'app/domains/Member/components/combined'
-import 'bootstrap/dist/css/bootstrap-grid.min.css'
-import './styles/bootstrap-grid-override.css'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from 'react-router-dom'
+import { ROUTES_VALUE } from './constants'
+import { ThemeProvider } from '@qonsoll/react-design'
+import Theme from 'app/config/theme'
 
 const App = () => {
   return (
-    <Box className={'container'}>
-      <MemberCombined />
-    </Box>
+    <ThemeProvider theme={Theme}>
+      <Router>
+        <Switch>
+          {ROUTES_VALUE.map((route) => (
+            <Route key={route.path} {...route} />
+          ))}
+          <Redirect to="/login" />
+        </Switch>
+      </Router>
+    </ThemeProvider>
   )
 }
 
