@@ -1,5 +1,5 @@
 import PrioritySimpleView from './PrioritySimpleView.template'
-import { PRIORITY } from 'app/constants'
+import { PRIORITIES } from 'app/constants'
 const metadata = {
   title: 'domains/Priority/components/views/PrioritySimpleView',
   component: PrioritySimpleView,
@@ -7,7 +7,7 @@ const metadata = {
     priority: {
       control: {
         type: 'select',
-        options: PRIORITY
+        options: PRIORITIES
       }
     }
   }
@@ -19,5 +19,5 @@ const Template = (args) => <PrioritySimpleView {...args} />
 export const PrioritySimpleViewStory = Template.bind({})
 
 PrioritySimpleViewStory.args = {
-  priority: PRIORITY[0]
+  priority: PRIORITIES[0]
 }

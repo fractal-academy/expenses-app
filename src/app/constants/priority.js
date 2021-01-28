@@ -1,2 +1,2 @@
-const PRIORITY = ['Top', 'Height', 'Medium', 'Low']
-export { PRIORITY }
+const PRIORITIES = ['Top', 'Height', 'Medium', 'Low']
+export default PRIORITIES

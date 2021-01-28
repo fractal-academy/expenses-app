@@ -11,6 +11,7 @@ const Select = (props) => {
     setCurrentValue(selectValue)
     onChange && onChange(event, data[selectValue])
   }
+  //in children use your own template
   return (
     <TextField
       select
@@ -26,7 +27,9 @@ const Select = (props) => {
 Select.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func,
-  data: PropTypes.array
+  data: PropTypes.array,
+  children: PropTypes.func,
+  className: PropTypes.object
 }
 Select.defaultProps = {
   data: ['Item', 'Item', 'Item', 'Item', 'Item']
