@@ -1,7 +1,12 @@
-import firebase from 'firebase/app'
-import 'firebase/auth'
-import 'firebase/database'
-import 'firebase/firestore'
+/*
+development URL
+  https://expenses-app-development-9ba1c.web.app/
+
+
+production URL
+  https://expenses-app-production.web.app/
+
+ */
 
 const FIREBASE_CONFIG = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -14,4 +19,3 @@ const FIREBASE_CONFIG = {
 const EXPENSES_PROJECT = firebase.initializeApp(FIREBASE_CONFIG)
 const FIRESTORE = firebase.firestore()
 export { FIREBASE_CONFIG, EXPENSES_PROJECT, FIRESTORE }
-
