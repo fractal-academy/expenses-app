@@ -8,7 +8,7 @@ production URL
 
  */
 
-const firebaseConfig = {
+const FIREBASE_CONFIG = {
   apiKey: process.env.REACT_APP_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
   projectId: process.env.REACT_APP_AUTH_PROJECT_ID,
@@ -17,4 +17,4 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_AUTH_APP_ID,
   measurementId: process.env.REACT_APP_AUTH_MEASUREMENT_ID
 }
-export { firebaseConfig }
+export default FIREBASE_CONFIG
