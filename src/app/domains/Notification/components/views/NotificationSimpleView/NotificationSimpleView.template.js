@@ -1,6 +1,5 @@
 import NotificationsNoneRoundedIcon from '@material-ui/icons/NotificationsNoneRounded'
 import { IconButton, Badge } from '@material-ui/core'
-import { useState } from 'react'
 import PropTypes from 'prop-types'
 
 const NotificationSimpleView = (props) => {

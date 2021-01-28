@@ -12,30 +12,4 @@ export const NotificationListStory = Template.bind({})
 
 NotificationListStory.args = {
   collectionName: 'notifications'
-  // notificationData: [
-  //   {
-  //     id: 12345,
-  //     avatar: 'https://www.paulseward.com/downloads/Avatars/cartoon_avatar.png',
-  //     notificationText: 'Lorem ipsum dolor amet',
-  //     notificationTime: 3600
-  //   },
-  //   {
-  //     id: 123456,
-  //     avatar: 'https://www.paulseward.com/downloads/Avatars/cartoon_avatar.png',
-  //     notificationText: 'Lorem ipsum dolor amet',
-  //     notificationTime: 3600
-  //   },
-  //   {
-  //     id: 1234567,
-  //     avatar: 'https://www.paulseward.com/downloads/Avatars/cartoon_avatar.png',
-  //     notificationText: 'Lorem ipsum dolor amet',
-  //     notificationTime: 3600
-  //   },
-  //   {
-  //     id: 12345678,
-  //     avatar: 'https://www.paulseward.com/downloads/Avatars/cartoon_avatar.png',
-  //     notificationText: 'Lorem ipsum dolor amet',
-  //     notificationTime: 3600
-  //   }
-  // ]
 }

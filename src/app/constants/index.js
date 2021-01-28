@@ -12,6 +12,8 @@ import PRIORITIES from './priority.js'
 import COLLECTIONS from './collection'
 export {
   FIREBASE_CONFIG,
+  FIRESTORE,
+  EXPENSES_PROJECT,
   CURRENCIES,
   ROUTES,
   ROUTES_PATHS,

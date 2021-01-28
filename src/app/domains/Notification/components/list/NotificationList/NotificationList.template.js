@@ -1,10 +1,10 @@
 import { NotificationAdvancedView } from '../../views/NotificationAdvancedView'
 import PropTypes from 'prop-types'
-import { ListWithDataFromCollection } from '../../../../../components/ListHOC'
+import { ListHOC } from 'app/components'
 
 const NotificationList = ({ collectionName }) => {
   return (
-    <ListWithDataFromCollection collectionName={collectionName}>
+    <ListHOC collectionName={collectionName}>
       {(item) => (
         <NotificationAdvancedView
           key={item.id}
@@ -16,7 +16,7 @@ const NotificationList = ({ collectionName }) => {
           textMaxWidth="210px"
         />
       )}
-    </ListWithDataFromCollection>
+    </ListHOC>
   )
 }
 

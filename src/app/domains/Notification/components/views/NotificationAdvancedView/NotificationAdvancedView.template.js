@@ -1,6 +1,6 @@
 import { Avatar, Typography, Divider } from '@material-ui/core'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
-import { Row, Col, Container, Box } from '@qonsoll/react-design'
+import { Row, Col, Container } from '@qonsoll/react-design'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 
@@ -22,10 +22,10 @@ const NotificationAdvancedView = (props) => {
             <AccountCircleIcon />
           </Avatar>
         </Col>
-        <Col cw="8" maxWidth={textMaxWidth}>
+        <Col cw="9" maxWidth={textMaxWidth}>
           <Typography>{notificationText}</Typography>
         </Col>
-        <Col cw="2">
+        <Col>
           <Typography>
             {moment(notificationTime).format('Qo MMM, hA')}
           </Typography>

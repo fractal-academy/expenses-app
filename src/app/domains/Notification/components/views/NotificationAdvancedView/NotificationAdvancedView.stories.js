@@ -15,5 +15,5 @@ NotificationAdvancedViewStory.args = {
   notificationTime: 3600,
   verticalAlignment: 'center',
   horizontalAlignment: 'around',
-  textMaxWidth: '210px'
+  textMaxWidth: '200px'
 }
