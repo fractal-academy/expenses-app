@@ -1,4 +1,4 @@
-import { Row, Col, Box, Container } from '@qonsoll/react-design'
+import { Row, Col, Box } from '@qonsoll/react-design'
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
@@ -33,6 +33,7 @@ const LogAdvancedView = (props) => {
         </Col>
         <Col>
           <Avatar alt="User" src={userAvatar}>
+            {/** Change this block to UserSimpleView when this component will be ready */}
             <AccountCircleIcon />
           </Avatar>
         </Col>

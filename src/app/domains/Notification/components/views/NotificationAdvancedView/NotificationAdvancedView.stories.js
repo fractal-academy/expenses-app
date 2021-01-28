@@ -10,10 +10,4 @@ const Template = (args) => <NotificationAdvancedView {...args} />
 
 export const NotificationAdvancedViewStory = Template.bind({})
 
-NotificationAdvancedViewStory.args = {
-  notificationText: 'Lorem ipsum dolor amet',
-  notificationTime: 3600,
-  verticalAlignment: 'center',
-  horizontalAlignment: 'around',
-  textMaxWidth: '210px'
-}
+NotificationAdvancedViewStory.args = {}
