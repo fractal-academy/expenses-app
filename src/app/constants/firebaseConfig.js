@@ -1,11 +1,8 @@
 /*
 development URL
   https://expenses-app-development-9ba1c.web.app/
-
-
 production URL
   https://expenses-app-production.web.app/
-
  */
 
 const FIREBASE_CONFIG = {
