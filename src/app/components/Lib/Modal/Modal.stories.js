@@ -14,16 +14,15 @@ const metadata = {
     title: {
       description: 'Text for modal title'
     },
-    typographyProps: {
+    titleTypographyProps: {
       description: 'Can get all the Material-UI Typography props'
     },
     children: {
       description: 'Can contain any node'
     },
     buttonSubmitProps: {
-      description:
-        'Must contain onClick or "type: submit" and "form: formId" for Form,' +
-        ' can get all the Material-UI Button props and custom property "text" to set Button text'
+      description: `Must include onClick or type: 'submit' and form: 'formId' for Form,
+        can get all the Material-UI Button props and custom property 'text' to set Button text`
     },
     buttonCancelProps: {
       description:

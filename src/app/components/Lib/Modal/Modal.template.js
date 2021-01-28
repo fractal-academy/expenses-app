@@ -13,7 +13,7 @@ const Modal = (props) => {
     open,
     dialogProps,
     title,
-    typographyProps,
+    titleTypographyProps,
     children,
     buttonSubmitProps,
     buttonCancelProps
@@ -22,7 +22,7 @@ const Modal = (props) => {
   return (
     <Dialog open={open} {...dialogProps}>
       <DialogTitle>
-        <Typography {...typographyProps}>{title}</Typography>
+        <Typography {...titleTypographyProps}>{title}</Typography>
       </DialogTitle>
       <DialogContent>{children}</DialogContent>
       <DialogActions>
