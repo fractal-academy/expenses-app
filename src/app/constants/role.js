@@ -1,3 +1,3 @@
 const ROLES = ['admin', 'user', 'observer']
 
-export { ROLES }
+export default ROLES
