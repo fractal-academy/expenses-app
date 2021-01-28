@@ -1,63 +1,22 @@
-import { MenuItem, TextField } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import { useState } from 'react'
-import { ROLE_VALUES } from 'app/constants'
+import { MenuItem } from '@material-ui/core'
+import { ROLES } from 'app/constants'
 import PropTypes from 'prop-types'
-
-const useStyles = makeStyles({
-  roleSingleSelect: {
-    minWidth: 100,
-    textTransform: 'capitalize'
-  }
-})
+import { useStyles } from './RoleSingleSelect.styles'
+import { Select } from 'app/components'
 
 const RoleSingleSelect = (props) => {
-  const {
-    menuItemProps,
-    onChange,
-    value,
-    errorText,
-    label,
-    inputProps,
-    ...rest
-  } = props
-
-  const [currentRole, setCurrentRole] = useState(value)
-
   const classes = useStyles()
-
-  const handleSelect = (event) => {
-    const selectedRole = event.target.value
-    setCurrentRole(selectedRole)
-    onChange && onChange(selectedRole, event)
-  }
-
   return (
-    <TextField
-      select
-      className={classes.roleSingleSelect}
-      label={label}
-      value={currentRole}
-      onChange={handleSelect}
-      helperText={errorText}
-      {...inputProps}
-      {...rest}>
-      {ROLE_VALUES.map((item) => (
-        <MenuItem
-          {...menuItemProps}
-          value={item}
-          key={item}
-          className={classes.roleSingleSelect}>
+    <Select data={ROLES} value={ROLES[0]} className={classes.root}>
+      {(item) => (
+        <MenuItem value={item} key={item}>
           {item}
         </MenuItem>
-      ))}
-    </TextField>
+      )}
+    </Select>
   )
 }
 
-RoleSingleSelect.propTypes = {
-  onChange: PropTypes.func,
-  value: PropTypes.string
-}
+RoleSingleSelect.propTypes = {}
 
 export default RoleSingleSelect
