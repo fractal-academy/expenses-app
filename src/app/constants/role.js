@@ -1,2 +1,2 @@
-const role = {}
-export { role }
+const ROLES = ['admin', 'user', 'observer']
+export default ROLES

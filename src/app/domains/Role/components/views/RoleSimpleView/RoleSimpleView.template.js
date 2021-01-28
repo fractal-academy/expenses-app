@@ -1,8 +1,17 @@
+import { Typography } from '@material-ui/core'
+import { useState } from 'react'
+import PropTypes from 'prop-types'
+
 const RoleSimpleView = (props) => {
-  return <div>RoleSimpleView</div>
+  const { role } = props
+
+  const [currentRole, setCurrentRole] = useState(role)
+
+  return <Typography>{currentRole}</Typography>
 }
 
-RoleSimpleView.propTypes = {}
-RoleSimpleView.defaultProps = {}
+RoleSimpleView.propTypes = {
+  role: PropTypes.string.isRequired
+}
 
 export default RoleSimpleView
