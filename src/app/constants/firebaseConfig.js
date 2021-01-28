@@ -17,4 +17,5 @@ const FIREBASE_CONFIG = {
   appId: process.env.REACT_APP_AUTH_APP_ID,
   measurementId: process.env.REACT_APP_AUTH_MEASUREMENT_ID
 }
+
 export default FIREBASE_CONFIG
