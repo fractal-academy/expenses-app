@@ -1,5 +1,7 @@
 import CommentAdvancedView from './CommentAdvancedView.template'
 import { ThemeProvider } from '@qonsoll/react-design'
+import Theme from 'app/config/theme'
+import 'app/config/root.scss'
 
 const metadata = {
   title: 'domains/Comment/components/views/CommentAdvancedView',
@@ -9,12 +11,7 @@ export default metadata
 
 const Template = (args) => (
   <ThemeProvider theme={Theme}>
-    <CommentAdvancedView
-      {...args}
-      valueForProgressBar={150}
-      colorCategory="orange"
-      nameCategory="Office"
-    />
+    <CommentAdvancedView />
   </ThemeProvider>
 )
 
