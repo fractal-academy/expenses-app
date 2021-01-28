@@ -1,4 +1,4 @@
-import { firebaseConfig } from './firebaseConfig'
+import FIREBASE_CONFIG from './firebaseConfig'
 import ROUTES_PATHS from './routePaths'
 import * as currency from './currency'
 import ROUTES, { ROUTES_VALUE } from './route'
@@ -8,7 +8,7 @@ import PRIORITIES from './priority.js'
 import COLLECTIONS from './collection'
 
 export {
-  firebaseConfig,
+  FIREBASE_CONFIG,
   currency,
   ROUTES,
   ROUTES_PATHS,
