@@ -4,4 +4,5 @@ import { Settings } from './Settings'
 import { Layout } from './Layout'
 import { Modal } from './Lib/Modal'
 import { Select } from './Select'
-export { Header, Navbar, Settings, Layout, Select, Modal }
+import { ListHOC } from './HOCs/ListHOC'
+export { Header, Navbar, Settings, Layout, Select, Modal, ListHOC }
