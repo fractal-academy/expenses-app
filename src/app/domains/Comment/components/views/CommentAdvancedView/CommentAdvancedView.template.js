@@ -80,7 +80,7 @@ const CommentAdvancedView = (props) => {
                   </Row>
                 </Col>
                 {/*when MemberSimpleView will be approved - insert it here instead of 2 collumns*/}
-                <Col cw="auto">Data</Col>
+                <Col cw="auto">1/28/2021 19:28</Col>
               </Row>
               <Row>
                 <Col>
