@@ -5,6 +5,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import { Typography, Avatar } from '@material-ui/core'
 import moment from 'moment'
 import { useState } from 'react'
+import PropTypes from 'prop-types'
 
 const LogAdvancedView = (props) => {
   const {
@@ -33,7 +34,7 @@ const LogAdvancedView = (props) => {
         </Col>
         <Col>
           <Avatar alt="User" src={userAvatar}>
-            {/** Change this block to UserSimpleView when this component will be ready */}
+            {/** Change this block to UserSimpleView when it will be ready */}
             <AccountCircleIcon />
           </Avatar>
         </Col>
@@ -43,7 +44,7 @@ const LogAdvancedView = (props) => {
           <Col>
             <Row h="center">
               <Typography>
-                {moment(actionDateTime).format('H:m, D.M.YYYY')}
+                {moment(actionDateTime).format('H:mm, DD.MM.YYYY')}
               </Typography>
             </Row>
             <Row h="center">
@@ -59,6 +60,12 @@ const LogAdvancedView = (props) => {
   )
 }
 
-LogAdvancedView.propTypes = {}
+LogAdvancedView.propTypes = {
+  action: PropTypes.string.isRequired,
+  userAvatar: PropTypes.string.isRequired,
+  actionDateTime: PropTypes.number.isRequired,
+  userMail: PropTypes.string.isRequired,
+  actionDescription: PropTypes.string.isRequired
+}
 
 export default LogAdvancedView
