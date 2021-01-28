@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 
 const useStyles = makeStyles(styles)
 
-const sizeAvatar = ['sm', 'md', 'lg']
+const SIZE_AVATAR = ['sm', 'md', 'lg']
 
 const CustomAvatar = (props) => {
   const { alt, src, children } = props
@@ -20,7 +20,7 @@ const CustomAvatar = (props) => {
 }
 
 CustomAvatar.propTypes = {
-  size: PropTypes.oneOf(sizeAvatar),
+  size: PropTypes.oneOf(SIZE_AVATAR),
   alt: PropTypes.string,
   src: PropTypes.string
 }

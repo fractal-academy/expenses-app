@@ -1,44 +1,22 @@
-import { useState } from 'react'
 import PropTypes from 'prop-types'
-import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
-
+import { Select } from 'components/Lib'
 import { CURRENCIES } from 'app/constants'
 
-const { CURRENCY, CURRENCY_KEYS } = CURRENCIES
+const { CURRENCY_VALUES } = CURRENCIES
 
 const CurrencySingleSelect = (props) => {
-  const { menuItemProps, onChange, ...rest } = props
-  const [currencySign, setCurrencySign] = useState(CURRENCY.UAH.cc)
-  const handleSelect = (event) => {
-    const selectedCurrency = event.target.value
-    setCurrencySign(selectedCurrency)
-    onChange && onChange(event, CURRENCY[selectedCurrency])
-  }
   return (
-    <Select
-      value={currencySign}
-      defaultValue={currencySign}
-      onChange={handleSelect}
-      {...rest}>
-      {CURRENCY_KEYS.map((item) => (
-        <MenuItem {...menuItemProps} value={CURRENCY[item].cc}>
-          {CURRENCY[item].sign}
+    <Select data={CURRENCY_VALUES} value={CURRENCY_VALUES[0]} {...props}>
+      {(item) => (
+        <MenuItem value={item} key={item.cc} dense>
+          {item.sign}
         </MenuItem>
-      ))}
+      )}
     </Select>
   )
 }
 
-CurrencySingleSelect.propTypes = {
-  menuItemProps: PropTypes.shape({
-    dense: PropTypes.bool
-  })
-}
-CurrencySingleSelect.defaultProps = {
-  menuItemProps: {
-    dense: true
-  }
-}
+CurrencySingleSelect.propTypes = {}
 
 export default CurrencySingleSelect

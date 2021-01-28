@@ -7,9 +7,6 @@ const metadata = {
     onChange: {
       action: 'changedCurrency',
       description: 'You can get currency object what you selected.'
-    },
-    menuItemProps: {
-      description: 'Material UI MenuItem props'
     }
   }
 }
@@ -19,8 +16,4 @@ const Template = (args) => <CurrencySingleSelect {...args} />
 
 export const CurrencySingleSelectStory = Template.bind({})
 
-CurrencySingleSelectStory.args = {
-  menuItemProps: {
-    dense: true
-  }
-}
+CurrencySingleSelectStory.args = {}
