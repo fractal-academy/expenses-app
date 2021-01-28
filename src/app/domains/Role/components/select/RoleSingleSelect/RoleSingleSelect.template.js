@@ -1,8 +1,8 @@
+import PropTypes from 'prop-types'
 import { MenuItem } from '@material-ui/core'
 import { ROLES } from 'app/constants'
-import PropTypes from 'prop-types'
+import { Select } from 'components/Lib'
 import { useStyles } from './RoleSingleSelect.styles'
-import { Select } from 'app/components'
 
 const RoleSingleSelect = (props) => {
   const classes = useStyles()

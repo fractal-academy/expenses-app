@@ -1,6 +1,6 @@
-import { TextField } from '@material-ui/core'
 import { useState } from 'react'
 import PropTypes from 'prop-types'
+import { TextField } from '@material-ui/core'
 
 const Select = (props) => {
   const {
@@ -40,7 +40,7 @@ Select.propTypes = {
   onChange: PropTypes.func,
   data: PropTypes.array,
   children: PropTypes.func,
-  className: PropTypes.object,
+  className: PropTypes.string,
   rest: PropTypes.object
 }
 Select.defaultProps = {

@@ -3,11 +3,11 @@ import IconButton from '@material-ui/core/IconButton'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import { Container, Row, Col } from '@qonsoll/react-design'
 import { Typography } from '@material-ui/core'
-import DropdownItem from './DropdownItem/DropdownItem.template'
+import DropdownItem from '../DropdownItem/DropdownItem.template'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 
 const metadata = {
-  title: 'components/Dropdown',
+  title: 'components/Lib/Dropdown',
   component: Dropdown
 }
 

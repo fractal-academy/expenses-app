@@ -1,9 +1,8 @@
+import { Box } from '@qonsoll/react-design'
 import { Badge, Toolbar, AppBar, IconButton } from '@material-ui/core'
 import { AccountCircle, Notifications, ExitToApp } from '@material-ui/icons'
-import Dropdown from '../Dropdown/Dropdown.template'
-import { Box } from '@qonsoll/react-design'
+import { DropdownItem, Dropdown } from 'components/Lib'
 import { useStyles } from './Header.style'
-import { DropdownItem } from '../Dropdown/DropdownItem'
 
 const DropdownList = (
   <div>

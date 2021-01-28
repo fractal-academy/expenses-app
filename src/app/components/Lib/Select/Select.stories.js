@@ -1,9 +1,9 @@
+import MenuItem from '@material-ui/core/MenuItem'
 import Select from './Select.template'
 import { PRIORITIES } from 'app/constants'
-import MenuItem from '@material-ui/core/MenuItem'
 
 const metadata = {
-  title: 'components/Select',
+  title: 'components/Lib/Select',
   component: Select
 }
 export default metadata

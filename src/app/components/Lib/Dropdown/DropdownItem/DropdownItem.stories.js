@@ -4,7 +4,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import Typography from '@material-ui/core/Typography'
 
 const metadata = {
-  title: 'components/DropdownItem',
+  title: 'components/Lib/DropdownItem',
   component: DropdownItem
 }
 export default metadata

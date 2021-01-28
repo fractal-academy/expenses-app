@@ -1,7 +1,7 @@
 import AvatarUploader from './AvatarUploader.template'
 
 const metadata = {
-  title: 'components/AvatarUploader',
+  title: 'components/Lib/AvatarUploader',
   component: AvatarUploader
 }
 export default metadata
