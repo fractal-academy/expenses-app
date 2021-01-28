@@ -1,2 +1,2 @@
-const color = {}
-export { color }
+const COLORS = {}
+export default COLORS

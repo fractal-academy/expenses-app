@@ -1,20 +1,19 @@
-import FIREBASE_CONFIG from './firebaseConfig'
+import FIREBASE_CONFIG from './firebaseConfig.js'
 import ROUTES_PATHS from './routePaths'
-import * as currency from './currency'
+import * as CURRENCIES from './currency.js'
 import ROUTES, { ROUTES_VALUE } from './route'
-import { color } from './color'
-import * as role from './role'
+import COLORS from './color.js'
+import ROLES from './role.js'
 import PRIORITIES from './priority.js'
 import COLLECTIONS from './collection'
-
 export {
   FIREBASE_CONFIG,
-  currency,
+  CURRENCIES,
   ROUTES,
   ROUTES_PATHS,
   ROUTES_VALUE,
-  color,
-  role,
+  COLORS,
+  ROLES,
   PRIORITIES,
   COLLECTIONS
 }
