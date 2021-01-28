@@ -30,7 +30,6 @@ const Dropdown = (props) => {
         onClose={handleClose}>
         <Box>{React.cloneElement(overlay, { onClick: handleClose })}</Box>
       </Menu>
-      {/*<DropdownItem>weqweqweq</DropdownItem>*/}
     </Box>
   )
 }
