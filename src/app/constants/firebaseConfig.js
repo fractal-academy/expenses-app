@@ -14,8 +14,8 @@ const FIREBASE_CONFIG = {
   projectId: process.env.REACT_APP_AUTH_PROJECT_ID,
   storageBucket: process.env.REACT_APP_AUTH_STORAGE_BUCKET,
   messagingSenderId: process.env.REACT_APP_AUTH_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_AUTH_APP_ID
+  appId: process.env.REACT_APP_AUTH_APP_ID,
+  measurementId: process.env.REACT_APP_AUTH_MEASUREMENT_ID
 }
-const EXPENSES_PROJECT = firebase.initializeApp(FIREBASE_CONFIG)
-const FIRESTORE = firebase.firestore()
-export { FIREBASE_CONFIG, EXPENSES_PROJECT, FIRESTORE }
+
+export default FIREBASE_CONFIG
