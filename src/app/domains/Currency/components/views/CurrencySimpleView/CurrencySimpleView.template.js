@@ -5,7 +5,7 @@ import { currency } from 'app/constants'
 const { CURRENCY, CURRENCY_KEYS } = currency
 
 const CurrencySimpleView = (props) => {
-  const { type, value, textProps } = props
+  const { type, value, ...textProps } = props
 
   const text = type.includes('sign') ? CURRENCY[value].sign : CURRENCY[value].cc
 
