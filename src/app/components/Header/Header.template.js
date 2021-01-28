@@ -1,34 +1,56 @@
 import { Box } from '@qonsoll/react-design'
 import { Badge, Toolbar, AppBar, IconButton } from '@material-ui/core'
-import { AccountCircle, Notifications, ExitToApp } from '@material-ui/icons'
+import {
+  AccountCircle,
+  Notifications,
+  ExitToApp,
+  ArrowBack
+} from '@material-ui/icons'
+import { useHistory } from 'react-router-dom'
 import { DropdownItem, Dropdown } from 'components/Lib'
+import { ROUTES_PATHS } from 'app/constants'
 import { useStyles } from './Header.style'
 
-const DropdownList = (
-  <div>
-    <DropdownItem divider>
-      <AccountCircle />
-      Profile
-    </DropdownItem>
-    <DropdownItem divider danger>
-      <ExitToApp />
-      Log out
-    </DropdownItem>
-  </div>
-)
+const Header = (props) => {
+  const { goBack } = props
+  let history = useHistory()
+  const classes = useStyles(props)
 
-const Header = () => {
-  const classes = useStyles()
+  const DropdownList = (
+    <div>
+      <DropdownItem
+        divider
+        onClick={() => history.push(ROUTES_PATHS.MEMBER_SHOW)}>
+        <AccountCircle />
+        Profile
+      </DropdownItem>
+      <DropdownItem
+        divider
+        danger
+        onClick={() => history.push(ROUTES_PATHS.LOGIN)}>
+        <ExitToApp />
+        Log out
+      </DropdownItem>
+    </div>
+  )
+
+  const redirect = () => history.goBack()
 
   return (
-    <AppBar className={classes.appBar}>
+    <AppBar className={classes.appBar} position="sticky">
       <Toolbar className={classes.toolBar}>
-        <IconButton>
-          <Badge badgeContent={11} color="secondary">
-            <Notifications />
-          </Badge>
-        </IconButton>
-        <Box>
+        {goBack && (
+          <IconButton edge="start" onClick={redirect}>
+            <ArrowBack />
+          </IconButton>
+        )}
+        <Box display="flex">
+          <IconButton
+            onClick={() => history.push(ROUTES_PATHS.NOTIFICATIONS_ALL)}>
+            <Badge badgeContent={11} color="secondary">
+              <Notifications />
+            </Badge>
+          </IconButton>
           <Dropdown overlay={DropdownList}>
             <IconButton
               aria-label="account of current user"

@@ -1,3 +1,4 @@
+import { withLayout } from 'components/HOCs/withLayout'
 //import components to insert into ROUTES field 'component'
 import { SessionLogin } from 'domains/Session/routes'
 import { MemberShow, MemberEdit, MemberAll } from 'domains/Member/routes'
@@ -10,6 +11,7 @@ import { LogAll } from 'domains/Log/routes'
 import { WishAll } from 'domains/Wish/routes'
 import { CartAll } from 'domains/Cart/routes'
 import { StatisticAll } from 'domains/Statistic/routes'
+import { Settings } from 'components'
 
 import ROUTES_PATHS from './routePaths'
 
@@ -19,62 +21,66 @@ const ROUTES = {
     path: ROUTES_PATHS.LOGIN
   },
   MEMBER_SHOW: {
-    component: MemberShow,
+    component: withLayout({ goBack: true })(MemberShow),
     path: ROUTES_PATHS.MEMBER_SHOW,
     exact: true
   },
   MEMBER_EDIT: {
-    component: MemberEdit,
+    component: withLayout()(MemberEdit),
     path: ROUTES_PATHS.MEMBER_EDIT
   },
   MEMBERS_ALL: {
-    component: MemberAll,
+    component: withLayout()(MemberAll),
     path: ROUTES_PATHS.MEMBERS_ALL
   },
   PRODUCT_SHOW: {
-    component: ProductShow,
+    component: withLayout({ goBack: true })(ProductShow),
     path: ROUTES_PATHS.PRODUCT_SHOW,
     exact: true
   },
   PRODUCT_EDIT: {
-    component: ProductEdit,
+    component: withLayout()(ProductEdit),
     path: ROUTES_PATHS.PRODUCT_EDIT
   },
   PRODUCTS_ALL: {
-    component: ProductAll,
+    component: withLayout()(ProductAll),
     path: ROUTES_PATHS.PRODUCTS_ALL
   },
   REGULAR_PRODUCTS_ALL: {
-    component: RegularProductAll,
+    component: withLayout()(RegularProductAll),
     path: ROUTES_PATHS.REGULAR_PRODUCTS_ALL
   },
   PURCHASE_ALL: {
-    component: PurchaseAll,
+    component: withLayout()(PurchaseAll),
     path: ROUTES_PATHS.PURCHASE_ALL
   },
   NOTIFICATIONS_ALL: {
-    component: NotificationAll,
+    component: withLayout()(NotificationAll),
     path: ROUTES_PATHS.NOTIFICATIONS_ALL
   },
   CATEGORIES_ALL: {
-    component: CategoryAll,
+    component: withLayout({ goBack: true })(CategoryAll),
     path: ROUTES_PATHS.CATEGORIES_ALL
   },
   LOGS_ALL: {
-    component: LogAll,
+    component: withLayout({ goBack: true })(LogAll),
     path: ROUTES_PATHS.LOGS_ALL
   },
   WISHES_ALL: {
-    component: WishAll,
+    component: withLayout(WishAll),
     path: ROUTES_PATHS.WISHES_ALL
   },
   CARTS_ALL: {
-    component: CartAll,
+    component: withLayout()(CartAll),
     path: ROUTES_PATHS.CART_ALL
   },
   STATISTICS_ALL: {
-    component: StatisticAll,
+    component: withLayout()(StatisticAll),
     path: ROUTES_PATHS.STATISTICS_ALL
+  },
+  SETTINGS: {
+    component: withLayout()(Settings),
+    path: ROUTES_PATHS.SETTINGS
   }
 }
 

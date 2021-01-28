@@ -1,27 +1,43 @@
-import BottomNavigation from '@material-ui/core/BottomNavigation'
-import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
-import BarChartIcon from '@material-ui/icons/BarChart'
-import SettingsIcon from '@material-ui/icons/Settings'
-import { AppBar } from '@material-ui/core'
+import { useState, useEffect } from 'react'
+import {
+  BottomNavigation,
+  BottomNavigationAction,
+  AppBar
+} from '@material-ui/core'
+import { ShoppingCart, BarChart, Settings } from '@material-ui/icons'
+import { ROUTES_PATHS } from 'app/constants'
 import { useStyles } from './Navbar.style'
-import { useState } from 'react'
+import { useHistory } from 'react-router-dom'
+
+const MENU_ITEMS = [
+  { path: ROUTES_PATHS.CART_ALL, icon: <ShoppingCart />, label: 'Cart' },
+  { path: ROUTES_PATHS.STATISTICS_ALL, icon: <BarChart />, label: 'Statistic' },
+  { path: ROUTES_PATHS.SETTINGS, icon: <Settings />, label: 'Settings' }
+]
 
 const Navbar = (props) => {
   const classes = useStyles()
-  const [value, setValue] = useState(0)
+  const [value, setValue] = useState()
+  let history = useHistory()
+
+  useEffect(() => {
+    setValue(
+      MENU_ITEMS.findIndex((item) => item.path === history.location.pathname)
+    )
+  }, [history])
+
+  const onMenuChange = (event, newPage) => setValue(newPage)
 
   return (
-    <AppBar className={classes.root}>
-      <BottomNavigation
-        value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue)
-        }}
-        showLabels>
-        <BottomNavigationAction label="Cart" icon={<ShoppingCartIcon />} />
-        <BottomNavigationAction label="Statistic" icon={<BarChartIcon />} />
-        <BottomNavigationAction label="Settings" icon={<SettingsIcon />} />
+    <AppBar className={classes.root} component="nav">
+      <BottomNavigation value={value} onChange={onMenuChange} showLabels>
+        {MENU_ITEMS.map((menuItem) => (
+          <BottomNavigationAction
+            label={menuItem.label}
+            icon={menuItem.icon}
+            onClick={() => history.push(menuItem.path)}
+          />
+        ))}
       </BottomNavigation>
     </AppBar>
   )
