@@ -18,5 +18,4 @@ const FIREBASE_CONFIG = {
   measurementId: process.env.REACT_APP_AUTH_MEASUREMENT_ID
 }
 
-export { FIREBASE_CONFIG }
-
+export default FIREBASE_CONFIG

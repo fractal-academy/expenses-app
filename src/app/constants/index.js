@@ -1,4 +1,4 @@
-import { FIREBASE_CONFIG } from './firebaseConfig.js'
+import FIREBASE_CONFIG from './firebaseConfig.js'
 import ROUTES_PATHS from './routePaths'
 import * as CURRENCIES from './currency.js'
 import ROUTES, { ROUTES_VALUE } from './route'
