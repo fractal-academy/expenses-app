@@ -6,7 +6,7 @@ import {
 import * as CURRENCIES from './currency.js'
 import { ROUTES } from './route.js'
 import { COLORS } from './color.js'
-import { ROLE } from './role.js'
+import { ROLES } from './role.js'
 import { PRIORITIES } from './priority.js'
 
 export {
@@ -16,6 +16,6 @@ export {
   CURRENCIES,
   ROUTES,
   COLORS,
-  ROLE,
+  ROLES,
   PRIORITIES
 }
