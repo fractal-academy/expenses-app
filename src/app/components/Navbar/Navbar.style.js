@@ -1,8 +1,10 @@
-const styles = (theme) => ({
+import { makeStyles } from '@material-ui/core/styles'
+
+export const useStyles = makeStyles({
   root: {
     top: 'auto',
     bottom: 0
   }
 })
 
-export default styles
+export default useStyles

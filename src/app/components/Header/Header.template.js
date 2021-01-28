@@ -2,18 +2,14 @@ import React from 'react'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import IconButton from '@material-ui/core/IconButton'
-import { makeStyles } from '@material-ui/core/styles'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import NotificationsIcon from '@material-ui/icons/Notifications'
 import Badge from '@material-ui/core/Badge'
 import Dropdown from '../Dropdown/Dropdown.template'
-import MenuItem from '@material-ui/core/MenuItem'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import { Box } from '@material-ui/core'
-import styles from './Header.style'
+import { useStyles } from './Header.style'
 import DropdownItem from '../Dropdown/DropdownItem/DropdownItem.template'
-
-const useStyles = makeStyles(styles)
 
 const DropdownList = (
   <div>

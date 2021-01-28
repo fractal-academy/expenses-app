@@ -1,11 +1,7 @@
 import React from 'react'
 import Menu from '@material-ui/core/Menu'
-import { Box, MenuItem } from '@material-ui/core'
-import styles from './Dropdown.style'
-import { makeStyles } from '@material-ui/core/styles'
-import DropdownItem from './DropdownItem/DropdownItem.template'
-
-const useStyles = makeStyles(styles)
+import { Box } from '@material-ui/core'
+import { useStyles } from './Dropdown.style'
 
 const Dropdown = (props) => {
   const classes = useStyles()

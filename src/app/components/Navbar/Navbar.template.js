@@ -1,14 +1,13 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
 import BottomNavigation from '@material-ui/core/BottomNavigation'
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import BarChartIcon from '@material-ui/icons/BarChart'
 import SettingsIcon from '@material-ui/icons/Settings'
 import { AppBar } from '@material-ui/core'
-import styles from './Navbar.style'
+import { useStyles } from './Navbar.style'
 
-const useStyles = makeStyles(styles)
+// const classes = makeStyles(styles)
 
 const Navbar = (props) => {
   const classes = useStyles()
