@@ -1,32 +1,22 @@
-import { MenuItem, Select } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
-import { useState } from 'react'
-import { ROLE_VALUES } from 'app/constants'
-
-const useStyles = makeStyles({
-  roleSingleSelect: {
-    minWidth: 100,
-    textAlign: 'center'
-  }
-})
+import { MenuItem } from '@material-ui/core'
+import { ROLES } from 'app/constants'
+import PropTypes from 'prop-types'
+import { useStyles } from './RoleSingleSelect.styles'
+import { Select } from 'app/components'
 
 const RoleSingleSelect = (props) => {
-  const [currentRole, setCurrentRole] = useState('admin')
   const classes = useStyles()
-
   return (
-    <Select
-      className={classes.roleSingleSelect}
-      value={currentRole}
-      onChange={(event) => setCurrentRole(event.target.value)}>
-      {ROLE_VALUES.map((item) => (
-        <MenuItem value={item}>{item}</MenuItem>
-      ))}
+    <Select data={ROLES} value={ROLES[0]} className={classes.root}>
+      {(item) => (
+        <MenuItem value={item} key={item}>
+          {item}
+        </MenuItem>
+      )}
     </Select>
   )
 }
 
 RoleSingleSelect.propTypes = {}
-RoleSingleSelect.defaultProps = {}
 
 export default RoleSingleSelect
