@@ -40,7 +40,7 @@ Modal.propTypes = {
   open: PropTypes.bool.isRequired,
   dialogProps: PropTypes.object,
   title: PropTypes.string,
-  typographyProps: PropTypes.object,
+  titleTypographyProps: PropTypes.object,
   children: PropTypes.elementType,
   buttonSubmitProps: PropTypes.object.isRequired,
   buttonCancelProps: PropTypes.object.isRequired
