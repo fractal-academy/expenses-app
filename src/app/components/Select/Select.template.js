@@ -9,7 +9,7 @@ const Select = (props) => {
   const handleSelect = (event) => {
     const selectValue = event.target.value
     setCurrentValue(selectValue)
-    onChange && onChange(event, data[selectValue])
+    onChange && onChange(event, selectValue)
   }
   //in children use your own template
   return (
