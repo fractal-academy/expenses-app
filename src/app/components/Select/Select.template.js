@@ -3,7 +3,16 @@ import { useState } from 'react'
 import PropTypes from 'prop-types'
 
 const Select = (props) => {
-  const { value, onChange, data, children, className, ...rest } = props
+  const {
+    value,
+    onChange,
+    data,
+    children,
+    className,
+    inputProps,
+    errorText,
+    ...rest
+  } = props
   const [currentValue, setCurrentValue] = useState(value)
 
   const handleSelect = (event) => {
@@ -18,6 +27,8 @@ const Select = (props) => {
       className={className}
       onChange={handleSelect}
       value={currentValue}
+      helperText={errorText}
+      {...inputProps}
       {...rest}>
       {data.map(children)}
     </TextField>
