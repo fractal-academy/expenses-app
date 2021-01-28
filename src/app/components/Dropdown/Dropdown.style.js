@@ -1,7 +1,3 @@
-const styles = (theme) => ({
-  root: {
-    backgroundColor: 'red'
-  }
-})
+const styles = (theme) => ({})
 
 export default styles
