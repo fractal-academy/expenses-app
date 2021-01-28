@@ -29,7 +29,8 @@ Select.propTypes = {
   onChange: PropTypes.func,
   data: PropTypes.array,
   children: PropTypes.func,
-  className: PropTypes.object
+  className: PropTypes.object,
+  rest: PropTypes.object
 }
 Select.defaultProps = {
   data: ['Item', 'Item', 'Item', 'Item', 'Item']
