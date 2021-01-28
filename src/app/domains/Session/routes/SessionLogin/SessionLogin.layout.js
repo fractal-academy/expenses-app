@@ -1,18 +1,21 @@
-import Box from '@material-ui/core/Box'
-import Paper from '@material-ui/core/Paper'
+import { Box, Paper } from '@material-ui/core'
+import { Row, Col } from '@qonsoll/react-design'
 import { SessionSimpleView } from 'domains/Session/components/views'
 
 const SessionLogin = (props) => {
   return (
-    <Paper elevation={0} variant="outlined">
-      <Box p={2}>
-        <SessionSimpleView />
-      </Box>
-    </Paper>
+    <Row v="center" height="100%">
+      <Col>
+        <Paper>
+          <Box p={2}>
+            <SessionSimpleView />
+          </Box>
+        </Paper>
+      </Col>
+    </Row>
   )
 }
 
 SessionLogin.propTypes = {}
-SessionLogin.defaultProps = {}
 
 export default SessionLogin

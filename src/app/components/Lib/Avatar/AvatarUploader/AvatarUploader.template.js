@@ -1,14 +1,10 @@
 import { useState, useRef } from 'react'
-import { Button } from '@material-ui/core'
 import PropTypes from 'prop-types'
+import { Button } from '@material-ui/core'
 import CloudUploadIcon from '@material-ui/icons/CloudUpload'
 import { Row, Col, Container } from '@qonsoll/react-design'
 import { Avatar } from '../Avatar'
-import { STORAGE } from 'app/constants'
-import styles from './AvatarUploader.styles'
-import { makeStyles } from '@material-ui/core/styles'
-
-const useStyles = makeStyles(styles)
+import { useStyles } from './AvatarUploader.styles'
 
 const CustomAvatarUploader = (props) => {
   const classes = useStyles()
@@ -26,15 +22,16 @@ const CustomAvatarUploader = (props) => {
     fileUpload.current.click()
   }
 
+  //TODO create service for storage upload
   const changeAvatar = async () => {
-    //upload photo to storage and form
-    const fileRef = STORAGE.ref().child(fileUpload.current.files[0].name)
-    await fileRef.put(fileUpload.current.files[0]) //add url to storage
-    fileRef.getDownloadURL().then((url) => {
-      //get url from storage
-      setAvatarUrl(url)
-      onChange(url) //this value will be available in the parent component
-    })
+    //   //upload photo to storage and form
+    //   const fileRef = STORAGE.ref().child(fileUpload.current.files[0].name)
+    //   await fileRef.put(fileUpload.current.files[0]) //add url to storage
+    //   fileRef.getDownloadURL().then((url) => {
+    //     //get url from storage
+    //     setAvatarUrl(url)
+    //     onChange(url) //this value will be available in the parent component
+    //   })
   }
 
   return (
