@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 
-import { currency } from 'app/constants'
+import { CURRENCIES } from 'app/constants'
 
-const { CURRENCY, CURRENCY_KEYS } = currency
+const { CURRENCY, CURRENCY_KEYS } = CURRENCIES
 
 const CurrencySingleSelect = (props) => {
   const { itemProps } = props

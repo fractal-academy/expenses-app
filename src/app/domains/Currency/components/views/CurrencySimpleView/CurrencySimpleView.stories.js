@@ -1,6 +1,6 @@
 import CurrencySimpleView from './CurrencySimpleView.template'
-import { currency } from 'app/constants'
-const { CURRENCY_KEYS } = currency
+import { CURRENCIES } from 'app/constants'
+const { CURRENCY_KEYS } = CURRENCIES
 const metadata = {
   title: 'domains/Currency/components/views/CurrencySimpleView',
   component: CurrencySimpleView,

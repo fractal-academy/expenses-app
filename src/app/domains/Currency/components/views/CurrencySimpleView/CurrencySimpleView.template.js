@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 import Typography from '@material-ui/core/Typography'
-import { currency } from 'app/constants'
+import { CURRENCIES } from 'app/constants'
 
-const { CURRENCY, CURRENCY_KEYS } = currency
+const { CURRENCY, CURRENCY_KEYS } = CURRENCIES
 
 const CurrencySimpleView = (props) => {
   const { type, value, textProps } = props

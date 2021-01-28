@@ -1,22 +1,17 @@
-import { TextField, MenuItem } from '@material-ui/core'
-import { useState } from 'react'
+import { MenuItem } from '@material-ui/core'
+import { Select } from 'app/components'
 
 const MEASURES = ['kg', 'g', 'mm', 'cm', 'm']
 
-const MeasureSingleSelect = (props) => {
-  const { value, onChange } = props
-  const [currentMeasure, setCurrentMeasure] = useState(value)
+const MeasureSingleSelect = () => {
   return (
-    <TextField
-      select
-      onChange={(e) => setCurrentMeasure(e.target.value)}
-      value={currentMeasure}>
-      {MEASURES.map((item) => (
-        <MenuItem key={item} value={item}>
+    <Select fullWidth data={MEASURES} value={MEASURES[0]}>
+      {(item) => (
+        <MenuItem value={item} key={item}>
           {item}
         </MenuItem>
-      ))}
-    </TextField>
+      )}
+    </Select>
   )
 }
 
