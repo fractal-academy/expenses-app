@@ -1,12 +1,7 @@
-/*
-development URL
-  https://expenses-app-development-9ba1c.web.app/
-
-
-production URL
-  https://expenses-app-production.web.app/
-
- */
+import firebase from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/database'
+import 'firebase/firestore'
 
 const FIREBASE_CONFIG = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -14,8 +9,9 @@ const FIREBASE_CONFIG = {
   projectId: process.env.REACT_APP_AUTH_PROJECT_ID,
   storageBucket: process.env.REACT_APP_AUTH_STORAGE_BUCKET,
   messagingSenderId: process.env.REACT_APP_AUTH_MESSAGING_SENDER_ID,
-  appId: process.env.REACT_APP_AUTH_APP_ID,
-  measurementId: process.env.REACT_APP_AUTH_MEASUREMENT_ID
+  appId: process.env.REACT_APP_AUTH_APP_ID
 }
+const EXPENSES_PROJECT = firebase.initializeApp(FIREBASE_CONFIG)
+const FIRESTORE = firebase.firestore()
+export { FIREBASE_CONFIG, EXPENSES_PROJECT, FIRESTORE }
 
-export default FIREBASE_CONFIG

@@ -1,4 +1,5 @@
 import RoleSimpleView from './RoleSimpleView.template'
+import PropTypes from 'prop-types'
 
 const metadata = {
   title: 'domains/Role/components/views/RoleSimpleView',
