@@ -25,7 +25,7 @@ const config = [
     name: 'name',
     placeholder: 'Enter your name',
     rules: {
-      required: 'true',
+      required: 'Enter your name',
       pattern: {
         value: 'text'
       }
@@ -37,7 +37,7 @@ const config = [
     name: 'surname',
     placeholder: 'Enter your surname',
     rules: {
-      required: 'true',
+      required: 'Enter your surname',
       pattern: {
         value: 'text'
       }
@@ -49,7 +49,7 @@ const config = [
     name: 'dateInSeconds',
     placeholder: 'Enter your birthday',
     rules: {
-      required: 'true'
+      required: 'Enter your birthday'
     }
   },
   {
@@ -58,7 +58,7 @@ const config = [
     name: 'email',
     placeholder: 'Enter your email',
     rules: {
-      required: 'true',
+      required: 'Enter your email',
       pattern: {
         value: 'email',
         domain: 'senseteq.io',
@@ -81,14 +81,27 @@ const config = [
 ]
 
 const MemberAdvancedForm = (props) => {
-  const { formData, show, onSubmit, onSubmitFail } = props
-  const form = useForm({
+  const {
+    formData,
+    show,
+    onSubmit,
+    onSubmitFail,
+    form,
+    buttonProps,
+    formProps
+  } = props
+  const formRef = useForm({
     defaultValues: { ...formData }
   })
+
   return (
-    <Form form={form} onSubmit={onSubmit} onSubmitFail={onSubmitFail}>
+    <Form
+      form={form || formRef}
+      onSubmit={onSubmit}
+      onSubmitFail={onSubmitFail}
+      {...formProps}>
       <FormGenerator config={config} show={show} />
-      <FormButtons Button={Button} visibleCancel={false} />
+      <FormButtons Button={Button} visibleCancel={false} {...buttonProps} />
     </Form>
   )
 }
@@ -97,7 +110,9 @@ MemberAdvancedForm.propTypes = {
   formData: PropTypes.object,
   onSubmit: PropTypes.func,
   onSubmitFail: PropTypes.func,
-  show: PropTypes.array
+  show: PropTypes.array,
+  buttonProps: PropTypes.object,
+  formProps: PropTypes.object
 }
 
 export default MemberAdvancedForm

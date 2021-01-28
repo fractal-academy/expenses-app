@@ -1,5 +1,4 @@
 import MemberSingleSelect from './MemberSingleSelect.template'
-import { getMembersForSelectComponent } from '../../../../../services'
 
 const metadata = {
   title: 'domains/Member/components/select/MemberSingleSelect',

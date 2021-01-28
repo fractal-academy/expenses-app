@@ -1,48 +1,40 @@
-import React from 'react'
-import {
-  Button,
-  FormControl,
-  TextField,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  Box,
-  DialogTitle,
-  Fab,
-  Snackbar,
-  FormHelperText
-} from '@material-ui/core'
-import { useForm, Controller } from 'react-hook-form'
+import { useState } from 'react'
+import { Fab, Snackbar } from '@material-ui/core'
+import { useForm } from 'react-hook-form'
 import { Alert } from '@material-ui/lab'
 import AddIcon from '@material-ui/icons/Add'
-import { RoleSingleSelect } from 'app/domains/Role/components/select'
-import { STORE } from 'app/constants'
+import { MemberAdvancedForm } from 'domains/Member/components/forms'
 import { Modal } from 'app/components/Lib/Modal'
 import md5 from 'md5'
 
 const MemberCombined = (props) => {
-  const [open, setOpen] = React.useState(false)
-  const [openSnackbarSuccess, setOpenSnackbarSuccess] = React.useState(false)
-  const [openSnackbarError, setOpenSnackbarError] = React.useState(false)
-  const { register, handleSubmit, errors, control } = useForm()
+  const [open, setOpen] = useState(false)
+  const [openSnackbarSuccess, setOpenSnackbarSuccess] = useState(false)
+  const [openSnackbarError, setOpenSnackbarError] = useState(false)
+  const form = useForm({
+    defaultValues: {
+      role: 'user'
+    }
+  })
 
+  //TODO refactor to service
   const onSubmit = (data) => {
-    STORE.collection('users')
-      .doc(md5(data.email))
-      .set({
-        email: data.email,
-        role: data.role,
-        isPending: true
-      })
-      .then(() => {
-        setOpenSnackbarSuccess(true)
-      })
-      .catch((error) => {
-        setOpenSnackbarError(true)
-      })
+    // STORE.collection('users')
+    //   .doc(md5(data.email))
+    //   .set({
+    //     email: data.email,
+    //     role: data.role,
+    //     isPending: true
+    //   })
+    //   .then(() => {
+    //     setOpenSnackbarSuccess(true)
+    //   })
+    //   .catch((error) => {
+    //     setOpenSnackbarError(true)
+    //   })
     setOpen(false)
   }
-
+  const submitForm = () => form.submit()
   const handleClickOpen = () => {
     setOpen(true)
   }
@@ -76,66 +68,27 @@ const MemberCombined = (props) => {
         </Alert>
       </Snackbar>
 
-      <Dialog
-        fullWidth
-        maxWidth="xs"
+      <Modal
         open={open}
-        onClose={handleClose}
-        aria-labelledby="form-dialog-title">
-        <Box p={2}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <DialogTitle id="form-dialog-title" p={4}>
-              Create user
-            </DialogTitle>
-            <DialogContent>
-              <Box display="flex" justifyContent="center">
-                <FormControl fullWidth>
-                  <Box display="flex" justifyContent="center">
-                    <Controller
-                      rules={{ required: 'Enter a role' }}
-                      control={control}
-                      name="role"
-                      render={({ onChange, value }) => (
-                        <RoleSingleSelect role={value} onChange={onChange} />
-                      )}
-                    />
-                  </Box>
-                  <Box display="flex" justifyContent="center">
-                    <FormHelperText error>
-                      {errors.role ? errors.role.message : <> &nbsp;</>}
-                    </FormHelperText>
-                  </Box>
-                  <TextField
-                    label="Email"
-                    name="email"
-                    error={!!errors.email}
-                    helperText={
-                      errors.email?.message ? errors.email.message : ' '
-                    }
-                    inputRef={register({
-                      pattern: {
-                        value: new RegExp(
-                          '^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+.)?[a-zA-Z]+.)?gmail.com$'
-                        ),
-                        message: 'Enter a valid email address'
-                      },
-                      required: 'Enter email'
-                    })}
-                  />
-                </FormControl>
-              </Box>
-            </DialogContent>
-            <DialogActions>
-              <Button variant="contained" color="primary" type="submit">
-                Create
-              </Button>
-              <Button variant="contained" onClick={handleClose}>
-                Cancel
-              </Button>
-            </DialogActions>
-          </form>
-        </Box>
-      </Dialog>
+        title="Add a user"
+        titleTypographyProps={{ variant: 'h5' }}
+        dialogProps={{
+          maxWidth: 'sm',
+          fullWidth: true
+        }}
+        buttonSubmitProps={{
+          variant: 'contained',
+          color: 'primary',
+          onClick: submitForm
+        }}
+        buttonCancelProps={{ variant: 'contained', onClick: handleClose }}>
+        <MemberAdvancedForm
+          form={form}
+          show={['role', 'email']}
+          onSubmit={onSubmit}
+          buttonProps={{ visible: false }}
+        />
+      </Modal>
     </>
   )
 }

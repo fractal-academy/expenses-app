@@ -1,8 +1,7 @@
-import { Fragment } from 'react'
 import { Typography, Button } from '@material-ui/core'
-import { Avatar } from 'components'
+import { Avatar } from 'components/Lib'
 import PropTypes from 'prop-types'
-import { RoleSimpleView } from '../../../../Role/components/views'
+import { RoleSimpleView } from 'domains/Role/components/views'
 import { Container, Row, Col } from '@qonsoll/react-design'
 
 const MemberAdvancedView = (props) => {
