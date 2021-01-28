@@ -1,10 +1,8 @@
 import { PRIORITIES } from 'app/constants'
 import { Select } from 'app/components'
 import MenuItem from '@material-ui/core/MenuItem'
-import { makeStyles } from '@material-ui/core/styles'
-import styleSelect from './Select.style'
+import { useStyles } from './Select.style'
 
-const useStyles = makeStyles(styleSelect)
 const PrioritySingleSelect = (props) => {
   const classes = useStyles()
   return (

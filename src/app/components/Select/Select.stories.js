@@ -1,5 +1,5 @@
 import Select from './Select.template'
-import { PRIORITY } from 'app/constants'
+import { PRIORITIES } from 'app/constants'
 import MenuItem from '@material-ui/core/MenuItem'
 
 const metadata = {
@@ -21,6 +21,6 @@ const Template = (args) => (
 export const SelectStory = Template.bind({})
 
 SelectStory.args = {
-  value: PRIORITY[0],
-  data: PRIORITY
+  value: PRIORITIES[0],
+  data: PRIORITIES
 }
