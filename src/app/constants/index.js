@@ -4,7 +4,7 @@ import * as currency from './currency'
 import ROUTES, { ROUTES_VALUE } from './route'
 import { color } from './color'
 import * as role from './role'
-import { priority } from './priority'
+import PRIORITIES from './priority.js'
 import COLLECTIONS from './collection'
 
 export {
@@ -15,6 +15,6 @@ export {
   ROUTES_VALUE,
   color,
   role,
-  priority,
+  PRIORITIES,
   COLLECTIONS
 }
