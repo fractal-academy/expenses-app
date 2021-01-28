@@ -9,13 +9,13 @@ const CustomToolbar = (props) => {
     <Container>
       <Row>
         <Col>
-          <Toolbar>
-            {props.numberChecked ? (
+          <Toolbar disableGutters>
+            {props.numSelected ? (
               <Container>
                 <Row h="right" v="center">
-                  <Col>
+                  <Col pl={2}>
                     <Typography variant="button">
-                      {`${props.numberChecked} selected`}
+                      {`${props.numSelected} selected`}
                     </Typography>
                   </Col>
                   <Col cw="auto">
@@ -45,6 +45,6 @@ const CustomToolbar = (props) => {
   )
 }
 CustomToolbar.propTypes = {
-  numberChecked: PropTypes.number.isRequired
+  numSelected: PropTypes.number.isRequired
 }
 export default CustomToolbar

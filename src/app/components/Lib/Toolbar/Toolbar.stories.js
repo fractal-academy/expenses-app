@@ -10,6 +10,4 @@ const Template = (args) => <Toolbar {...args} />
 
 export const ToolbarStory = Template.bind({})
 
-ToolbarStory.args = {
-  numberChecked: 2
-}
+ToolbarStory.args = {}

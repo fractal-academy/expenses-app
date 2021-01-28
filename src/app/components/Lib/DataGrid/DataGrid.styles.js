@@ -1,7 +1,6 @@
 const styles = (theme) => ({
   root: {
-    width: '85px',
-    padding: '4px'
+    textAlign: 'center'
   }
 })
 export default styles

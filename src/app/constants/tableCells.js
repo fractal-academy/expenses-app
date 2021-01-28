@@ -1,44 +1,13 @@
 const CART_CELLS = [
-  {
-    id: 'assignedUser',
-    numeric: false,
-    disablePadding: false,
-    label: 'Assigned'
-  },
-  { id: 'member', numeric: false, disablePadding: false, label: 'Member' },
-  {
-    id: 'productName',
-    numeric: false,
-    disablePadding: true,
-    label: 'Product'
-  },
-  {
-    id: 'productCategory',
-    numeric: false,
-    disablePadding: false,
-    label: 'Category'
-  }
+  { field: 'assignedUser', headerName: 'Assigned', width: 80 },
+  { field: 'productName', headerName: 'Product', width: 150 },
+  { field: 'productCategory', headerName: 'Category', width: 80 }
 ]
 
 const WISH_CELLS = [
-  {
-    id: 'assignedUser',
-    numeric: false,
-    disablePadding: false,
-    label: 'Assigned'
-  },
-  {
-    id: 'productName',
-    numeric: false,
-    disablePadding: true,
-    label: 'Product'
-  },
-  {
-    id: 'productCategory',
-    numeric: false,
-    disablePadding: false,
-    label: 'Category'
-  }
+  { field: 'assignedUser', headerName: 'Assigned', width: 80 },
+  { field: 'productName', headerName: 'Wish', width: 150 },
+  { field: 'productCategory', headerName: 'Category', width: 80 }
 ]
 
 export { CART_CELLS, WISH_CELLS }

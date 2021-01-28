@@ -1,4 +1,4 @@
-import CartTable from './CartTable.template'
+import CartTable from './Cart.template'
 
 const metadata = {
   title: 'domains/Cart/components/table',
@@ -10,6 +10,4 @@ const Template = (args) => <CartTable {...args} />
 
 export const CartTableStory = Template.bind({})
 
-CartTableStory.args = {
-  number: 2
-}
+CartTableStory.args = {}
