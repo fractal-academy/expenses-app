@@ -10,4 +10,6 @@ const Template = (args) => <ColorSimpleView {...args} />
 
 export const ColorSimpleViewStory = Template.bind({})
 
-ColorSimpleViewStory.args = {}
+ColorSimpleViewStory.args = {
+  color: 'BLUE'
+}

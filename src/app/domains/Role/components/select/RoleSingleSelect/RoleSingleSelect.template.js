@@ -6,10 +6,11 @@ import { Select } from 'app/components'
 
 const RoleSingleSelect = (props) => {
   const classes = useStyles()
+
   return (
-    <Select data={ROLES} value={ROLES[0]} className={classes.root}>
+    <Select data={ROLES} value={ROLES[0]} className={classes.root} {...props}>
       {(item) => (
-        <MenuItem value={item} key={item}>
+        <MenuItem value={item} key={item} className={classes.menuItem}>
           {item}
         </MenuItem>
       )}
