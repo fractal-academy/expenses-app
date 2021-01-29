@@ -14,7 +14,7 @@ const Dropdown = (props) => {
   }
 
   return (
-    <Box>
+    <div>
       {cloneElement(children, { onClick: handleOpen })}
       <Menu
         id={idMenu}
@@ -24,7 +24,7 @@ const Dropdown = (props) => {
         onClose={handleClose}>
         <div>{cloneElement(overlay, { onClick: handleClose })}</div>
       </Menu>
-    </Box>
+    </div>
   )
 }
 
