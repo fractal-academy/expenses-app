@@ -1,6 +1,6 @@
 import { List } from '@material-ui/core'
 import { useEffect, useState } from 'react'
-import { FIRESTORE } from 'app/constants'
+import FIRESTORE from 'app/constants'
 
 const ListHOC = ({ children, collectionName }) => {
   const [data, setData] = useState([])
