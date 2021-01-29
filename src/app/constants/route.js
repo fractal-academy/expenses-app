@@ -11,7 +11,7 @@ import { LogAll } from 'domains/Log/routes'
 import { WishAll } from 'domains/Wish/routes'
 import { CartAll } from 'domains/Cart/routes'
 import { StatisticAll } from 'domains/Statistic/routes'
-import { Settings } from 'components'
+import { Settings } from 'app/components'
 
 import ROUTES_PATHS from './routePaths'
 
@@ -30,7 +30,7 @@ const ROUTES = {
     path: ROUTES_PATHS.MEMBER_EDIT
   },
   MEMBERS_ALL: {
-    component: withLayout()(MemberAll),
+    component: withLayout({ goBack: true })(MemberAll),
     path: ROUTES_PATHS.MEMBERS_ALL
   },
   PRODUCT_SHOW: {
@@ -47,15 +47,15 @@ const ROUTES = {
     path: ROUTES_PATHS.PRODUCTS_ALL
   },
   REGULAR_PRODUCTS_ALL: {
-    component: withLayout()(RegularProductAll),
+    component: withLayout({ goBack: true })(RegularProductAll),
     path: ROUTES_PATHS.REGULAR_PRODUCTS_ALL
   },
   PURCHASE_ALL: {
-    component: withLayout()(PurchaseAll),
+    component: withLayout({ goBack: true })(PurchaseAll),
     path: ROUTES_PATHS.PURCHASE_ALL
   },
   NOTIFICATIONS_ALL: {
-    component: withLayout()(NotificationAll),
+    component: withLayout({ goBack: true })(NotificationAll),
     path: ROUTES_PATHS.NOTIFICATIONS_ALL
   },
   CATEGORIES_ALL: {
@@ -67,7 +67,7 @@ const ROUTES = {
     path: ROUTES_PATHS.LOGS_ALL
   },
   WISHES_ALL: {
-    component: withLayout(WishAll),
+    component: withLayout()(WishAll),
     path: ROUTES_PATHS.WISHES_ALL
   },
   CARTS_ALL: {
