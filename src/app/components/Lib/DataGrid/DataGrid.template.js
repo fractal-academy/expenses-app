@@ -1,6 +1,6 @@
 import { React } from 'react'
 import PropTypes from 'prop-types'
-import { TABLE_CELLS } from 'app/constants'
+import { COLLECTIONS, TABLE_CELLS } from 'app/constants'
 import { DataGrid } from '@material-ui/data-grid'
 import { Container, Row, Col } from '@qonsoll/react-design'
 
@@ -40,7 +40,7 @@ const rows = [
 
 const CustomDataGrid = (props) => {
   const cells =
-    props.collection === 'cart'
+    props.collection === COLLECTIONS.CART
       ? TABLE_CELLS.CART_CELLS
       : TABLE_CELLS.WISH_CELLS
 
@@ -67,9 +67,7 @@ const CustomDataGrid = (props) => {
   )
 }
 CustomDataGrid.propTypes = {
-  id: PropTypes.string,
-  productName: PropTypes.string,
-  productCategory: PropTypes.string,
-  assignedUser: PropTypes.string
+  collection: PropTypes.string.isRequired,
+  setNumSelected: PropTypes.func.isRequired
 }
 export default CustomDataGrid

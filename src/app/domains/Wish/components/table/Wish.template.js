@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types'
 import { React, useState } from 'react'
+import { COLLECTIONS } from 'app/constants'
 import { Toolbar, DataGrid } from 'components'
 import { Container, Row, Col } from '@qonsoll/react-design'
 
@@ -10,15 +10,16 @@ const WishTable = (props) => {
       <Row h="center">
         <Col>
           <Toolbar numSelected={numSelected} />
-          <DataGrid collection="wishes" setNumSelected={setNumSelected} />
+          <DataGrid
+            collection={COLLECTIONS.WISHES}
+            setNumSelected={setNumSelected}
+          />
         </Col>
       </Row>
     </Container>
   )
 }
 
-WishTable.propTypes = {
-  number: PropTypes.number.isRequired
-}
+WishTable.propTypes = {}
 
 export default WishTable

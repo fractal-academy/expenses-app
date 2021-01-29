@@ -5,18 +5,17 @@ import { Container, Row, Col } from '@qonsoll/react-design'
 import { Button, Toolbar, IconButton, Typography } from '@material-ui/core/'
 
 const CustomToolbar = (props) => {
+  const info = `${props.numSelected} selected`
   return (
     <Container>
       <Row>
         <Col>
           <Toolbar disableGutters>
-            {props.numSelected ? (
+            {props.numSelected > 0 ? (
               <Container>
                 <Row h="right" v="center">
                   <Col pl={2}>
-                    <Typography variant="button">
-                      {`${props.numSelected} selected`}
-                    </Typography>
+                    <Typography variant="button">{info}</Typography>
                   </Col>
                   <Col cw="auto">
                     <IconButton color="primary">
