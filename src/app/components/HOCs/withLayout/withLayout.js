@@ -1,11 +1,7 @@
-import { Layout } from 'components'
+import { Layout } from 'app/components'
 
-const withLayout = (config) => (Component) => (props) => {
-  return (
-    <Layout {...config}>
-      <Component {...props} />
-    </Layout>
-  )
-}
+const withLayout = (config) => (Component) => (props) => (
+  <Layout {...config}>{Component && <Component {...props} />}</Layout>
+)
 
 export default withLayout

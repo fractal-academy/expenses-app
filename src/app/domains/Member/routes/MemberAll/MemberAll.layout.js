@@ -1,5 +1,7 @@
+import { MemberList } from 'domains/Member/components/list'
+
 const MemberAll = (props) => {
-  return <div>MemberAll</div>
+  return <MemberList />
 }
 
 MemberAll.propTypes = {}

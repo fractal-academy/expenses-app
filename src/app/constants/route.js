@@ -1,4 +1,4 @@
-import { withLayout } from 'components/HOCs/withLayout'
+import { withLayout } from 'app/components/HOCs/withLayout'
 //import components to insert into ROUTES field 'component'
 import { SessionLogin } from 'domains/Session/routes'
 import { MemberShow, MemberEdit, MemberAll } from 'domains/Member/routes'
@@ -11,7 +11,7 @@ import { LogAll } from 'domains/Log/routes'
 import { WishAll } from 'domains/Wish/routes'
 import { CartAll } from 'domains/Cart/routes'
 import { StatisticAll } from 'domains/Statistic/routes'
-import { Settings } from 'app/components'
+import { Settings } from 'app/components/Settings'
 
 import ROUTES_PATHS from './routePaths'
 

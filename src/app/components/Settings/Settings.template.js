@@ -12,17 +12,16 @@ const SETTINGS_MENU = [
 
 const Settings = (props) => {
   return (
-    <>
+    <Box>
       {SETTINGS_MENU.map(({ path, title }) => (
-        <Box py={2}>
+        <Box py={2} key={path}>
           <Link to={path}>{title}</Link>
         </Box>
       ))}
-    </>
+    </Box>
   )
 }
 
 Settings.propTypes = {}
-Settings.defaultProps = {}
 
 export default Settings

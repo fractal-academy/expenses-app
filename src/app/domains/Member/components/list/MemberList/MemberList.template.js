@@ -3,13 +3,21 @@ import {
   ListItem,
   Divider,
   InputAdornment,
-  Input
+  TextField
 } from '@material-ui/core'
-import { Container, Row, Col } from '@qonsoll/react-design'
-import { MemberAdvancedView } from '../../views'
+import { Container, Row, Col, Box } from '@qonsoll/react-design'
+import { MemberAdvancedView } from 'domains/Member/components/views'
 import SearchIcon from '@material-ui/icons/Search'
 
 const USERS = [
+  { name: 'Olena', role: 'User' },
+  { name: 'Sasha', role: 'User' },
+  { name: 'Max', role: 'User' },
+  { name: 'Dima', role: 'User' },
+  { name: 'Olena', role: 'User' },
+  { name: 'Sasha', role: 'User' },
+  { name: 'Max', role: 'User' },
+  { name: 'Dima', role: 'User' },
   { name: 'Olena', role: 'User' },
   { name: 'Sasha', role: 'User' },
   { name: 'Max', role: 'User' },
@@ -21,16 +29,20 @@ const MemberList = () => {
     <Container>
       <Row>
         <Col cw={12}>
-          <Input
+          <TextField
+            size="medium"
+            margin="dense"
             fullWidth
             placeholder="Search..."
-            id="input-with-icon-adornment"
-            startAdornment={
-              <InputAdornment position="start">
-                <SearchIcon />
-              </InputAdornment>
-            }
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              )
+            }}
           />
+
           <List>
             {USERS.map((user) => {
               return (

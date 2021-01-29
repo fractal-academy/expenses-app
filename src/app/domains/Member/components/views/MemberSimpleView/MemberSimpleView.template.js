@@ -1,4 +1,4 @@
-import { Avatar } from 'components'
+import { Avatar } from 'components/Lib'
 import PropTypes from 'prop-types'
 import { Typography } from '@material-ui/core'
 import { Container, Row, Col } from '@qonsoll/react-design'
