@@ -23,7 +23,6 @@ const MeasureModalWithForm = () => {
       </IconButton>
       <Modal
         open={open}
-        onClose={onCancel}
         title="Create new measure"
         buttonSubmitProps={{
           type: 'submit',
