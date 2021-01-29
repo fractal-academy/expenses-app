@@ -5,6 +5,7 @@ import { Alert } from '@material-ui/lab'
 import AddIcon from '@material-ui/icons/Add'
 import { MemberAdvancedForm } from 'domains/Member/components/forms'
 import { Modal } from 'app/components/Lib/Modal'
+import { useStyles } from './MemberCombined.styles'
 import md5 from 'md5'
 
 const MemberCombined = (props) => {
@@ -16,7 +17,7 @@ const MemberCombined = (props) => {
       role: 'user'
     }
   })
-
+  const classes = useStyles()
   //TODO refactor to service
   const onSubmit = (data) => {
     // STORE.collection('users')
@@ -46,9 +47,14 @@ const MemberCombined = (props) => {
   }
   return (
     <>
-      <Fab color="primary" aria-label="add" onClick={handleClickOpen}>
+      <Fab
+        color="primary"
+        aria-label="add"
+        onClick={handleClickOpen}
+        className={classes.root}>
         <AddIcon />
       </Fab>
+
       <Snackbar
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={openSnackbarSuccess}

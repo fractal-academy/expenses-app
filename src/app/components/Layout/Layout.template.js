@@ -18,10 +18,6 @@ const Layout = (props) => {
 }
 
 Layout.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.elementType,
-    PropTypes.arrayOf(PropTypes.elementType)
-  ]),
   goBack: PropTypes.bool
 }
 export default Layout

@@ -1,7 +1,13 @@
 import { MemberList } from 'domains/Member/components/list'
+import { MemberCombined } from 'domains/Member/components/combined'
 
 const MemberAll = (props) => {
-  return <MemberList />
+  return (
+    <>
+      <MemberList />
+      <MemberCombined />
+    </>
+  )
 }
 
 MemberAll.propTypes = {}

@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import {
   List,
   ListItem,
@@ -5,7 +6,7 @@ import {
   InputAdornment,
   TextField
 } from '@material-ui/core'
-import { Container, Row, Col, Box } from '@qonsoll/react-design'
+import { Container, Row, Col } from '@qonsoll/react-design'
 import { MemberAdvancedView } from 'domains/Member/components/views'
 import SearchIcon from '@material-ui/icons/Search'
 
@@ -46,7 +47,7 @@ const MemberList = () => {
           <List>
             {USERS.map((user) => {
               return (
-                <>
+                <Fragment key={Math.random()}>
                   <ListItem>
                     <MemberAdvancedView
                       horizontal
@@ -57,7 +58,7 @@ const MemberList = () => {
                     />
                   </ListItem>
                   <Divider />
-                </>
+                </Fragment>
               )
             })}
           </List>
