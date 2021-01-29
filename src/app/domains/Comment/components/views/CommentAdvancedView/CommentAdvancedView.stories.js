@@ -17,4 +17,4 @@ const Template = (args) => (
 
 export const CommentAdvancedViewStory = Template.bind({})
 
-CommentAdvancedViewStory.args = {}
+CommentAdvancedViewStory.args = { moment: new Date().getTime() }
