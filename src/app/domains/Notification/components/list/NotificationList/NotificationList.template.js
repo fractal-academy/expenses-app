@@ -10,7 +10,8 @@ const mockNotification = [
   },
   {
     avatar: 'https://w3schoolsrus.github.io/w3images/avatar2.png',
-    notificationText: 'notification 2',
+    notificationText:
+      'notification 2 logn logn logn logn logn logn logn logn logn logn logn logn logn',
     notificationTime: new Date()
   },
   {
@@ -37,7 +38,6 @@ const NotificationList = ({ collectionName }) => {
           notificationTime={item.notificationTime}
           verticalAlignment="center"
           horizontalAlignment="around"
-          textMaxWidth="210px"
         />
       )}
     </ListHOC>
