@@ -2,7 +2,12 @@ import MenuItem from '@material-ui/core/MenuItem'
 import { styled } from '@material-ui/core/styles'
 import { fade } from '@material-ui/core/styles/colorManipulator'
 
-const DropdownItem = styled(MenuItem)((props) => {
+const StyledMenuItem = (props) => {
+  const { danger, success, ...rest } = props
+  return <MenuItem {...rest} />
+}
+
+const DropdownItem = styled(StyledMenuItem)((props) => {
   if (props.danger) {
     return {
       color: props.theme.palette.error.main,

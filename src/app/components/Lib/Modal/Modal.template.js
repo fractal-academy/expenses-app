@@ -41,7 +41,10 @@ Modal.propTypes = {
   dialogProps: PropTypes.object,
   title: PropTypes.string,
   titleTypographyProps: PropTypes.object,
-  children: PropTypes.elementType,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.element),
+    PropTypes.element
+  ]),
   buttonSubmitProps: PropTypes.object.isRequired,
   buttonCancelProps: PropTypes.object.isRequired
 }
