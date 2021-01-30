@@ -1,15 +1,61 @@
 import PropTypes from 'prop-types'
-import Typography from '@material-ui/core/Typography'
-import { Container, Row, Col } from '@qonsoll/react-design'
+import { CategoryAdvancedView } from 'domains/Category/components/views'
+
+const dataForListCategory = [
+  {
+    nameCategory: 'Office',
+    colorCategory: 'purple',
+    currency: 'USD',
+    spent: '400',
+    budget: '1000',
+    availableBalance: '600',
+    valueForProgressBar: '60'
+  },
+  {
+    nameCategory: 'Kitchen',
+    colorCategory: 'orange',
+    currency: 'USD',
+    spent: '500',
+    budget: '1500',
+    availableBalance: '1000',
+    valueForProgressBar: '80'
+  },
+  {
+    nameCategory: 'Office',
+    colorCategory: 'red',
+    currency: 'USD',
+    spent: '100',
+    budget: '200',
+    availableBalance: '100',
+    valueForProgressBar: '50'
+  },
+  {
+    nameCategory: 'Food',
+    colorCategory: 'green',
+    currency: 'USD',
+    spent: '400',
+    budget: '1000',
+    availableBalance: '600',
+    valueForProgressBar: '30'
+  },
+  {
+    nameCategory: 'Company',
+    colorCategory: 'brown',
+    currency: 'USD',
+    spent: '400',
+    budget: '1000',
+    availableBalance: '600',
+    valueForProgressBar: '60'
+  }
+]
 
 const CategoryList = (props) => {
-  const { nameCategory, variantCategory, variantNameCategory } = props
   return (
-    <Container>
-      <Row>
-        <Col></Col>
-      </Row>
-    </Container>
+    <>
+      {dataForListCategory.map((item) => (
+        <CategoryAdvancedView {...item} />
+      ))}
+    </>
   )
 }
 CategoryList.propTypes = {

@@ -8,7 +8,7 @@ export const useStyles = makeStyles((theme) => {
       bottom: theme.spacing(3),
       right: theme.spacing(2),
       transform: 'translate(0,-100%)',
-      zIndex: theme.zIndex.tooltip
+      zIndex: theme.zIndex.drawer
     }
   }
 })

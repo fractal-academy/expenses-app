@@ -25,6 +25,7 @@ const mockNotification = [
   }
 ]
 
+//TODO delete mock data
 const NotificationList = ({ collectionName }) => {
   return (
     <ListHOC collectionName={collectionName} mock={mockNotification}>

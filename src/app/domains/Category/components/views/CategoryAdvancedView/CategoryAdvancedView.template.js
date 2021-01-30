@@ -1,15 +1,14 @@
 import PropTypes from 'prop-types'
-import Typography from '@material-ui/core/Typography'
-import { CurrencySimpleView } from 'domains/Currency/components/views'
-import EditOutlinedIcon from '@material-ui/icons/EditOutlined'
-import IconButton from '@material-ui/core/IconButton'
 import { Row, Container, Col, Box } from '@qonsoll/react-design'
-import Paper from '@material-ui/core/Paper'
-import { ProgressBar } from 'app/components'
+import { Typography, IconButton, Paper } from '@material-ui/core'
+import EditOutlinedIcon from '@material-ui/icons/EditOutlined'
+import { CurrencySimpleView } from 'domains/Currency/components/views'
+import { ProgressBar } from 'app/components/Lib'
 import { useStyles } from './CategoryAdavncedView.style'
 
 const CategoryAdvancedView = (props) => {
   const classes = useStyles()
+  console.log(props)
   const {
     nameCategory,
     colorCategory,

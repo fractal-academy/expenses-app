@@ -1,5 +1,7 @@
+import { CategoryList } from 'domains/Category/components/list'
+
 const CategoryAll = (props) => {
-  return <div>CategoryAll</div>
+  return <CategoryList />
 }
 
 CategoryAll.propTypes = {}

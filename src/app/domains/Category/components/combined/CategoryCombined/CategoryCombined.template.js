@@ -6,7 +6,7 @@ import { MemberAdvancedForm } from 'domains/Member/components/forms'
 import { Modal, FabButton } from 'app/components/Lib'
 import md5 from 'md5'
 
-const MemberCombined = (props) => {
+const CategoryCombined = (props) => {
   const [open, setOpen] = useState(false)
   const [openSnackbarSuccess, setOpenSnackbarSuccess] = useState(false)
   const [openSnackbarError, setOpenSnackbarError] = useState(false)
@@ -89,4 +89,4 @@ const MemberCombined = (props) => {
   )
 }
 
-export default MemberCombined
+export default CategoryCombined
