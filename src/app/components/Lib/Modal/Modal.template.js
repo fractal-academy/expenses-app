@@ -20,7 +20,7 @@ const Modal = (props) => {
   } = props
 
   return (
-    <Dialog open={open} {...dialogProps}>
+    <Dialog open={open} onClose={buttonCancelProps.onClick} {...dialogProps}>
       <DialogTitle>
         <Typography {...titleTypographyProps}>{title}</Typography>
       </DialogTitle>
