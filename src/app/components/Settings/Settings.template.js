@@ -1,5 +1,7 @@
-import { Link } from 'react-router-dom'
-import { Box } from '@qonsoll/react-design'
+import { List, Paper, Typography } from '@material-ui/core'
+import { Category, Group, Cake, Assignment } from '@material-ui/icons'
+import { Container, Row, Col } from '@qonsoll/react-design'
+
 import { ROUTES_PATHS } from 'app/constants'
 
 const SETTINGS_MENU = [
@@ -12,16 +14,32 @@ const SETTINGS_MENU = [
 
 const Settings = (props) => {
   return (
-    <Box>
-      {SETTINGS_MENU.map(({ path, title }) => (
-        <Box py={2} key={path}>
-          <Link to={path}>{title}</Link>
-        </Box>
-      ))}
-    </Box>
+    <List>
+      {PAGES_KEYS.map((page) => {
+        return (
+          <Container mb={3}>
+            <Row>
+              <Col>
+                <Paper>
+                  <Row>
+                    <Col cw="auto" v="center" p="2">
+                      {PAGES[page]}
+                    </Col>
+                    <Col cw="auto" v="center">
+                      <Typography variant="subtitle1">{page}</Typography>
+                    </Col>
+                  </Row>
+                </Paper>
+              </Col>
+            </Row>
+          </Container>
+        )
+      })}
+    </List>
   )
 }
 
 Settings.propTypes = {}
+Settings.defaultProps = {}
 
 export default Settings
