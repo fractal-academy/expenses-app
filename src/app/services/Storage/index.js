@@ -1,4 +1,4 @@
-import customStore from './store'
+import customStore from './customStore'
 import setData from './setData'
 import getData from './getData'
 
