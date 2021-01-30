@@ -1,1 +1,1 @@
-export { default as Cart } from './Cart.template'
+export { default as CartTable } from './CartTable.template'

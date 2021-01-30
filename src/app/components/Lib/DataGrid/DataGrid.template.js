@@ -4,7 +4,6 @@ import { COLLECTIONS, TABLE_CELLS } from 'app/constants'
 import { DataGrid } from '@material-ui/data-grid'
 import { Container, Row, Col } from '@qonsoll/react-design'
 
-//test data
 const rows = [
   {
     id: 1,
@@ -37,7 +36,7 @@ const rows = [
     productName: 'Pen'
   }
 ]
-
+//TODO delete mock data
 const CustomDataGrid = (props) => {
   const cells =
     props.collection === COLLECTIONS.CART

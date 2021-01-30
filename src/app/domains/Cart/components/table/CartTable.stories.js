@@ -1,4 +1,4 @@
-import CartTable from './Cart.template'
+import CartTable from './CartTable.template'
 
 const metadata = {
   title: 'domains/Cart/components/table',

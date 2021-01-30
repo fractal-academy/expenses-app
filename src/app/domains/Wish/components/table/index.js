@@ -1,1 +1,1 @@
-export { default as Wish } from './Wish.template'
+export { default as WishTable } from './WishTable.template'

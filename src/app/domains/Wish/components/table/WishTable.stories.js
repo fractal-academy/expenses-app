@@ -1,4 +1,4 @@
-import WishTable from './Wish.template'
+import WishTable from './WishTable.template'
 
 const metadata = {
   title: 'domains/Wish/components/table',

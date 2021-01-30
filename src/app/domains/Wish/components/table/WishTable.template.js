@@ -1,9 +1,9 @@
-import { React, useState } from 'react'
+import { useState } from 'react'
 import { COLLECTIONS } from 'app/constants'
-import { Toolbar, DataGrid } from 'components'
+import { Toolbar, DataGrid } from 'components/Lib'
 import { Container, Row, Col } from '@qonsoll/react-design'
 
-const CartTable = (props) => {
+const WishTable = (props) => {
   const [numSelected, setNumSelected] = useState([])
   return (
     <Container>
@@ -11,7 +11,7 @@ const CartTable = (props) => {
         <Col>
           <Toolbar numSelected={numSelected} />
           <DataGrid
-            collection={COLLECTIONS.CART}
+            collection={COLLECTIONS.WISHES}
             setNumSelected={setNumSelected}
           />
         </Col>
@@ -20,6 +20,6 @@ const CartTable = (props) => {
   )
 }
 
-CartTable.propTypes = {}
+WishTable.propTypes = {}
 
-export default CartTable
+export default WishTable
