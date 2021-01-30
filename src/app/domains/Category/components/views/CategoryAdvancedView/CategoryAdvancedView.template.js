@@ -8,16 +8,15 @@ import { useStyles } from './CategoryAdavncedView.style'
 
 const CategoryAdvancedView = (props) => {
   const classes = useStyles()
-  console.log(props)
   const {
     nameCategory,
     colorCategory,
     currency,
     spent,
     budget,
-    valueForProgressBar,
-    availableBalance
+    valueForProgressBar
   } = props
+  const availableBalance = budget - spent
   return (
     <Container mb={3}>
       <Row>
@@ -29,12 +28,7 @@ const CategoryAdvancedView = (props) => {
             {/* Row colorBox */}
             <Row height="100%" pr="0.25rem" pl="0rem">
               <Col cw="auto" px="0">
-                <Box
-                  width="0.3rem"
-                  height="100%"
-                  borderRadius="0.5rem"
-                  background={colorCategory}
-                />
+                <Box width="0.35rem" height="100%" background={colorCategory} />
               </Col>
               <Col>
                 {/* Row with nameCategory and buttonEdit*/}
@@ -107,8 +101,7 @@ CategoryAdvancedView.propTypes = {
   currency: PropTypes.string.isRequired,
   spent: PropTypes.number.isRequired,
   budget: PropTypes.number.isRequired,
-  valueForProgressBar: PropTypes.number.isRequired,
-  availableBalance: PropTypes.number.isRequired
+  valueForProgressBar: PropTypes.number.isRequired
 }
 CategoryAdvancedView.defaultProps = {
   nameCategory: 'Other',

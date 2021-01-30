@@ -1,32 +1,49 @@
 import { List, Paper, Typography } from '@material-ui/core'
-import { Category, Group, Cake, Assignment } from '@material-ui/icons'
+import {
+  Receipt,
+  Group,
+  ViewList,
+  AccountBalanceWallet,
+  Assignment
+} from '@material-ui/icons'
 import { Container, Row, Col } from '@qonsoll/react-design'
-
+import { useHistory } from 'react-router-dom'
 import { ROUTES_PATHS } from 'app/constants'
 
 const SETTINGS_MENU = [
-  { title: 'Members', path: ROUTES_PATHS.MEMBERS_ALL },
-  { title: 'Categories', path: ROUTES_PATHS.CATEGORIES_ALL },
-  { title: 'Logs', path: ROUTES_PATHS.LOGS_ALL },
-  { title: 'Products list', path: ROUTES_PATHS.REGULAR_PRODUCTS_ALL },
-  { title: 'Purchase', path: ROUTES_PATHS.PURCHASE_ALL }
+  { title: 'Members', path: ROUTES_PATHS.MEMBERS_ALL, icon: <Group /> },
+  {
+    title: 'Categories',
+    path: ROUTES_PATHS.CATEGORIES_ALL,
+    icon: <AccountBalanceWallet />
+  },
+  { title: 'Logs', path: ROUTES_PATHS.LOGS_ALL, icon: <Assignment /> },
+  {
+    title: 'Products list',
+    path: ROUTES_PATHS.REGULAR_PRODUCTS_ALL,
+    icon: <ViewList />
+  },
+  { title: 'Purchase', path: ROUTES_PATHS.PURCHASE_ALL, icon: <Receipt /> }
 ]
 
 const Settings = (props) => {
+  let history = useHistory()
   return (
     <List>
-      {PAGES_KEYS.map((page) => {
+      {SETTINGS_MENU.map((menuItem) => {
         return (
-          <Container mb={3}>
+          <Container mb={3} key={menuItem.path}>
             <Row>
               <Col>
-                <Paper>
+                <Paper onClick={() => history.push(menuItem.path)}>
                   <Row>
                     <Col cw="auto" v="center" p="2">
-                      {PAGES[page]}
+                      {menuItem.icon}
                     </Col>
                     <Col cw="auto" v="center">
-                      <Typography variant="subtitle1">{page}</Typography>
+                      <Typography variant="subtitle1">
+                        {menuItem.title}
+                      </Typography>
                     </Col>
                   </Row>
                 </Paper>
