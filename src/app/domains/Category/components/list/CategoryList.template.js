@@ -43,7 +43,7 @@ const dataForListCategory = [
     valueForProgressBar: '60'
   }
 ]
-
+//TODO delete mock data
 const CategoryList = (props) => {
   return (
     <>
