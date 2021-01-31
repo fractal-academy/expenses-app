@@ -1,8 +1,7 @@
-import customStore from './customStore'
+import { getCollectionRef } from '../Store'
 
 function setData(collection, document, data) {
-  customStore
-    .collection(collection)
+  getCollectionRef(collection)
     .doc(document)
     .set(data)
     .then(function () {
