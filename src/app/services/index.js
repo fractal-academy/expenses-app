@@ -3,7 +3,8 @@ import {
   getData,
   customStore,
   getCollectionRef,
-  getDataWithFilter
+  getDataWithFilter,
+  getOrderedData
 } from './Store'
 import { upload, getURL, deleteURL } from './Storage'
 import { firebase } from './Firebase'
@@ -17,5 +18,6 @@ export {
   getURL,
   deleteURL,
   getCollectionRef,
-  getDataWithFilter
+  getDataWithFilter,
+  getOrderedData
 }
