@@ -1,7 +1,7 @@
 import { customStorage } from '../Storage'
 
-function storageReference(path) {
-  return customStorage.ref()
+function storageReference(name) {
+  return customStorage.ref().child(name)
 }
 
 export default storageReference
