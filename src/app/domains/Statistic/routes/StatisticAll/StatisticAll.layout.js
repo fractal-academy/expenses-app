@@ -1,5 +1,7 @@
+import { StatisticAdvancedView } from 'domains/Statistic/components/views'
+
 const StatisticAll = (props) => {
-  return <div>StatisticAll</div>
+  return <StatisticAdvancedView />
 }
 
 StatisticAll.propTypes = {}
