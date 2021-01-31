@@ -1,4 +1,4 @@
-import customStore from './customStore.js'
+import customStore from './customStore'
 
 async function getData(collection, document) {
   let result

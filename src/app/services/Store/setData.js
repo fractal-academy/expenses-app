@@ -1,4 +1,4 @@
-import customStore from './customStore.js'
+import customStore from './customStore'
 
 function setData(collection, document, data) {
   customStore
