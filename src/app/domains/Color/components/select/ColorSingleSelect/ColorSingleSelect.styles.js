@@ -1,7 +1,6 @@
 const styles = (theme) => ({
   selectColor: {
-    minWidth: 120,
-    textAlign: 'center'
+    minWidth: 120
   }
 })
 

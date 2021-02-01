@@ -1,9 +1,14 @@
 import { CategoryList } from 'domains/Category/components/list'
+import { CategoryCombined } from 'domains/Category/components/combined/CategoryCombined'
 
 const CategoryAll = (props) => {
-  return <CategoryList />
+  return (
+    <>
+      <CategoryCombined title="New Category" />
+      <CategoryList />
+    </>
+  )
 }
-
 CategoryAll.propTypes = {}
 CategoryAll.defaultProps = {}
 
