@@ -14,7 +14,6 @@ const Select = (props) => {
     ...rest
   } = props
   const [currentValue, setCurrentValue] = useState(value)
-
   const handleSelect = (event) => {
     const selectValue = event.target.value
     setCurrentValue(selectValue)

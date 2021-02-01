@@ -4,14 +4,20 @@ import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOut
 import IconButton from '@material-ui/core/IconButton'
 
 import { Row } from '@qonsoll/react-design'
+import { CategoryCombined } from 'domains/Category/components/combined/CategoryCombined'
 
 const CategorySelectWithCreate = (props) => {
   return (
     <Row h="between" v="center">
       <CategorySingleSelect />
-      <IconButton color="primary" aria-label="upload picture" component="span">
-        <AddCircleOutlineOutlinedIcon />
-      </IconButton>
+      <CategoryCombined title="New Category">
+        <IconButton
+          color="primary"
+          aria-label="upload picture"
+          component="span">
+          <AddCircleOutlineOutlinedIcon />
+        </IconButton>
+      </CategoryCombined>
     </Row>
   )
 }

@@ -10,4 +10,6 @@ const Template = (args) => <CategorySingleSelect {...args} />
 
 export const CategorySingleSelectStory = Template.bind({})
 
-CategorySingleSelectStory.args = {}
+CategorySingleSelectStory.args = {
+  currentCategory: 'Other'
+}
