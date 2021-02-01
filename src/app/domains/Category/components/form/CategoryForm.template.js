@@ -6,7 +6,7 @@ import {
   FormButtons,
   useForm
 } from 'mui-form-generator-fractal-band-2'
-import ColorSingleSelect from 'app/domains/Color/components/select/ColorSingleSelect/ColorSingleSelect.template'
+import { ColorSingleSelect } from 'app/domains/Color/components/select'
 
 const config = [
   {

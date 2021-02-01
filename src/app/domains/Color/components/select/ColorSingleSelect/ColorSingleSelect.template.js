@@ -1,10 +1,7 @@
 import { MenuItem } from '@material-ui/core'
 import { Select } from 'app/components/Lib'
-import styles from './ColorSingleSelect.styles'
-import { makeStyles } from '@material-ui/core/styles'
+import { useStyles } from './ColorSingleSelect.styles'
 import { COLORS } from 'app/constants'
-
-const useStyles = makeStyles(styles)
 
 const ColorSingleSelect = (props) => {
   const classes = useStyles()

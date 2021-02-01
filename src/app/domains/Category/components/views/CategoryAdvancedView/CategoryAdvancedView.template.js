@@ -1,28 +1,26 @@
 import PropTypes from 'prop-types'
 import { Row, Container, Col, Box } from '@qonsoll/react-design'
 import { Typography, IconButton, Paper } from '@material-ui/core'
-import MoreHorizOutlinedIcon from '@material-ui/icons/MoreHorizOutlined'
+import { MoreHorizOutlined, Edit, Delete } from '@material-ui/icons'
 import { CurrencySimpleView } from 'domains/Currency/components/views'
 import { ProgressBar } from 'app/components/Lib'
 import { useStyles } from './CategoryAdavncedView.style'
 import { CategoryCombined } from 'domains/Category/components/combined/CategoryCombined'
 import { DropdownItem, Dropdown } from 'app/components/Lib/Dropdown'
-import EditIcon from '@material-ui/icons/Edit'
-import DeleteIcon from '@material-ui/icons/Delete'
 
 const DropdownList = (
   <div>
     <CategoryCombined title="Edit category" typeModalEdit>
       <DropdownItem>
         <Box mr={2}>
-          <EditIcon />
+          <Edit />
         </Box>
         Edit
       </DropdownItem>
     </CategoryCombined>
     <DropdownItem danger>
       <Box mr={2}>
-        <DeleteIcon />
+        <Delete />
       </Box>
       Delete
     </DropdownItem>
@@ -66,7 +64,7 @@ const CategoryAdvancedView = (props) => {
                         color="primary"
                         aria-label="upload picture"
                         component="span">
-                        <MoreHorizOutlinedIcon fontSize="small" />
+                        <MoreHorizOutlined />
                       </IconButton>
                     </Dropdown>
                   </Col>

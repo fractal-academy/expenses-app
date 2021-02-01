@@ -1,5 +1,5 @@
 import { CategoryList } from 'domains/Category/components/list'
-import { CategoryCombined } from 'domains/Category/components/combined/CategoryCombined'
+import { CategoryCombined } from 'app/domains/Category/components/combined'
 
 const CategoryAll = (props) => {
   return (

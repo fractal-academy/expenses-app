@@ -1,1 +1,2 @@
-export { default as CategoryCombined } from './CategoryCombined'
+import { CategoryCombined } from './CategoryCombined'
+export { CategoryCombined }
