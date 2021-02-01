@@ -5,5 +5,3 @@ export const useStyles = makeStyles({
     minWidth: 120
   }
 })
-
-export default useStyles
