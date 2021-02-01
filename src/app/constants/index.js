@@ -1,8 +1,4 @@
-import {
-  FIREBASE_CONFIG,
-  FIRESTORE,
-  EXPENSES_PROJECT
-} from './firebaseConfig.js'
+import FIREBASE_CONFIG from './firebaseConfig.js'
 import ROUTES_PATHS from './routePaths'
 import * as CURRENCIES from './currency.js'
 import ROUTES, { ROUTES_VALUE } from './route'
@@ -13,8 +9,6 @@ import COLLECTIONS from './collection'
 import * as TABLE_CELLS from './tableCells.js'
 export {
   FIREBASE_CONFIG,
-  FIRESTORE,
-  EXPENSES_PROJECT,
   CURRENCIES,
   TABLE_CELLS,
   ROUTES,
