@@ -9,9 +9,7 @@ const Layout = (props) => {
   return (
     <>
       <Header goBack={goBack} />
-      <Container p={2} className={classes.fitContent}>
-        {children}
-      </Container>
+      <Container className={classes.fitContent}>{children}</Container>
       <Navbar />
     </>
   )
