@@ -10,4 +10,6 @@ const Template = (args) => <MemberSingleSelect {...args} />
 
 export const MemberSingleSelectStory = Template.bind({})
 
-MemberSingleSelectStory.args = {}
+MemberSingleSelectStory.args = {
+  onChange: (selectedUser, event) => console.log(selectedUser)
+}

@@ -1,5 +1,7 @@
+import { NotificationList } from 'domains/Notification/components/list'
+
 const NotificationAll = (props) => {
-  return <div>NotificationAll</div>
+  return <NotificationList />
 }
 
 NotificationAll.propTypes = {}

@@ -10,25 +10,22 @@ const NotificationAdvancedView = (props) => {
     notificationText,
     notificationTime,
     verticalAlignment,
-    horizontalAlignment,
-    textMaxWidth
+    horizontalAlignment
   } = props
 
   return (
-    <Container>
-      <Row v={verticalAlignment} h={horizontalAlignment}>
-        <Col cw="2">
+    <Container mb={2}>
+      <Row v={verticalAlignment} h={horizontalAlignment} p={2}>
+        <Col cw="auto" v="flex-start">
           <Avatar alt="user" src={notificationAvatar}>
             <AccountCircleIcon />
           </Avatar>
         </Col>
-        <Col cw="9" maxWidth={textMaxWidth}>
-          <Typography>{notificationText}</Typography>
-        </Col>
         <Col>
-          <Typography>
-            {moment(notificationTime).format('Qo MMM, hA')}
+          <Typography align="right" variant="caption">
+            {moment(notificationTime).fromNow()}
           </Typography>
+          <Typography>{notificationText}</Typography>
         </Col>
       </Row>
       <Divider />
@@ -36,7 +33,12 @@ const NotificationAdvancedView = (props) => {
   )
 }
 
-NotificationAdvancedView.propTypes = {}
-NotificationAdvancedView.defaultProps = {}
+NotificationAdvancedView.propTypes = {
+  notificationAvatar: PropTypes.string,
+  notificationText: PropTypes.string.isRequired,
+  notificationTime: PropTypes.number.isRequired,
+  verticalAlignment: PropTypes.string,
+  horizontalAlignment: PropTypes.string
+}
 
 export default NotificationAdvancedView

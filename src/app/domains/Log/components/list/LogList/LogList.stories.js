@@ -1,7 +1,7 @@
 import LogList from './LogList.template'
 
 const metadata = {
-  title: 'domains/Log/components/lists/LogList',
+  title: 'domains/Log/components/list/LogList',
   component: LogList
 }
 export default metadata
