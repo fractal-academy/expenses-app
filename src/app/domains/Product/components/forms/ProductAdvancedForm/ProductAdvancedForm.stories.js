@@ -1,5 +1,4 @@
-import CategoryForm from 'domains/Category/components/form/CategoryForm.template'
-import ProductAdvancedForm from 'app/domains/Product/components/forms/ProductAdvancedForm/ProductAdvancedForm.template'
+import { ProductAdvancedForm } from 'app/domains/Product/components/forms'
 
 const metadata = {
   title: 'domains/Product/components/forms/ProductAdvancedForm',

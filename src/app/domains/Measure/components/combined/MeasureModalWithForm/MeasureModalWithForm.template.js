@@ -1,46 +1,90 @@
-import { IconButton } from '@material-ui/core'
-import AddCircleIcon from '@material-ui/icons/AddCircle'
-import { useState } from 'react'
+import React, { useState } from 'react'
+import { Snackbar } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
-import { Modal } from 'app/components/Lib/Modal'
-import { MeasureSimpleForm } from '../../forms'
+import { Alert } from '@material-ui/lab'
+import { Modal, FabButton } from 'app/components/Lib'
+import { MeasureSimpleForm } from 'domains/Measure/components/forms'
+import PropTypes from 'prop-types'
 
-const MeasureModalWithForm = () => {
-  const [open, setOpen] = useState(false)
-  const measureForm = useForm()
+const MeasureCombined = (props) => {
+  const { title, children } = props
 
-  const onSubmit = ({ measure }) => {
+  const [open, setOpen] = useState(children && !children)
+  const [openSnackbarSuccess, setOpenSnackbarSuccess] = useState(false)
+  const [openSnackbarError, setOpenSnackbarError] = useState(false)
+  const form = useForm({})
+
+  const onSubmit = () => {
     setOpen(false)
   }
-  const onCancel = () => {
-    setOpen(false)
+  const submitForm = () => form.submit()
+  const handleClickOpen = () => {
+    setOpen(true)
   }
 
+  const handleClose = () => {
+    setOpenSnackbarSuccess(false)
+    setOpenSnackbarError(false)
+    setOpen(false)
+  }
   return (
     <>
-      <IconButton onClick={() => setOpen(true)}>
-        <AddCircleIcon />
-      </IconButton>
+      {(children &&
+        React.cloneElement(children, { onClick: handleClickOpen })) || (
+        <FabButton onClick={handleClickOpen} />
+      )}
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        open={openSnackbarSuccess}
+        autoHideDuration={6000}
+        onClose={handleClose}>
+        <Alert variant="filled" severity="success">
+          This is a success message!
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        open={openSnackbarError}
+        autoHideDuration={6000}
+        onClose={handleClose}>
+        <Alert variant="filled" severity="error">
+          This is an error message!
+        </Alert>
+      </Snackbar>
+
       <Modal
         open={open}
-        title="Create new measure"
+        title={title}
+        titleTypographyProps={{ variant: 'h5' }}
+        dialogProps={{
+          maxWidth: 'sm',
+          fullWidth: true
+        }}
         buttonSubmitProps={{
-          type: 'submit',
-          form: 'measure-form',
-          size: 'small',
+          text: 'Submit',
+          variant: 'contained',
           color: 'primary',
-          variant: 'contained'
+          onClick: submitForm
         }}
         buttonCancelProps={{
-          onClick: onCancel,
-          size: 'small',
-          color: 'secondary',
-          variant: 'contained'
+          text: 'Cancel',
+          variant: 'contained',
+          onClick: handleClose
         }}>
-        <MeasureSimpleForm formContext={measureForm} formSubmit={onSubmit} />
+        <MeasureSimpleForm
+          form={form}
+          show={['Measure']}
+          onSubmit={onSubmit}
+          buttonProps={{ visible: false }}
+        />
       </Modal>
     </>
   )
 }
-
-export default MeasureModalWithForm
+MeasureCombined.propTypes = {
+  title: PropTypes.string.isRequired,
+  typeModalEdit: PropTypes.bool,
+  children: PropTypes.element
+}
+MeasureCombined.defaultProps = { title: 'Add new measure' }
+export default MeasureCombined
