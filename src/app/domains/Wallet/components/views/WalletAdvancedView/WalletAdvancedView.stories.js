@@ -7,7 +7,15 @@ const metadata = {
 }
 export default metadata
 
-const Template = (args) => <WalletAdvancedView {...args} />
+const Template = (args) => (
+  <WalletAdvancedView
+    nameWallet={'Wallet name'}
+    balance={3000}
+    owner={'Olena'}
+    currency={'USD'}
+    {...args}
+  />
+)
 
 export const WalletAdvancedViewStory = Template.bind({})
 
