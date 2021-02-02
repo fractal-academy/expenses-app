@@ -1,8 +1,23 @@
+import PropTypes from 'prop-types'
+import { Header, Navbar } from 'components'
+import { Container } from '@qonsoll/react-design'
+import { useStyles } from './Layout.style'
+
 const Layout = (props) => {
-  return <div>Layout</div>
+  const { children, goBack } = props
+  const classes = useStyles()
+  return (
+    <>
+      <Header goBack={goBack} />
+      <Container p={2} className={classes.fitContent}>
+        {children}
+      </Container>
+      <Navbar />
+    </>
+  )
 }
 
-Layout.propTypes = {}
-Layout.defaultProps = {}
-
+Layout.propTypes = {
+  goBack: PropTypes.bool
+}
 export default Layout

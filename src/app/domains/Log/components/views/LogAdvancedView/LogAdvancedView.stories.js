@@ -10,4 +10,8 @@ const Template = (args) => <LogAdvancedView {...args} />
 
 export const LogAdvancedViewStory = Template.bind({})
 
-LogAdvancedViewStory.args = {}
+LogAdvancedViewStory.args = {
+  action: 'Log in',
+  userMail: 'abcd@senseteq.io',
+  actionDescription: 'logged in'
+}

@@ -13,8 +13,8 @@
 # misc
 .DS_Store
 .env.production
-.env.development
 .env.local
+.env.development
 .env.development.local
 .env.test.local
 .env.production.local
@@ -29,3 +29,7 @@ firebase-debug.log
 #files
 .eslintcache
 package-lock.json
+
+#folders
+/.vscode
+/.idea
