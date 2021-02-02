@@ -1,9 +1,19 @@
 import { ListHOC } from 'app/components'
+import { CommentAdvancedView } from 'domains/Comment/components/views'
 
 const CommentList = (props) => {
   return (
     <>
-      <ListHOC collectionName="comments"></ListHOC>
+      <ListHOC collectionName="comments">
+        {(item) => (
+          <CommentAdvancedView
+            commentTime={item.commentTime}
+            name={item.name}
+            surName={item.surName}
+            text={item.text}
+          />
+        )}
+      </ListHOC>
     </>
   )
 }

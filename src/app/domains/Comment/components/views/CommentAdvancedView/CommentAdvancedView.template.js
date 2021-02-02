@@ -5,7 +5,7 @@ import { AccountCircle } from '@material-ui/icons'
 import moment from 'moment'
 
 const CommentAdvancedView = (props) => {
-  const { commentTime } = props
+  const { commentTime, authorID, avatar, name, surName, text } = props
   const classes = useStyles()
 
   return (
@@ -22,7 +22,9 @@ const CommentAdvancedView = (props) => {
                       <AccountCircle />
                     </Col>
                     <Col cw="auto">
-                      <Typography variant={'body1'}>Olena Shevchuk</Typography>
+                      <Typography variant={'body1'}>
+                        {name} {surName}
+                      </Typography>
                     </Col>
                   </Row>
                 </Col>
@@ -35,11 +37,7 @@ const CommentAdvancedView = (props) => {
               </Row>
               <Row>
                 <Col>
-                  <Typography variant={'body2'}>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Blanditiis dolore doloremque, doloribus ea eaque earum
-                    eveniet in iste iusto laudantium
-                  </Typography>
+                  <Typography variant={'body2'}>{text}</Typography>
                 </Col>
               </Row>
             </Box>

@@ -11,7 +11,13 @@ export default metadata
 
 const Template = (args) => (
   <ThemeProvider theme={Theme}>
-    <CommentAdvancedView />
+    <CommentAdvancedView
+      name={'Olena'}
+      surName={'Shevschiuk'}
+      text={
+        'lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem '
+      }
+    />
   </ThemeProvider>
 )
 
