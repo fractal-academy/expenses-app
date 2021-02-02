@@ -8,8 +8,8 @@ const styles = (theme) => ({
     height: theme.spacing(8)
   },
   lg: {
-    width: theme.spacing(15),
-    height: theme.spacing(15)
+    width: theme.spacing(12),
+    height: theme.spacing(12)
   }
 })
 
