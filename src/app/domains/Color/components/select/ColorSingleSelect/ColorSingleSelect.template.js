@@ -1,29 +1,26 @@
-import { useState } from 'react'
-import { MenuItem, Select } from '@material-ui/core'
-import styles from './ColorSingleSelect.styles'
-import { makeStyles } from '@material-ui/core/styles'
+import { MenuItem } from '@material-ui/core'
+import { Select } from 'app/components/Lib'
+import { useStyles } from './ColorSingleSelect.styles'
 import { COLORS } from 'app/constants'
-
-const useStyles = makeStyles(styles)
 
 const ColorSingleSelect = (props) => {
   const classes = useStyles()
 
   const { COLOR_VALUE } = COLORS
-
-  const [color, setColor] = useState(COLOR_VALUE[0].name)
-
   return (
-    <Select className={classes.selectColor} value={color}>
-      {COLOR_VALUE.map((colorItem) => (
+    <Select
+      className={classes.selectColor}
+      value={COLOR_VALUE[0].name}
+      data={COLOR_VALUE}
+      {...props}>
+      {(item) => (
         <MenuItem
-          value={colorItem.name}
-          style={{ backgroundColor: `${colorItem.color}` }}
-          key={colorItem.name}
-          onClick={() => setColor(colorItem.name)}>
-          {colorItem.name}
+          value={item.name}
+          key={item.name}
+          style={{ backgroundColor: `${item.color}` }}>
+          {item.name}
         </MenuItem>
-      ))}
+      )}
     </Select>
   )
 }

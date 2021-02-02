@@ -1,35 +1,20 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { Snackbar } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
 import { Alert } from '@material-ui/lab'
-import { MemberAdvancedForm } from 'domains/Member/components/forms'
 import { Modal, FabButton } from 'app/components/Lib'
-import md5 from 'md5'
+import { CategoryForm } from 'domains/Category/components/form'
+import PropTypes from 'prop-types'
 
 const CategoryCombined = (props) => {
-  const [open, setOpen] = useState(false)
+  const { title, typeModalEdit, children } = props
+
+  const [open, setOpen] = useState(children && !children)
   const [openSnackbarSuccess, setOpenSnackbarSuccess] = useState(false)
   const [openSnackbarError, setOpenSnackbarError] = useState(false)
-  const form = useForm({
-    defaultValues: {
-      role: 'user'
-    }
-  })
-  //TODO refactor to service
-  const onSubmit = (data) => {
-    // STORE.collection('users')
-    //   .doc(md5(data.email))
-    //   .set({
-    //     email: data.email,
-    //     role: data.role,
-    //     isPending: true
-    //   })
-    //   .then(() => {
-    //     setOpenSnackbarSuccess(true)
-    //   })
-    //   .catch((error) => {
-    //     setOpenSnackbarError(true)
-    //   })
+  const form = useForm({})
+
+  const onSubmit = () => {
     setOpen(false)
   }
   const submitForm = () => form.submit()
@@ -44,7 +29,10 @@ const CategoryCombined = (props) => {
   }
   return (
     <>
-      <FabButton onClick={handleClickOpen} />
+      {(children &&
+        React.cloneElement(children, { onClick: handleClickOpen })) || (
+        <FabButton onClick={handleClickOpen} />
+      )}
       <Snackbar
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={openSnackbarSuccess}
@@ -66,21 +54,26 @@ const CategoryCombined = (props) => {
 
       <Modal
         open={open}
-        title="Add a user"
+        title={title}
         titleTypographyProps={{ variant: 'h5' }}
         dialogProps={{
           maxWidth: 'sm',
           fullWidth: true
         }}
         buttonSubmitProps={{
+          text: typeModalEdit ? 'Save' : 'Submit',
           variant: 'contained',
           color: 'primary',
           onClick: submitForm
         }}
-        buttonCancelProps={{ variant: 'contained', onClick: handleClose }}>
-        <MemberAdvancedForm
+        buttonCancelProps={{
+          text: 'Cancel',
+          variant: 'contained',
+          onClick: handleClose
+        }}>
+        <CategoryForm
           form={form}
-          show={['role', 'email']}
+          show={['nameCategory', 'budgetLimit', 'color']}
           onSubmit={onSubmit}
           buttonProps={{ visible: false }}
         />
@@ -88,5 +81,10 @@ const CategoryCombined = (props) => {
     </>
   )
 }
-
+CategoryCombined.propTypes = {
+  title: PropTypes.string.isRequired,
+  typeModalEdit: PropTypes.bool,
+  children: PropTypes.element
+}
+CategoryCombined.defaultProps = { title: 'Title', typeModalEdit: false }
 export default CategoryCombined
