@@ -1,5 +1,7 @@
+import { CommentList } from 'domains/Comment/components/list/CommentList'
+
 const StatisticAll = (props) => {
-  return <div>StatisticAll</div>
+  return <CommentList />
 }
 
 StatisticAll.propTypes = {}

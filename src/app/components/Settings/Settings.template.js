@@ -23,6 +23,16 @@ const SETTINGS_MENU = [
     path: ROUTES_PATHS.REGULAR_PRODUCTS_ALL,
     icon: <ViewList />
   },
+  {
+    title: 'Products list',
+    path: ROUTES_PATHS.REGULAR_PRODUCTS_ALL,
+    icon: <ViewList />
+  },
+  {
+    title: 'Products list',
+    path: ROUTES_PATHS.REGULAR_PRODUCTS_ALL,
+    icon: <ViewList />
+  },
   { title: 'Purchase', path: ROUTES_PATHS.PURCHASE_ALL, icon: <Receipt /> }
 ]
 
