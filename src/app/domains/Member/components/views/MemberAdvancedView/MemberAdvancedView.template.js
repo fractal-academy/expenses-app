@@ -25,27 +25,23 @@ const MemberAdvancedView = (props) => {
               </Row>
             </Col>
             {!props.horizontal ? (
-              <>
-                <Col cw={2} v="flex-end">
-                  <IconButton>
-                    <CreateRoundedIcon />
-                  </IconButton>
-                </Col>
-              </>
+              <Col cw={2} v="flex-end">
+                <IconButton>
+                  <CreateRoundedIcon />
+                </IconButton>
+              </Col>
             ) : (
-              <>
-                <Col cw={10}>
-                  <Typography>
-                    {props.name} {props.surname}
-                  </Typography>
-                  <Typography
-                    variant="caption"
-                    color="textSecondary"
-                    align="center">
-                    {props.role}
-                  </Typography>
-                </Col>
-              </>
+              <Col cw={10}>
+                <Typography>
+                  {props.name} {props.surname}
+                </Typography>
+                <Typography
+                  variant="caption"
+                  color="textSecondary"
+                  align="center">
+                  {props.role}
+                </Typography>
+              </Col>
             )}
           </Row>
           {!props.horizontal && (
