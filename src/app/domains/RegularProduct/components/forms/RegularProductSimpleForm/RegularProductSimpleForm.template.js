@@ -1,25 +1,18 @@
 import {
   Form,
   FormGenerator,
-  FormButtons,
-  useForm
+  FormButtons
 } from 'mui-form-generator-fractal-band-2'
 import Button from '@material-ui/core/Button'
+import RegularProductSimpleSelect from '../../select/RegularProductSingleSelect/RegularProductSingleSelect.template'
 
-const show = ['nameProduct', 'description']
+const show = ['productSelect', 'description']
 
 const config = [
   {
-    type: 'text',
-    label: 'Name',
-    name: 'nameProduct',
-    placeholder: 'Enter wish',
-    rules: {
-      required: 'Enter wish',
-      pattern: {
-        value: 'text'
-      }
-    }
+    label: 'Select Product',
+    name: 'productSelect',
+    Component: RegularProductSimpleSelect
   },
   {
     type: 'multiline',
@@ -35,8 +28,9 @@ const config = [
   }
 ]
 
-const ProductSimpleForm = (props) => {
+const RegularProductSimpleForm = (props) => {
   const { onSubmit, onSubmitFail, formProps, form } = props
+
   return (
     <Form
       form={form}
@@ -49,7 +43,4 @@ const ProductSimpleForm = (props) => {
   )
 }
 
-ProductSimpleForm.propTypes = {}
-ProductSimpleForm.defaultProps = {}
-
-export default ProductSimpleForm
+export default RegularProductSimpleForm
