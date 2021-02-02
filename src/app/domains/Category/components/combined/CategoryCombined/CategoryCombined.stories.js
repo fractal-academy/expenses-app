@@ -10,4 +10,7 @@ const Template = (args) => <CategoryCombined {...args} />
 
 export const CategoryCombinedStory = Template.bind({})
 
-CategoryCombinedStory.args = {}
+CategoryCombinedStory.args = {
+  title: 'Title',
+  typeModalEdit: false
+}
