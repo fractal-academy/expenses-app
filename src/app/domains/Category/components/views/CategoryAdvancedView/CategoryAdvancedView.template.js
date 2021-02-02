@@ -1,10 +1,31 @@
 import PropTypes from 'prop-types'
 import { Row, Container, Col, Box } from '@qonsoll/react-design'
 import { Typography, IconButton, Paper } from '@material-ui/core'
-import EditOutlinedIcon from '@material-ui/icons/EditOutlined'
+import { MoreHorizOutlined, Edit, Delete } from '@material-ui/icons'
 import { CurrencySimpleView } from 'domains/Currency/components/views'
 import { ProgressBar } from 'app/components/Lib'
 import { useStyles } from './CategoryAdavncedView.style'
+import { CategoryCombined } from 'domains/Category/components/combined/CategoryCombined'
+import { DropdownItem, Dropdown } from 'app/components/Lib/Dropdown'
+
+const DropdownList = (
+  <div>
+    <CategoryCombined title="Edit category" typeModalEdit>
+      <DropdownItem>
+        <Box mr={2}>
+          <Edit />
+        </Box>
+        Edit
+      </DropdownItem>
+    </CategoryCombined>
+    <DropdownItem danger>
+      <Box mr={2}>
+        <Delete />
+      </Box>
+      Delete
+    </DropdownItem>
+  </div>
+)
 
 const CategoryAdvancedView = (props) => {
   const classes = useStyles()
@@ -37,13 +58,15 @@ const CategoryAdvancedView = (props) => {
                     <Typography>{nameCategory}</Typography>
                   </Col>
                   <Col cw="auto">
-                    <IconButton
-                      size="small"
-                      color="primary"
-                      aria-label="upload picture"
-                      component="span">
-                      <EditOutlinedIcon />
-                    </IconButton>
+                    <Dropdown overlay={DropdownList}>
+                      <IconButton
+                        size="small"
+                        color="primary"
+                        aria-label="upload picture"
+                        component="span">
+                        <MoreHorizOutlined />
+                      </IconButton>
+                    </Dropdown>
                   </Col>
                 </Row>
                 {/*Row with Available balance*/}
