@@ -1,11 +1,11 @@
 import { MenuItem } from '@material-ui/core'
-import { Select } from 'app/components'
+import { Select } from 'app/components/Lib'
 
 const MEASURES = ['kg', 'g', 'mm', 'cm', 'm']
 
-const MeasureSingleSelect = () => {
+const MeasureSingleSelect = (props) => {
   return (
-    <Select fullWidth data={MEASURES} value={MEASURES[0]}>
+    <Select fullWidth data={MEASURES} value={MEASURES[0]} {...props}>
       {(item) => (
         <MenuItem value={item} key={item}>
           {item}
