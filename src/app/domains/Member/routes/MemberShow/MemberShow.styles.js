@@ -1,7 +1,8 @@
 import { makeStyles } from '@material-ui/core'
-
 export const useStyles = makeStyles({
-  selectColor: {
-    minWidth: 120
+  headerImage: {
+    width: '100%',
+    height: '220px',
+    objectFit: 'cover'
   }
 })
