@@ -42,7 +42,7 @@ const WalletAdvancedView = (props) => {
                   <Row h="between" v="center" mb={4}>
                     {/*there are name of wallet and drop down with edit and delete functions*/}
                     <Col cw="auto">
-                      <Typography variant="h6">{nameWallet}</Typography>
+                      <Typography variant="body1">{nameWallet}</Typography>
                     </Col>
                     <Col cw="auto">
                       <Dropdown overlay={DropdownList}>
