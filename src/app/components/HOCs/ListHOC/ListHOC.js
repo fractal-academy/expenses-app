@@ -6,6 +6,8 @@ import { useEffect, useState } from 'react'
 const ListHOC = (props) => {
   const { children, collectionName, mock } = props
   const [data, setData] = useState(mock)
+  console.log(data)
+  useEffect(() => setData(data), [mock])
   //TODO refactor to service
   // useEffect(() => {
   //   FIRESTORE.collection(collectionName)
