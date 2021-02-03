@@ -37,7 +37,13 @@ const CommentAdvancedView = (props) => {
               </Row>
               <Row>
                 <Col>
-                  <Typography variant={'body2'}>{text}</Typography>
+                  <Box>
+                    <Typography
+                      className={classes.limitWidth}
+                      variant={'body2'}>
+                      {text}
+                    </Typography>
+                  </Box>
                 </Col>
               </Row>
             </Box>
