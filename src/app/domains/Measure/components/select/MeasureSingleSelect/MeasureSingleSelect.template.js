@@ -1,11 +1,13 @@
 import { MenuItem } from '@material-ui/core'
-import { Select } from 'app/components'
+import { Select } from 'app/components/Lib'
+import PropTypes from 'prop-types'
 
 const MEASURES = ['kg', 'g', 'mm', 'cm', 'm']
 
-const MeasureSingleSelect = () => {
+const MeasureSingleSelect = (props) => {
+  const { currentMeasure } = props
   return (
-    <Select fullWidth data={MEASURES} value={MEASURES[0]}>
+    <Select data={MEASURES} value={currentMeasure} {...props}>
       {(item) => (
         <MenuItem value={item} key={item}>
           {item}
@@ -15,6 +17,8 @@ const MeasureSingleSelect = () => {
   )
 }
 
-MeasureSingleSelect.propTypes = {}
+MeasureSingleSelect.propTypes = {
+  currentMeasure: PropTypes.string.isRequired
+}
 
 export default MeasureSingleSelect
