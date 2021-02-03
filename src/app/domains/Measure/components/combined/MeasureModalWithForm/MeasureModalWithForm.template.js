@@ -6,7 +6,7 @@ import { Modal, FabButton } from 'app/components/Lib'
 import { MeasureSimpleForm } from 'domains/Measure/components/forms'
 import PropTypes from 'prop-types'
 
-const MeasureCombined = (props) => {
+const MeasureModalWithForm = (props) => {
   const { title, children } = props
 
   const [open, setOpen] = useState(children && !children)
@@ -81,10 +81,10 @@ const MeasureCombined = (props) => {
     </>
   )
 }
-MeasureCombined.propTypes = {
+MeasureModalWithForm.propTypes = {
   title: PropTypes.string.isRequired,
   typeModalEdit: PropTypes.bool,
   children: PropTypes.element
 }
-MeasureCombined.defaultProps = { title: 'Add new measure' }
-export default MeasureCombined
+MeasureModalWithForm.defaultProps = { title: 'Add new measure' }
+export default MeasureModalWithForm
