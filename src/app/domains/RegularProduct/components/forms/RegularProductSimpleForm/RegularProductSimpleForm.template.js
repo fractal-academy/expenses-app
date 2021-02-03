@@ -4,7 +4,7 @@ import {
   FormButtons
 } from 'mui-form-generator-fractal-band-2'
 import Button from '@material-ui/core/Button'
-import RegularProductSimpleSelect from '../../select/RegularProductSingleSelect/RegularProductSingleSelect.template'
+import RegularProductSingleSelect from 'app/domains/RegularProduct/components/select/RegularProductSingleSelect'
 
 const show = ['productSelect', 'description']
 
@@ -12,7 +12,7 @@ const config = [
   {
     label: 'Select Product',
     name: 'productSelect',
-    Component: RegularProductSimpleSelect
+    Component: RegularProductSingleSelect
   },
   {
     type: 'multiline',
