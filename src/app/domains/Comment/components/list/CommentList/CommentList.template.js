@@ -1,13 +1,8 @@
 import { ListHOC } from 'app/components/HOCs/ListHOC/index'
 import { CommentAdvancedView } from 'domains/Comment/components/views'
 import { Box, Col, Container, Row } from '@qonsoll/react-design'
-import { useStyles } from './CommentList.style'
-import InputBase from '@material-ui/core/InputBase'
-import Divider from '@material-ui/core/Divider'
-import IconButton from '@material-ui/core/IconButton'
-import SendIcon from '@material-ui/icons/Send'
-import { useEffect, useRef, useState } from 'react'
-import { Paper } from '@material-ui/core'
+import { useRef, useState } from 'react'
+import { CommentSimpleForm } from 'domains/Comment/components/forms/CommentSimpleForm'
 
 const tmpData = [
   {
@@ -88,8 +83,6 @@ const CommentList = (props) => {
   const [comments, setComments] = useState(tmpData)
   const inputRef = useRef()
 
-  const classes = useStyles()
-
   const addComment = (e) => {
     if (inputRef.current.value) {
       const commentsList = [
@@ -112,24 +105,7 @@ const CommentList = (props) => {
       <Row>
         <Col>
           <Box mt={2} mb={2}>
-            <Paper
-              component="form"
-              onSubmit={addComment}
-              className={classes.root}>
-              <InputBase
-                inputRef={inputRef}
-                className={classes.input}
-                placeholder="Write a comment..."
-              />
-              <Divider className={classes.divider} orientation="vertical" />
-              <IconButton
-                className={classes.SendIcon}
-                aria-label="send"
-                color="inherit"
-                onClick={addComment}>
-                <SendIcon color="primary" />
-              </IconButton>
-            </Paper>
+            <CommentSimpleForm inputRef={inputRef} addComment={addComment} />
           </Box>
           {ListHOC &&
             comments.map((item) => (
