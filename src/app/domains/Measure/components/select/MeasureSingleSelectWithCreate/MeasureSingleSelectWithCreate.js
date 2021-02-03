@@ -1,29 +1,29 @@
-import { CategoryCombined } from 'domains/Category/components/combined'
-import { CategorySingleSelect } from 'domains/Category/components/select'
+import { MeasureSingleSelect } from 'app/domains/Measure/components/select'
+import { MeasureModalWithForm } from 'domains/Measure/components/combined'
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined'
 import IconButton from '@material-ui/core/IconButton'
 import { Row, Col, Container } from '@qonsoll/react-design'
 
-const CategorySelectWithCreate = (props) => {
+const MeasureSingleSelectWithCreate = (props) => {
   return (
     <Container>
       <Row h="between" v="center" noGutters>
         <Col>
-          <CategorySingleSelect fullWidth />
+          <MeasureSingleSelect fullWidth />
         </Col>
         <Col cw="auto">
-          <CategoryCombined title="New Category">
+          <MeasureModalWithForm title="New measure">
             <IconButton
               color="primary"
               aria-label="upload picture"
               component="span">
               <AddCircleOutlineOutlinedIcon />
             </IconButton>
-          </CategoryCombined>
+          </MeasureModalWithForm>
         </Col>
       </Row>
     </Container>
   )
 }
 
-export default CategorySelectWithCreate
+export default MeasureSingleSelectWithCreate
