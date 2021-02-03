@@ -22,7 +22,7 @@
     "firebase": "^8.2.2",
     "md5": "^2.3.0",
     "moment": "^2.29.1",
-    "mui-form-generator-fractal-band-2": "^1.0.21",
+    "mui-form-generator-fractal-band-2": "^1.0.22",
     "node-sass": "^4.14.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
