@@ -1,3 +1,3 @@
-import { WalletSimpleView } from './WalletSimpleView'
+import { WalletSimpleViewWithCurrency } from './WalletSimpleViewWithCurrency'
 import { WalletAdvancedView } from './WalletAdvancedView'
-export { WalletSimpleView, WalletAdvancedView }
+export { WalletSimpleViewWithCurrency, WalletAdvancedView }
