@@ -1,58 +1,51 @@
-import { useRef, useEffect } from 'react'
-import * as echarts from 'echarts'
-const option = {
-  tooltip: {
-    trigger: 'item'
+import Chart from 'react-apexcharts'
+
+const options = {
+  chart: {
+    id: 'basic-bar',
+    animations: {
+      speed: 200
+    }
   },
   legend: {
-    top: '5%',
-    left: 'center'
-  },
-  series: [
-    {
-      name: 'Spent',
-      type: 'pie',
-      radius: ['50%', '80%'],
-      avoidLabelOverlap: false,
-      itemStyle: {
-        borderRadius: 10,
-        borderColor: '#fff',
-        borderWidth: 2
-      },
-      label: {
-        show: true,
-        position: 'inner',
-        formatter: '{c}',
-
-        fontSize: '16',
-        fontWeight: 'bold'
-      },
-      data: [
-        { value: 1048, name: 'Food' },
-        { value: 735, name: 'Office' },
-        { value: 580, name: 'Kitchen' },
-        { value: 484, name: 'Sport' },
-        { value: 300, name: 'Else' }
-      ]
+    fontSize: 15,
+    markers: {
+      radius: 4,
+      width: 22
+    },
+    itemMargin: {
+      vertical: 4
     }
-  ]
+  },
+  tooltip: {
+    enabled: false
+  },
+  plotOptions: {
+    pie: {
+      donut: {
+        labels: {
+          show: true,
+          total: {
+            show: true,
+            fontWeight: 600,
+            color: '#373d3f'
+          }
+        }
+      }
+    }
+  },
+  labels: ['Apples', 'Oranges', 'Berries', 'Grapes'],
+  dataLabels: {
+    formatter: function (val, opts) {
+      return opts.w.globals.series[opts.seriesIndex]
+    }
+  }
 }
 
+const series = [500, 3000, 10000, 1733]
+
 const StatisticAdvancedView = (props) => {
-  let chartRef = useRef(null)
-  useEffect(() => {
-    let chart = echarts.init(chartRef.current)
-    chart.setOption(option)
-  }, [])
-  return (
-    <div
-      ref={chartRef}
-      style={{
-        width: '100%',
-        height: '70%'
-      }}
-    />
-  )
+  return <Chart options={options} series={series} type="donut" />
 }
 
 StatisticAdvancedView.propTypes = {}

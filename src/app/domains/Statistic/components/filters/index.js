@@ -1,2 +1,2 @@
-import { StatisticAdvancedFilter } from './StatisticAdvancedFilter'
-export { StatisticAdvancedFilter }
+import { StatisticSimpleFilter } from './StatisticSimpleFilter'
+export { StatisticSimpleFilter }
