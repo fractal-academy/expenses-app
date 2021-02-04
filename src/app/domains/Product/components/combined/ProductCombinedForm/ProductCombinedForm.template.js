@@ -1,13 +1,11 @@
 import { useState } from 'react'
-import { Modal } from 'app/components/Lib/Modal'
-import { IconButton } from '@material-ui/core'
+import { IconButton, Switch, Typography } from '@material-ui/core'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
-import { ProductSimpleForm } from 'app/domains/Product/components/forms/ProductSimpleForm'
-import { useForm } from 'mui-form-generator-fractal-band-2'
-import { Switch } from '@material-ui/core'
-import { RegularProductSimpleForm } from 'app/domains/RegularProduct/components/forms/RegularProductSimpleForm'
 import { Row } from '@qonsoll/react-design'
-import { Typography } from '@material-ui/core'
+import { useForm } from 'mui-form-generator-fractal-band-2'
+import { Modal } from 'app/components/Lib/Modal'
+import { ProductSimpleForm } from 'app/domains/Product/components/forms/ProductSimpleForm'
+import { RegularProductSimpleForm } from 'app/domains/RegularProduct/components/forms/RegularProductSimpleForm'
 
 const ProductCombinedForm = (props) => {
   const [open, setOpen] = useState(false)

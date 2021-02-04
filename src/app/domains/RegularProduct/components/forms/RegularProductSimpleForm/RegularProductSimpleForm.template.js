@@ -4,9 +4,7 @@ import {
   FormButtons
 } from 'mui-form-generator-fractal-band-2'
 import Button from '@material-ui/core/Button'
-import RegularProductSingleSelect from 'app/domains/RegularProduct/components/select/RegularProductSingleSelect'
-
-const show = ['productSelect', 'description']
+import { RegularProductSingleSelect } from 'app/domains/RegularProduct/components/select'
 
 const config = [
   {
@@ -29,7 +27,7 @@ const config = [
 ]
 
 const RegularProductSimpleForm = (props) => {
-  const { onSubmit, onSubmitFail, formProps, form } = props
+  const { onSubmit, onSubmitFail, formProps, form, visibility } = props
 
   return (
     <Form
@@ -37,8 +35,8 @@ const RegularProductSimpleForm = (props) => {
       onSubmit={onSubmit}
       onSubmitFail={onSubmitFail}
       {...formProps}>
-      <FormGenerator config={config} show={show} />
-      <FormButtons Button={Button} visible={false} />
+      <FormGenerator config={config} />
+      <FormButtons Button={Button} visible={visibility || false} />
     </Form>
   )
 }
