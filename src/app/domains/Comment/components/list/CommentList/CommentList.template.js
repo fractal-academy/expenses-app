@@ -102,7 +102,7 @@ const CommentList = (props) => {
 
   return (
     <Container>
-      <Row>
+      <Row noGutters>
         <Col>
           <Box mt={2} mb={2}>
             <CommentSimpleForm inputRef={inputRef} addComment={addComment} />

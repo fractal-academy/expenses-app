@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import ProductEdit from '../ProductEdit.layout'
+import CartProductEdit from '../CartProductEdit.layout'
 
 test('Render ProductEdit test.', () => {
-  render(<ProductEdit />)
+  render(<CartProductEdit />)
 })
