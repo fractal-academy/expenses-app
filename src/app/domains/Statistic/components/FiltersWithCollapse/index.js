@@ -1,1 +1,1 @@
-export { default as FiltersWithCollapse } from './FiltersWithCollapse'
+export { default as FiltersWithCollapse } from './FiltersWithCollapse.template'

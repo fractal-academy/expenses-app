@@ -1,1 +1,1 @@
-export { default as CollapseWallet } from './CollapseWallet'
+export { default as CollapseWallet } from './CollapseWallet.template'

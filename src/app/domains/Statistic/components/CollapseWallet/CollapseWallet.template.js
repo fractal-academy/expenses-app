@@ -1,14 +1,15 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import PropTypes from 'prop-types'
-import Collapse from '@material-ui/core/Collapse'
-import { Row, Container, Col } from '@qonsoll/react-design'
-import { useStyles } from 'domains/Statistic/components/CollapseDateRange/CollapseDateRange.styles'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
-import ExpandLess from '@material-ui/icons/ExpandLess'
-import ExpandMore from '@material-ui/icons/ExpandMore'
-import Divider from '@material-ui/core/Divider'
+import { Row, Col, Box } from '@qonsoll/react-design'
+import {
+  List,
+  ListItem,
+  ListItemText,
+  Collapse,
+  Divider
+} from '@material-ui/core'
+import { ExpandLess, ExpandMore } from '@material-ui/icons'
+import { CurrencySimpleView } from 'domains/Currency/components/views'
 
 const testUsers = [
   {
@@ -59,7 +60,16 @@ const ListItemWitCollapse = (props) => {
             <ListItemText primary={memberName} />
           </Col>
           <Col>
-            <ListItemText primary={spent} />
+            <Row h="left">
+              <Col cw="auto">
+                <Box display="flex">
+                  <ListItemText primary={spent} />
+                  <ListItemText>
+                    <CurrencySimpleView />
+                  </ListItemText>
+                </Box>
+              </Col>
+            </Row>
           </Col>
           <Col cw="auto"> {open ? <ExpandLess /> : <ExpandMore />}</Col>
         </Row>
@@ -88,7 +98,12 @@ const MemberWallets = (props) => {
             <ListItemText primary={walletName} />
           </Col>
           <Col cw="auto">
-            <ListItemText primary={spentCurrentWallet} />
+            <Box display="flex">
+              <ListItemText primary={spentCurrentWallet} />
+              <ListItemText>
+                <CurrencySimpleView />
+              </ListItemText>
+            </Box>
           </Col>
         </Row>
       </ListItem>
@@ -97,22 +112,32 @@ const MemberWallets = (props) => {
 }
 
 const CollapseWallet = (props) => {
-  const classes = useStyles()
-
+  const { totalSpending } = props
   return (
-    <List
-      component="nav"
-      aria-labelledby="nested-list-subheader"
-      className={classes.root}>
-      {testUsers.map((item) => (
-        <ListItemWitCollapse
-          memberName={item.name}
-          spent={item.spent}
-          memberWallet={item.wallets}
-        />
-      ))}
-    </List>
+    <>
+      <List component="nav" aria-labelledby="nested-list-subheader">
+        {testUsers.map((item) => (
+          <ListItemWitCollapse
+            memberName={item.name}
+            spent={item.spent}
+            memberWallet={item.wallets}
+          />
+        ))}
+        <Row>
+          <Col />
+          <Col cw="auto">
+            <Box display="flex">
+              <ListItemText primary="Total Spending:" />
+              <ListItemText primary={totalSpending} />
+              <ListItemText>
+                <CurrencySimpleView />
+              </ListItemText>
+            </Box>
+          </Col>
+        </Row>
+      </List>
+    </>
   )
 }
-
+CollapseWallet.defaultProps = { totalSpending: '100000' }
 export default CollapseWallet

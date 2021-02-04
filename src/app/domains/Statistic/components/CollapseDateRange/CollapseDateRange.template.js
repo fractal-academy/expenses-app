@@ -1,12 +1,8 @@
 import { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useStyles } from './CollapseDateRange.styles'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
-import Collapse from '@material-ui/core/Collapse'
-import ExpandLess from '@material-ui/icons/ExpandLess'
-import ExpandMore from '@material-ui/icons/ExpandMore'
+import { List, ListItem, ListItemText, Collapse } from '@material-ui/core'
+import { ExpandLess, ExpandMore } from '@material-ui/icons'
 import { DateRange } from 'app/components/Lib/DateRange'
 
 const CollapseDateRangeTemplate = (props) => {
