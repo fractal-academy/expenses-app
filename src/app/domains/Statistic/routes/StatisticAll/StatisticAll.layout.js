@@ -1,5 +1,5 @@
 const StatisticAll = (props) => {
-  return <div>StatisticAll</div>
+  return <></>
 }
 
 StatisticAll.propTypes = {}
