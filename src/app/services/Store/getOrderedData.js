@@ -1,6 +1,9 @@
 import { getCollectionRef } from '../Store'
 
 async function getOrderedData(collection, field, bool) {
+  /*if bool = true sort descending
+   */
+
   let result = []
   await getCollectionRef(collection)
     .orderBy(field, bool && 'desc')
