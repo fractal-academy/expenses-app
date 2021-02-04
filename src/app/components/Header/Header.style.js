@@ -6,6 +6,8 @@ export const useStyles = makeStyles({
     backgroundColor: 'white'
   },
   toolBar: {
-    alignSelf: 'flex-end'
+    alignSelf: (props) => props.goBack ?? 'flex-end',
+    display: 'flex',
+    justifyContent: 'space-between'
   }
 })

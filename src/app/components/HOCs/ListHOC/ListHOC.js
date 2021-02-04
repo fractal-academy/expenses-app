@@ -1,10 +1,13 @@
 import { List } from '@material-ui/core'
 import { useEffect, useState } from 'react'
-import { FIRESTORE } from 'app/constants'
+// import { FIRESTORE } from 'app/constants'
 
-const ListHOC = ({ children, collectionName }) => {
-  const [data, setData] = useState([])
-  //todo
+//TODO delete mock data
+const ListHOC = (props) => {
+  const { children, collectionName, mock } = props
+  const [data, setData] = useState(mock)
+  useEffect(() => setData(data), [mock])
+  //TODO refactor to service
   // useEffect(() => {
   //   FIRESTORE.collection(collectionName)
   //     .get()

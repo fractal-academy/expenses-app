@@ -1,8 +1,24 @@
+import { Select } from 'app/components/Lib'
+import MenuItem from '@material-ui/core/MenuItem'
+import PropTypes from 'prop-types'
+
+const testData = ['Office', 'Kitchen', 'Food', 'Other']
 const CategorySingleSelect = (props) => {
-  return <div>CategorySingleSelect</div>
+  const { currentCategory } = props
+  return (
+    <Select data={testData} value={currentCategory} {...props}>
+      {(item) => (
+        <MenuItem value={item} key={item}>
+          {item}
+        </MenuItem>
+      )}
+    </Select>
+  )
 }
 
-CategorySingleSelect.propTypes = {}
-CategorySingleSelect.defaultProps = {}
+CategorySingleSelect.propTypes = {
+  currentCategory: PropTypes.string.isRequired
+}
+CategorySingleSelect.defaultProps = { currentCategory: 'Other' }
 
 export default CategorySingleSelect

@@ -2,7 +2,12 @@ import RoleSingleSelect from './RoleSingleSelect.template'
 
 const metadata = {
   title: 'domains/Role/components/select/RoleSingleSelect',
-  component: RoleSingleSelect
+  component: RoleSingleSelect,
+  argTypes: {
+    onChange: {
+      action: 'changed role'
+    }
+  }
 }
 export default metadata
 

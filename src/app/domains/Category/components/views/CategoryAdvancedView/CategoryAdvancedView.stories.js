@@ -1,4 +1,7 @@
 import CategoryAdvancedView from './CategoryAdvancedView.template'
+import { ThemeProvider } from '@qonsoll/react-design'
+import Theme from 'app/config/theme'
+import 'app/config/root.scss'
 
 const metadata = {
   title: 'domains/Category/components/views/CategoryAdvancedView',
@@ -6,7 +9,16 @@ const metadata = {
 }
 export default metadata
 
-const Template = (args) => <CategoryAdvancedView {...args} />
+const Template = (args) => (
+  <ThemeProvider theme={Theme}>
+    <CategoryAdvancedView
+      {...args}
+      valueForProgressBar={150}
+      colorCategory="orange"
+      nameCategory="Office"
+    />
+  </ThemeProvider>
+)
 
 export const CategoryAdvancedViewStory = Template.bind({})
 

@@ -1,5 +1,7 @@
+import { LogList } from 'domains/Log/components/list'
+
 const LogAll = (props) => {
-  return <div>LogAll</div>
+  return <LogList />
 }
 
 LogAll.propTypes = {}

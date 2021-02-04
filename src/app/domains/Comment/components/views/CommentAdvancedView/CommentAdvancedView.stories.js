@@ -1,4 +1,7 @@
 import CommentAdvancedView from './CommentAdvancedView.template'
+import { ThemeProvider } from '@qonsoll/react-design'
+import Theme from 'app/config/theme'
+import 'app/config/root.scss'
 
 const metadata = {
   title: 'domains/Comment/components/views/CommentAdvancedView',
@@ -6,8 +9,17 @@ const metadata = {
 }
 export default metadata
 
-const Template = (args) => <CommentAdvancedView {...args} />
+const Template = (args) => (
+  <ThemeProvider theme={Theme}>
+    <CommentAdvancedView {...args} />
+  </ThemeProvider>
+)
 
 export const CommentAdvancedViewStory = Template.bind({})
 
-CommentAdvancedViewStory.args = {}
+CommentAdvancedViewStory.args = {
+  name: 'Olena',
+  surName: 'Shevschiuk',
+  text:
+    'Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum '
+}
