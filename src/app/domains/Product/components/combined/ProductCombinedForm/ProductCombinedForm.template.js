@@ -3,7 +3,7 @@ import { IconButton, Switch, Typography } from '@material-ui/core'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
 import { Row } from '@qonsoll/react-design'
 import { useForm } from 'mui-form-generator-fractal-band-2'
-import { Modal } from 'app/components/Lib/Modal'
+import { Modal } from 'app/components/Lib'
 import { ProductSimpleForm } from 'app/domains/Product/components/forms/ProductSimpleForm'
 import { RegularProductSimpleForm } from 'app/domains/RegularProduct/components/forms/RegularProductSimpleForm'
 
