@@ -1,2 +1,3 @@
 import { RegularProductAdvancedForm } from './RegularProductAdvancedForm'
-export { RegularProductAdvancedForm }
+import { RegularProductSimpleForm } from './RegularProductSimpleForm'
+export { RegularProductAdvancedForm, RegularProductSimpleForm }
