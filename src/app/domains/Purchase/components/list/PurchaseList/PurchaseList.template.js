@@ -1,6 +1,6 @@
 import { List } from '@material-ui/core'
 import { Box } from '@qonsoll/react-design'
-import { PurchaseAdvancedView } from '../views'
+import { PurchaseAdvancedView } from '../../views'
 
 const PURCHASED = [
   {

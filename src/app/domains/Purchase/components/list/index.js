@@ -1,1 +1,2 @@
-export { default as PurchaseList } from './PurchaseList.template'
+import { PurchaseList } from './PurchaseList'
+export { PurchaseList }
