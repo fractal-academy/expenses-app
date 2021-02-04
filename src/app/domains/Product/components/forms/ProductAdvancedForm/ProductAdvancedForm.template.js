@@ -71,7 +71,7 @@ const config = [
   }
 ]
 
-const CategoryForm = (props) => {
+const ProductAdvancedForm = (props) => {
   const {
     formData,
     show,
@@ -97,7 +97,7 @@ const CategoryForm = (props) => {
   )
 }
 
-CategoryForm.propTypes = {
+ProductAdvancedForm.propTypes = {
   formData: PropTypes.object,
   onSubmit: PropTypes.func,
   onSubmitFail: PropTypes.func,
@@ -106,4 +106,4 @@ CategoryForm.propTypes = {
   formProps: PropTypes.object
 }
 
-export default CategoryForm
+export default ProductAdvancedForm
