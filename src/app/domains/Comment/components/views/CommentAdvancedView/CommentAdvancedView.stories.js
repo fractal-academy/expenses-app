@@ -11,16 +11,15 @@ export default metadata
 
 const Template = (args) => (
   <ThemeProvider theme={Theme}>
-    <CommentAdvancedView
-      name={'Olena'}
-      surName={'Shevschiuk'}
-      text={
-        'lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem '
-      }
-    />
+    <CommentAdvancedView {...args} />
   </ThemeProvider>
 )
 
 export const CommentAdvancedViewStory = Template.bind({})
 
-CommentAdvancedViewStory.args = { moment: new Date().getTime() }
+CommentAdvancedViewStory.args = {
+  name: 'Olena',
+  surName: 'Shevschiuk',
+  text:
+    'Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum '
+}

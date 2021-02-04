@@ -1,8 +1,9 @@
 import { useStyles } from './CommentAdvancedView.style'
-import { List, ListItem, MenuItem, Paper, Typography } from '@material-ui/core'
+import { Paper, Typography } from '@material-ui/core'
 import { Box, Row, Col, Container } from '@qonsoll/react-design'
 import { AccountCircle } from '@material-ui/icons'
 import moment from 'moment'
+import PropTypes from 'prop-types'
 
 const CommentAdvancedView = (props) => {
   const { commentTime, authorID, avatar, name, surName, text } = props
@@ -54,7 +55,11 @@ const CommentAdvancedView = (props) => {
   )
 }
 
-CommentAdvancedView.propTypes = {}
-CommentAdvancedView.defaultProps = {}
+CommentAdvancedView.propTypes = {
+  commentTime: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  surName: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired
+}
 
 export default CommentAdvancedView
