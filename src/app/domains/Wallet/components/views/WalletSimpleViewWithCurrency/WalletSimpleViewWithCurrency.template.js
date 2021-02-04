@@ -11,14 +11,14 @@ const WalletSimpleViewWithCurrency = (props) => {
           <Row>
             {/*there is name of wallet*/}
 
-            <Col cw={'auto'}>
+            <Col cw="auto">
               <Typography variant="body1">{nameWallet}</Typography>
             </Col>
           </Row>
           <Row h="right">
             {/*there are balance and currency*/}
 
-            <Col cw={'auto'}>
+            <Col cw="auto">
               <Typography variant="caption">{balance}</Typography>
               <CurrencySimpleView variant="caption" value={currency} />
             </Col>

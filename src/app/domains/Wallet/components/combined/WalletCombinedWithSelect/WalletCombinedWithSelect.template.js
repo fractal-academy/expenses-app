@@ -3,16 +3,35 @@ import { Snackbar } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
 import { Alert } from '@material-ui/lab'
 import { Modal, FabButton } from 'app/components/Lib'
-import { WalletForm } from 'app/domains/Wallet/components/form/WalletForm'
+import { WalletFormWithSelect } from 'app/domains/Wallet/components/form/WalletFormWithSelect'
 import PropTypes from 'prop-types'
 
-const WalletCombined = (props) => {
+const WalletCombinedWithSelect = (props) => {
   const { title, typeModalEdit, children } = props
 
   const [open, setOpen] = useState(children && !children)
   const [openSnackbarSuccess, setOpenSnackbarSuccess] = useState(false)
   const [openSnackbarError, setOpenSnackbarError] = useState(false)
-  const form = useForm({})
+  const form = useForm({
+    defaultValues: {
+      wallet: {
+        id: '123',
+        data: {
+          123: {
+            nameWallet: 'Olena`s wallet',
+            balance: '800',
+            currency: 'USD'
+          },
+          456: { nameWallet: 'wallet', balance: '200', currency: 'USD' },
+          789: {
+            nameWallet: '1wallet',
+            balance: '200000',
+            currency: 'USD'
+          }
+        }
+      }
+    }
+  })
 
   const onSubmit = () => {
     setOpen(false)
@@ -71,9 +90,26 @@ const WalletCombined = (props) => {
           variant: 'contained',
           onClick: handleClose
         }}>
-        <WalletForm
-          form={form}
-          show={['nameWallet', 'member', 'balance', 'currency']}
+        <WalletFormWithSelect
+          formData={{
+            wallet: {
+              id: '123',
+              data: {
+                123: {
+                  nameWallet: 'Olena`s wallet',
+                  balance: '800',
+                  currency: 'USD'
+                },
+                456: { nameWallet: 'wallet', balance: '200', currency: 'USD' },
+                789: {
+                  nameWallet: '1wallet',
+                  balance: '200000',
+                  currency: 'USD'
+                }
+              }
+            }
+          }}
+          show={['wallet']}
           onSubmit={onSubmit}
           buttonProps={{ visible: false }}
         />
@@ -81,10 +117,9 @@ const WalletCombined = (props) => {
     </>
   )
 }
-WalletCombined.propTypes = {
+WalletCombinedWithSelect.propTypes = {
   title: PropTypes.string.isRequired,
   typeModalEdit: PropTypes.bool,
   children: PropTypes.element
 }
-WalletCombined.defaultProps = { title: 'Title', typeModalEdit: false }
-export default WalletCombined
+export default WalletCombinedWithSelect

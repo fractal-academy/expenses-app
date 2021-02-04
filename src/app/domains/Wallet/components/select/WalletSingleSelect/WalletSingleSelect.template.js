@@ -4,18 +4,20 @@ import PropTypes from 'prop-types'
 import { WalletSimpleViewWithCurrency } from 'app/domains/Wallet/components/views'
 import { useStyles } from './WalletSingleSelect.styles'
 
-const data = [
-  { nameWallet: 'Olena`s wallet', balance: '800', currency: 'USD' },
-  { nameWallet: 'wallet', balance: '200', currency: 'USD' }
-]
-
 const WalletSingleSelect = (props) => {
   const classes = useStyles()
 
-  return (
-    <Select data={data} value={data[0]} className={classes.root} {...props}>
+  let { data, id, value, ...rest } = props
+  id = value ? value : id
+
+  return data ? (
+    <Select
+      data={Object.values(data)}
+      className={classes.root}
+      value={data[id]}
+      {...rest}>
       {(item) => (
-        <MenuItem value={item} key={item}>
+        <MenuItem value={item} key={item.id}>
           <WalletSimpleViewWithCurrency
             nameWallet={item.nameWallet}
             balance={item.balance}
@@ -24,12 +26,14 @@ const WalletSingleSelect = (props) => {
         </MenuItem>
       )}
     </Select>
+  ) : (
+    <div>no data</div>
   )
 }
 
 WalletSingleSelect.propTypes = {
-  currentCategory: PropTypes.string.isRequired
+  id: PropTypes.string,
+  data: PropTypes.object
 }
-WalletSingleSelect.defaultProps = { currentCategory: 'Other' }
 
 export default WalletSingleSelect

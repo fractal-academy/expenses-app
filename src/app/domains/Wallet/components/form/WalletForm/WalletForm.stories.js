@@ -1,4 +1,4 @@
-import WalletForm from 'app/domains/Wallet/components/form/WalletForm.template'
+import WalletForm from './WalletForm.template'
 
 const metadata = {
   title: 'domains/Wallet/components/form/WalletForm',
