@@ -36,7 +36,7 @@ const WalletCombinedWithSelect = (props) => {
   const onSubmit = () => {
     setOpen(false)
   }
-  const submitForm = () => form.submit()
+
   const handleClickOpen = () => {
     setOpen(true)
   }
@@ -83,7 +83,7 @@ const WalletCombinedWithSelect = (props) => {
           text: typeModalEdit ? 'Save' : 'Submit',
           variant: 'contained',
           color: 'primary',
-          onClick: submitForm
+          onClick: onSubmit
         }}
         buttonCancelProps={{
           text: 'Cancel',
