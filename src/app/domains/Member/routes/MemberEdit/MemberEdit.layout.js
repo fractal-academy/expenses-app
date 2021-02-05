@@ -1,5 +1,7 @@
+import { MemberAdvancedForm } from 'domains/Member/components/forms'
+
 const MemberEdit = (props) => {
-  return <div>MemberEdit</div>
+  return <MemberAdvancedForm />
 }
 
 MemberEdit.propTypes = {}
