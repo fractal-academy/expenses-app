@@ -5,11 +5,12 @@ const CartProductEdit = (props) => {
     <ProductAdvancedForm
       show={[
         'ProductName',
-        'Assign',
-        'Category',
         'Description',
         'Price',
-        'Measures'
+        'Assign',
+        'Category',
+        'Measures',
+        'Date'
       ]}
     />
   )

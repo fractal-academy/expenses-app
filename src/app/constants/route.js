@@ -4,10 +4,10 @@ import { SessionLogin } from 'domains/Session/routes'
 import { MemberShow, MemberEdit, MemberAll } from 'domains/Member/routes'
 import {
   CartProductShow,
-  WishesProductShow,
-  RegularProductShow,
   CartProductEdit,
+  WishesProductShow,
   WishesProductEdit,
+  RegularProductShow,
   RegularProductEdit
 } from 'domains/Product/routes'
 import { RegularProductAll } from 'domains/RegularProduct/routes'
@@ -42,7 +42,8 @@ const ROUTES = {
   },
   REGULAR_PRODUCTS_ALL: {
     component: withLayout({ goBack: true })(RegularProductAll),
-    path: ROUTES_PATHS.REGULAR_PRODUCTS_ALL
+    path: ROUTES_PATHS.REGULAR_PRODUCTS_ALL,
+    exact: true
   },
   PURCHASE_ALL: {
     component: withLayout({ goBack: true })(PurchaseAll),
@@ -62,11 +63,13 @@ const ROUTES = {
   },
   WISHES_ALL: {
     component: withLayout()(WishAll),
-    path: ROUTES_PATHS.WISHES_ALL
+    path: ROUTES_PATHS.WISHES_ALL,
+    exact: true
   },
   CARTS_ALL: {
     component: withLayout()(CartAll),
-    path: ROUTES_PATHS.CART_ALL
+    path: ROUTES_PATHS.CART_ALL,
+    exact: true
   },
   STATISTICS_ALL: {
     component: withLayout()(StatisticAll),
