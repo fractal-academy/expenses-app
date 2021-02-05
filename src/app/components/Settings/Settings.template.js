@@ -23,7 +23,8 @@ const SETTINGS_MENU = [
     path: ROUTES_PATHS.REGULAR_PRODUCTS_ALL,
     icon: <ViewList />
   },
-  { title: 'Purchase', path: ROUTES_PATHS.PURCHASE_ALL, icon: <Receipt /> }
+  { title: 'Purchase', path: ROUTES_PATHS.PURCHASE_ALL, icon: <Receipt /> },
+  { title: 'Wallets', path: ROUTES_PATHS.WALLETS_ALL, icon: <Receipt /> }
 ]
 
 const Settings = (props) => {

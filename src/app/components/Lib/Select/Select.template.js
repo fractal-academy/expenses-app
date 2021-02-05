@@ -35,7 +35,7 @@ const Select = (props) => {
 }
 
 Select.propTypes = {
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   onChange: PropTypes.func,
   data: PropTypes.array,
   children: PropTypes.func,
