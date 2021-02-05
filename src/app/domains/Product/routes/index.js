@@ -1,4 +1,16 @@
-import { ProductShow } from './ProductShow'
-import { ProductEdit } from './ProductEdit'
-import { ProductAll } from './ProductAll'
-export { ProductShow, ProductEdit, ProductAll }
+import { CartProductShow } from './CartProductShow'
+import { WishesProductShow } from './WishesProductShow'
+import { RegularProductShow } from './RegularProductShow'
+
+import { CartProductEdit } from './CartProductEdit'
+import { WishesProductEdit } from './WishesProductEdit'
+import { RegularProductEdit } from './RegularProductEdit'
+
+export {
+  CartProductShow,
+  CartProductEdit,
+  WishesProductShow,
+  WishesProductEdit,
+  RegularProductShow,
+  RegularProductEdit
+}
