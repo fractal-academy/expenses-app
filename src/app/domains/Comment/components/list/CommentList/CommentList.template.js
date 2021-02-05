@@ -10,74 +10,15 @@ const tmpData = [
     name: 'Sasha',
     surName: 'Golyk',
     text:
-      'Lorem lorem lorem inpun lorem inpun lorem inpun lorem inpun lorem inpun lorem inpun lorem inpun lorem inpun lorem ' +
-      'inpun lorem inpun lorem inpun '
-  },
-  {
-    commentTime: new Date().getTime(),
-    name: 'Sasha',
-    surName: 'Golyk',
-    text:
-      'Lorem lorem lorem inpun lorem inpun lorem inpun lorem inpun lorem inpun lorem inpun lorem inpun lorem inpun lorem ' +
-      'inpun lorem inpun lorem inpun '
-  },
-  {
-    commentTime: new Date().getTime(),
-    name: 'Sasha',
-    surName: 'Golyk',
-    text:
-      'Lorem lorem lorem inpun lorem inpun lorem inpun lorem inpun lorem inpun lorem inpun lorem inpun lorem inpun lorem ' +
-      'inpun lorem inpun lorem inpun '
-  },
-  {
-    commentTime: new Date().getTime(),
-    name: 'Sasha',
-    surName: 'Golyk',
-    text:
-      'Lorem lorem lorem inpun lorem inpun lorem inpun lorem inpun lorem inpun lorem inpun lorem inpun lorem inpun lorem ' +
-      'inpun lorem inpun lorem inpun '
-  },
-  {
-    commentTime: new Date().getTime(),
-    name: 'Sasha',
-    surName: 'Golyk',
-    text:
-      'Lorem lorem lorem inpun lorem inpun lorem inpun lorem inpun lorem inpun lorem inpun lorem inpun lorem inpun lorem ' +
-      'inpun lorem inpun lorem inpun '
-  },
-  {
-    commentTime: new Date().getTime(),
-    name: 'Sasha',
-    surName: 'Golyk',
-    text:
-      'Lorem lorem lorem inpun lorem inpun lorem inpun lorem inpun lorem inpun lorem inpun lorem inpun lorem inpun lorem ' +
-      'inpun lorem inpun lorem inpun '
-  },
-  {
-    commentTime: new Date().getTime(),
-    name: 'Sasha',
-    surName: 'Golyk',
-    text:
-      'Lorem lorem lorem inpun lorem inpun lorem inpun lorem inpun lorem inpun lorem inpun lorem inpun lorem inpun lorem ' +
-      'inpun lorem inpun lorem inpun '
-  },
-  {
-    commentTime: new Date().getTime(),
-    name: 'Sasha',
-    surName: 'Golyk',
-    text:
-      'Lorem lorem lorem inpun lorem inpun lorem inpun lorem inpun lorem inpun lorem inpun lorem inpun lorem inpun lorem ' +
-      'inpun lorem inpun lorem inpun '
-  },
-  {
-    commentTime: new Date().getTime(),
-    name: 'Sasha',
-    surName: 'Golyk',
-    text:
-      'Lorem lorem lorem inpun lorem inpun lorem inpun lorem inpun lorem inpun lorem inpun lorem inpun lorem inpun lorem ' +
-      'inpun lorem inpun lorem inpun '
+      'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, dolorem.'
   }
 ]
+
+/*
+ * List with simple form, isn't it a combine component???
+ *
+ * TODO refactor
+ * */
 
 const CommentList = (props) => {
   const [comments, setComments] = useState(tmpData)
