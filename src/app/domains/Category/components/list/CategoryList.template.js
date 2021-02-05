@@ -8,7 +8,7 @@ const dataForListCategory = [
     currency: 'USD',
     spent: 400,
     budget: 1000,
-    valueForProgressBar: '60'
+    valueForProgressBar: 60
   },
   {
     nameCategory: 'Kitchen',
@@ -16,15 +16,15 @@ const dataForListCategory = [
     currency: 'USD',
     spent: 500,
     budget: 1500,
-    valueForProgressBar: '80'
+    valueForProgressBar: 80
   },
   {
-    nameCategory: 'Office',
+    nameCategory: 'Office 2',
     colorCategory: 'red',
     currency: 'USD',
     spent: 100,
     budget: 200,
-    valueForProgressBar: '50'
+    valueForProgressBar: 50
   },
   {
     nameCategory: 'Food',
@@ -32,7 +32,7 @@ const dataForListCategory = [
     currency: 'USD',
     spent: 400,
     budget: 1000,
-    valueForProgressBar: '30'
+    valueForProgressBar: 30
   },
   {
     nameCategory: 'Company',
@@ -40,7 +40,7 @@ const dataForListCategory = [
     currency: 'USD',
     spent: 400,
     budget: 1000,
-    valueForProgressBar: '60'
+    valueForProgressBar: 60
   }
 ]
 //TODO delete mock data
@@ -48,7 +48,7 @@ const CategoryList = (props) => {
   return (
     <>
       {dataForListCategory.map((item) => (
-        <CategoryAdvancedView {...item} />
+        <CategoryAdvancedView {...item} key={item.nameCategory} />
       ))}
     </>
   )

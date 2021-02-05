@@ -22,8 +22,6 @@ const StatisticSimpleFilter = (props) => {
 
   const handleChange = (event, newValue) => {
     setValue(newValue)
-    console.log(moment().startOf(newValue).format('MM-DD-YYYY'))
-    console.log(moment().startOf(newValue).format())
     setState({
       ...state,
       tab: newValue,

@@ -16,7 +16,7 @@ const config = [
     rules: {
       required: 'Enter wish',
       pattern: {
-        value: 'text'
+        value: 'word'
       }
     }
   },
@@ -24,13 +24,7 @@ const config = [
     type: 'multiline',
     label: 'Description',
     name: 'description',
-    placeholder: 'Description',
-    rules: {
-      required: 'Enter budget limit',
-      pattern: {
-        value: 'number'
-      }
-    }
+    placeholder: 'Description'
   }
 ]
 
@@ -49,6 +43,5 @@ const ProductSimpleForm = (props) => {
 }
 
 ProductSimpleForm.propTypes = {}
-ProductSimpleForm.defaultProps = {}
 
 export default ProductSimpleForm

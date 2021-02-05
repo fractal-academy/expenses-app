@@ -9,7 +9,7 @@ import PropTypes from 'prop-types'
 const CategoryCombined = (props) => {
   const { title, typeModalEdit, children } = props
 
-  const [open, setOpen] = useState(children && !children)
+  const [open, setOpen] = useState(!!children && !children)
   const [openSnackbarSuccess, setOpenSnackbarSuccess] = useState(false)
   const [openSnackbarError, setOpenSnackbarError] = useState(false)
   const form = useForm({})

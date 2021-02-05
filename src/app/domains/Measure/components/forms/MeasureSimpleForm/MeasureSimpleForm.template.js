@@ -3,8 +3,7 @@ import Button from '@material-ui/core/Button'
 import {
   Form,
   FormGenerator,
-  FormButtons,
-  useForm
+  FormButtons
 } from 'mui-form-generator-fractal-band-2'
 
 const config = [
@@ -16,7 +15,7 @@ const config = [
     rules: {
       required: 'Enter measure',
       pattern: {
-        value: 'text'
+        value: 'word'
       }
     }
   }
@@ -32,15 +31,13 @@ const MeasureSimpleForm = (props) => {
     buttonProps,
     formProps
   } = props
-  const formRef = useForm({
-    defaultValues: { ...formData }
-  })
 
   return (
     <Form
-      form={form || formRef}
+      form={form}
       onSubmit={onSubmit}
       onSubmitFail={onSubmitFail}
+      defaultValues={formData}
       {...formProps}>
       <FormGenerator config={config} show={show} />
       <FormButtons Button={Button} {...buttonProps} />

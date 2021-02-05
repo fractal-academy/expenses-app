@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import moment from 'moment'
 
 import StatisticContext from './StatisticsContext'
@@ -18,7 +18,6 @@ const StatisticProvider = (props) => {
     ...value
   }
   const [state, setState] = useState(initState)
-  useEffect(() => console.log('StatisticState', state), [state])
   return <StatisticContext.Provider value={{ state, setState }} {...rest} />
 }
 

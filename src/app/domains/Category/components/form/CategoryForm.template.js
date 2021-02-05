@@ -3,8 +3,7 @@ import Button from '@material-ui/core/Button'
 import {
   Form,
   FormGenerator,
-  FormButtons,
-  useForm
+  FormButtons
 } from 'mui-form-generator-fractal-band-2'
 import { ColorSingleSelect } from 'app/domains/Color/components/select'
 
@@ -22,20 +21,17 @@ const config = [
     rules: {
       required: 'Enter name category',
       pattern: {
-        value: 'text'
+        value: 'word'
       }
     }
   },
   {
-    type: 'text',
+    type: 'number',
     label: 'Budget',
     name: 'budgetLimit',
     placeholder: 'Enter budget limit',
     rules: {
-      required: 'Enter budget limit',
-      pattern: {
-        value: 'number'
-      }
+      required: 'Enter budget limit'
     }
   }
 ]
@@ -50,15 +46,12 @@ const CategoryForm = (props) => {
     buttonProps,
     formProps
   } = props
-  const formRef = useForm({
-    defaultValues: { ...formData }
-  })
-
   return (
     <Form
-      form={form || formRef}
+      form={form}
       onSubmit={onSubmit}
       onSubmitFail={onSubmitFail}
+      defaultValues={formData}
       {...formProps}>
       <FormGenerator config={config} show={show} />
       <FormButtons Button={Button} {...buttonProps} />

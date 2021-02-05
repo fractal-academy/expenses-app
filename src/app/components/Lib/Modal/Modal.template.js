@@ -21,8 +21,10 @@ const Modal = (props) => {
 
   return (
     <Dialog open={open} onClose={buttonCancelProps.onClick} {...dialogProps}>
-      <DialogTitle>
-        <Typography {...titleTypographyProps}>{title}</Typography>
+      <DialogTitle disableTypography={true}>
+        <Typography component="h2" {...titleTypographyProps}>
+          {title}
+        </Typography>
       </DialogTitle>
       <DialogContent>{children}</DialogContent>
       <DialogActions>

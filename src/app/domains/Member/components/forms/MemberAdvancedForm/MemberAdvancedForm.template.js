@@ -1,15 +1,14 @@
+import { useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import Button from '@material-ui/core/Button'
 import {
   Form,
   FormGenerator,
-  FormButtons,
-  useForm
+  FormButtons
 } from 'mui-form-generator-fractal-band-2'
-import { AvatarUploader } from 'components/Lib/Avatar'
-import { RoleSingleSelect } from 'app/domains/Role/components/select'
+import { AvatarUploader } from 'components/Lib'
+import { RoleSingleSelect } from 'domains/Role/components/select'
 import { ROUTES_PATHS } from 'app/constants'
-import { useHistory } from 'react-router-dom'
 
 const config = [
   {
@@ -41,7 +40,7 @@ const config = [
     rules: {
       required: 'Enter your surname',
       pattern: {
-        value: 'text'
+        value: 'word'
       }
     }
   },
@@ -83,7 +82,7 @@ const config = [
 ]
 
 const MemberAdvancedForm = (props) => {
-  const history = useHistory()
+  let history = useHistory()
   const back = () => history.push(ROUTES_PATHS.MEMBER_SHOW)
 
   const {
@@ -95,22 +94,19 @@ const MemberAdvancedForm = (props) => {
     buttonProps,
     formProps
   } = props
-  const formRef = useForm({
-    defaultValues: { ...formData }
-  })
 
   return (
     <Form
-      form={form || formRef}
+      form={form}
       onSubmit={onSubmit}
       onSubmitFail={onSubmitFail}
+      defaultValues={formData}
       {...formProps}>
-      <FormGenerator config={config} show={[]} />
+      <FormGenerator config={config} show={show} />
       <FormButtons
         Button={Button}
         visibleCancel={true}
         onClickCancel={back}
-        layout={{ h: 'around' }}
         {...buttonProps}
       />
     </Form>

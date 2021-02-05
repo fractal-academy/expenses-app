@@ -5,14 +5,14 @@ import { COLORS } from 'app/constants'
 
 const ColorSingleSelect = (props) => {
   const classes = useStyles()
-
+  const { value, ...rest } = props
   const { COLOR_VALUE } = COLORS
   return (
     <Select
       className={classes.selectColor}
-      value={COLOR_VALUE[0].name}
+      value={value || COLOR_VALUE[0].name}
       data={COLOR_VALUE}
-      {...props}>
+      {...rest}>
       {(item) => (
         <MenuItem
           value={item.name}

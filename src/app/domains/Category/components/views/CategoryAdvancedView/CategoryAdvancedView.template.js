@@ -133,6 +133,6 @@ CategoryAdvancedView.defaultProps = {
   spent: '7500',
   budget: '10000',
   currency: 'USD',
-  valueForProgressBar: '50'
+  valueForProgressBar: 50
 }
 export default CategoryAdvancedView

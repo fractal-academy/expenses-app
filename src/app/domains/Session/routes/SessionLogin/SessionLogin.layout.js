@@ -1,10 +1,10 @@
 import { Box, Paper } from '@material-ui/core'
-import { Row, Col, Container } from '@qonsoll/react-design'
+import { Row, Col } from '@qonsoll/react-design'
 import { SessionSimpleView } from 'domains/Session/components/views'
 
 const SessionLogin = (props) => {
   return (
-    <Row v="center" h="center">
+    <Row v="center" height="100%">
       <Col>
         <Paper>
           <Box p={2}>
