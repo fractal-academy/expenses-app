@@ -1,7 +1,8 @@
 import { MemberAdvancedForm } from 'domains/Member/components/forms'
 
 const MemberEdit = (props) => {
-  return <MemberAdvancedForm />
+  const onSubmit = (data) => console.log(data)
+  return <MemberAdvancedForm onSubmit={onSubmit} />
 }
 
 MemberEdit.propTypes = {}

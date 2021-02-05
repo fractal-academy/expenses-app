@@ -1,14 +1,16 @@
 import { useState } from 'react'
 import moment from 'moment'
-
+import 'moment/locale/uk'
 import StatisticContext from './StatisticsContext'
+
+const ukMoment = moment().locale('uk')
 
 const StatisticProvider = (props) => {
   const {
     value = {
       date: {
-        startDate: new Date(moment().startOf('Month').format()),
-        endDate: new Date(moment().endOf('Month').format())
+        startDate: new Date(ukMoment.startOf('Month').format()),
+        endDate: new Date(ukMoment.endOf('Month').format())
       },
       tab: 'Month'
     },

@@ -4,22 +4,26 @@ import { ListHOC } from 'app/components/HOCs/ListHOC'
 
 const mockNotification = [
   {
+    id: 1,
     avatar: 'https://w3schoolsrus.github.io/w3images/avatar2.png',
     notificationText: 'notification 1',
     notificationTime: new Date()
   },
   {
+    id: 2,
     avatar: 'https://w3schoolsrus.github.io/w3images/avatar2.png',
     notificationText:
       'notification 2 logn logn logn logn logn logn logn logn logn logn logn logn logn',
     notificationTime: new Date()
   },
   {
+    id: 3,
     avatar: 'https://w3schoolsrus.github.io/w3images/avatar2.png',
     notificationText: 'notification 3',
     notificationTime: new Date()
   },
   {
+    id: 4,
     avatar: 'https://w3schoolsrus.github.io/w3images/avatar2.png',
     notificationText: 'notification 4',
     notificationTime: new Date()

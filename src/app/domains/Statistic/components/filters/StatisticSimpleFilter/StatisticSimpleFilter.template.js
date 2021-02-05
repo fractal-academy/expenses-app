@@ -6,7 +6,6 @@ import { useStyles } from './StatisticSimpleFilter.style'
 import { useStatisticContext } from 'app/context/StatisticsContext'
 import moment from 'moment'
 import 'moment/locale/uk'
-moment.locale('uk')
 
 const TABS = [
   { label: 'Day', value: 'Day' },
@@ -21,13 +20,15 @@ const StatisticSimpleFilter = (props) => {
   const [value, setValue] = useState(state.tab)
 
   const handleChange = (event, newValue) => {
+    const ukMoment = moment().locale('uk')
+
     setValue(newValue)
     setState({
       ...state,
       tab: newValue,
       date: {
-        startDate: new Date(moment().startOf(newValue).format()),
-        endDate: new Date(moment().endOf(newValue).format())
+        startDate: new Date(ukMoment.startOf(newValue).format()),
+        endDate: new Date(ukMoment.endOf(newValue).format())
       }
     })
   }

@@ -29,8 +29,9 @@ const mockLog = [
 const LogList = () => {
   return (
     <ListHOC collectionName="logs" mock={mockLog}>
-      {(item) => (
+      {(item, index) => (
         <LogAdvancedView
+          key={index}
           action={item.action}
           userAvatar={item.userAvatar}
           actionDateTime={item.dateTime}

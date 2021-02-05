@@ -28,7 +28,8 @@ const config = [
     rules: {
       required: 'Enter your name',
       pattern: {
-        value: 'word'
+        value: 'word',
+        message: 'Enter only your name'
       }
     }
   },
@@ -40,7 +41,8 @@ const config = [
     rules: {
       required: 'Enter your surname',
       pattern: {
-        value: 'word'
+        value: 'word',
+        message: 'Enter only your surname'
       }
     }
   },

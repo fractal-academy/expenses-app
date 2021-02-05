@@ -1,4 +1,4 @@
-import { Typography, Button, IconButton } from '@material-ui/core'
+import { Typography, IconButton } from '@material-ui/core'
 import { Avatar } from 'components/Lib'
 import PropTypes from 'prop-types'
 import { RoleSimpleView } from 'domains/Role/components/views'
@@ -29,10 +29,9 @@ const MemberAdvancedView = (props) => {
             </Col>
             {!props.horizontal ? (
               <Col cw={2} v="flex-end">
-                <IconButton>
-                  <CreateRoundedIcon
-                    onClick={() => history.push(ROUTES_PATHS.MEMBER_EDIT)}
-                  />
+                <IconButton
+                  onClick={() => history.push(ROUTES_PATHS.MEMBER_EDIT)}>
+                  <CreateRoundedIcon />
                 </IconButton>
               </Col>
             ) : (
@@ -40,12 +39,12 @@ const MemberAdvancedView = (props) => {
                 <Typography>
                   {props.name} {props.surname}
                 </Typography>
-                <Typography
+                <RoleSimpleView
                   variant="caption"
                   color="textSecondary"
-                  align="center">
-                  {props.role}
-                </Typography>
+                  align="center"
+                  role={props.role}
+                />
               </Col>
             )}
           </Row>
@@ -122,6 +121,6 @@ MemberAdvancedView.propTypes = {
   role: PropTypes.string.isRequired,
   email: PropTypes.string,
   phone: PropTypes.string,
-  birthday: PropTypes.string
+  birthday: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 }
 export default MemberAdvancedView

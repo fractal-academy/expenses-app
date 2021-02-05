@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
-import { CollapseDateRange } from 'app/domains/Statistic/components/CollapseDateRange'
-import { StatisticSimpleFilter } from 'app/domains/Statistic/components/filters'
+import { CollapseDateRange } from 'domains/Statistic/components/CollapseDateRange'
+import { StatisticSimpleFilter } from 'domains/Statistic/components/filters'
 
 const FiltersWithCollapse = (props) => {
   return (
