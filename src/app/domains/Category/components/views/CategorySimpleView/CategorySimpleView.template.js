@@ -1,16 +1,20 @@
 import PropTypes from 'prop-types'
 import Typography from '@material-ui/core/Typography'
-import { Row } from '@qonsoll/react-design'
+import { Container, Row, Col } from '@qonsoll/react-design'
 
 const CategorySimpleView = (props) => {
   const { nameCategory, variantCategory, variantNameCategory } = props
   return (
-    <Row h="between">
-      <Typography variant={variantCategory} paragraph>
-        Category
-      </Typography>
-      <Typography variant={variantNameCategory}>{nameCategory}</Typography>
-    </Row>
+    <Container>
+      <Row h="between" mb={2}>
+        <Col cw="auto">
+          <Typography variant={variantCategory}>Category</Typography>
+        </Col>
+        <Col cw="auto">
+          <Typography variant={variantNameCategory}>{nameCategory}</Typography>
+        </Col>
+      </Row>
+    </Container>
   )
 }
 CategorySimpleView.propTypes = {

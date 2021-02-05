@@ -13,7 +13,7 @@ const StatisticAll = (props) => {
       </StatisticProvider>
     </>
   )
-}
+
 
 StatisticAll.propTypes = {}
 StatisticAll.defaultProps = {}

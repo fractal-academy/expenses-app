@@ -6,7 +6,7 @@ const testData = ['Office', 'Kitchen', 'Food', 'Other']
 const CategorySingleSelect = (props) => {
   const { currentCategory } = props
   return (
-    <Select data={testData} value={currentCategory}>
+    <Select data={testData} value={currentCategory} {...props}>
       {(item) => (
         <MenuItem value={item} key={item}>
           {item}

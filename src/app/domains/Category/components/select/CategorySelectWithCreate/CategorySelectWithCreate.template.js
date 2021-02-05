@@ -1,28 +1,29 @@
-import PropTypes from 'prop-types'
+import { CategoryCombined } from 'domains/Category/components/combined'
 import { CategorySingleSelect } from 'domains/Category/components/select'
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined'
 import IconButton from '@material-ui/core/IconButton'
-
-import { Row } from '@qonsoll/react-design'
-import { CategoryCombined } from 'domains/Category/components/combined/CategoryCombined'
+import { Row, Col, Container } from '@qonsoll/react-design'
 
 const CategorySelectWithCreate = (props) => {
   return (
-    <Row h="between" v="center">
-      <CategorySingleSelect />
-      <CategoryCombined title="New Category">
-        <IconButton
-          color="primary"
-          aria-label="upload picture"
-          component="span">
-          <AddCircleOutlineOutlinedIcon />
-        </IconButton>
-      </CategoryCombined>
-    </Row>
+    <Container>
+      <Row h="between" v="center" noGutters>
+        <Col>
+          <CategorySingleSelect fullWidth />
+        </Col>
+        <Col cw="auto">
+          <CategoryCombined title="New Category">
+            <IconButton
+              color="primary"
+              aria-label="upload picture"
+              component="span">
+              <AddCircleOutlineOutlinedIcon />
+            </IconButton>
+          </CategoryCombined>
+        </Col>
+      </Row>
+    </Container>
   )
 }
-
-CategorySelectWithCreate.propTypes = {}
-CategorySelectWithCreate.defaultProps = {}
 
 export default CategorySelectWithCreate

@@ -1,7 +1,7 @@
 import { React } from 'react'
 import PropTypes from 'prop-types'
-import { COLLECTIONS, TABLE_CELLS } from 'app/constants'
 import { DataGrid } from '@material-ui/data-grid'
+import { COLLECTIONS, TABLE_CELLS } from 'app/constants'
 import { Container, Row, Col } from '@qonsoll/react-design'
 
 const rows = [
@@ -59,6 +59,7 @@ const CustomDataGrid = (props) => {
               props.setNumSelected &&
                 props.setNumSelected(newSelection.rowIds.length)
             }}
+            preventDefault
           />
         </Col>
       </Row>

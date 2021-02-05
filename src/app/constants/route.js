@@ -2,7 +2,14 @@ import { withLayout } from 'app/components/HOCs/withLayout'
 //import components to insert into ROUTES field 'component'
 import { SessionLogin } from 'domains/Session/routes'
 import { MemberShow, MemberEdit, MemberAll } from 'domains/Member/routes'
-import { ProductShow, ProductEdit, ProductAll } from 'domains/Product/routes'
+import {
+  CartProductShow,
+  CartProductEdit,
+  WishesProductShow,
+  WishesProductEdit,
+  RegularProductShow,
+  RegularProductEdit
+} from 'domains/Product/routes'
 import { RegularProductAll } from 'domains/RegularProduct/routes'
 import { PurchaseAll } from 'domains/Purchase/routes'
 import { NotificationAll } from 'domains/Notification/routes'
@@ -33,22 +40,10 @@ const ROUTES = {
     component: withLayout({ goBack: true })(MemberAll),
     path: ROUTES_PATHS.MEMBERS_ALL
   },
-  PRODUCT_SHOW: {
-    component: withLayout({ goBack: true })(ProductShow),
-    path: ROUTES_PATHS.PRODUCT_SHOW,
-    exact: true
-  },
-  PRODUCT_EDIT: {
-    component: withLayout()(ProductEdit),
-    path: ROUTES_PATHS.PRODUCT_EDIT
-  },
-  PRODUCTS_ALL: {
-    component: withLayout()(ProductAll),
-    path: ROUTES_PATHS.PRODUCTS_ALL
-  },
   REGULAR_PRODUCTS_ALL: {
     component: withLayout({ goBack: true })(RegularProductAll),
-    path: ROUTES_PATHS.REGULAR_PRODUCTS_ALL
+    path: ROUTES_PATHS.REGULAR_PRODUCTS_ALL,
+    exact: true
   },
   PURCHASE_ALL: {
     component: withLayout({ goBack: true })(PurchaseAll),
@@ -68,11 +63,13 @@ const ROUTES = {
   },
   WISHES_ALL: {
     component: withLayout()(WishAll),
-    path: ROUTES_PATHS.WISHES_ALL
+    path: ROUTES_PATHS.WISHES_ALL,
+    exact: true
   },
   CARTS_ALL: {
     component: withLayout()(CartAll),
-    path: ROUTES_PATHS.CART_ALL
+    path: ROUTES_PATHS.CART_ALL,
+    exact: true
   },
   STATISTICS_ALL: {
     component: withLayout()(StatisticAll),
@@ -81,6 +78,34 @@ const ROUTES = {
   SETTINGS: {
     component: withLayout()(Settings),
     path: ROUTES_PATHS.SETTINGS
+  },
+
+  CART_SHOW: {
+    component: withLayout({ goBack: true })(CartProductShow),
+    path: ROUTES_PATHS.CART_SHOW,
+    exact: true
+  },
+  CART_EDIT: {
+    component: withLayout({ goBack: true })(CartProductEdit),
+    path: ROUTES_PATHS.CART_EDIT
+  },
+  WISH_SHOW: {
+    component: withLayout({ goBack: true })(WishesProductShow),
+    path: ROUTES_PATHS.WISHES_SHOW,
+    exact: true
+  },
+  WISH_EDIT: {
+    component: withLayout({ goBack: true })(WishesProductEdit),
+    path: ROUTES_PATHS.WISHES_EDIT
+  },
+  REGULAR_PRODUCT_SHOW: {
+    component: withLayout({ goBack: true })(RegularProductShow),
+    path: ROUTES_PATHS.REGULAR_PRODUCT_SHOW,
+    exact: true
+  },
+  REGULAR_PRODUCT_EDIT: {
+    component: withLayout({ goBack: true })(RegularProductEdit),
+    path: ROUTES_PATHS.REGULAR_PRODUCT_EDIT
   }
 }
 
