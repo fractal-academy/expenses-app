@@ -17,6 +17,14 @@ const Dropdown = (props) => {
     <Box>
       {cloneElement(children, { onClick: handleOpen })}
       <Menu
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'left'
+        }}
+        transformOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right'
+        }}
         id={idMenu}
         anchorEl={anchorEl}
         keepMounted

@@ -6,7 +6,8 @@ const mockLog = [
     action: 'delete',
     userAvatar: 'https://w3schoolsrus.github.io/w3images/avatar2.png',
     userMail: 'maxim.makarov@gmail.com',
-    description: 'notification 1',
+    description:
+      'Loren ipsum Loren ipsum Loren ipsum Loren ipsum Loren ipsum Loren ipsum Loren ipsum Loren ipsum Loren ipsum Loren ipsum Loren ipsum Loren ipsum Loren ipsum Loren ipsum Loren ipsum Loren ipsum Loren ipsum Loren ipsum Loren ipsum Loren ipsum Loren ipsum Loren ipsum Loren ipsum Loren ipsum Loren ipsum Loren ipsum Loren ipsum Loren ipsum Loren ipsum Loren ipsum Loren ipsum ',
     dateTime: new Date()
   },
   {

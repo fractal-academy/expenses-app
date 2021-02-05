@@ -18,8 +18,15 @@ const MemberSingleSelect = (props) => {
   //     })
   // }, [])
 
+  const member = [
+    { email: 'okrdima@gmial.com:' },
+    { email: 'okrdima1@gmial.com' },
+    { email: 'okrdima2@gmial.com' },
+    { email: 'okrdima3@gmial.com' },
+    { email: 'okrdima4@gmial.com' }
+  ]
   return (
-    <Select data={members} value={currentUser} {...props}>
+    <Select data={member} value={member[0]} {...props}>
       {(item) => (
         <MenuItem key={item.email} value={item.email}>
           {item.email}

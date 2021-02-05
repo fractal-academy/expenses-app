@@ -7,13 +7,13 @@ const MemberSimpleView = (props) => {
   const { avatarUrl, withName, name } = props
   return (
     <Container>
-      <Row>
-        <Col cw="auto" mr={3}>
+      <Row v="center">
+        <Col cw="auto">
           <Avatar size="sm" src={avatarUrl} />
         </Col>
         {withName && (
-          <Col mr={2}>
-            <Typography variant="h6">{name}</Typography>
+          <Col>
+            <Typography>{name}</Typography>
           </Col>
         )}
       </Row>

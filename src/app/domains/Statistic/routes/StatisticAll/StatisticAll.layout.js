@@ -1,15 +1,19 @@
 import { StatisticAdvancedView } from 'domains/Statistic/components/views'
-import { StatisticSimpleFilter } from 'domains/Statistic/components/filters'
-import { Box } from '@qonsoll/react-design'
+import { FiltersWithCollapse } from 'app/domains/Statistic/components/FiltersWithCollapse'
+import { CollapseWallet } from 'app/domains/Statistic/components/CollapseWallet'
+import { StatisticProvider } from 'app/context/StatisticsContext'
 
 const StatisticAll = (props) => {
   return (
     <>
-      <StatisticSimpleFilter />
-      <StatisticAdvancedView />
+      <StatisticProvider>
+        <FiltersWithCollapse />
+        <StatisticAdvancedView />
+        <CollapseWallet />
+      </StatisticProvider>
     </>
   )
-}
+
 
 StatisticAll.propTypes = {}
 StatisticAll.defaultProps = {}

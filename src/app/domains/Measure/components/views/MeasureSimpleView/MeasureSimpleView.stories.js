@@ -18,4 +18,7 @@ const Template = (args) => <MeasureSimpleView {...args} />
 
 export const MeasureSimpleViewStory = Template.bind({})
 
-MeasureSimpleViewStory.args = {}
+MeasureSimpleViewStory.args = {
+  text: 'bootle',
+  productNumber: '5'
+}
