@@ -8,30 +8,9 @@ import PropTypes from 'prop-types'
 
 const WalletCombinedWithSelect = (props) => {
   const { title, typeModalEdit, children } = props
-
   const [open, setOpen] = useState(children && !children)
   const [openSnackbarSuccess, setOpenSnackbarSuccess] = useState(false)
   const [openSnackbarError, setOpenSnackbarError] = useState(false)
-  const form = useForm({
-    defaultValues: {
-      wallet: {
-        id: '123',
-        data: {
-          123: {
-            nameWallet: 'Olena`s wallet',
-            balance: '800',
-            currency: 'USD'
-          },
-          456: { nameWallet: 'wallet', balance: '200', currency: 'USD' },
-          789: {
-            nameWallet: '1wallet',
-            balance: '200000',
-            currency: 'USD'
-          }
-        }
-      }
-    }
-  })
 
   const onSubmit = () => {
     setOpen(false)
