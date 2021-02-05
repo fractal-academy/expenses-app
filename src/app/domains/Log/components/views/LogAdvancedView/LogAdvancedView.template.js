@@ -35,7 +35,7 @@ const LogAdvancedView = (props) => {
             </Row>
           </Col>
           <Col cw="auto" onClick={() => setDetailed(!detailed)}>
-            <Box hoverColor="#3b5998">
+            <Box>
               {detailed ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
             </Box>
           </Col>
