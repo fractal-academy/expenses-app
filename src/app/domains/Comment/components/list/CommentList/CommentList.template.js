@@ -107,15 +107,16 @@ const CommentList = (props) => {
           <Box mt={2} mb={2}>
             <CommentSimpleForm inputRef={inputRef} addComment={addComment} />
           </Box>
-          {ListHOC &&
-            comments.map((item) => (
+          <ListHOC mock={comments}>
+            {(item) => (
               <CommentAdvancedView
                 commentTime={item.commentTime}
                 name={item.name}
                 surName={item.surName}
                 text={item.text}
               />
-            ))}
+            )}
+          </ListHOC>
         </Col>
       </Row>
     </Container>
