@@ -1,12 +1,16 @@
 import { StatisticAdvancedView } from 'domains/Statistic/components/views'
 import { FiltersWithCollapse } from 'app/domains/Statistic/components/FiltersWithCollapse'
 import { CollapseWallet } from 'app/domains/Statistic/components/CollapseWallet'
+import { StatisticProvider } from 'app/context/StatisticsContext'
+
 const StatisticAll = (props) => {
   return (
     <>
-      <FiltersWithCollapse />
-      <StatisticAdvancedView />
-      <CollapseWallet />
+      <StatisticProvider>
+        <FiltersWithCollapse />
+        <StatisticAdvancedView />
+        <CollapseWallet />
+      </StatisticProvider>
     </>
   )
 }

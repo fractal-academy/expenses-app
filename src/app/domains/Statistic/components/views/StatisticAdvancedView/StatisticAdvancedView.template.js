@@ -42,7 +42,7 @@ const options = {
   }
 }
 
-const series = [500, 3000, 10000, 1733]
+const series = [5030, 3000, 1000, 1400]
 
 const StatisticAdvancedView = (props) => {
   return <Chart options={options} series={series} type="donut" />

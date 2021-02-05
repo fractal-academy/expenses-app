@@ -78,6 +78,7 @@ const ListItemWitCollapse = (props) => {
         <List component="div" disablePadding>
           {memberWallet.map((item) => (
             <MemberWallets
+              key={item.name.toString()}
               walletName={item.name}
               spentCurrentWallet={item.spentWallet}
             />
@@ -118,6 +119,7 @@ const CollapseWallet = (props) => {
       <List component="nav" aria-labelledby="nested-list-subheader">
         {testUsers.map((item) => (
           <ListItemWitCollapse
+            key={item.name.toString()}
             memberName={item.name}
             spent={item.spent}
             memberWallet={item.wallets}
