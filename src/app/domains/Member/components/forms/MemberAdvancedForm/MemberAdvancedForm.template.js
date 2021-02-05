@@ -8,6 +8,8 @@ import {
 } from 'mui-form-generator-fractal-band-2'
 import { AvatarUploader } from 'components/Lib/Avatar'
 import { RoleSingleSelect } from 'app/domains/Role/components/select'
+import { ROUTES_PATHS } from '../../../../../constants'
+import { useHistory } from 'react-router-dom'
 
 const config = [
   {
@@ -27,7 +29,7 @@ const config = [
     rules: {
       required: 'Enter your name',
       pattern: {
-        value: 'text'
+        value: 'word'
       }
     }
   },
@@ -81,6 +83,9 @@ const config = [
 ]
 
 const MemberAdvancedForm = (props) => {
+  const history = useHistory()
+  const back = () => history.push(ROUTES_PATHS.MEMBER_SHOW)
+
   const {
     formData,
     show,
@@ -101,7 +106,13 @@ const MemberAdvancedForm = (props) => {
       onSubmitFail={onSubmitFail}
       {...formProps}>
       <FormGenerator config={config} show={[]} />
-      <FormButtons Button={Button} visibleCancel={false} {...buttonProps} />
+      <FormButtons
+        Button={Button}
+        visibleCancel={true}
+        onClickCancel={back}
+        layout={{ h: 'around' }}
+        {...buttonProps}
+      />
     </Form>
   )
 }

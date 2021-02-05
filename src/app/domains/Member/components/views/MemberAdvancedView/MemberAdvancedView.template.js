@@ -5,8 +5,11 @@ import { RoleSimpleView } from 'domains/Role/components/views'
 import CreateRoundedIcon from '@material-ui/icons/CreateRounded'
 import { Container, Row, Col, Box } from '@qonsoll/react-design'
 import moment from 'moment'
+import { ROUTES_PATHS } from '../../../../../constants'
+import { useHistory } from 'react-router-dom'
 
 const MemberAdvancedView = (props) => {
+  const history = useHistory()
   return (
     <Container>
       <Row>
@@ -27,7 +30,9 @@ const MemberAdvancedView = (props) => {
             {!props.horizontal ? (
               <Col cw={2} v="flex-end">
                 <IconButton>
-                  <CreateRoundedIcon />
+                  <CreateRoundedIcon
+                    onClick={() => history.push(ROUTES_PATHS.MEMBER_EDIT)}
+                  />
                 </IconButton>
               </Col>
             ) : (
