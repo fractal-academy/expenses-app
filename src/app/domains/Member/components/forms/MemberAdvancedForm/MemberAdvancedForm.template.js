@@ -100,7 +100,7 @@ const MemberAdvancedForm = (props) => {
       onSubmit={onSubmit}
       onSubmitFail={onSubmitFail}
       {...formProps}>
-      <FormGenerator config={config} show={show} />
+      <FormGenerator config={config} show={[]} />
       <FormButtons Button={Button} visibleCancel={false} {...buttonProps} />
     </Form>
   )
