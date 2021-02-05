@@ -39,12 +39,12 @@ ProductAdvancedFormStory.args = {
   },
   show: [
     'ProductName',
+    'Measures',
+    'Date',
     'Description',
     'Price',
     'Assign',
     'Category',
-    'Remind',
-    'Measures',
-    'Date'
+    'Remind'
   ]
 }

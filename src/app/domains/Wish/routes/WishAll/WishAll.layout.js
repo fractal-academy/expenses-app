@@ -1,5 +1,7 @@
+import { WishTable } from 'app/domains/Wish/components/table/'
+
 const WishAll = (props) => {
-  return <div>WishAll</div>
+  return <WishTable />
 }
 
 WishAll.propTypes = {}

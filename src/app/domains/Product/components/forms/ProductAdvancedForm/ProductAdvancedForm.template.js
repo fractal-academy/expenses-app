@@ -12,7 +12,7 @@ import { MeasureSingleSelectWithCreate } from 'app/domains/Measure/components/se
 
 // if you need to use form on Product Edit(Wish) use props show show: [ 'ProductName','Description', 'Price','Assign','Category','Measures' ]
 //if you need to use form on Product Edit(Cart) use props show show: [ 'ProductName','Description', 'Price','Assign','Category','Measures','Date' ]
-//if you need to use form on Product Edit(Cart) use props show show: [ 'ProductName','Description', 'Price','Assign','Category','Measures','Remind' ]
+//if you need to use form on Product Edit(Regular) use props show show: [ 'ProductName','Description', 'Price','Assign','Category','Measures','Remind' ]
 const config = [
   {
     type: 'text',
