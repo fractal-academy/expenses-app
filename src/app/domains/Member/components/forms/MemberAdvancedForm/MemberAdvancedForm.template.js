@@ -8,7 +8,7 @@ import {
 } from 'mui-form-generator-fractal-band-2'
 import { AvatarUploader } from 'components/Lib/Avatar'
 import { RoleSingleSelect } from 'app/domains/Role/components/select'
-import { ROUTES_PATHS } from '../../../../../constants'
+import { ROUTES_PATHS } from 'app/constants'
 import { useHistory } from 'react-router-dom'
 
 const config = [
