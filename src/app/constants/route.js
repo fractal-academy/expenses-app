@@ -12,6 +12,7 @@ import { WishAll } from 'domains/Wish/routes'
 import { CartAll } from 'domains/Cart/routes'
 import { StatisticAll } from 'domains/Statistic/routes'
 import { Settings } from 'app/components/Settings'
+import { WalletAll } from 'domains/Wallet/routes'
 
 import ROUTES_PATHS from './routePaths'
 
@@ -81,6 +82,10 @@ const ROUTES = {
   SETTINGS: {
     component: withLayout()(Settings),
     path: ROUTES_PATHS.SETTINGS
+  },
+  WALLETS_ALL: {
+    component: withLayout()(WalletAll),
+    path: ROUTES_PATHS.WALLETS_ALL
   }
 }
 

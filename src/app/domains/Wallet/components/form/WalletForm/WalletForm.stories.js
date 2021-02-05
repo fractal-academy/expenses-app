@@ -21,11 +21,5 @@ const Template = (args) => <WalletForm {...args} />
 export const WalletFormStory = Template.bind({})
 
 WalletFormStory.args = {
-  formData: {
-    nameWallet: 'NameWallet',
-    balance: '1000',
-    currency: 'USD',
-    member: 'Olena'
-  },
   show: ['nameWallet', 'member', 'balance', 'currency']
 }

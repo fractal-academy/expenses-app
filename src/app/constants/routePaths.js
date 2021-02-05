@@ -14,7 +14,8 @@ const ROUTES_PATHS = {
   WISHES_ALL: '/wishes',
   CART_ALL: '/cart',
   STATISTICS_ALL: '/statistics',
-  SETTINGS: '/settings'
+  SETTINGS: '/settings',
+  WALLETS_ALL: '/wallets'
 }
 
 export default ROUTES_PATHS

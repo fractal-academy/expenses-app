@@ -7,30 +7,36 @@ import { useStyles } from './WalletAdvancedView.styles'
 import { MoreHorizOutlined, Edit, Delete } from '@material-ui/icons'
 import { DropdownItem, Dropdown } from 'app/components/Lib/Dropdown'
 
-const DropdownList = (
-  <>
-    <WalletCombined title="Edit wallet" typeModalEdit>
-      <DropdownItem>
-        <Box mr={2}>
-          <Edit />
-        </Box>
-        Edit
-      </DropdownItem>
-    </WalletCombined>
-    <DropdownItem danger>
-      <Box mr={2}>
-        <Delete />
-      </Box>
-      Delete
-    </DropdownItem>
-  </>
-)
-
 const WalletAdvancedView = (props) => {
   const classes = useStyles()
 
-  const { nameWallet, balance, owner, currency, avatarUrl } = props
+  const { idWallet, nameWallet, balance, owner, currency, avatarUrl } = props
 
+  const DropdownList = (
+    <>
+      <WalletCombined
+        title="Edit wallet"
+        typeModalEdit
+        idWallet={idWallet}
+        nameWallet={nameWallet}
+        balance={balance}
+        member={owner}
+        currency={currency}>
+        <DropdownItem>
+          <Box mr={2}>
+            <Edit />
+          </Box>
+          Edit
+        </DropdownItem>
+      </WalletCombined>
+      <DropdownItem danger>
+        <Box mr={2}>
+          <Delete />
+        </Box>
+        Delete
+      </DropdownItem>
+    </>
+  )
   return (
     <Container>
       <Row>

@@ -1,2 +1,4 @@
 import { WalletCombinedWithSelect } from './WalletCombinedWithSelect'
-export { WalletCombinedWithSelect }
+import { WalletCombined } from './WalletCombined'
+
+export { WalletCombinedWithSelect, WalletCombined }

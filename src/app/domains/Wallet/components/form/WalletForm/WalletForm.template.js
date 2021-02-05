@@ -62,6 +62,7 @@ const WalletForm = (props) => {
     buttonProps,
     formProps
   } = props
+
   const formRef = useForm({
     defaultValues: { ...formData }
   })

@@ -7,17 +7,36 @@ import { WalletForm } from 'app/domains/Wallet/components/form/WalletForm'
 import PropTypes from 'prop-types'
 
 const WalletCombined = (props) => {
-  const { title, typeModalEdit, children } = props
+  const {
+    idWallet,
+    nameWallet,
+    balance,
+    member,
+    currency,
+    title,
+    typeModalEdit,
+    children
+  } = props
 
   const [open, setOpen] = useState(children && !children)
   const [openSnackbarSuccess, setOpenSnackbarSuccess] = useState(false)
   const [openSnackbarError, setOpenSnackbarError] = useState(false)
-  const form = useForm({})
+
+  const form = useForm({
+    defaultValues: {
+      nameWallet: nameWallet,
+      balance: balance,
+      member: member,
+      currency: currency
+    }
+  })
 
   const onSubmit = () => {
     setOpen(false)
   }
-  const submitForm = () => form.submit()
+
+  const formSubmit = () => form.submit()
+
   const handleClickOpen = () => {
     setOpen(true)
   }
@@ -64,7 +83,8 @@ const WalletCombined = (props) => {
           text: typeModalEdit ? 'Save' : 'Submit',
           variant: 'contained',
           color: 'primary',
-          onClick: submitForm
+          type: 'submit',
+          onClick: formSubmit
         }}
         buttonCancelProps={{
           text: 'Cancel',
@@ -72,6 +92,12 @@ const WalletCombined = (props) => {
           onClick: handleClose
         }}>
         <WalletForm
+          formData={{
+            nameWallet: nameWallet,
+            balance: balance,
+            member: member,
+            currency: currency
+          }}
           form={form}
           show={['nameWallet', 'member', 'balance', 'currency']}
           onSubmit={onSubmit}

@@ -10,8 +10,8 @@ import { Container, Row, Col } from '@qonsoll/react-design'
 import { WalletAdvancedView } from 'domains/Wallet/components/views'
 import SearchIcon from '@material-ui/icons/Search'
 
-const WALLETS = [
-  {
+const WALLETS = {
+  hsd: {
     nameWallet: 'Olena`s wallet',
     owner: 'Olena',
     balance: '1000',
@@ -19,7 +19,7 @@ const WALLETS = [
     avatarUrl:
       'https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/girl_avatar_child_kid-512.png'
   },
-  {
+  uyds: {
     nameWallet: 'Sasha`s wallet',
     owner: 'Sasha',
     balance: '800',
@@ -27,29 +27,37 @@ const WALLETS = [
     avatarUrl:
       'https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/girl_avatar_child_kid-512.png'
   }
-]
+}
+
+function generateList(WALLETS) {
+  let list = []
+
+  for (const item in WALLETS) {
+    list.push(
+      <Fragment key={item}>
+        <ListItem>
+          <WalletAdvancedView
+            idWallet={item}
+            nameWallet={WALLETS[item].nameWallet}
+            owner={WALLETS[item].owner}
+            balance={WALLETS[item].balance}
+            currency={WALLETS[item].currency}
+            avatarUrl={WALLETS[item].avatarUrl}
+          />
+        </ListItem>
+      </Fragment>
+    )
+  }
+
+  return list
+}
+
 const WalletList = () => {
   return (
     <Container>
       <Row>
         <Col cw={12}>
-          <List>
-            {WALLETS.map((wallet) => {
-              return (
-                <Fragment key={Math.random()}>
-                  <ListItem>
-                    <WalletAdvancedView
-                      nameWallet={wallet.nameWallet}
-                      owner={wallet.owner}
-                      balance={wallet.balance}
-                      currency={wallet.currency}
-                      avatarUrl={wallet.avatarUrl}
-                    />
-                  </ListItem>
-                </Fragment>
-              )
-            })}
-          </List>
+          <List>{generateList(WALLETS)}</List>
         </Col>
       </Row>
     </Container>

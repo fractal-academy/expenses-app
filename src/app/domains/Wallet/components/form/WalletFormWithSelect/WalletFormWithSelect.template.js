@@ -34,7 +34,7 @@ const WalletFormWithSelect = (props) => {
     }
   ]
 
-  const WalletFormSubmit = () => {
+  const WalletFormWithSelectSubmit = () => {
     formRef.submit()
     onSubmit && onSubmit()
   }
@@ -42,7 +42,7 @@ const WalletFormWithSelect = (props) => {
   return (
     <Form
       form={form || formRef}
-      onSubmit={WalletFormSubmit}
+      onSubmit={WalletFormWithSelectSubmit}
       onSubmitFail={onSubmitFail}
       {...formProps}>
       <FormGenerator config={config} show={show} />
