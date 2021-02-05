@@ -1,13 +1,10 @@
-import { Typography } from '@material-ui/core'
-import { useState } from 'react'
 import PropTypes from 'prop-types'
+import Typography from '@material-ui/core/Typography'
 
 const RoleSimpleView = (props) => {
-  const { role } = props
+  const { role, ...typography } = props
 
-  const [currentRole, setCurrentRole] = useState(role)
-
-  return <Typography>{currentRole}</Typography>
+  return <Typography {...typography}>{role}</Typography>
 }
 
 RoleSimpleView.propTypes = {
