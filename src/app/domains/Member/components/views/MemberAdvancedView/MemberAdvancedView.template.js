@@ -4,8 +4,11 @@ import PropTypes from 'prop-types'
 import CreateRoundedIcon from '@material-ui/icons/CreateRounded'
 import { Container, Row, Col, Box } from '@qonsoll/react-design'
 import moment from 'moment'
+import { ROUTES_PATHS } from 'app/constants'
+import { useHistory } from 'react-router-dom'
 
 const MemberAdvancedView = (props) => {
+  const history = useHistory()
   return (
     <Container>
       <Row noGutters>
@@ -26,7 +29,9 @@ const MemberAdvancedView = (props) => {
             {!props.horizontal ? (
               <Col cw={2} v="flex-end">
                 <IconButton>
-                  <CreateRoundedIcon />
+                  <CreateRoundedIcon
+                    onClick={() => history.push(ROUTES_PATHS.MEMBER_EDIT)}
+                  />
                 </IconButton>
               </Col>
             ) : (

@@ -1,8 +1,6 @@
+import { PurchaseList } from '../../components/list'
 const PurchaseAll = (props) => {
-  return <div>PurchaseAll</div>
+  return <PurchaseList />
 }
-
-PurchaseAll.propTypes = {}
-PurchaseAll.defaultProps = {}
 
 export default PurchaseAll
