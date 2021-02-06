@@ -30,7 +30,7 @@ const config = [
         type: 'date',
         label: 'Remind',
         name: 'reminderDate',
-        showIfChecked: 'reminder'
+        watch: 'reminder'
       }
     ]
   }

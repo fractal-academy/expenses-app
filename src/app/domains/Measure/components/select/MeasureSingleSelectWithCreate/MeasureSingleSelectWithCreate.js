@@ -9,7 +9,7 @@ const MeasureSingleSelectWithCreate = (props) => {
     <Container>
       <Row h="between" v="center" noGutters>
         <Col>
-          <MeasureSingleSelect fullWidth />
+          <MeasureSingleSelect fullWidth {...props} />
         </Col>
         <Col cw="auto">
           <MeasureModalWithForm title="New measure">

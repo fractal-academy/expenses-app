@@ -9,7 +9,7 @@ const CategorySelectWithCreate = (props) => {
     <Container>
       <Row h="between" v="center" noGutters>
         <Col>
-          <CategorySingleSelect fullWidth />
+          <CategorySingleSelect fullWidth {...props} />
         </Col>
         <Col cw="auto">
           <CategoryCombined title="New Category">
