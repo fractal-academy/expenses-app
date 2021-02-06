@@ -1,16 +1,16 @@
-import WishesProductShow from './WishesProductShow.layout'
+import CartShow from './CartShow.layout'
 
 const metadata = {
-  title: 'domains/Product/routes/WishesProductShow',
-  component: WishesProductShow
+  title: 'domains/Cart/routes/CartShow',
+  component: CartShow
 }
 export default metadata
 
-const Template = (args) => <WishesProductShow {...args} />
+const Template = (args) => <CartShow {...args} />
 
-export const WishesProductShowStory = Template.bind({})
+export const CartProductShowStory = Template.bind({})
 
-WishesProductShowStory.args = {
+CartProductShowStory.args = {
   name: 'Wafle with crispy chocolate',
   description:
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
@@ -20,5 +20,5 @@ WishesProductShowStory.args = {
   categoryBalance: 50,
   number: 5,
   assignedUser: 'Ruslan',
-  puchasedDate: 1614782368
+  purchasedDate: 1614782368
 }

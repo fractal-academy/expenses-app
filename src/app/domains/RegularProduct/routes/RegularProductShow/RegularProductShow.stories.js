@@ -1,7 +1,7 @@
 import RegularProductShow from './RegularProductShow.layout'
 
 const metadata = {
-  title: 'domains/Product/routes/RegularProductShow',
+  title: 'domains/RegularProduct/routes/RegularProductShow',
   component: RegularProductShow
 }
 export default metadata

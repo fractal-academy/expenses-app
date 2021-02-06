@@ -8,7 +8,7 @@ import {
 import { MemberSingleSelect } from 'app/domains/Member/components/select'
 import { CategorySelectWithCreate } from 'app/domains/Category/components/select'
 import { MeasureSingleSelectWithCreate } from 'app/domains/Measure/components/select'
-
+import { CurrencySingleSelect } from 'domains/Currency/components/select'
 // if you need to use form on Product Edit(Wish) use props show show: [ 'ProductName','Description', 'Price','Assign','Category','Measures' ]
 //if you need to use form on Product Edit(Cart) use props show show: [ 'ProductName','Description', 'Price','Assign','Category','Measures','Date' ]
 //if you need to use form on Product Edit(Regular) use props show show: [ 'ProductName','Description', 'Price','Assign','Category','Measures','Remind' ]
@@ -32,16 +32,22 @@ const config = [
     placeholder: 'Enter description'
   },
   {
-    type: 'text',
-    label: 'Price',
-    name: 'Price',
-    placeholder: 'Enter price',
-    rules: {
-      required: 'Enter price',
-      pattern: {
-        value: 'number'
+    inlineLayout: [
+      {
+        type: 'number',
+        label: 'Price',
+        name: 'Price',
+        placeholder: 'Enter price',
+        rules: {
+          required: 'Enter price'
+        }
+      },
+      {
+        name: 'Currency',
+        colProps: { cw: 'auto', style: { flex: 0 } },
+        Component: CurrencySingleSelect
       }
-    }
+    ]
   },
   {
     label: 'Measures',

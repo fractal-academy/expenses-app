@@ -1,7 +1,7 @@
 import RegularProductEdit from './RegularProductEdit.layout'
 
 const metadata = {
-  title: 'domains/Product/routes/RegularProductEdit',
+  title: 'domains/RegularProduct/routes/RegularProductEdit',
   component: RegularProductEdit
 }
 export default metadata

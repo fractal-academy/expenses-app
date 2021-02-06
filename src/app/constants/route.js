@@ -3,20 +3,16 @@ import { withLayout } from 'app/components/HOCs/withLayout'
 import { SessionLogin } from 'domains/Session/routes'
 import { MemberShow, MemberEdit, MemberAll } from 'domains/Member/routes'
 import {
-  CartProductShow,
-  CartProductEdit,
-  WishesProductShow,
-  WishesProductEdit,
-  RegularProductShow,
-  RegularProductEdit
-} from 'domains/Product/routes'
-import { RegularProductAll } from 'domains/RegularProduct/routes'
+  RegularProductAll,
+  RegularProductEdit,
+  RegularProductShow
+} from 'domains/RegularProduct/routes'
 import { PurchaseAll } from 'domains/Purchase/routes'
 import { NotificationAll } from 'domains/Notification/routes'
 import { CategoryAll } from 'domains/Category/routes'
 import { LogAll } from 'domains/Log/routes'
-import { WishAll } from 'domains/Wish/routes'
-import { CartAll } from 'domains/Cart/routes'
+import { WishAll, WishEdit, WishShow } from 'domains/Wish/routes'
+import { CartAll, CartEdit, CartShow } from 'domains/Cart/routes'
 import { StatisticAll } from 'domains/Statistic/routes'
 import { Settings } from 'app/components/Settings'
 
@@ -81,21 +77,21 @@ const ROUTES = {
   },
 
   CART_SHOW: {
-    component: withLayout({ goBack: true })(CartProductShow),
+    component: withLayout({ goBack: true })(CartShow),
     path: ROUTES_PATHS.CART_SHOW,
     exact: true
   },
   CART_EDIT: {
-    component: withLayout({ goBack: true })(CartProductEdit),
+    component: withLayout({ goBack: true })(CartEdit),
     path: ROUTES_PATHS.CART_EDIT
   },
   WISH_SHOW: {
-    component: withLayout({ goBack: true })(WishesProductShow),
+    component: withLayout({ goBack: true })(WishShow),
     path: ROUTES_PATHS.WISHES_SHOW,
     exact: true
   },
   WISH_EDIT: {
-    component: withLayout({ goBack: true })(WishesProductEdit),
+    component: withLayout({ goBack: true })(WishEdit),
     path: ROUTES_PATHS.WISHES_EDIT
   },
   REGULAR_PRODUCT_SHOW: {

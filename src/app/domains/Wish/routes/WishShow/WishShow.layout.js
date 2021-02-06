@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types'
 import { ROUTES_PATHS } from 'app/constants'
-import { ProductAdvancedView } from '../../components/views'
+import { ProductAdvancedView } from 'domains/Product/components/views'
 
-const WishesProductShow = (props) => {
+const WishShow = (props) => {
   return <ProductAdvancedView route={ROUTES_PATHS.WISHES_SHOW} {...props} />
 }
 
-WishesProductShow.propTypes = {
+WishShow.propTypes = {
   price: PropTypes.number,
   number: PropTypes.number,
   measure: PropTypes.string,
@@ -17,4 +17,4 @@ WishesProductShow.propTypes = {
   categoryBalance: PropTypes.number.isRequired
 }
 
-export default WishesProductShow
+export default WishShow

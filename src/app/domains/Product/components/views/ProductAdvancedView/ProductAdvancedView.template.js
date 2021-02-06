@@ -11,25 +11,26 @@ import { CommentList } from 'app/domains/Comment/components/list/CommentList'
 import { CategorySimpleView } from 'app/domains/Category/components/views/CategorySimpleView'
 import { CurrencySimpleView } from 'app/domains/Currency/components/views/CurrencySimpleView'
 
-const DropdowFirstElement = ['Buy', 'Approve', 'Get QR']
+const config = {
+  [ROUTES_PATHS.CART_SHOW]: { item: 'Buy', editRoute: ROUTES_PATHS.CART_EDIT },
+  [ROUTES_PATHS.WISHES_SHOW]: {
+    item: 'Approve',
+    editRoute: ROUTES_PATHS.WISHES_EDIT
+  },
+
+  [ROUTES_PATHS.REGULAR_PRODUCT_SHOW]: {
+    item: 'Get QR',
+    editRoute: ROUTES_PATHS.REGULAR_PRODUCT_EDIT
+  }
+}
 
 const ProductAdvancedView = (props) => {
   let history = useHistory()
   let location = useLocation()
 
-  const firstElement =
-    props.route === ROUTES_PATHS.CART_SHOW
-      ? DropdowFirstElement[0]
-      : props.route === ROUTES_PATHS.WISHES_SHOW
-      ? DropdowFirstElement[1]
-      : DropdowFirstElement[2]
+  const firstElement = config[props.route].item
 
-  const editPages =
-    location.pathname === ROUTES_PATHS.CART_SHOW
-      ? ROUTES_PATHS.CART_EDIT
-      : location.pathname === ROUTES_PATHS.WISHES_SHOW
-      ? ROUTES_PATHS.WISHES_EDIT
-      : ROUTES_PATHS.REGULAR_PRODUCT_EDIT
+  const editPages = config[location.pathname].editRoute
 
   const DropdownList = (
     <Container>
@@ -39,7 +40,7 @@ const ProductAdvancedView = (props) => {
       <DropdownItem onClick={() => history.push(editPages)} divider>
         <Typography>Edit</Typography>
       </DropdownItem>
-      <DropdownItem divider>
+      <DropdownItem divider danger>
         <Typography>Delete</Typography>
       </DropdownItem>
     </Container>
@@ -79,7 +80,9 @@ const ProductAdvancedView = (props) => {
             </Col>
             <Col display="flex" cw="auto">
               <Typography>{props.price || 'None'}</Typography>
-              {props.price && <CurrencySimpleView />}
+              <Typography>
+                {(props.currency && <CurrencySimpleView />) || 'currency'}
+              </Typography>
             </Col>
           </Row>
           <Row h="between" v="center" mb={2}>

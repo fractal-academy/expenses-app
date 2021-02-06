@@ -1,12 +1,13 @@
-import { ProductAdvancedForm } from 'app/domains/Product/components/forms/ProductAdvancedForm'
+import { ProductAdvancedForm } from 'domains/Product/components/forms/ProductAdvancedForm'
 
-const CartProductEdit = (props) => {
+const CartEdit = (props) => {
   return (
     <ProductAdvancedForm
       show={[
         'ProductName',
         'Description',
         'Price',
+        'Currency',
         'Assign',
         'Category',
         'Measures',
@@ -16,6 +17,6 @@ const CartProductEdit = (props) => {
   )
 }
 
-CartProductEdit.propTypes = {}
+CartEdit.propTypes = {}
 
-export default CartProductEdit
+export default CartEdit

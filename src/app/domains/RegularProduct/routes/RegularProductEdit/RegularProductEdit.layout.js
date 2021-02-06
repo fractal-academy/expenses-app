@@ -1,4 +1,4 @@
-import { ProductAdvancedForm } from 'app/domains/Product/components/forms/ProductAdvancedForm'
+import { ProductAdvancedForm } from 'domains/Product/components/forms/ProductAdvancedForm'
 
 const RegularProductEdit = (props) => {
   return (

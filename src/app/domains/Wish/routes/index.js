@@ -1,2 +1,4 @@
 import { WishAll } from './WishAll'
-export { WishAll }
+import { WishEdit } from './WishEdit'
+import { WishShow } from './WishShow'
+export { WishShow, WishEdit, WishAll }

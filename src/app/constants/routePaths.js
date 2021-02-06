@@ -3,9 +3,6 @@ const ROUTES_PATHS = {
   MEMBER_SHOW: '/members/:id',
   MEMBER_EDIT: '/members/:id/edit',
   MEMBERS_ALL: '/members',
-  PRODUCT_SHOW: '/products/:id',
-  PRODUCT_EDIT: '/products/:id/edit',
-  PRODUCTS_ALL: '/products',
   PURCHASE_ALL: '/purchases',
   NOTIFICATIONS_ALL: '/notifications',
   CATEGORIES_ALL: '/categories',
@@ -18,9 +15,9 @@ const ROUTES_PATHS = {
   CART_ALL: '/cart',
   CART_SHOW: '/cart/:id',
   CART_EDIT: '/cart/:id/edit',
-  REGULAR_PRODUCTS_ALL: '/regularProducts',
-  REGULAR_PRODUCT_SHOW: '/regularProducts/:id',
-  REGULAR_PRODUCT_EDIT: '/regularProducts/:id/edit'
+  REGULAR_PRODUCTS_ALL: '/regular-products',
+  REGULAR_PRODUCT_SHOW: '/regular-products/:id',
+  REGULAR_PRODUCT_EDIT: '/regular-products/:id/edit'
 }
 
 export default ROUTES_PATHS
