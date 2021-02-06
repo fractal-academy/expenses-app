@@ -1,16 +1,23 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { Snackbar } from '@material-ui/core'
-import { useForm } from 'react-hook-form'
 import { Alert } from '@material-ui/lab'
 import { Modal, FabButton } from 'app/components/Lib'
-import { WalletFormWithSelect } from 'app/domains/Wallet/components/form/WalletFormWithSelect'
-import PropTypes from 'prop-types'
+import { WalletForm } from 'domains/Wallet/components/form/WalletForm'
+import { useForm } from 'react-hook-form'
 
 const WalletCombinedWithSelect = (props) => {
   const { title, typeModalEdit, children } = props
   const [open, setOpen] = useState(children && !children)
   const [openSnackbarSuccess, setOpenSnackbarSuccess] = useState(false)
   const [openSnackbarError, setOpenSnackbarError] = useState(false)
+  const form = useForm({
+    defaultValues: {
+      select: '123'
+    }
+  })
+
+  const formSubmit = () => form.submit()
 
   const onSubmit = () => {
     setOpen(false)
@@ -62,17 +69,17 @@ const WalletCombinedWithSelect = (props) => {
           text: typeModalEdit ? 'Save' : 'Submit',
           variant: 'contained',
           color: 'primary',
-          onClick: onSubmit
+          onClick: formSubmit
         }}
         buttonCancelProps={{
           text: 'Cancel',
           variant: 'contained',
           onClick: handleClose
         }}>
-        <WalletFormWithSelect
-          formData={{
-            wallet: {
-              id: '123',
+        <WalletForm
+          form={form}
+          fieldProps={{
+            select: {
               data: {
                 123: {
                   nameWallet: 'Olena`s wallet',
@@ -88,7 +95,7 @@ const WalletCombinedWithSelect = (props) => {
               }
             }
           }}
-          show={['wallet']}
+          show={['select']}
           onSubmit={onSubmit}
           buttonProps={{ visible: false }}
         />

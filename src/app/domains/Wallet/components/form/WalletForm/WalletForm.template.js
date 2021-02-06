@@ -3,11 +3,11 @@ import Button from '@material-ui/core/Button'
 import {
   Form,
   FormGenerator,
-  FormButtons,
-  useForm
+  FormButtons
 } from 'mui-form-generator-fractal-band-2'
-import { MemberSingleSelect } from 'app/domains/Member/components/select'
-import { CurrencySingleSelect } from 'app/domains/Currency/components/select'
+import { MemberSingleSelect } from 'domains/Member/components/select'
+import { CurrencySingleSelect } from 'domains/Currency/components/select'
+import { WalletSingleSelect } from 'domains/Wallet/components/select'
 
 const config = [
   {
@@ -39,15 +39,20 @@ const config = [
     }
   },
   {
-    type: 'text',
+    type: 'number',
     label: 'Balance',
     name: 'balance',
     placeholder: 'Enter balance',
     rules: {
-      required: 'Enter balance',
-      pattern: {
-        value: 'number'
-      }
+      required: 'Enter balance'
+    }
+  },
+  {
+    label: 'Wallet',
+    name: 'select',
+    Component: WalletSingleSelect,
+    rules: {
+      required: 'Select wallet'
     }
   }
 ]
@@ -60,20 +65,17 @@ const WalletForm = (props) => {
     onSubmitFail,
     form,
     buttonProps,
-    formProps
+    formProps,
+    fieldProps
   } = props
-
-  const formRef = useForm({
-    defaultValues: { ...formData }
-  })
-
   return (
     <Form
-      form={form || formRef}
+      form={form}
       onSubmit={onSubmit}
       onSubmitFail={onSubmitFail}
+      defaultValues={formData}
       {...formProps}>
-      <FormGenerator config={config} show={show} />
+      <FormGenerator config={config} show={show} fieldProps={fieldProps} />
       <FormButtons Button={Button} {...buttonProps} />
     </Form>
   )

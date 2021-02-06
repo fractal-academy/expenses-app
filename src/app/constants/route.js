@@ -106,7 +106,6 @@ const ROUTES = {
   REGULAR_PRODUCT_EDIT: {
     component: withLayout({ goBack: true })(RegularProductEdit),
     path: ROUTES_PATHS.REGULAR_PRODUCT_EDIT
-
   }
 }
 

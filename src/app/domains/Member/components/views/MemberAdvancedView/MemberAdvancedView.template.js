@@ -1,11 +1,12 @@
-import { Typography, IconButton } from '@material-ui/core'
-import { Avatar } from 'components/Lib'
 import PropTypes from 'prop-types'
+import moment from 'moment'
+import { useHistory } from 'react-router-dom'
+import { Typography, IconButton } from '@material-ui/core'
 import CreateRoundedIcon from '@material-ui/icons/CreateRounded'
 import { Container, Row, Col, Box } from '@qonsoll/react-design'
-import moment from 'moment'
+import { RoleSimpleView } from 'domains/Role/components/views'
+import { Avatar } from 'components/Lib'
 import { ROUTES_PATHS } from 'app/constants'
-import { useHistory } from 'react-router-dom'
 
 const MemberAdvancedView = (props) => {
   const history = useHistory()

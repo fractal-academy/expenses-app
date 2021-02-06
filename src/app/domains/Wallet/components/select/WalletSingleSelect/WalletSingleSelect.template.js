@@ -7,14 +7,12 @@ import { useStyles } from './WalletSingleSelect.styles'
 const WalletSingleSelect = (props) => {
   const classes = useStyles()
 
-  let { data, id, value, ...rest } = props
-  id = value ? value : id
-
+  const { data, value, ...rest } = props
   return data ? (
     <Select
       data={Object.values(data)}
       className={classes.root}
-      value={data[id]}
+      value={data[value]}
       {...rest}>
       {(item) => (
         <MenuItem value={item} key={item.id}>
