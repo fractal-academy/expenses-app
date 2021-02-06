@@ -15,6 +15,7 @@ import { WishAll, WishEdit, WishShow } from 'domains/Wish/routes'
 import { CartAll, CartEdit, CartShow } from 'domains/Cart/routes'
 import { StatisticAll } from 'domains/Statistic/routes'
 import { Settings } from 'app/components/Settings'
+import { WalletAll } from 'domains/Wallet/routes'
 
 import ROUTES_PATHS from './routePaths'
 
@@ -75,7 +76,10 @@ const ROUTES = {
     component: withLayout()(Settings),
     path: ROUTES_PATHS.SETTINGS
   },
-
+  WALLETS_ALL: {
+    component: withLayout()(WalletAll),
+    path: ROUTES_PATHS.WALLETS_ALL
+  },
   CART_SHOW: {
     component: withLayout({ goBack: true })(CartShow),
     path: ROUTES_PATHS.CART_SHOW,
@@ -102,6 +106,7 @@ const ROUTES = {
   REGULAR_PRODUCT_EDIT: {
     component: withLayout({ goBack: true })(RegularProductEdit),
     path: ROUTES_PATHS.REGULAR_PRODUCT_EDIT
+
   }
 }
 

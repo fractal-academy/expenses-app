@@ -1,7 +1,6 @@
 import { Typography, IconButton } from '@material-ui/core'
 import { Avatar } from 'components/Lib'
 import PropTypes from 'prop-types'
-import { RoleSimpleView } from 'domains/Role/components/views'
 import CreateRoundedIcon from '@material-ui/icons/CreateRounded'
 import { Container, Row, Col, Box } from '@qonsoll/react-design'
 import moment from 'moment'
@@ -12,11 +11,11 @@ const MemberAdvancedView = (props) => {
   const history = useHistory()
   return (
     <Container>
-      <Row>
+      <Row noGutters>
         <Col>
           <Row mb={!props.horizontal && '3'}>
-            <Col cw={props.horizontal && '2'}>
-              <Row>
+            <Col cw={props.horizontal && 'auto'}>
+              <Row noGutters>
                 <Box
                   border={!props.horizontal && '3px solid white'}
                   borderRadius="xxl">
@@ -35,7 +34,7 @@ const MemberAdvancedView = (props) => {
                 </IconButton>
               </Col>
             ) : (
-              <Col cw={10}>
+              <Col>
                 <Typography>
                   {props.name} {props.surname}
                 </Typography>
