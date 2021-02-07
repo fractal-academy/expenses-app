@@ -1,4 +1,4 @@
-import { getCollectionRef } from '../Store'
+import { getCollectionRef } from './'
 
 async function getDataWithFilter(collection, arrayRequests) {
   /*arrayRequests must be an array. Array should has 1 or 2 elements

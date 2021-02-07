@@ -1,3 +1,3 @@
-import customAuth from './customAuth'
+import auth from './auth'
 
-export { customAuth }
+export { auth }

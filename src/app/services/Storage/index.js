@@ -1,7 +1,7 @@
-import customStorage from './customStorage'
+import storage from './storage'
 import storageReference from './storageReference'
 import upload from './upload'
 import getURL from './getURL'
 import deleteURL from './deleteURL'
 
-export { customStorage, upload, storageReference, getURL, deleteURL }
+export { storage, upload, storageReference, getURL, deleteURL }
