@@ -2,7 +2,7 @@ import { ListHOC } from 'app/components/HOCs/ListHOC/index'
 import { CommentAdvancedView } from 'domains/Comment/components/views'
 import { Box, Col, Container, Row } from '@qonsoll/react-design'
 import { useRef, useState } from 'react'
-import { CommentSimpleForm } from 'domains/Comment/components/forms/CommentSimpleForm'
+import { CommentSimpleForm } from 'domains/Comment/components/forms'
 
 const tmpData = [
   {
