@@ -1,15 +1,15 @@
 import moment from 'moment'
 import PropTypes from 'prop-types'
-import { ROUTES_PATHS } from 'app/constants'
+import { useHistory } from 'react-router-dom'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import { Typography, IconButton } from '@material-ui/core'
-import { useHistory } from 'react-router-dom'
 import { Container, Row, Col } from '@qonsoll/react-design'
 import { ProgressBar, Dropdown, DropdownItem } from 'components/Lib'
-import { MeasureSimpleView } from 'app/domains/Measure/components/views/MeasureSimpleView'
-import { CommentList } from 'app/domains/Comment/components/list/CommentList'
-import { CategorySimpleView } from 'app/domains/Category/components/views/CategorySimpleView'
-import { CurrencySimpleView } from 'app/domains/Currency/components/views/CurrencySimpleView'
+import { MeasureSimpleView } from 'domains/Measure/components/views/MeasureSimpleView'
+import { CommentList } from 'domains/Comment/components/list/CommentList'
+import { CategorySimpleView } from 'domains/Category/components/views/CategorySimpleView'
+import { CurrencySimpleView } from 'domains/Currency/components/views/CurrencySimpleView'
+import { ROUTES_PATHS } from 'app/constants'
 
 const productTypeMap = {
   cart: {
@@ -51,7 +51,7 @@ const productTypeMap = {
     layout: (props) => (
       <Row mb={4}>
         <Col>
-          <ProgressBar value={props.categoryBalance} />
+          <ProgressBar value={props.categoryBalance || 0} />
         </Col>
       </Row>
     )

@@ -49,12 +49,13 @@ const CommentList = (props) => {
             <CommentSimpleForm inputRef={inputRef} addComment={addComment} />
           </Box>
           <ListHOC mock={comments}>
-            {(item) => (
+            {(item, index) => (
               <CommentAdvancedView
                 commentTime={item.commentTime}
                 name={item.name}
                 surName={item.surName}
                 text={item.text}
+                key={index}
               />
             )}
           </ListHOC>
@@ -65,6 +66,5 @@ const CommentList = (props) => {
 }
 
 CommentList.propTypes = {}
-CommentList.defaultProps = {}
 
 export default CommentList

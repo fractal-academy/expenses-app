@@ -7,10 +7,12 @@ import {
   TableRow,
   Paper
 } from '@material-ui/core'
+import { useHistory } from 'react-router-dom'
+import { ROUTES_PATHS } from '../../../../../constants'
 
 const RegularProductsTable = (props) => {
   const { products } = props
-
+  let history = useHistory()
   return (
     <TableContainer component={Paper}>
       <Table aria-label="customized table">
@@ -23,7 +25,9 @@ const RegularProductsTable = (props) => {
         </TableHead>
         <TableBody>
           {products.map((row) => (
-            <TableRow key={row.name}>
+            <TableRow
+              key={row.name}
+              onClick={() => history.push(ROUTES_PATHS.REGULAR_PRODUCT_SHOW)}>
               <TableCell align="center">{row.productName}</TableCell>
               <TableCell align="center">{row.categoryName}</TableCell>
               <TableCell align="center">{row.asignee}</TableCell>
