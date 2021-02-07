@@ -7,6 +7,7 @@ const WishEdit = (props) => {
         'ProductName',
         'Description',
         'Price',
+        'Currency',
         'Assign',
         'Category',
         'Measures'

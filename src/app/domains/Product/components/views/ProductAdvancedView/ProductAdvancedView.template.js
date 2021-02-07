@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { ROUTES_PATHS } from 'app/constants'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import { Typography, IconButton } from '@material-ui/core'
-import { useHistory, useLocation } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { Container, Row, Col } from '@qonsoll/react-design'
 import { ProgressBar, Dropdown, DropdownItem } from 'components/Lib'
 import { MeasureSimpleView } from 'app/domains/Measure/components/views/MeasureSimpleView'
@@ -11,26 +11,71 @@ import { CommentList } from 'app/domains/Comment/components/list/CommentList'
 import { CategorySimpleView } from 'app/domains/Category/components/views/CategorySimpleView'
 import { CurrencySimpleView } from 'app/domains/Currency/components/views/CurrencySimpleView'
 
-const config = {
-  [ROUTES_PATHS.CART_SHOW]: { item: 'Buy', editRoute: ROUTES_PATHS.CART_EDIT },
-  [ROUTES_PATHS.WISHES_SHOW]: {
+const productTypeMap = {
+  cart: {
+    item: 'Buy',
+    editRoute: ROUTES_PATHS.CART_EDIT,
+    layout: (props) => (
+      <Row h="between" mb={4}>
+        <Col cw="auto">
+          <Typography>Purchased</Typography>
+        </Col>
+        <Col cw="auto">
+          <Typography>
+            {props.purchasedDate
+              ? moment(props.purchasedDate).format('MMM Do')
+              : 'None'}
+          </Typography>
+        </Col>
+      </Row>
+    )
+  },
+  wish: {
     item: 'Approve',
-    editRoute: ROUTES_PATHS.WISHES_EDIT
+    editRoute: ROUTES_PATHS.WISHES_EDIT,
+    layout: (props) => (
+      <Row h="between" mb={4}>
+        <Col cw="auto">
+          <Typography>Reminder date</Typography>
+        </Col>
+        <Col cw="auto">
+          <Typography>{moment(props.reminderDate).format('MMM Do')}</Typography>
+        </Col>
+      </Row>
+    )
   },
 
-  [ROUTES_PATHS.REGULAR_PRODUCT_SHOW]: {
+  product: {
     item: 'Get QR',
-    editRoute: ROUTES_PATHS.REGULAR_PRODUCT_EDIT
+    editRoute: ROUTES_PATHS.REGULAR_PRODUCT_EDIT,
+    layout: (props) => (
+      <Row mb={4}>
+        <Col>
+          <ProgressBar value={props.categoryBalance} />
+        </Col>
+      </Row>
+    )
   }
 }
 
 const ProductAdvancedView = (props) => {
+  const {
+    type,
+    name,
+    description,
+    number,
+    measure,
+    price,
+    currency,
+    assignedUser
+  } = props
   let history = useHistory()
-  let location = useLocation()
 
-  const firstElement = config[props.route].item
+  const firstElement = productTypeMap[type].item
 
-  const editPages = config[location.pathname].editRoute
+  const editPages = productTypeMap[type].editRoute
+
+  const ProductLayout = productTypeMap[type].layout
 
   const DropdownList = (
     <Container>
@@ -52,7 +97,7 @@ const ProductAdvancedView = (props) => {
         <Col>
           <Row h="between" display="flex" mb={2}>
             <Col cw="8">
-              <Typography variant="h5">{props.name || 'No name'}</Typography>
+              <Typography variant="h5">{name || 'No name'}</Typography>
             </Col>
             <Col cw="auto">
               <Dropdown overlay={DropdownList}>
@@ -65,23 +110,20 @@ const ProductAdvancedView = (props) => {
           <Row mb={4}>
             <Col>
               <Typography variant="body1">
-                {props.description || 'No description.'}
+                {description || 'No description.'}
               </Typography>
             </Col>
           </Row>
-          <MeasureSimpleView
-            productNumber={props.number}
-            text={props.measure}
-          />
+          <MeasureSimpleView productNumber={number} text={measure} />
           <CategorySimpleView />
           <Row display="flex" h="between" v="center" mb={2}>
             <Col cw="auto">
               <Typography>Price</Typography>
             </Col>
             <Col display="flex" cw="auto">
-              <Typography>{props.price || 'None'}</Typography>
+              <Typography>{price || 'None'}</Typography>
               <Typography>
-                {(props.currency && <CurrencySimpleView />) || 'currency'}
+                {(currency && <CurrencySimpleView />) || 'currency'}
               </Typography>
             </Col>
           </Row>
@@ -90,40 +132,10 @@ const ProductAdvancedView = (props) => {
               <Typography>Assigned user</Typography>
             </Col>
             <Col cw="auto">
-              <Typography>{props.assignedUser || 'None'}</Typography>
+              <Typography>{assignedUser || 'None'}</Typography>
             </Col>
           </Row>
-          {props.route === ROUTES_PATHS.CART_SHOW ? (
-            <Row h="between" mb={4}>
-              <Col cw="auto">
-                <Typography>Purchased</Typography>
-              </Col>
-              <Col cw="auto">
-                <Typography>
-                  {props.purchasedDate
-                    ? moment(props.purchasedDate).format('MMM Do')
-                    : 'None'}
-                </Typography>
-              </Col>
-            </Row>
-          ) : props.route === ROUTES_PATHS.WISHES_SHOW ? (
-            <Row h="between" mb={4}>
-              <Col cw="auto">
-                <Typography>Reminder date</Typography>
-              </Col>
-              <Col cw="auto">
-                <Typography>
-                  {moment(props.reminderDate).format('MMM Do')}
-                </Typography>
-              </Col>
-            </Row>
-          ) : (
-            <Row mb={4}>
-              <Col>
-                <ProgressBar value={props.categoryBalance} />
-              </Col>
-            </Row>
-          )}
+          <ProductLayout {...props} />
           <CommentList />
         </Col>
       </Row>
@@ -138,11 +150,11 @@ ProductAdvancedView.propTypes = {
   quantity: PropTypes.number,
   price: PropTypes.number,
   measure: PropTypes.string,
-  puchasedDate: PropTypes.number,
+  purchasedDate: PropTypes.number,
   categoryBalance: PropTypes.number.isRequired,
   reminderDate: PropTypes.number,
   assignedUser: PropTypes.string,
-  route: PropTypes.string.isRequired
+  type: PropTypes.oneOf(Object.keys(productTypeMap)).isRequired
 }
 
 export default ProductAdvancedView

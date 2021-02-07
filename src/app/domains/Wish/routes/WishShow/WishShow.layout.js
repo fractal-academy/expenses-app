@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types'
-import { ROUTES_PATHS } from 'app/constants'
 import { ProductAdvancedView } from 'domains/Product/components/views'
 
 const WishShow = (props) => {
-  return <ProductAdvancedView route={ROUTES_PATHS.WISHES_SHOW} {...props} />
+  return <ProductAdvancedView type="wish" {...props} />
 }
 
 WishShow.propTypes = {

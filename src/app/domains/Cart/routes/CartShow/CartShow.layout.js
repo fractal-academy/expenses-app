@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types'
-import { ROUTES_PATHS } from 'app/constants'
-import { ProductAdvancedView } from '../../../Product/components/views'
+import { ProductAdvancedView } from 'domains/Product/components/views'
 
 const CartShow = (props) => {
-  return <ProductAdvancedView route={ROUTES_PATHS.CART_SHOW} {...props} />
+  return <ProductAdvancedView type="cart" {...props} />
 }
 
 CartShow.propTypes = {
