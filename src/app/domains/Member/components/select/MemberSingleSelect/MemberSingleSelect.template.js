@@ -1,32 +1,27 @@
 import PropTypes from 'prop-types'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { MenuItem } from '@material-ui/core'
 import { Select } from 'components/Lib'
+import { getData } from 'app/services/Firestore'
+import { COLLECTIONS } from 'app/constants'
 
 const MemberSingleSelect = (props) => {
   const [currentUser, setCurrentUser] = useState('')
   const [members, setMembers] = useState([])
 
-  //TODO refactor to service
-  // useEffect(() => {
-  //   STORE.collection('users')
-  //     .get()
-  //     .then((snapshot) => snapshot.docs.map((doc) => doc.data()))
-  //     .then((useData) => {
-  //       setMembers(useData)
-  //       setCurrentUser(useData[0].email)
-  //     })
-  // }, [])
+  //TODO getData need filter all !pending users
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const res = await getData(COLLECTIONS.USERS)
+      const users = Object.values(res)
+      setMembers(users)
+      setCurrentUser(users[0].email)
+    }
+    fetchUsers()
+  }, [])
 
-  const member = [
-    { email: 'okrdima@gmial.com:' },
-    { email: 'okrdima1@gmial.com' },
-    { email: 'okrdima2@gmial.com' },
-    { email: 'okrdima3@gmial.com' },
-    { email: 'okrdima4@gmial.com' }
-  ]
   return (
-    <Select data={member} value={member[0]} {...props}>
+    <Select data={members} value={currentUser} {...props}>
       {(item) => (
         <MenuItem key={item.email} value={item.email}>
           {item.email}

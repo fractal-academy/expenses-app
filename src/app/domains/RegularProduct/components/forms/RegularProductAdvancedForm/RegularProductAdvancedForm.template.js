@@ -21,8 +21,18 @@ const config = [
       }
     }
   },
-  { label: 'Category', name: 'categoryName', Component: CategorySingleSelect },
-  { label: 'Assignee', name: 'assigneeName', Component: MemberSingleSelect },
+  {
+    label: 'Category',
+    name: 'categoryName',
+    Component: CategorySingleSelect,
+    defaultValue: ''
+  },
+  {
+    label: 'Assignee',
+    name: 'assigneeName',
+    Component: MemberSingleSelect,
+    defaultValue: ''
+  },
   {
     inlineLayout: [
       { label: 'Reminder', name: 'reminder', type: 'checkbox' },
