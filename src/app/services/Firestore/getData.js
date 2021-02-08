@@ -1,14 +1,28 @@
 import { getCollectionRef } from './'
 
+/**
+ * @param {string} collection - collection name.
+ * @param {string} [document] - document id.
+ * @returns {Object} - object where key - docId, value - docData.
+ * */
+
 async function getData(collection, document) {
   let result = {}
   if (document) {
-    result = await getCollectionRef(collection).doc(document).get()
-    result = await result.data()
-    return result
+    try {
+      result = await getCollectionRef(collection).doc(document).get()
+      if (!result.exists) {
+        return Promise.reject(new Error('document not exist.'))
+      }
+      result = await result.data()
+      return result
+    } catch (e) {
+      console.log('data', e)
+    }
   }
 
   const res = await getCollectionRef(collection).get()
+  console.log(res)
   res.docs.forEach((doc) => {
     result = { ...result, [doc.id]: doc.data() }
   })
