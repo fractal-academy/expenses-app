@@ -111,7 +111,7 @@ const options = {
     }
   },
   tooltip: {
-    enabled: true
+    enabled: false
   },
   plotOptions: {
     pie: {
