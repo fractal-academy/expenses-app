@@ -1,16 +1,11 @@
-import { useHistory } from 'react-router-dom'
 import { Row, Col, Container } from '@qonsoll/react-design'
 import { Button, Typography } from '@material-ui/core'
 import GTranslateOutlinedIcon from '@material-ui/icons/GTranslateOutlined'
 import { useStyles } from './SessionSimpleView.styles'
-import { ROUTES_PATHS } from 'app/constants'
 
 const SessionSimpleView = (props) => {
+  const { login } = props
   const classes = useStyles(props)
-  let history = useHistory()
-  const redirect = () => {
-    history.push(ROUTES_PATHS.CART_ALL)
-  }
   return (
     <Container>
       <Row>
@@ -24,7 +19,7 @@ const SessionSimpleView = (props) => {
             </Typography>
           </Row>
           <Row h="center" my="4">
-            <Button variant="outlined" color="primary" onClick={redirect}>
+            <Button variant="outlined" color="primary" onClick={login}>
               <GTranslateOutlinedIcon />
               Sign in with Google
             </Button>
