@@ -14,8 +14,10 @@ const MemberSingleSelect = (props) => {
     const fetchUsers = async () => {
       const res = await getData(COLLECTIONS.USERS)
       const users = Object.values(res)
-      setMembers(users)
-      setCurrentUser(users[0].email)
+      if (users) {
+        setMembers(users)
+        setCurrentUser(users[0].email)
+      }
     }
     fetchUsers()
   }, [])
