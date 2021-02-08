@@ -6,7 +6,7 @@ import {
   DialogActions,
   Typography
 } from '@material-ui/core'
-import LoadingButton from '@material-ui/lab/LoadingButton'
+import { LoadingButton } from 'components/Lib'
 
 import PropTypes from 'prop-types'
 
@@ -31,11 +31,11 @@ const Modal = (props) => {
       <DialogContent>{children}</DialogContent>
       <DialogActions>
         <Button {...buttonCancelProps}>
-          {buttonCancelProps?.text ? buttonCancelProps.text : 'Cancel'}
+          {buttonCancelProps.text || 'Cancel'}
         </Button>
 
-        <LoadingButton pending={loading} {...restButtonSubmitProps}>
-          {buttonSubmitProps?.text ? buttonSubmitProps.text : 'Submit'}
+        <LoadingButton loading={loading} {...restButtonSubmitProps}>
+          {buttonSubmitProps.text || 'Submit'}
         </LoadingButton>
       </DialogActions>
     </Dialog>
