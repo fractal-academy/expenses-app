@@ -7,6 +7,7 @@ import { Modal, FabButton } from 'app/components/Lib'
 import { setData } from 'app/services/Firestore'
 import { COLLECTIONS } from 'app/constants'
 import md5 from 'md5'
+import { firebase } from 'app/services/Firebase'
 
 const MemberCombined = (props) => {
   const [open, setOpen] = useState(false)
@@ -26,6 +27,14 @@ const MemberCombined = (props) => {
         role,
         isPending: true
       })
+      const func = firebase
+        .functions()
+        .httpsCallable('sendMail', { timeout: 0 })
+      func({ email })
+        .then((res) => {
+          console.log('promise', res)
+        })
+        .catch((err) => console.log('err', err))
       setOpenSnackbarSuccess(true)
     } catch (error) {
       setOpenSnackbarError(true)

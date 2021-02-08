@@ -1,6 +1,7 @@
 {
   "projects": {
     "development": "expenses-app-development-9ba1c",
-    "production": "expenses-app-production"
+    "production": "expenses-app-production",
+    "default": "expenses-app-development-9ba1c"
   }
 }
