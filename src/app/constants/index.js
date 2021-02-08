@@ -7,7 +7,6 @@ import ROLES from './role.js'
 import PRIORITIES from './priority.js'
 import COLLECTIONS from './collection'
 import * as TABLE_CELLS from './tableCells.js'
-import ROUTES_TITLES from './routesTitles'
 export {
   FIREBASE_CONFIG,
   CURRENCIES,
@@ -15,7 +14,6 @@ export {
   ROUTES,
   ROUTES_PATHS,
   ROUTES_VALUE,
-  ROUTES_TITLES,
   COLORS,
   ROLES,
   PRIORITIES,

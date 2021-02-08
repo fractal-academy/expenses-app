@@ -16,7 +16,7 @@ import {
 } from '@material-ui/icons'
 import { useHistory } from 'react-router-dom'
 import { DropdownItem, Dropdown } from 'components/Lib'
-import { ROUTES_PATHS, ROUTES, ROUTES_TITLES } from 'app/constants'
+import { ROUTES_PATHS } from 'app/constants'
 import { useStyles } from './Header.style'
 
 const Header = (props) => {
@@ -63,7 +63,7 @@ const Header = (props) => {
                   </>
                 )}
                 <Typography color="textPrimary" variant="body1">
-                  {ROUTES_TITLES[window.location.pathname]}
+                  {title}
                 </Typography>
               </Box>
               <Box display="flex">

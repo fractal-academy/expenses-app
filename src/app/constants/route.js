@@ -25,37 +25,43 @@ const ROUTES = {
     path: ROUTES_PATHS.LOGIN
   },
   MEMBER_SHOW: {
-    component: withLayout({ goBack: true }, { title: 'true' })(MemberShow),
+    component: withLayout({ goBack: true, title: 'Member Profile' })(
+      MemberShow
+    ),
     path: ROUTES_PATHS.MEMBER_SHOW,
     exact: true
   },
   MEMBER_EDIT: {
-    component: withLayout({ goBack: true }, { title: true })(MemberEdit),
+    component: withLayout({ goBack: true, title: 'Member Edit' })(MemberEdit),
     path: ROUTES_PATHS.MEMBER_EDIT
   },
   MEMBERS_ALL: {
-    component: withLayout({ goBack: true }, { title: true })(MemberAll),
+    component: withLayout({ goBack: true, title: 'Members' })(MemberAll),
     path: ROUTES_PATHS.MEMBERS_ALL
   },
   REGULAR_PRODUCTS_ALL: {
-    component: withLayout({ goBack: true }, { title: true })(RegularProductAll),
+    component: withLayout({ goBack: true, title: 'Regular Products' })(
+      RegularProductAll
+    ),
     path: ROUTES_PATHS.REGULAR_PRODUCTS_ALL,
     exact: true
   },
   PURCHASE_ALL: {
-    component: withLayout({ goBack: true }, { title: true })(PurchaseAll),
+    component: withLayout({ goBack: true, title: 'Purchases' })(PurchaseAll),
     path: ROUTES_PATHS.PURCHASE_ALL
   },
   NOTIFICATIONS_ALL: {
-    component: withLayout({ goBack: true }, { title: true })(NotificationAll),
+    component: withLayout({ goBack: true, title: 'Notifications' })(
+      NotificationAll
+    ),
     path: ROUTES_PATHS.NOTIFICATIONS_ALL
   },
   CATEGORIES_ALL: {
-    component: withLayout({ goBack: true }, { title: true })(CategoryAll),
+    component: withLayout({ goBack: true, title: 'Categories' })(CategoryAll),
     path: ROUTES_PATHS.CATEGORIES_ALL
   },
   LOGS_ALL: {
-    component: withLayout({ goBack: true }, { title: true })(LogAll),
+    component: withLayout({ goBack: true, title: 'Logs' })(LogAll),
     path: ROUTES_PATHS.LOGS_ALL
   },
   WISHES_ALL: {
@@ -77,25 +83,33 @@ const ROUTES = {
     path: ROUTES_PATHS.SETTINGS
   },
   WALLETS_ALL: {
-    component: withLayout({ goBack: true }, { title: true })(WalletAll),
+    component: withLayout({ goBack: true, title: 'Wallets' })(WalletAll),
     path: ROUTES_PATHS.WALLETS_ALL
   },
   CART_SHOW: {
-    component: withLayout({ goBack: true }, { title: true })(CartShow),
+    component: withLayout({ goBack: true, title: 'Cart Product Card' })(
+      CartShow
+    ),
     path: ROUTES_PATHS.CART_SHOW,
     exact: true
   },
   CART_EDIT: {
-    component: withLayout({ goBack: true }, { title: true })(CartEdit),
+    component: withLayout({ goBack: true, title: 'Cart Product Edit' })(
+      CartEdit
+    ),
     path: ROUTES_PATHS.CART_EDIT
   },
   WISH_SHOW: {
-    component: withLayout({ goBack: true }, { title: true })(WishShow),
+    component: withLayout({ goBack: true, title: 'Wish Product Card' })(
+      WishShow
+    ),
     path: ROUTES_PATHS.WISHES_SHOW,
     exact: true
   },
   WISH_EDIT: {
-    component: withLayout({ goBack: true }, { title: true })(WishEdit),
+    component: withLayout({ goBack: true, title: 'Wish Product Edit' })(
+      WishEdit
+    ),
     path: ROUTES_PATHS.WISHES_EDIT
   },
   REGULAR_PRODUCT_SHOW: {
