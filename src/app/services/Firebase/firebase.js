@@ -1,4 +1,5 @@
 import firebase from 'firebase/app'
+import 'firebase/functions'
 import { FIREBASE_CONFIG } from 'app/constants'
 
 if (!firebase.apps.length) {
