@@ -1,4 +1,4 @@
-import { getCollectionRef } from '../Store'
+import { getCollectionRef } from './'
 
 async function getOrderedData(collection, field, bool) {
   /*if bool = true sort descending

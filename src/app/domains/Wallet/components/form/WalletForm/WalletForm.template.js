@@ -14,6 +14,7 @@ const config = [
     label: 'Member',
     name: 'member',
     Component: MemberSingleSelect,
+    defaultValue: '',
     rules: {
       required: 'Select member'
     }

@@ -1,15 +1,17 @@
-import customStore from './customStore'
+import firestore from './firestore'
 import setData from './setData'
 import getData from './getData'
 import getDataWithFilter from './getDataWithFilter'
 import getCollectionRef from './getCollectionRef'
 import getOrderedData from './getOrderedData'
+import getTimestamp from './getTimestamp'
 
 export {
   setData,
   getData,
-  customStore,
+  firestore,
   getDataWithFilter,
   getCollectionRef,
-  getOrderedData
+  getOrderedData,
+  getTimestamp
 }

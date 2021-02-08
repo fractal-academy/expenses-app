@@ -1,6 +1,6 @@
 import 'firebase/firestore'
 import { firebase } from '../Firebase'
 
-const customStore = firebase.firestore()
+const firestore = firebase.firestore()
 
-export default customStore
+export default firestore

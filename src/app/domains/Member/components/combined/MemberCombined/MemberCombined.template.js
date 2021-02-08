@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form'
 import { Alert } from '@material-ui/lab'
 import { MemberAdvancedForm } from 'domains/Member/components/forms'
 import { Modal, FabButton } from 'app/components/Lib'
+import { setData } from 'app/services/Firestore'
+import { COLLECTIONS } from 'app/constants'
 import md5 from 'md5'
 
 const MemberCombined = (props) => {
@@ -15,21 +17,19 @@ const MemberCombined = (props) => {
       role: 'user'
     }
   })
-  //TODO refactor to service
-  const onSubmit = (data) => {
-    // STORE.collection('users')
-    //   .doc(md5(data.email))
-    //   .set({
-    //     email: data.email,
-    //     role: data.role,
-    //     isPending: true
-    //   })
-    //   .then(() => {
-    //     setOpenSnackbarSuccess(true)
-    //   })
-    //   .catch((error) => {
-    //     setOpenSnackbarError(true)
-    //   })
+
+  const onSubmit = async (data) => {
+    const { email, role } = data
+    try {
+      await setData(COLLECTIONS.USERS, md5(email), {
+        email,
+        role,
+        isPending: true
+      })
+      setOpenSnackbarSuccess(true)
+    } catch (error) {
+      setOpenSnackbarError(true)
+    }
     setOpen(false)
   }
   const submitForm = () => form.submit()
@@ -48,19 +48,19 @@ const MemberCombined = (props) => {
       <Snackbar
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={openSnackbarSuccess}
-        autoHideDuration={6000}
+        autoHideDuration={1500}
         onClose={handleClose}>
         <Alert variant="filled" severity="success">
-          This is a success message!
+          Invitation successfully sent.
         </Alert>
       </Snackbar>
       <Snackbar
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={openSnackbarError}
-        autoHideDuration={6000}
+        autoHideDuration={1500}
         onClose={handleClose}>
         <Alert variant="filled" severity="error">
-          This is an error message!
+          Something went wrong.
         </Alert>
       </Snackbar>
 

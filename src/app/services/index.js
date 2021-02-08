@@ -1,18 +1,18 @@
 import {
   setData,
   getData,
-  customStore,
+  firestore,
   getCollectionRef,
   getDataWithFilter,
   getOrderedData
-} from './Store'
+} from './Firestore'
 import { upload, getURL, deleteURL } from './Storage'
 import { firebase } from './Firebase'
 
 export {
   setData,
   getData,
-  customStore,
+  firestore,
   firebase,
   upload,
   getURL,

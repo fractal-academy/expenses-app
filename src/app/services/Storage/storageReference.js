@@ -1,7 +1,7 @@
-import { customStorage } from '../Storage'
+import { storage } from '../Storage'
 
 function storageReference(name) {
-  return customStorage.ref().child(name)
+  return storage.ref().child(name)
 }
 
 export default storageReference

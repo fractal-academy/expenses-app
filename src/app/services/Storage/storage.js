@@ -1,6 +1,6 @@
 import 'firebase/storage'
 import { firebase } from '../Firebase'
 
-const customAuth = firebase.auth()
+const storage = firebase.storage()
 
-export default customAuth
+export default storage
