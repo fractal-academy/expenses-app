@@ -13,6 +13,7 @@ const MemberCombined = (props) => {
   const [open, setOpen] = useState(false)
   const [openSnackbarSuccess, setOpenSnackbarSuccess] = useState(false)
   const [openSnackbarError, setOpenSnackbarError] = useState(false)
+  const [loading, setLoading] = useState(false)
   const form = useForm({
     defaultValues: {
       role: 'user'
@@ -22,6 +23,7 @@ const MemberCombined = (props) => {
   const onSubmit = async (data) => {
     const { email, role } = data
     try {
+      setLoading(true)
       await setData(COLLECTIONS.USERS, md5(email), {
         email,
         role,
@@ -30,15 +32,12 @@ const MemberCombined = (props) => {
       const func = firebase
         .functions()
         .httpsCallable('sendMail', { timeout: 0 })
-      func({ email })
-        .then((res) => {
-          console.log('promise', res)
-        })
-        .catch((err) => console.log('err', err))
+      await func({ email })
       setOpenSnackbarSuccess(true)
     } catch (error) {
       setOpenSnackbarError(true)
     }
+    setLoading(false)
     setOpen(false)
   }
   const submitForm = () => form.submit()
@@ -84,7 +83,8 @@ const MemberCombined = (props) => {
         buttonSubmitProps={{
           variant: 'contained',
           color: 'primary',
-          onClick: submitForm
+          onClick: submitForm,
+          loading
         }}
         buttonCancelProps={{ variant: 'contained', onClick: handleClose }}>
         <MemberAdvancedForm

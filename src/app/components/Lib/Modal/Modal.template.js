@@ -1,11 +1,12 @@
 import {
-  Button,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
   Typography
 } from '@material-ui/core'
+import LoadingButton from '@material-ui/lab/LoadingButton'
+
 import PropTypes from 'prop-types'
 
 const Modal = (props) => {
@@ -28,12 +29,17 @@ const Modal = (props) => {
       </DialogTitle>
       <DialogContent>{children}</DialogContent>
       <DialogActions>
-        <Button {...buttonCancelProps}>
+        <LoadingButton
+          pending={buttonCancelProps.loading}
+          {...buttonCancelProps}>
           {buttonCancelProps?.text ? buttonCancelProps.text : 'Cancel'}
-        </Button>
-        <Button {...buttonSubmitProps}>
+        </LoadingButton>
+
+        <LoadingButton
+          pending={buttonSubmitProps.loading}
+          {...buttonSubmitProps}>
           {buttonSubmitProps?.text ? buttonSubmitProps.text : 'Submit'}
-        </Button>
+        </LoadingButton>
       </DialogActions>
     </Dialog>
   )
@@ -48,6 +54,7 @@ Modal.propTypes = {
     PropTypes.element
   ]),
   buttonSubmitProps: PropTypes.object.isRequired,
-  buttonCancelProps: PropTypes.object.isRequired
+  buttonCancelProps: PropTypes.object.isRequired,
+  loading: PropTypes.bool
 }
 export default Modal

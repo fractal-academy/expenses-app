@@ -13,7 +13,7 @@ let transporter = nodemailer.createTransport(
 
 exports.sendMail = functions.https.onRequest((req, res) => {
   cors(req, res, async () => {
-    // getting dest email by query string
+    // getting dest email
     const { email } = req.body.data
     const mailOptions = {
       from: 'Senseteq corp. <maks.27.04.2002@gmail.com>', // Something like: Jane Doe <janedoe@gmail.com>
@@ -24,13 +24,10 @@ exports.sendMail = functions.https.onRequest((req, res) => {
 
     transporter
       .sendMail(mailOptions)
-      .then((info) => {
-        res.end()
-        return res.status(200).json({ hello: 'world' })
-      })
-      .catch((erro) => {
-        if (erro) {
-          return res.send(erro.toString())
+      .then((info) => res.status(200).json({ data: info }))
+      .catch((error) => {
+        if (error) {
+          return res.send(error.toString())
         }
       })
   })
