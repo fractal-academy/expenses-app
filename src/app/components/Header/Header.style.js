@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles'
 
-export const useStyles = makeStyles({
+export const useStyles = makeStyles((theme) => ({
   appBar: {
     //There should be background color from colors CONST (will be able after CONST merge)
     backgroundColor: 'white'
@@ -11,7 +11,7 @@ export const useStyles = makeStyles({
     justifyContent: 'space-between'
   },
   divider: {
-    height: 28,
-    margin: 10
+    height: theme.spacing(3),
+    margin: theme.spacing(2)
   }
-})
+}))

@@ -9,7 +9,7 @@ import { CategoryCombined } from 'domains/Category/components/combined/CategoryC
 import { DropdownItem, Dropdown } from 'app/components/Lib/Dropdown'
 
 const DropdownList = (
-  <div>
+  <>
     <CategoryCombined title="Edit category" typeModalEdit>
       <DropdownItem>
         <Box mr={2}>
@@ -24,7 +24,7 @@ const DropdownList = (
       </Box>
       Delete
     </DropdownItem>
-  </div>
+  </>
 )
 
 const CategoryAdvancedView = (props) => {
