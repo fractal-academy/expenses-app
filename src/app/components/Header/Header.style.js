@@ -9,5 +9,9 @@ export const useStyles = makeStyles({
     alignSelf: (props) => props.goBack ?? 'flex-end',
     display: 'flex',
     justifyContent: 'space-between'
+  },
+  divider: {
+    height: 28,
+    margin: 10
   }
 })

@@ -13,8 +13,6 @@ const ROUTES_PATHS = {
   WISHES_SHOW: '/wishes/:id',
   WISHES_EDIT: '/wishes/:id/edit',
   CART_ALL: '/cart',
-  STATISTICS_ALL: '/statistics',
-  SETTINGS: '/settings',
   WALLETS_ALL: '/wallets',
   CART_SHOW: '/cart/:id',
   CART_EDIT: '/cart/:id/edit',

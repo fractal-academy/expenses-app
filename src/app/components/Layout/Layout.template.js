@@ -4,11 +4,11 @@ import { Container } from '@qonsoll/react-design'
 import { useStyles } from './Layout.style'
 
 const Layout = (props) => {
-  const { children, goBack } = props
+  const { children, goBack, title } = props
   const classes = useStyles()
   return (
     <>
-      <Header goBack={goBack} />
+      <Header goBack={goBack} title={title} />
       <Container className={classes.fitContent}>{children}</Container>
       <Navbar />
     </>
