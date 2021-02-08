@@ -1,1 +1,1 @@
-export { default as Settings } from './Settings.template.js'
+export { default as Settings } from './Settings.template'

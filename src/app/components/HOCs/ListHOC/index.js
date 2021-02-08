@@ -1,3 +1,1 @@
-import ListHOC from './ListHOC'
-
-export { ListHOC }
+export { default as ListHOC } from './ListHOC'

@@ -1,2 +1,3 @@
 import { CategorySingleSelect } from './CategorySingleSelect'
-export { CategorySingleSelect }
+import { CategorySelectWithCreate } from './CategorySelectWithCreate'
+export { CategorySingleSelect, CategorySelectWithCreate }

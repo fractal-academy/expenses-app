@@ -1,5 +1,7 @@
+import { CartTable } from 'domains/Cart/components/table'
+
 const CartAll = (props) => {
-  return <div>CartAll</div>
+  return <CartTable />
 }
 
 CartAll.propTypes = {}

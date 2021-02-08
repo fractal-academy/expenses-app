@@ -29,3 +29,7 @@ firebase-debug.log
 #files
 .eslintcache
 package-lock.json
+
+#folders
+/.vscode
+/.idea

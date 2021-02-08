@@ -11,25 +11,27 @@ import PropTypes from 'prop-types'
 const Modal = (props) => {
   const {
     open,
+    dialogProps,
     title,
+    titleTypographyProps,
     children,
-    onCancel,
-    onSubmit,
     buttonSubmitProps,
     buttonCancelProps
   } = props
 
   return (
-    <Dialog open={open}>
-      <DialogTitle>
-        <Typography>{title}</Typography>
+    <Dialog open={open} onClose={buttonCancelProps.onClick} {...dialogProps}>
+      <DialogTitle disableTypography>
+        <Typography component="h2" {...titleTypographyProps}>
+          {title}
+        </Typography>
       </DialogTitle>
       <DialogContent>{children}</DialogContent>
       <DialogActions>
-        <Button onClick={onCancel} {...buttonCancelProps}>
+        <Button {...buttonCancelProps}>
           {buttonCancelProps?.text ? buttonCancelProps.text : 'Cancel'}
         </Button>
-        <Button onClick={onSubmit} {...buttonSubmitProps}>
+        <Button {...buttonSubmitProps}>
           {buttonSubmitProps?.text ? buttonSubmitProps.text : 'Submit'}
         </Button>
       </DialogActions>
@@ -37,12 +39,15 @@ const Modal = (props) => {
   )
 }
 Modal.propTypes = {
-  open: PropTypes.bool,
+  open: PropTypes.bool.isRequired,
+  dialogProps: PropTypes.object,
   title: PropTypes.string,
-  children: PropTypes.object,
-  onSubmit: PropTypes.func,
-  onCancel: PropTypes.func,
-  buttonSubmitProps: PropTypes.object,
-  buttonCancelProps: PropTypes.object
+  titleTypographyProps: PropTypes.object,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.element),
+    PropTypes.element
+  ]),
+  buttonSubmitProps: PropTypes.object.isRequired,
+  buttonCancelProps: PropTypes.object.isRequired
 }
 export default Modal

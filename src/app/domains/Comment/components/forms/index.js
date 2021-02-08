@@ -1,2 +1,2 @@
-import { CommentSimpleView } from './CommentSimpleView'
-export { CommentSimpleView }
+import { CommentSimpleForm } from './CommentSimpleForm'
+export { CommentSimpleForm }
