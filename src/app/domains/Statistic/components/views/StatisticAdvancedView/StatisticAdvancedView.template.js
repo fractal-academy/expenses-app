@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import Chart from 'react-apexcharts'
 import { useStatisticContext } from 'app/context/StatisticsContext'
 import moment from 'moment'
@@ -61,8 +62,8 @@ const mockData = [
   }
 ]
 const func = (range) => {
-  const rangeStart = parseInt(moment(range.startDate).format('X'))
-  const rangeEnd = parseInt(moment(range.endDate).format('X'))
+  const rangeStart = moment(range.startDate).format('X')
+  const rangeEnd = moment(range.endDate).format('X')
   const arrCategoryName = []
   const productsSum = []
   const res = []
@@ -74,6 +75,8 @@ const func = (range) => {
   })
   // return new Arr without duplicate name categories
   const resArrCategory = _.uniqWith(arrCategoryName, _.isEqual)
+
+  //create arr values for chart
   resArrCategory.forEach((nameCategory) => {
     mockData.forEach((item) => {
       if (
@@ -81,64 +84,66 @@ const func = (range) => {
         rangeStart <= item.dateBuy &&
         item.dateBuy <= rangeEnd
       ) {
-        res.push(item.price)
+        res.push(item.price) //arr values single category
       }
     })
 
-    productsSum.push(res.reduce((a, b) => a + b, 0))
+    productsSum.push(res.reduce((a, b) => a + b, 0)) //arr for chart
   })
 
   return [resArrCategory, productsSum]
 }
-
-const StatisticAdvancedView = (props) => {
-  const { state, setState } = useStatisticContext()
-
-  const [resArrCategory, productSum] = func(state.date)
-
-  const options = {
-    chart: {
-      id: 'basic-bar',
-      animations: {
-        speed: 200
-      }
+const options = {
+  chart: {
+    id: 'basic-bar',
+    animations: {
+      speed: 200
+    }
+  },
+  legend: {
+    fontSize: 15,
+    markers: {
+      radius: 4,
+      width: 22
     },
-    legend: {
-      fontSize: 15,
-      markers: {
-        radius: 4,
-        width: 22
-      },
-      itemMargin: {
-        vertical: 4
-      }
-    },
-    tooltip: {
-      enabled: true
-    },
-    plotOptions: {
-      pie: {
-        donut: {
-          labels: {
+    itemMargin: {
+      vertical: 4
+    }
+  },
+  tooltip: {
+    enabled: true
+  },
+  plotOptions: {
+    pie: {
+      donut: {
+        labels: {
+          show: true,
+          total: {
             show: true,
-            total: {
-              show: true,
-              fontWeight: 600,
-              color: '#373d3f'
-            }
+            fontWeight: 600,
+            color: '#373d3f'
           }
         }
       }
-    },
-    labels: resArrCategory,
-    dataLabels: {
-      formatter: function (val, opts) {
-        return opts.w.globals.series[opts.seriesIndex]
-      }
+    }
+  },
+  labels: [],
+  dataLabels: {
+    formatter: function (val, opts) {
+      return opts.w.globals.series[opts.seriesIndex]
     }
   }
+}
 
-  return <Chart options={options} series={productSum} type="donut" />
+const StatisticAdvancedView = (props) => {
+  const { state } = useStatisticContext()
+
+  const [resArrCategory, productSum] = func(state.date)
+  const [config, setConfig] = useState(options)
+  useEffect(() => {
+    setConfig({ ...options, labels: resArrCategory })
+  }, [state])
+  return <Chart options={config} series={productSum} type="donut" />
 }
 
 StatisticAdvancedView.propTypes = {}
