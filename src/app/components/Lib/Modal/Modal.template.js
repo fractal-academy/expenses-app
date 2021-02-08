@@ -1,4 +1,5 @@
 import {
+  Button,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -19,7 +20,7 @@ const Modal = (props) => {
     buttonSubmitProps,
     buttonCancelProps
   } = props
-
+  const { loading, ...restButtonSubmitProps } = buttonSubmitProps
   return (
     <Dialog open={open} onClose={buttonCancelProps.onClick} {...dialogProps}>
       <DialogTitle disableTypography>
@@ -29,15 +30,11 @@ const Modal = (props) => {
       </DialogTitle>
       <DialogContent>{children}</DialogContent>
       <DialogActions>
-        <LoadingButton
-          pending={buttonCancelProps.loading}
-          {...buttonCancelProps}>
+        <Button {...buttonCancelProps}>
           {buttonCancelProps?.text ? buttonCancelProps.text : 'Cancel'}
-        </LoadingButton>
+        </Button>
 
-        <LoadingButton
-          pending={buttonSubmitProps.loading}
-          {...buttonSubmitProps}>
+        <LoadingButton pending={loading} {...restButtonSubmitProps}>
           {buttonSubmitProps?.text ? buttonSubmitProps.text : 'Submit'}
         </LoadingButton>
       </DialogActions>
@@ -54,7 +51,6 @@ Modal.propTypes = {
     PropTypes.element
   ]),
   buttonSubmitProps: PropTypes.object.isRequired,
-  buttonCancelProps: PropTypes.object.isRequired,
-  loading: PropTypes.bool
+  buttonCancelProps: PropTypes.object.isRequired
 }
 export default Modal
