@@ -77,7 +77,7 @@ const ROUTES = {
     path: ROUTES_PATHS.SETTINGS
   },
   WALLETS_ALL: {
-    component: withLayout()(WalletAll),
+    component: withLayout({ goBack: true })(WalletAll),
     path: ROUTES_PATHS.WALLETS_ALL
   },
   CART_SHOW: {
