@@ -16,6 +16,7 @@ import { CartAll, CartEdit, CartShow } from 'domains/Cart/routes'
 import { StatisticAll } from 'domains/Statistic/routes'
 import { Settings } from 'app/components/Settings'
 import { WalletAll } from 'domains/Wallet/routes'
+import { RejectLogin } from 'components'
 
 import ROUTES_PATHS from './routePaths'
 
@@ -23,6 +24,11 @@ const ROUTES = {
   LOGIN: {
     component: SessionLogin,
     path: ROUTES_PATHS.LOGIN
+  },
+  REJECT_LOGIN: {
+    component: RejectLogin,
+    path: ROUTES_PATHS.REJECT_LOGIN,
+    exact: true
   },
   MEMBER_SHOW: {
     component: withLayout({ goBack: true })(MemberShow),

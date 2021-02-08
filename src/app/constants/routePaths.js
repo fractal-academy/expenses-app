@@ -1,5 +1,6 @@
 const ROUTES_PATHS = {
   LOGIN: '/login',
+  REJECT_LOGIN: '/reject-login',
   MEMBER_SHOW: '/members/:id',
   MEMBER_EDIT: '/members/:id/edit',
   MEMBERS_ALL: '/members',
