@@ -6,9 +6,9 @@ const dataForListCategory = [
     nameCategory: 'Office',
     colorCategory: 'purple',
     currency: 'USD',
-    spent: 400,
+    spent: 1000,
     budget: 1000,
-    valueForProgressBar: 60
+    valueForProgressBar: 100
   },
   {
     nameCategory: 'Kitchen',
@@ -32,7 +32,7 @@ const dataForListCategory = [
     currency: 'USD',
     spent: 400,
     budget: 1000,
-    valueForProgressBar: 30
+    valueForProgressBar: 60
   },
   {
     nameCategory: 'Company',
