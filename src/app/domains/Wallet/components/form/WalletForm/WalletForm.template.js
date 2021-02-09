@@ -5,31 +5,13 @@ import {
   FormGenerator,
   FormButtons
 } from 'mui-form-generator-fractal-band-2'
-import { MemberSingleSelect } from 'domains/Member/components/select'
 import { CurrencySingleSelect } from 'domains/Currency/components/select'
 import { WalletSingleSelect } from 'domains/Wallet/components/select'
 
 const config = [
   {
-    label: 'Member',
-    name: 'member',
-    Component: MemberSingleSelect,
-    defaultValue: '',
-    rules: {
-      required: 'Select member'
-    }
-  },
-  {
-    label: 'Currency',
-    name: 'currency',
-    Component: CurrencySingleSelect,
-    rules: {
-      required: 'Select currency'
-    }
-  },
-  {
     type: 'text',
-    label: 'Name',
+    label: 'Name wallet',
     name: 'nameWallet',
     placeholder: 'Enter name wallet',
     rules: {
@@ -40,13 +22,30 @@ const config = [
     }
   },
   {
-    type: 'number',
-    label: 'Balance',
-    name: 'balance',
-    placeholder: 'Enter balance',
-    rules: {
-      required: 'Enter balance'
-    }
+    label: 'Private',
+    name: 'access',
+    type: 'checkbox'
+  },
+  {
+    inlineLayout: [
+      {
+        type: 'number',
+        label: 'Balance',
+        name: 'balance',
+        placeholder: 'Enter balance',
+        rules: {
+          required: 'Enter balance'
+        }
+      },
+      {
+        name: 'currency',
+        Component: CurrencySingleSelect,
+        rules: {
+          required: 'Select currency'
+        },
+        colProps: { cw: 'auto', style: { flex: 0 } }
+      }
+    ]
   },
   {
     label: 'Wallet',

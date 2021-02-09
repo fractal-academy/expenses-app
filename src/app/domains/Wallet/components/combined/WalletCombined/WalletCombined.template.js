@@ -99,7 +99,7 @@ const WalletCombined = (props) => {
             currency: currency
           }}
           form={form}
-          show={['nameWallet', 'member', 'balance', 'currency']}
+          show={['nameWallet', 'divider', 'balance', 'currency', 'access']}
           onSubmit={onSubmit}
           buttonProps={{ visible: false }}
         />
