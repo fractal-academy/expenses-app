@@ -1,12 +1,11 @@
-import { Container, Row, Col, Box } from '@qonsoll/react-design'
+import { Box } from '@qonsoll/react-design'
 import {
   Badge,
   Toolbar,
   AppBar,
   IconButton,
   Typography,
-  Divider,
-  Paper
+  Divider
 } from '@material-ui/core'
 import {
   AccountCircle,
@@ -45,48 +44,39 @@ const Header = (props) => {
   const redirect = () => history.goBack()
 
   return (
-    <Container>
-      <Row noGutters mb={2}>
-        <Col>
-          <AppBar className={classes.appBar} position="sticky">
-            <Toolbar className={classes.toolBar}>
-              <Box display="flex" style={{ alignItems: 'center' }}>
-                {goBack && (
-                  <>
-                    <IconButton edge="start" onClick={redirect}>
-                      <ArrowBack />
-                    </IconButton>
-                    <Divider
-                      className={classes.divider}
-                      orientation="vertical"
-                    />
-                  </>
-                )}
-                <Typography color="textPrimary" variant="body1">
-                  {title}
-                </Typography>
-              </Box>
-              <Box display="flex">
-                <IconButton
-                  onClick={() => history.push(ROUTES_PATHS.NOTIFICATIONS_ALL)}>
-                  <Badge badgeContent={11} color="secondary">
-                    <Notifications />
-                  </Badge>
-                </IconButton>
-                <Dropdown overlay={DropdownList}>
-                  <IconButton
-                    aria-label="account of current user"
-                    aria-controls="menu-appbar"
-                    aria-haspopup="true">
-                    <AccountCircle />
-                  </IconButton>
-                </Dropdown>
-              </Box>
-            </Toolbar>
-          </AppBar>
-        </Col>
-      </Row>
-    </Container>
+    <AppBar className={classes.appBar}>
+      <Toolbar className={classes.toolBar}>
+        <Box display="flex" style={{ alignItems: 'center' }}>
+          {goBack && (
+            <>
+              <IconButton edge="start" onClick={redirect}>
+                <ArrowBack />
+              </IconButton>
+              <Divider className={classes.divider} orientation="vertical" />
+            </>
+          )}
+          <Typography color="textPrimary" variant="body1">
+            {title}
+          </Typography>
+        </Box>
+        <Box display="flex">
+          <IconButton
+            onClick={() => history.push(ROUTES_PATHS.NOTIFICATIONS_ALL)}>
+            <Badge badgeContent={11} color="secondary">
+              <Notifications />
+            </Badge>
+          </IconButton>
+          <Dropdown overlay={DropdownList}>
+            <IconButton
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true">
+              <AccountCircle />
+            </IconButton>
+          </Dropdown>
+        </Box>
+      </Toolbar>
+    </AppBar>
   )
 }
 

@@ -29,7 +29,7 @@ const Navbar = (props) => {
   const onMenuChange = (event, newPage) => setValue(newPage)
 
   return (
-    <AppBar className={classes.root} component="nav" position="sticky">
+    <AppBar className={classes.root} component="nav">
       <BottomNavigation value={value} onChange={onMenuChange} showLabels>
         {MENU_ITEMS.map((menuItem) => (
           <BottomNavigationAction
