@@ -112,5 +112,8 @@ WalletCombined.propTypes = {
   typeModalEdit: PropTypes.bool,
   children: PropTypes.element
 }
-WalletCombined.defaultProps = { title: 'Title', typeModalEdit: false }
+WalletCombined.defaultProps = {
+  title: 'Create new wallet',
+  typeModalEdit: false
+}
 export default WalletCombined
