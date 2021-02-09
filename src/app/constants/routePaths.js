@@ -8,8 +8,6 @@ const ROUTES_PATHS = {
   NOTIFICATIONS_ALL: '/notifications',
   CATEGORIES_ALL: '/categories',
   LOGS_ALL: '/logs',
-  STATISTICS_ALL: '/statistics',
-  SETTINGS: '/settings',
   WISHES_ALL: '/wishes',
   WISHES_SHOW: '/wishes/:id',
   WISHES_EDIT: '/wishes/:id/edit',
