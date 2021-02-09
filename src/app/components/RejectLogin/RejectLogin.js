@@ -1,23 +1,32 @@
+import { useEffect } from 'react'
 import { Col, Container, Row } from '@qonsoll/react-design'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import { useHistory } from 'react-router-dom'
 import { ROUTES_PATHS } from 'app/constants'
+import { auth } from 'app/services/Auth'
 
 /**
  * @info RejectLogin (8 Feb 2021) // CREATION DATE
  *
  * @comment Using when not invited user want to login.
  *
- * @since 06 Feb 2021 ( v.0.0.1 ) // LAST-EDIT DATE
+ * @since 09 Feb 2021 ( v.0.0.2 ) // LAST-EDIT DATE
  *
- * @return {ReactComponent}
+ *
  */
 
 const RejectLogin = () => {
   let history = useHistory()
   const redirect = () => history.push(ROUTES_PATHS.LOGIN)
-
+  //logout rejected user after 10 seconds
+  useEffect(() => {
+    setTimeout(() => auth.signOut(), 10000)
+    return () => {
+      console.log('logout')
+      auth.signOut()
+    }
+  }, [])
   return (
     <Container>
       <Row>

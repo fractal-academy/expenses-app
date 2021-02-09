@@ -14,19 +14,19 @@ import { LogAll } from 'domains/Log/routes'
 import { WishAll, WishEdit, WishShow } from 'domains/Wish/routes'
 import { CartAll, CartEdit, CartShow } from 'domains/Cart/routes'
 import { StatisticAll } from 'domains/Statistic/routes'
-import { Settings } from 'app/components/Settings'
+import { Settings, RejectLogin } from 'app/components'
 import { WalletAll } from 'domains/Wallet/routes'
-import { RejectLogin } from 'components'
 
 import ROUTES_PATHS from './routePaths'
 
 const ROUTES = {
   LOGIN: {
     component: SessionLogin,
-    path: ROUTES_PATHS.LOGIN
+    path: ROUTES_PATHS.LOGIN,
+    exact: true
   },
   REJECT_LOGIN: {
-    component: RejectLogin,
+    render: () => <RejectLogin />,
     path: ROUTES_PATHS.REJECT_LOGIN,
     exact: true
   },
