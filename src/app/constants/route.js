@@ -46,6 +46,10 @@ const ROUTES = {
     component: withLayout({ goBack: true })(PurchaseAll),
     path: ROUTES_PATHS.PURCHASE_ALL
   },
+  PURCHASE_SHOW: {
+    component: withLayout({ goBack: true })(PurchaseAll),
+    path: ROUTES_PATHS.PURCHASE_SHOW
+  },
   NOTIFICATIONS_ALL: {
     component: withLayout({ goBack: true })(NotificationAll),
     path: ROUTES_PATHS.NOTIFICATIONS_ALL

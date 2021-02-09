@@ -1,15 +1,18 @@
 import PropTypes from 'prop-types'
+import { useState } from 'react'
 import { ROUTES_PATHS } from 'app/constants'
 import CheckIcon from '@material-ui/icons/Check'
 import DeleteIcon from '@material-ui/icons/Delete'
+import { useStyles } from './Toolbar.styles'
 import VisibilityIcon from '@material-ui/icons/Visibility'
 import { useHistory, useLocation } from 'react-router-dom'
 import { Container, Row, Col } from '@qonsoll/react-design'
-import { Button, Toolbar, IconButton, Typography } from '@material-ui/core/'
+import { Tab, Tabs, Toolbar, IconButton, Typography } from '@material-ui/core/'
 
 const CustomToolbar = (props) => {
-  let history = useHistory()
-  let location = useLocation()
+  const classes = useStyles()
+  const history = useHistory()
+  const location = useLocation()
 
   const info = `${props.numSelected} selected`
   const productRoute =
@@ -18,11 +21,13 @@ const CustomToolbar = (props) => {
       : location.pathname === ROUTES_PATHS.CART_ALL
       ? ROUTES_PATHS.CART_SHOW
       : ROUTES_PATHS.REGULAR_PRODUCT_SHOW
+  const cartButton = location.pathname === ROUTES_PATHS.CART_ALL
+  const wishesButton = location.pathname === ROUTES_PATHS.WISHES_ALL
 
   return (
     <Container>
       <Row>
-        <Col>
+        <Col pr={0}>
           <Toolbar disableGutters>
             {props.numSelected > 0 ? (
               <Container>
@@ -51,16 +56,18 @@ const CustomToolbar = (props) => {
               <Container display="box">
                 <Row h="center">
                   <Col cw="auto">
-                    <Button
-                      color="primary"
-                      onClick={() => history.push(ROUTES_PATHS.WISHES_ALL)}>
-                      Wishes
-                    </Button>
-                    <Button
-                      color="primary"
-                      onClick={() => history.push(ROUTES_PATHS.CART_ALL)}>
-                      Cart
-                    </Button>
+                    <Tabs indicatorColor="primary" textColor="primary">
+                      <Tab
+                        label="Cart"
+                        className={cartButton && classes.root}
+                        onClick={() => history.push(ROUTES_PATHS.CART_ALL)}
+                      />
+                      <Tab
+                        label="Wishes"
+                        className={wishesButton && classes.root}
+                        onClick={() => history.push(ROUTES_PATHS.WISHES_ALL)}
+                      />
+                    </Tabs>
                   </Col>
                 </Row>
               </Container>

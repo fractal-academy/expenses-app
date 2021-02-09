@@ -1,6 +1,6 @@
 import moment from 'moment'
 import PropTypes from 'prop-types'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import { Typography, IconButton } from '@material-ui/core'
 import { Container, Row, Col } from '@qonsoll/react-design'
@@ -69,7 +69,8 @@ const ProductAdvancedView = (props) => {
     currency,
     assignedUser
   } = props
-  let history = useHistory()
+  const history = useHistory()
+  const location = useLocation()
 
   const firstElement = productTypeMap[type].item
 
@@ -99,13 +100,15 @@ const ProductAdvancedView = (props) => {
             <Col cw="8">
               <Typography variant="h5">{name || 'No name'}</Typography>
             </Col>
-            <Col cw="auto">
-              <Dropdown overlay={DropdownList}>
-                <IconButton>
-                  <MoreHorizIcon />
-                </IconButton>
-              </Dropdown>
-            </Col>
+            {location === !ROUTES_PATHS.PURCHASE_SHOW && (
+              <Col cw="auto">
+                <Dropdown overlay={DropdownList}>
+                  <IconButton>
+                    <MoreHorizIcon />
+                  </IconButton>
+                </Dropdown>
+              </Col>
+            )}
           </Row>
           <Row mb={4}>
             <Col>
@@ -144,14 +147,14 @@ const ProductAdvancedView = (props) => {
 }
 
 ProductAdvancedView.propTypes = {
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   number: PropTypes.number,
   description: PropTypes.string,
   quantity: PropTypes.number,
   price: PropTypes.number,
   measure: PropTypes.string,
   purchasedDate: PropTypes.number,
-  categoryBalance: PropTypes.number.isRequired,
+  categoryBalance: PropTypes.number,
   reminderDate: PropTypes.number,
   assignedUser: PropTypes.string,
   type: PropTypes.oneOf(Object.keys(productTypeMap)).isRequired

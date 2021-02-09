@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { COLLECTIONS } from 'app/constants'
-import { Toolbar, DataGrid } from 'components/Lib'
+import { Toolbar, DataGrid, FabButton } from 'components/Lib'
 import { Container, Row, Col } from '@qonsoll/react-design'
 
 const WishTable = (props) => {
@@ -14,6 +14,7 @@ const WishTable = (props) => {
             collection={COLLECTIONS.WISHES}
             setNumSelected={setNumSelected}
           />
+          <FabButton />
         </Col>
       </Row>
     </Container>

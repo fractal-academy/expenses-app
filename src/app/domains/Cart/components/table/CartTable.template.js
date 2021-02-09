@@ -1,9 +1,15 @@
 import { useState } from 'react'
 import { COLLECTIONS } from 'app/constants'
-import { Toolbar, DataGrid } from 'components/Lib'
 import { Row, Col } from '@qonsoll/react-design'
+import { Toolbar, DataGrid, FabButton } from 'components/Lib'
 
 const CartTable = (props) => {
+  const [open, setOpen] = useState(false)
+
+  const handleClickOpen = () => {
+    setOpen(true)
+  }
+
   const [numSelected, setNumSelected] = useState([])
   return (
     <Row h="center">
@@ -13,6 +19,7 @@ const CartTable = (props) => {
           collection={COLLECTIONS.CART}
           setNumSelected={setNumSelected}
         />
+        <FabButton onClick={handleClickOpen} />
       </Col>
     </Row>
   )

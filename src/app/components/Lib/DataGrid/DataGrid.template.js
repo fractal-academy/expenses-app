@@ -50,6 +50,7 @@ const CustomDataGrid = (props) => {
           <DataGrid
             hideFooter
             autoHeight
+            showToolbar
             autoPageSize
             rows={rows}
             columns={cells}
