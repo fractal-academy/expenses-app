@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { Row, Col, Container } from '@qonsoll/react-design'
 import { Button, Typography } from '@material-ui/core'
 import GTranslateOutlinedIcon from '@material-ui/icons/GTranslateOutlined'
@@ -30,6 +31,8 @@ const SessionSimpleView = (props) => {
   )
 }
 
-SessionSimpleView.propTypes = {}
+SessionSimpleView.propTypes = {
+  login: PropTypes.func
+}
 
 export default SessionSimpleView

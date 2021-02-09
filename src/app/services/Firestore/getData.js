@@ -22,7 +22,6 @@ async function getData(collection, document) {
   }
 
   const res = await getCollectionRef(collection).get()
-  console.log(res)
   res.docs.forEach((doc) => {
     result = { ...result, [doc.id]: doc.data() }
   })

@@ -57,6 +57,7 @@ const useAuthListener = () => {
           setLoad(false)
           return setIsInvited(false)
         }
+        console.log(e)
       }
       setLoad(false)
     }

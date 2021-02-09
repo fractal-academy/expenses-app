@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { Col, Container, Row } from '@qonsoll/react-design'
-import Typography from '@material-ui/core/Typography'
-import Button from '@material-ui/core/Button'
+import { Button, Typography } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
 import { ROUTES_PATHS } from 'app/constants'
 import { auth } from 'app/services/Auth'
@@ -13,7 +12,6 @@ import { auth } from 'app/services/Auth'
  *
  * @since 09 Feb 2021 ( v.0.0.2 ) // LAST-EDIT DATE
  *
- *
  */
 
 const RejectLogin = () => {
@@ -22,7 +20,6 @@ const RejectLogin = () => {
   //logout rejected user after 10 seconds
   useEffect(() => {
     setTimeout(() => auth.signOut(), 10000)
-    return () => auth.signOut()
   }, [])
   return (
     <Container>

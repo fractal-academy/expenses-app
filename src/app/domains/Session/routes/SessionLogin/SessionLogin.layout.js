@@ -11,6 +11,7 @@ const SessionLogin = (props) => {
       console.log(e)
     }
   }, [])
+
   return (
     <Row v="center" height="100%">
       <Col>
