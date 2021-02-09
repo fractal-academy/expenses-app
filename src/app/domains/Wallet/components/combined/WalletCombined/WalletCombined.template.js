@@ -10,6 +10,7 @@ const WalletCombined = (props) => {
   const {
     idWallet,
     nameWallet,
+    typeWallet,
     balance,
     member,
     currency,
@@ -27,6 +28,7 @@ const WalletCombined = (props) => {
       nameWallet: nameWallet,
       balance: balance,
       member: member,
+      typeWallet: typeWallet,
       currency: currency
     }
   })
@@ -99,7 +101,7 @@ const WalletCombined = (props) => {
             currency: currency
           }}
           form={form}
-          show={['nameWallet', 'member', 'balance', 'currency']}
+          show={['nameWallet', 'typeWallet', 'balance', 'currency']}
           onSubmit={onSubmit}
           buttonProps={{ visible: false }}
         />
