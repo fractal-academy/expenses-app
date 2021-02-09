@@ -4,5 +4,13 @@ import { Settings } from './Settings'
 import { Layout } from './Layout'
 import { PlugForDesktop } from './PlugForDesktop'
 import { RejectLogin } from './RejectLogin'
-
-export { Header, Navbar, Settings, Layout, PlugForDesktop, RejectLogin }
+import { PrivateRoute } from './PrivateRoute'
+export {
+  Header,
+  Navbar,
+  Settings,
+  Layout,
+  PlugForDesktop,
+  RejectLogin,
+  PrivateRoute
+}

@@ -22,10 +22,7 @@ const RejectLogin = () => {
   //logout rejected user after 10 seconds
   useEffect(() => {
     setTimeout(() => auth.signOut(), 10000)
-    return () => {
-      console.log('logout')
-      auth.signOut()
-    }
+    return () => auth.signOut()
   }, [])
   return (
     <Container>
