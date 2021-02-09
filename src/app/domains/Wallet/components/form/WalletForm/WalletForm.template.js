@@ -7,6 +7,7 @@ import {
 } from 'mui-form-generator-fractal-band-2'
 import { CurrencySingleSelect } from 'domains/Currency/components/select'
 import { WalletSingleSelect } from 'domains/Wallet/components/select'
+import { WalletTypeSingleSelect } from 'domains/Wallet/components/selectWalletType'
 
 const config = [
   {

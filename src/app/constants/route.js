@@ -14,6 +14,7 @@ import { LogAll } from 'domains/Log/routes'
 import { WishAll, WishEdit, WishShow } from 'domains/Wish/routes'
 import { CartAll, CartEdit, CartShow } from 'domains/Cart/routes'
 import { StatisticAll } from 'domains/Statistic/routes'
+import { RejectLogin } from 'app/components'
 import { Settings } from 'app/components/Settings'
 import { WalletAll } from 'domains/Wallet/routes'
 
@@ -22,7 +23,13 @@ import ROUTES_PATHS from './routePaths'
 const ROUTES = {
   LOGIN: {
     component: SessionLogin,
-    path: ROUTES_PATHS.LOGIN
+    path: ROUTES_PATHS.LOGIN,
+    exact: true
+  },
+  REJECT_LOGIN: {
+    render: () => <RejectLogin />,
+    path: ROUTES_PATHS.REJECT_LOGIN,
+    exact: true
   },
   MEMBER_SHOW: {
     component: withLayout({ goBack: true })(MemberShow),
@@ -34,15 +41,18 @@ const ROUTES = {
     path: ROUTES_PATHS.MEMBER_EDIT
   },
   MEMBERS_ALL: {
+    protect: ['admin'],
     component: withLayout({ goBack: true })(MemberAll),
     path: ROUTES_PATHS.MEMBERS_ALL
   },
   REGULAR_PRODUCTS_ALL: {
+    protect: ['admin'],
     component: withLayout({ goBack: true })(RegularProductAll),
     path: ROUTES_PATHS.REGULAR_PRODUCTS_ALL,
     exact: true
   },
   PURCHASE_ALL: {
+    protect: ['admin'],
     component: withLayout({ goBack: true })(PurchaseAll),
     path: ROUTES_PATHS.PURCHASE_ALL
   },
@@ -51,10 +61,12 @@ const ROUTES = {
     path: ROUTES_PATHS.NOTIFICATIONS_ALL
   },
   CATEGORIES_ALL: {
+    protect: ['admin'],
     component: withLayout({ goBack: true })(CategoryAll),
     path: ROUTES_PATHS.CATEGORIES_ALL
   },
   LOGS_ALL: {
+    protect: ['admin'],
     component: withLayout({ goBack: true })(LogAll),
     path: ROUTES_PATHS.LOGS_ALL
   },
@@ -64,28 +76,34 @@ const ROUTES = {
     exact: true
   },
   CARTS_ALL: {
+    protect: ['admin'],
     component: withLayout()(CartAll),
     path: ROUTES_PATHS.CART_ALL,
     exact: true
   },
   STATISTICS_ALL: {
+    protect: ['admin', 'observer'],
     component: withLayout()(StatisticAll),
     path: ROUTES_PATHS.STATISTICS_ALL
   },
   SETTINGS: {
+    protect: ['admin'],
     component: withLayout()(Settings),
     path: ROUTES_PATHS.SETTINGS
   },
   WALLETS_ALL: {
+    protect: ['admin'],
     component: withLayout({ goBack: true })(WalletAll),
     path: ROUTES_PATHS.WALLETS_ALL
   },
   CART_SHOW: {
+    protect: ['admin'],
     component: withLayout({ goBack: true })(CartShow),
     path: ROUTES_PATHS.CART_SHOW,
     exact: true
   },
   CART_EDIT: {
+    protect: ['admin'],
     component: withLayout({ goBack: true })(CartEdit),
     path: ROUTES_PATHS.CART_EDIT
   },
@@ -99,11 +117,13 @@ const ROUTES = {
     path: ROUTES_PATHS.WISHES_EDIT
   },
   REGULAR_PRODUCT_SHOW: {
+    protect: ['admin'],
     component: withLayout({ goBack: true })(RegularProductShow),
     path: ROUTES_PATHS.REGULAR_PRODUCT_SHOW,
     exact: true
   },
   REGULAR_PRODUCT_EDIT: {
+    protect: ['admin'],
     component: withLayout({ goBack: true })(RegularProductEdit),
     path: ROUTES_PATHS.REGULAR_PRODUCT_EDIT
   }

@@ -64,7 +64,6 @@ const config = [
       required: 'Enter your email',
       pattern: {
         value: 'email',
-        domain: 'senseteq.io',
         message: 'Enter example@senseteq.io'
       }
     }

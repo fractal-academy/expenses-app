@@ -10,6 +10,7 @@ const WalletCombined = (props) => {
   const {
     idWallet,
     nameWallet,
+    typeWallet,
     balance,
     member,
     currency,
@@ -27,6 +28,7 @@ const WalletCombined = (props) => {
       nameWallet: nameWallet,
       balance: balance,
       member: member,
+      typeWallet: typeWallet,
       currency: currency
     }
   })

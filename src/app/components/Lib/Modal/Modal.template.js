@@ -6,6 +6,8 @@ import {
   DialogActions,
   Typography
 } from '@material-ui/core'
+import { LoadingButton } from 'components/Lib'
+
 import PropTypes from 'prop-types'
 
 const Modal = (props) => {
@@ -18,7 +20,7 @@ const Modal = (props) => {
     buttonSubmitProps,
     buttonCancelProps
   } = props
-
+  const { loading, ...restButtonSubmitProps } = buttonSubmitProps
   return (
     <Dialog open={open} onClose={buttonCancelProps.onClick} {...dialogProps}>
       <DialogTitle disableTypography>
@@ -29,11 +31,12 @@ const Modal = (props) => {
       <DialogContent>{children}</DialogContent>
       <DialogActions>
         <Button {...buttonCancelProps}>
-          {buttonCancelProps?.text ? buttonCancelProps.text : 'Cancel'}
+          {buttonCancelProps.text || 'Cancel'}
         </Button>
-        <Button {...buttonSubmitProps}>
-          {buttonSubmitProps?.text ? buttonSubmitProps.text : 'Submit'}
-        </Button>
+
+        <LoadingButton loading={loading} {...restButtonSubmitProps}>
+          {buttonSubmitProps.text || 'Submit'}
+        </LoadingButton>
       </DialogActions>
     </Dialog>
   )
