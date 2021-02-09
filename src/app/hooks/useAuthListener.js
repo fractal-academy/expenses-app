@@ -73,8 +73,7 @@ const useAuthListener = () => {
   useEffect(() => !isInvited && history.replace(ROUTES_PATHS.REJECT_LOGIN), [
     isInvited
   ])
-
-  return { loading: load }
+  return { loading: load, user }
 }
 
 export default useAuthListener
