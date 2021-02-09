@@ -17,7 +17,7 @@ const config = [
     data: ['public', 'private'],
     defaultValue: '',
     rules: {
-      required: 'Select member'
+      required: 'Select wallet type'
     }
   },
   {
