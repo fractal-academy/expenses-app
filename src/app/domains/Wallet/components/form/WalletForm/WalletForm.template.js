@@ -5,15 +5,16 @@ import {
   FormGenerator,
   FormButtons
 } from 'mui-form-generator-fractal-band-2'
-import { MemberSingleSelect } from 'domains/Member/components/select'
 import { CurrencySingleSelect } from 'domains/Currency/components/select'
 import { WalletSingleSelect } from 'domains/Wallet/components/select'
+import { WalletTypeSingleSelect } from 'domains/Wallet/components/selectWalletType'
 
 const config = [
   {
-    label: 'Member',
-    name: 'member',
-    Component: MemberSingleSelect,
+    label: 'Wallet Type',
+    name: 'typeWallet',
+    Component: WalletTypeSingleSelect,
+    data: ['public', 'private'],
     defaultValue: '',
     rules: {
       required: 'Select member'
