@@ -125,6 +125,18 @@ const CategoryAdvancedView = (props) => {
                       <ProgressBar value={valueForProgressBar} />
                     </Col>
                   </Row>
+                  <Row h="between">
+                    <Col cw="auto">
+                      <Typography variant="body2" color="textSecondary">
+                        Spent
+                      </Typography>
+                    </Col>
+                    <Col cw="auto">
+                      <Typography variant="body2" color="textSecondary">
+                        Available
+                      </Typography>
+                    </Col>
+                  </Row>
                 </Col>
               </Row>
             </Paper>
