@@ -99,7 +99,7 @@ const WalletCombined = (props) => {
             currency: currency
           }}
           form={form}
-          show={['nameWallet', 'divider', 'balance', 'currency', 'access']}
+          show={['nameWallet', 'balance', 'currency', 'access']}
           onSubmit={onSubmit}
           buttonProps={{ visible: false }}
         />
@@ -113,7 +113,6 @@ WalletCombined.propTypes = {
   children: PropTypes.element
 }
 WalletCombined.defaultProps = {
-  title: 'Create new wallet',
   typeModalEdit: false
 }
 export default WalletCombined

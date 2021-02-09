@@ -5,7 +5,7 @@ const WalletAll = (props) => {
   return (
     <Container>
       <WalletList />
-      <WalletCombined />
+      <WalletCombined title={'Create new wallet'} />
     </Container>
   )
 }
