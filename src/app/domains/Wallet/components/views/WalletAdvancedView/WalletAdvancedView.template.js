@@ -38,10 +38,10 @@ const WalletAdvancedView = (props) => {
     </>
   )
   return (
-    <Container>
+    <Container mb={3}>
       <Row>
-        <Col p={0}>
-          <Paper elevation={3} className={classes.styledPaper}>
+        <Col>
+          <Paper className={classes.styledPaper}>
             <Container p={2}>
               <Row>
                 <Col>

@@ -1,9 +1,8 @@
 import { List, ListItem } from '@material-ui/core'
 import { Container, Row, Col } from '@qonsoll/react-design'
 import { WalletAdvancedView } from 'domains/Wallet/components/views'
-import SearchIcon from '@material-ui/icons/Search'
 
-const WALLETS = {
+const dataForListWallets = {
   hsd: {
     nameWallet: 'Olena`s wallet',
     owner: 'Olena',
@@ -22,21 +21,20 @@ const WALLETS = {
   }
 }
 
-function generateList(WALLETS) {
+function generateList(dataForListWallets) {
   let list = []
 
-  for (const item in WALLETS) {
+  for (const item in dataForListWallets) {
     list.push(
-      <ListItem key={item}>
-        <WalletAdvancedView
-          idWallet={item}
-          nameWallet={WALLETS[item].nameWallet}
-          owner={WALLETS[item].owner}
-          balance={WALLETS[item].balance}
-          currency={WALLETS[item].currency}
-          avatarUrl={WALLETS[item].avatarUrl}
-        />
-      </ListItem>
+      <WalletAdvancedView
+        key={item}
+        idWallet={item}
+        nameWallet={dataForListWallets[item].nameWallet}
+        owner={dataForListWallets[item].owner}
+        balance={dataForListWallets[item].balance}
+        currency={dataForListWallets[item].currency}
+        avatarUrl={dataForListWallets[item].avatarUrl}
+      />
     )
   }
 
@@ -44,14 +42,6 @@ function generateList(WALLETS) {
 }
 
 const WalletList = () => {
-  return (
-    <Container>
-      <Row noGutters>
-        <Col cw={12}>
-          <List>{generateList(WALLETS)}</List>
-        </Col>
-      </Row>
-    </Container>
-  )
+  return generateList(dataForListWallets) || <div>No data</div>
 }
 export default WalletList
