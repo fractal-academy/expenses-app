@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core'
 
 const getColorBar = (props) => {
   if (props.value > 99) {
-    return 'red'
+    return '#eb3232'
   }
   return '#1a90ff'
 }
@@ -10,7 +10,7 @@ const getColorBar = (props) => {
 export const useStyle = makeStyles((theme) => {
   return {
     root: {
-      height: 10,
+      height: 4,
       borderRadius: 5,
 
       '&> .MuiLinearProgress-bar': {
@@ -21,7 +21,7 @@ export const useStyle = makeStyles((theme) => {
     },
     colorPrimary: {
       backgroundColor:
-        theme.palette.grey[theme.palette.type === 'light' ? 200 : 700]
+        theme.palette.grey[theme.palette.type === 'light' ? 300 : 700]
     }
   }
 })
