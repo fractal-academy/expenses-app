@@ -7,7 +7,6 @@ import {
 } from 'mui-form-generator-fractal-band-2'
 import { CurrencySingleSelect } from 'domains/Currency/components/select'
 import { WalletSingleSelect } from 'domains/Wallet/components/select'
-import { WalletTypeSingleSelect } from 'domains/Wallet/components/selectWalletType'
 
 const config = [
   {
@@ -24,7 +23,7 @@ const config = [
   },
   {
     label: 'Private',
-    name: 'access',
+    name: 'privateWallet',
     type: 'checkbox'
   },
   {
@@ -39,12 +38,12 @@ const config = [
         }
       },
       {
-        name: 'currency',
+        label: 'Currency',
+        name: 'idCurrency',
         Component: CurrencySingleSelect,
         rules: {
           required: 'Select currency'
-        },
-        colProps: { cw: 'auto', style: { flex: 0 } }
+        }
       }
     ]
   },
@@ -69,6 +68,7 @@ const WalletForm = (props) => {
     formProps,
     fieldProps
   } = props
+
   return (
     <Form
       form={form}
