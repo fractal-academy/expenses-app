@@ -3,15 +3,36 @@ import { Typography, IconButton, Paper } from '@material-ui/core'
 import { MemberAdvancedView } from 'domains/Member/components/views/MemberAdvancedView'
 import { WalletCombined } from 'domains/Wallet/components/combined/WalletCombined'
 import { CurrencySimpleView } from 'domains/Currency/components/views'
+import { Avatar } from 'app/components/Lib/Avatar'
 import { useStyles } from './WalletAdvancedView.styles'
 import { MoreHorizOutlined, Edit, Delete } from '@material-ui/icons'
 import { DropdownItem, Dropdown } from 'app/components/Lib/Dropdown'
+import { getData } from 'app/services'
+import { useEffect, useState } from 'react'
 
 const WalletAdvancedView = (props) => {
   const classes = useStyles()
 
-  const { idWallet, nameWallet, balance, owner, currency, avatarUrl } = props
+  const {
+    idWallet,
+    nameWallet,
+    balance,
+    idMember,
+    idCurrency,
+    privateWallet
+  } = props
 
+  const [memberData, setMemberData] = useState()
+
+  //useEffect needs refactor
+  useEffect(
+    () =>
+      idMember &&
+      getData('users', idMember).then((item) => setMemberData(item)),
+    []
+  )
+
+  const deleteWallet = async () => {}
   const DropdownList = (
     <>
       <WalletCombined
@@ -20,8 +41,9 @@ const WalletAdvancedView = (props) => {
         idWallet={idWallet}
         nameWallet={nameWallet}
         balance={balance}
-        member={owner}
-        currency={currency}>
+        idMember={idMember}
+        idCurrency={idCurrency}
+        privateWallet={privateWallet}>
         <DropdownItem>
           <Box mr={2}>
             <Edit />
@@ -29,7 +51,7 @@ const WalletAdvancedView = (props) => {
           Edit
         </DropdownItem>
       </WalletCombined>
-      <DropdownItem danger>
+      <DropdownItem danger onClick={deleteWallet}>
         <Box mr={2}>
           <Delete />
         </Box>
@@ -47,6 +69,7 @@ const WalletAdvancedView = (props) => {
                 <Col>
                   <Row h="between" v="center" mb={4}>
                     {/*there are name of wallet and drop down with edit and delete functions*/}
+
                     <Col cw="auto">
                       <Typography variant="body1">{nameWallet}</Typography>
                     </Col>
@@ -68,18 +91,37 @@ const WalletAdvancedView = (props) => {
                 <Col>
                   <Row>
                     {/*there is member`s info*/}
+
                     <Col>
-                      <MemberAdvancedView
-                        horizontal
-                        role={'owner'}
-                        name={owner}
-                        avatarUrl={avatarUrl}
-                      />
+                      {privateWallet ? (
+                        <MemberAdvancedView
+                          horizontal
+                          name={memberData && memberData.firstName}
+                          surname={memberData && memberData.surname}
+                          avatarUrl={memberData && memberData.avatarURL}
+                          role={'owner'}
+                        />
+                      ) : (
+                        <Container>
+                          <Row v="center">
+                            <Col cw="auto">
+                              <Avatar
+                                src="https://firebasestorage.googleapis.com/v0/b/expenses-app-development-9ba1c.appspot.com/o/logo-white(sense)-color(teq).jpg?alt=media&token=757d0b30-a6b6-4637-be0c-cc8efbc3f69f"
+                                alt="Senseteq"
+                              />
+                            </Col>
+                            <Col cw="auto">
+                              <Typography>Senseteq</Typography>
+                            </Col>
+                          </Row>
+                        </Container>
+                      )}
                     </Col>
                   </Row>
                 </Col>
                 <Col cw="auto">
                   {/*there is info about balance*/}
+
                   <Row>
                     <Col>
                       <Typography variant="caption">Balance</Typography>
@@ -89,7 +131,10 @@ const WalletAdvancedView = (props) => {
                     <Col>
                       <Box display="flex">
                         <Typography variant="body1">{balance}</Typography>
-                        <CurrencySimpleView variant="body1" value={currency} />
+                        <CurrencySimpleView
+                          variant="body1"
+                          value={idCurrency}
+                        />
                       </Box>
                     </Col>
                   </Row>
