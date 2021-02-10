@@ -1,55 +1,58 @@
 import { NotificationAdvancedView } from '../../views/NotificationAdvancedView'
-import PropTypes from 'prop-types'
-import { ListHOC } from 'app/components/HOCs/ListHOC'
-
-const mockNotification = [
-  {
-    id: 1,
-    avatar: 'https://w3schoolsrus.github.io/w3images/avatar2.png',
-    notificationText: 'notification 1',
-    notificationTime: new Date()
-  },
-  {
-    id: 2,
-    avatar: 'https://w3schoolsrus.github.io/w3images/avatar2.png',
-    notificationText:
-      'notification 2 logn logn logn logn logn logn logn logn logn logn logn logn logn',
-    notificationTime: new Date()
-  },
-  {
-    id: 3,
-    avatar: 'https://w3schoolsrus.github.io/w3images/avatar2.png',
-    notificationText: 'notification 3',
-    notificationTime: new Date()
-  },
-  {
-    id: 4,
-    avatar: 'https://w3schoolsrus.github.io/w3images/avatar2.png',
-    notificationText: 'notification 4',
-    notificationTime: new Date()
-  }
-]
+import { useState, useEffect } from 'react'
+import { firestore, getData } from 'app/services/Firestore'
+import { useCollection } from 'react-firebase-hooks/firestore'
+import { useSession } from 'app/context/SessionContext/hooks'
+import md5 from 'md5'
 
 //TODO delete mock data
-const NotificationList = ({ collectionName }) => {
-  return (
-    <ListHOC collectionName={collectionName} mock={mockNotification}>
-      {(item) => (
-        <NotificationAdvancedView
-          key={item.id}
-          notificationAvatar={item.avatar}
-          notificationText={item.notificationText}
-          notificationTime={item.notificationTime}
-          verticalAlignment="center"
-          horizontalAlignment="around"
-        />
-      )}
-    </ListHOC>
-  )
-}
+const NotificationList = (props) => {
+  // STATE
+  const [data, setData] = useState([])
 
-NotificationList.propTypes = {
-  collectionName: PropTypes.string.isRequired
+  // CUSTOM HOOKS
+  const session = useSession()
+  const [value, loading, error] = useCollection(
+    firestore
+      .collection('notifications')
+      .where('userId', '==', md5(session.email))
+  )
+
+  // USE EFFECTS
+  useEffect(() => {
+    getData('users', md5(session.email)).then((result) => {
+      const notifications =
+        value &&
+        value.docs.map((item) => {
+          console.log(item.data())
+          return {
+            id: item.id,
+            notificationText: item.data().text,
+            notificationTime: item.data().date.seconds,
+            notificationAvatar: result.avatarURL
+          }
+        })
+      setData(notifications)
+    })
+    return () => {}
+  }, [value, session.email])
+
+  // TEMPLATE
+  return (
+    <>
+      {data &&
+        data.map((item) => (
+          <NotificationAdvancedView
+            key={item.id}
+            notificationAvatar={item.notificationAvatar}
+            notificationText={item.notificationText}
+            notificationTime={item.notificationTime}
+            verticalAlignment="center"
+            horizontalAlignment="around"
+          />
+        ))}
+    </>
+  )
 }
 
 export default NotificationList
