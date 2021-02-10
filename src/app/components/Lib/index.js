@@ -7,7 +7,7 @@ import { FabButton } from './FabButton'
 import { DataGrid } from './DataGrid'
 import { Toolbar } from './Toolbar'
 import { LoadingButton } from './LoadingButton'
-import { Loader } from './Loader'
+import { Spinner } from './Spinner'
 
 export {
   Select,
@@ -21,5 +21,5 @@ export {
   DataGrid,
   Toolbar,
   LoadingButton,
-  Loader
+  Spinner
 }
