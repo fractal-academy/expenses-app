@@ -53,7 +53,7 @@ const CategoryCombined = (props) => {
     setOpen(false)
   }
 
-  // INTERFACE
+  // TEMPLATE
   return (
     <>
       {(children &&
