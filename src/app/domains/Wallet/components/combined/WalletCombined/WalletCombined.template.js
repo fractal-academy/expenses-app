@@ -8,8 +8,7 @@ import { setData } from 'app/services'
 import PropTypes from 'prop-types'
 import { COLLECTIONS } from 'app/constants'
 import md5 from 'md5'
-import { useAuthState } from 'react-firebase-hooks/auth'
-import { auth } from 'app/services'
+import { useSession } from 'app/context/SessionContext/hooks'
 
 const WalletCombined = (props) => {
   const {
@@ -27,7 +26,7 @@ const WalletCombined = (props) => {
   const [open, setOpen] = useState(children && !children)
   const [openSnackbarSuccess, setOpenSnackbarSuccess] = useState(false)
   const [openSnackbarError, setOpenSnackbarError] = useState(false)
-  const [user] = useAuthState(auth)
+  const session = useSession()
 
   const form = useForm({
     defaultValues: {
@@ -46,7 +45,7 @@ const WalletCombined = (props) => {
     !!privateWallet && idMember
       ? (data.idMember = idMember)
       : !!privateWallet
-      ? (data.idMember = md5(user.email))
+      ? (data.idMember = md5(session.email))
       : delete data.idMember
 
     if (typeof data.idCurrency === 'object')
