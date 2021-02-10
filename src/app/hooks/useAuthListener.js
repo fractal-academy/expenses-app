@@ -6,6 +6,7 @@ import { auth } from 'app/services/Auth'
 import { getData, setData } from 'app/services/Firestore'
 import { COLLECTIONS, ROUTES_PATHS } from 'app/constants'
 import { useSessionDispatch, types } from 'app/context/SessionContext'
+import { START_PAGE } from 'app/constants/role'
 
 /**
  *
@@ -27,16 +28,15 @@ const activateUser = async (user, userData) => {
 }
 
 const useAuthListener = () => {
-  const [user, loading] = useAuthState(auth)
+  const [user, userLoading] = useAuthState(auth)
   const [isInvited, setIsInvited] = useState(true)
-  const [load, setLoad] = useState(true)
+  const [loading, setLoading] = useState(true)
   let history = useHistory()
   const dispatch = useSessionDispatch()
-
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        setLoad(true)
+        setLoading(true)
         let userData = await getData(COLLECTIONS.USERS, md5(user.email))
 
         //first login after invite
@@ -51,29 +51,37 @@ const useAuthListener = () => {
           ...userData
         }
         dispatch({ type: types.LOGIN_USER, payload: data })
+
+        //check flag if user come from login page
+        const loggedIn = JSON.parse(sessionStorage.getItem('loggedIn'))
+        if (loggedIn) {
+          history.replace(START_PAGE[data.role.toUpperCase()])
+          sessionStorage.setItem('loggedIn', 'false')
+        }
       } catch (e) {
         //if document not exist that means user wasn't invite
         if (e.message.includes('document not exist.')) {
-          setLoad(false)
+          setLoading(false)
           return setIsInvited(false)
         }
         console.log(e)
       }
-      setLoad(false)
+      setLoading(false)
     }
+
     //if user logout or hasn't login yet
     if (user === null) {
-      history.replace(ROUTES_PATHS.LOGIN)
-      !loading && setLoad(false)
+      !userLoading && history.replace(ROUTES_PATHS.LOGIN) && setLoading(false)
     }
+
     //if user loaded -> fetch his data
-    !loading && fetchUser()
-  }, [user, loading])
+    !!user && !userLoading && fetchUser()
+  }, [user, userLoading])
 
   useEffect(() => !isInvited && history.replace(ROUTES_PATHS.REJECT_LOGIN), [
     isInvited
   ])
-  return { loading: load, user }
+  return { loading, user }
 }
 
 export default useAuthListener
