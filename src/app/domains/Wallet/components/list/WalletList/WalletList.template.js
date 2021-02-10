@@ -1,47 +1,41 @@
-import { List, ListItem } from '@material-ui/core'
-import { Container, Row, Col } from '@qonsoll/react-design'
 import { WalletAdvancedView } from 'domains/Wallet/components/views'
-
-const dataForListWallets = {
-  hsd: {
-    nameWallet: 'Olena`s wallet',
-    owner: 'Olena',
-    balance: '1000',
-    currency: 'USD',
-    avatarUrl:
-      'https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/girl_avatar_child_kid-512.png'
-  },
-  uyds: {
-    nameWallet: 'Sasha`s wallet',
-    owner: 'Sasha',
-    balance: '800',
-    currency: 'USD',
-    avatarUrl:
-      'https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/girl_avatar_child_kid-512.png'
-  }
-}
-
-function generateList(dataForListWallets) {
-  let list = []
-
-  for (const item in dataForListWallets) {
-    list.push(
-      <WalletAdvancedView
-        key={item}
-        idWallet={item}
-        nameWallet={dataForListWallets[item].nameWallet}
-        owner={dataForListWallets[item].owner}
-        balance={dataForListWallets[item].balance}
-        currency={dataForListWallets[item].currency}
-        avatarUrl={dataForListWallets[item].avatarUrl}
-      />
-    )
-  }
-
-  return list
-}
+import { useCollection } from 'react-firebase-hooks/firestore'
+import { CircularProgress } from '@material-ui/core'
+import { getCollectionRef } from 'app/services'
+import { Container, Row, Col } from '@qonsoll/react-design'
 
 const WalletList = () => {
-  return generateList(dataForListWallets) || <div>No data</div>
+  const [dataForListWallets, loading] = useCollection(
+    getCollectionRef('wallets')
+  )
+  return loading ? (
+    <Container height="100%" verticalAlign="middle" display="flex">
+      <Row width="100%" h="center">
+        <Col cw="auto" display="flex" v="center">
+          <CircularProgress />
+        </Col>
+      </Row>
+    </Container>
+  ) : dataForListWallets ? (
+    <Container>
+      <Row noGutters>
+        <Col>
+          {dataForListWallets.docs.map((doc) => (
+            <WalletAdvancedView
+              key={doc.id}
+              idWallet={doc.id}
+              nameWallet={doc.data().nameWallet}
+              idMember={doc.data().idMember}
+              balance={doc.data().balance}
+              privateWallet={doc.data().privateWallet}
+              idCurrency={doc.data().idCurrency}
+            />
+          ))}
+        </Col>
+      </Row>
+    </Container>
+  ) : (
+    <div>No data</div>
+  )
 }
 export default WalletList
