@@ -6,6 +6,7 @@ import { ProgressBar } from './ProgressBar'
 import { FabButton } from './FabButton'
 import { DataGrid } from './DataGrid'
 import { Toolbar } from './Toolbar'
+import { Table } from './Table'
 import { LoadingButton } from './LoadingButton'
 
 export {
@@ -19,5 +20,6 @@ export {
   FabButton,
   DataGrid,
   Toolbar,
+  Table,
   LoadingButton
 }
