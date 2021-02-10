@@ -1,11 +1,4 @@
-import { Fragment } from 'react'
-import {
-  List,
-  ListItem,
-  Divider,
-  InputAdornment,
-  TextField
-} from '@material-ui/core'
+import { List, ListItem } from '@material-ui/core'
 import { Container, Row, Col } from '@qonsoll/react-design'
 import { WalletAdvancedView } from 'domains/Wallet/components/views'
 import SearchIcon from '@material-ui/icons/Search'
@@ -34,18 +27,16 @@ function generateList(WALLETS) {
 
   for (const item in WALLETS) {
     list.push(
-      <Fragment key={item}>
-        <ListItem>
-          <WalletAdvancedView
-            idWallet={item}
-            nameWallet={WALLETS[item].nameWallet}
-            owner={WALLETS[item].owner}
-            balance={WALLETS[item].balance}
-            currency={WALLETS[item].currency}
-            avatarUrl={WALLETS[item].avatarUrl}
-          />
-        </ListItem>
-      </Fragment>
+      <ListItem key={item}>
+        <WalletAdvancedView
+          idWallet={item}
+          nameWallet={WALLETS[item].nameWallet}
+          owner={WALLETS[item].owner}
+          balance={WALLETS[item].balance}
+          currency={WALLETS[item].currency}
+          avatarUrl={WALLETS[item].avatarUrl}
+        />
+      </ListItem>
     )
   }
 
@@ -55,7 +46,7 @@ function generateList(WALLETS) {
 const WalletList = () => {
   return (
     <Container>
-      <Row>
+      <Row noGutters>
         <Col cw={12}>
           <List>{generateList(WALLETS)}</List>
         </Col>

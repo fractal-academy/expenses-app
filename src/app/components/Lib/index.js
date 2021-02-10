@@ -6,6 +6,7 @@ import { ProgressBar } from './ProgressBar'
 import { FabButton } from './FabButton'
 import { DataGrid } from './DataGrid'
 import { Toolbar } from './Toolbar'
+import { LoadingButton } from './LoadingButton'
 
 export {
   Select,
@@ -17,5 +18,6 @@ export {
   ProgressBar,
   FabButton,
   DataGrid,
-  Toolbar
+  Toolbar,
+  LoadingButton
 }

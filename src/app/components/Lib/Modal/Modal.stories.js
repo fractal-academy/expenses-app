@@ -36,4 +36,4 @@ const Template = (args) => <Modal {...args} />
 
 export const ModalStory = Template.bind({})
 
-Modal.args = {}
+ModalStory.args = {}
