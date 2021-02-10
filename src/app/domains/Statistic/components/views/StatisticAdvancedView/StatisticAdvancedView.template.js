@@ -8,67 +8,66 @@ const mockData = [
   {
     nameProduct: 'Day',
     category: 'Kitchen',
-    dateBuy: 1612765683,
-    price: 1000
+    dateBuy: 1612946703,
+    price: 100
+  },
+  {
+    nameProduct: 'Day',
+    category: 'Kitchen',
+    dateBuy: 1612946703,
+    price: 100
   },
   {
     nameProduct: 'Day',
     category: 'Office',
-    dateBuy: 1612765683,
-    price: 10
-  },
-  {
-    nameProduct: 'Day',
-    category: 'Office',
-    dateBuy: 1612765683,
-    price: 10
+    dateBuy: 1612946703,
+    price: 100
   },
   {
     nameProduct: 'Week',
     category: 'Food',
-    dateBuy: 1612938483,
-    price: 100
+    dateBuy: 1613119503,
+    price: 200
   },
 
   {
     nameProduct: 'Mount',
     category: 'Office',
     dateBuy: 1614290400,
-    price: 1000
+    price: 300
+  },
+  {
+    nameProduct: 'Mount',
+    category: 'Office',
+    dateBuy: 1614290400,
+    price: 300
   },
   {
     nameProduct: 'Year',
     category: 'Sport',
     dateBuy: 1609452000,
-    price: 1000
+    price: 400
   },
   {
     nameProduct: 'Year',
-    category: 'Sport',
+    category: 'Kitchen',
     dateBuy: 1609452000,
-    price: 100
+    price: 400
   },
   {
     nameProduct: 'Year',
-    category: 'Sport',
+    category: 'Office',
     dateBuy: 1609452000,
-    price: 100
-  },
-  {
-    nameProduct: 'Year',
-    category: 'Sport',
-    dateBuy: 1609452000,
-    price: 1000
+    price: 400
   }
 ]
-const func = (range) => {
+const filterDataForChart = (range) => {
   const rangeStart = moment(range.startDate).format('X')
   const rangeEnd = moment(range.endDate).format('X')
   const arrCategoryName = []
   const productsSum = []
-  const res = []
   // map for create Arr with name categories
-  mockData.forEach((item) => {
+  mockData.map((item) => {
     if (rangeStart <= item.dateBuy && item.dateBuy <= rangeEnd) {
       arrCategoryName.push(item.category)
     }
@@ -76,9 +75,10 @@ const func = (range) => {
   // return new Arr without duplicate name categories
   const resArrCategory = _.uniqWith(arrCategoryName, _.isEqual)
 
-  //create arr values for chart
-  resArrCategory.forEach((nameCategory) => {
-    mockData.forEach((item) => {
+  // create arr values for chart
+  resArrCategory.map((nameCategory) => {
+    const res = []
+    mockData.map((item) => {
       if (
         item.category === nameCategory &&
         rangeStart <= item.dateBuy &&
@@ -90,7 +90,6 @@ const func = (range) => {
 
     productsSum.push(res.reduce((a, b) => a + b, 0)) //arr for chart
   })
-
   return [resArrCategory, productsSum]
 }
 const options = {
@@ -111,7 +110,7 @@ const options = {
     }
   },
   tooltip: {
-    enabled: false
+    enabled: true
   },
   plotOptions: {
     pie: {
@@ -138,7 +137,8 @@ const options = {
 const StatisticAdvancedView = (props) => {
   const { state } = useStatisticContext()
 
-  const [resArrCategory, productSum] = func(state.date)
+  const [resArrCategory, productSum] = filterDataForChart(state.date)
+  console.log('/////////////////////////')
   const [config, setConfig] = useState(options)
   useEffect(() => {
     setConfig({ ...options, labels: resArrCategory })

@@ -10,6 +10,9 @@ import {
 } from '@material-ui/core'
 import { ExpandLess, ExpandMore } from '@material-ui/icons'
 import { CurrencySimpleView } from 'domains/Currency/components/views'
+import { useStatisticContext } from 'app/context/StatisticsContext'
+import moment from 'moment'
+import _ from 'lodash'
 
 const testUsers = [
   {
@@ -21,7 +24,7 @@ const testUsers = [
     ]
   },
   {
-    name: 'Anonim',
+    name: 'Slava',
     spent: '500',
     wallets: [
       { name: 'Food', spentWallet: '1000' },
@@ -112,8 +115,75 @@ const MemberWallets = (props) => {
   )
 }
 
+// {
+//   name: 'Pasha',
+//     spent: '3400',
+//
+//     wallets: [
+//   { name: 'Food', spentWallet: '1000' },
+//   { name: 'Sweets', spentWallet: '2400' }
+// ]
+// },
+
+const mockData = [
+  {
+    assign: 'Pasha',
+    price: 100,
+    wallet: 'Food',
+    dateBuy: 1612742400
+  },
+  {
+    assign: 'Pasha',
+    price: 150,
+    wallet: 'Kitchen',
+    dateBuy: 1612742400
+  },
+  {
+    assign: 'Misha',
+    price: 1000,
+    wallet: '',
+    dateBuy: 1612742400
+  }
+]
+const func = (range) => {
+  const rangeStart = moment(range.startDate).format('X')
+  const rangeEnd = moment(range.endDate).format('X')
+  const arrUsersName = []
+  const res = []
+  const totalSumUser = []
+
+  //  for create Arr with name categories
+  mockData.forEach((item) => {
+    if (rangeStart <= item.dateBuy && item.dateBuy <= rangeEnd) {
+      arrUsersName.push(item.assign)
+    }
+  })
+  // return new Arr without duplicate name categories
+  const resArrUsersName = _.uniqWith(arrUsersName, _.isEqual)
+  console.log(resArrUsersName)
+
+  resArrUsersName.forEach((nameUser) => {
+    mockData.forEach((item) => {
+      if (
+        item.assign === nameUser &&
+        rangeStart <= item.dateBuy &&
+        item.dateBuy <= rangeEnd
+      ) {
+        res.push(item.price) //arr values single category
+        // console.log('res', res)
+      }
+    })
+
+    totalSumUser.push(res.reduce((a, b) => a + b, 0)) //arr for chart
+  })
+
+  // console.log('totalSum', totalSumUser)
+}
 const CollapseWallet = (props) => {
   const { totalSpending } = props
+
+  const { state } = useStatisticContext()
+  // func(state.date)
   return (
     <>
       <List component="nav" aria-labelledby="nested-list-subheader">
