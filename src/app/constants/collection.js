@@ -6,7 +6,8 @@ const COLLECTIONS = {
   PURCHASES: 'purchases',
   LOGS: 'logs',
   NOTIFICATIONS: 'notifications',
-  COMMENTS: 'comments'
+  COMMENTS: 'comments',
+  WALLETS: 'wallets'
 }
 
 export default COLLECTIONS
