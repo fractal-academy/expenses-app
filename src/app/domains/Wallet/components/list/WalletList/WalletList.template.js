@@ -18,23 +18,21 @@ const WalletList = () => {
       </Row>
     </Container>
   ) : dataForListWallets ? (
-    <Container>
-      <Row noGutters>
-        <Col>
-          {dataForListWallets.docs.map((doc) => (
-            <WalletAdvancedView
-              key={doc.id}
-              idWallet={doc.id}
-              nameWallet={doc.data().nameWallet}
-              idMember={doc.data().idMember}
-              balance={doc.data().balance}
-              privateWallet={doc.data().privateWallet}
-              idCurrency={doc.data().idCurrency}
-            />
-          ))}
-        </Col>
-      </Row>
-    </Container>
+    <Row noGutters>
+      <Col>
+        {dataForListWallets.docs.map((doc) => (
+          <WalletAdvancedView
+            key={doc.id}
+            idWallet={doc.id}
+            nameWallet={doc.data().nameWallet}
+            idMember={doc.data().idMember}
+            balance={doc.data().balance}
+            privateWallet={doc.data().privateWallet}
+            idCurrency={doc.data().idCurrency}
+          />
+        ))}
+      </Col>
+    </Row>
   ) : (
     <div>No data</div>
   )

@@ -33,12 +33,13 @@ const WalletAdvancedView = (props) => {
     setOpenSnackbarError(false)
   }
 
-  useEffect(
-    () =>
-      idMember &&
-      getData(COLLECTIONS.USERS, idMember).then((item) => setMemberData(item)),
-    []
-  )
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await getData(COLLECTIONS.USERS, idMember)
+      setMemberData(result)
+    }
+    idMember && fetchData()
+  }, [idMember])
 
   const deleteWallet = async () => {
     try {
