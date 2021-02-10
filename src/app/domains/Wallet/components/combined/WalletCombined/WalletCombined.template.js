@@ -31,12 +31,12 @@ const WalletCombined = (props) => {
 
   const form = useForm({
     defaultValues: {
-      idWallet: idWallet,
-      nameWallet: nameWallet,
-      balance: balance,
-      idCurrency: idCurrency,
-      privateWallet: privateWallet,
-      idMember: idMember
+      idWallet,
+      nameWallet,
+      balance,
+      idCurrency,
+      privateWallet,
+      idMember
     }
   })
 
@@ -82,7 +82,7 @@ const WalletCombined = (props) => {
       <Snackbar
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={openSnackbarSuccess}
-        autoHideDuration={6000}
+        autoHideDuration={1500}
         onClose={handleClose}>
         <Alert variant="filled" severity="success">
           This is a success message!
@@ -91,7 +91,7 @@ const WalletCombined = (props) => {
       <Snackbar
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={openSnackbarError}
-        autoHideDuration={6000}
+        autoHideDuration={1500}
         onClose={handleClose}>
         <Alert variant="filled" severity="error">
           This is an error message!
@@ -119,13 +119,6 @@ const WalletCombined = (props) => {
           onClick: handleClose
         }}>
         <WalletForm
-          formData={{
-            nameWallet: nameWallet,
-            idMember: idMember,
-            balance: balance,
-            privateWallet: privateWallet,
-            idCurrency: idCurrency
-          }}
           form={form}
           show={['nameWallet', 'balance', 'idCurrency', 'privateWallet']}
           onSubmit={onSubmit}
