@@ -7,44 +7,55 @@ import { ProgressBar } from 'app/components/Lib'
 import { useStyles } from './CategoryAdavncedView.style'
 import { CategoryCombined } from 'domains/Category/components/combined/CategoryCombined'
 import { DropdownItem, Dropdown } from 'app/components/Lib/Dropdown'
+import { deleteData } from 'app/services/Firestore'
 import formatCurrency from 'format-currency'
 
-const DropdownList = (
-  <div>
-    <CategoryCombined title="Edit category" typeModalEdit>
-      <DropdownItem>
-        <Box mr={2}>
-          <Edit />
-        </Box>
-        Edit
-      </DropdownItem>
-    </CategoryCombined>
-    <DropdownItem danger>
-      <Box mr={2}>
-        <Delete />
-      </Box>
-      Delete
-    </DropdownItem>
-  </div>
-)
-
 const CategoryAdvancedView = (props) => {
+  // INTERFACE
+  const { id, nameCategory, colorCategory, currency, spent, budget } = props
+
+  // CUSTOM HOOKS
   const classes = useStyles()
-  const {
-    nameCategory,
-    colorCategory,
-    currency,
-    spent,
-    budget,
-    valueForProgressBar
-  } = props
 
+  // COMPUTED PROPERTIES
   const availableBalance = budget - spent
-
+  const valueForProgressBar = 100 - (availableBalance * 100) / budget
   const formattedAvailableBalance = formatCurrency(availableBalance)
-
   const formattedSpent = formatCurrency(spent)
+  const progressbarClasses =
+    valueForProgressBar >= 100 ? `${classes.red}` : `${classes.blue}`
+  const availableMoneyClass = valueForProgressBar >= 100 && classes.red
 
+  // DROPDOWN OVERLAY ELEMENT
+  const DropdownList = (
+    <div>
+      <CategoryCombined
+        title="Edit category"
+        onClick={() => console.log(id)}
+        typeModalEdit
+        categoryId={id}>
+        <DropdownItem>
+          <Box mr={2}>
+            <Edit />
+          </Box>
+          Edit
+        </DropdownItem>
+      </CategoryCombined>
+      <DropdownItem
+        danger
+        onClick={() => {
+          deleteData('categories', id)
+          console.log('DELETE')
+        }}>
+        <Box mr={2}>
+          <Delete />
+        </Box>
+        Delete
+      </DropdownItem>
+    </div>
+  )
+
+  // TEMPLATE
   return (
     <>
       <Container mb={3} className={classes.paper}>
@@ -63,7 +74,7 @@ const CategoryAdvancedView = (props) => {
                       </Typography>
                     </Col>
                     <Col cw="auto">
-                      <Dropdown overlay={DropdownList}>
+                      <Dropdown overlay={DropdownList} id={id}>
                         <IconButton
                           size="small"
                           color="primary"
@@ -86,20 +97,12 @@ const CategoryAdvancedView = (props) => {
                       <CurrencySimpleView
                         variant="body1"
                         value={currency}
-                        className={
-                          budget - spent > 50
-                            ? `${classes.blue}`
-                            : `${classes.red}`
-                        }
+                        className={progressbarClasses}
                       />
                       <Typography
                         variant="body1"
-                        className={
-                          budget - spent > 50
-                            ? `${classes.blue}`
-                            : `${classes.red}`
-                        }>
-                        {formattedAvailableBalance}
+                        className={progressbarClasses}>
+                        {formattedSpent}
                       </Typography>
                     </Col>
 
@@ -108,13 +111,13 @@ const CategoryAdvancedView = (props) => {
                         color="textSecondary"
                         variant="body1"
                         value={currency}
-                        className={budget - spent < 50 && `${classes.red}`}
+                        className={availableMoneyClass}
                       />
                       <Typography
                         variant="body1"
                         color="textSecondary"
-                        className={budget - spent < 50 && `${classes.red}`}>
-                        {formattedSpent}
+                        className={availableMoneyClass}>
+                        {formattedAvailableBalance}
                       </Typography>
                     </Col>
                   </Row>
@@ -122,7 +125,10 @@ const CategoryAdvancedView = (props) => {
                   {/* Row with ProgressBar*/}
                   <Row mb={2}>
                     <Col sw="12">
-                      <ProgressBar value={valueForProgressBar} />
+                      <ProgressBar
+                        value={valueForProgressBar}
+                        className={availableMoneyClass}
+                      />
                     </Col>
                   </Row>
                   <Row h="between">

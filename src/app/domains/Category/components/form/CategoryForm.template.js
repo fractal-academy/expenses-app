@@ -6,12 +6,25 @@ import {
   FormButtons
 } from 'mui-form-generator-fractal-band-2'
 import { ColorSingleSelect } from 'app/domains/Color/components/select'
+import { CurrencySingleSelect } from 'app/domains/Currency/components/select'
+import { CURRENCIES } from 'app/constants'
+import { COLOR_VALUE } from 'app/constants/colors'
 
-const config = [
+// COMPONENT CONSTANTS
+const { CURRENCY_VALUES } = CURRENCIES
+
+const CONFIG = [
   {
     label: 'Color',
     name: 'color',
+    defaultValue: COLOR_VALUE[0].name,
     Component: ColorSingleSelect
+  },
+  {
+    label: 'Currency',
+    name: 'currency',
+    defaultValue: CURRENCY_VALUES[0],
+    Component: CurrencySingleSelect
   },
   {
     type: 'text',
@@ -37,6 +50,7 @@ const config = [
 ]
 
 const CategoryForm = (props) => {
+  // INTERFACE
   const {
     formData,
     show,
@@ -46,6 +60,8 @@ const CategoryForm = (props) => {
     buttonProps,
     formProps
   } = props
+
+  // TEMPLATE
   return (
     <Form
       form={form}
@@ -53,7 +69,7 @@ const CategoryForm = (props) => {
       onSubmitFail={onSubmitFail}
       defaultValues={formData}
       {...formProps}>
-      <FormGenerator config={config} show={show} />
+      <FormGenerator config={CONFIG} show={show} />
       <FormButtons Button={Button} {...buttonProps} />
     </Form>
   )

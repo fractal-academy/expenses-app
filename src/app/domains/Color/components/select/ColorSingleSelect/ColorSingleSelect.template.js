@@ -7,6 +7,7 @@ const ColorSingleSelect = (props) => {
   const classes = useStyles()
   const { value, ...rest } = props
   const { COLOR_VALUE } = COLORS
+
   return (
     <Select
       className={classes.selectColor}
