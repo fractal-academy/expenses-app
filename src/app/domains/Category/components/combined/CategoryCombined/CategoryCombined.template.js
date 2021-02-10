@@ -5,19 +5,44 @@ import { Alert } from '@material-ui/lab'
 import { Modal, FabButton } from 'app/components/Lib'
 import { CategoryForm } from 'domains/Category/components/form'
 import PropTypes from 'prop-types'
+import { addData, setData } from 'app/services/Firestore'
 
 const CategoryCombined = (props) => {
-  const { title, typeModalEdit, children } = props
+  // INTERFACE
+  const { title, typeModalEdit, children, categoryId } = props
 
+  // STATE
   const [open, setOpen] = useState(!!children && !children)
   const [openSnackbarSuccess, setOpenSnackbarSuccess] = useState(false)
   const [openSnackbarError, setOpenSnackbarError] = useState(false)
+
+  // CUSTOM HOOKS
   const form = useForm({})
 
-  const onSubmit = () => {
-    setOpen(false)
+  // HELPER FUNCTIONS
+  const onAddCategory = (data) => {
+    addData('categories', {
+      nameCategory: data.nameCategory,
+      colorCategory: data.color,
+      currency: data.currency.cc,
+      spent: 0,
+      budget: Number(data.budgetLimit)
+    }).then(() => setOpen(false))
   }
-  const submitForm = () => form.submit()
+
+  const onEditCategory = (data) => {
+    setData('categories', categoryId, {
+      nameCategory: data.nameCategory,
+      colorCategory: data.color,
+      currency: data.currency.cc,
+      spent: 0,
+      budget: Number(data.budgetLimit)
+    }).then(() => setOpen(false))
+  }
+
+  const submitForm = () => {
+    form.submit()
+  }
   const handleClickOpen = () => {
     setOpen(true)
   }
@@ -27,6 +52,8 @@ const CategoryCombined = (props) => {
     setOpenSnackbarError(false)
     setOpen(false)
   }
+
+  // INTERFACE
   return (
     <>
       {(children &&
@@ -73,8 +100,8 @@ const CategoryCombined = (props) => {
         }}>
         <CategoryForm
           form={form}
-          show={['nameCategory', 'budgetLimit', 'color']}
-          onSubmit={onSubmit}
+          show={['nameCategory', 'budgetLimit', 'color', 'currency']}
+          onSubmit={typeModalEdit ? onEditCategory : onAddCategory}
           buttonProps={{ visible: false }}
         />
       </Modal>
@@ -84,7 +111,8 @@ const CategoryCombined = (props) => {
 CategoryCombined.propTypes = {
   title: PropTypes.string.isRequired,
   typeModalEdit: PropTypes.bool,
-  children: PropTypes.element
+  children: PropTypes.element,
+  categoryId: PropTypes.string
 }
 CategoryCombined.defaultProps = { title: 'Title', typeModalEdit: false }
 export default CategoryCombined
