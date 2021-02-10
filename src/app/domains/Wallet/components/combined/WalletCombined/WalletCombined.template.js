@@ -84,7 +84,7 @@ const WalletCombined = (props) => {
         autoHideDuration={1500}
         onClose={handleClose}>
         <Alert variant="filled" severity="success">
-          This is a success message!
+          Done!
         </Alert>
       </Snackbar>
       <Snackbar
@@ -93,7 +93,7 @@ const WalletCombined = (props) => {
         autoHideDuration={1500}
         onClose={handleClose}>
         <Alert variant="filled" severity="error">
-          This is an error message!
+          Error!
         </Alert>
       </Snackbar>
 
