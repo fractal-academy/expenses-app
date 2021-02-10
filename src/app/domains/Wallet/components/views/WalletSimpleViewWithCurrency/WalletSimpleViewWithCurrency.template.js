@@ -3,7 +3,7 @@ import { Container, Row, Col } from '@qonsoll/react-design'
 import { CurrencySimpleView } from 'domains/Currency/components/views'
 
 const WalletSimpleViewWithCurrency = (props) => {
-  const { nameWallet, balance, currency } = props
+  const { nameWallet, balance, idCurrency } = props
   return (
     <Container>
       <Row h="right">
@@ -16,11 +16,11 @@ const WalletSimpleViewWithCurrency = (props) => {
             </Col>
           </Row>
           <Row h="right">
-            {/*there are balance and currency*/}
+            {/*there are balance and idCurrency*/}
 
             <Col cw="auto">
               <Typography variant="caption">{balance}</Typography>
-              <CurrencySimpleView variant="caption" value={currency} />
+              <CurrencySimpleView variant="caption" value={idCurrency} />
             </Col>
           </Row>
         </Col>
