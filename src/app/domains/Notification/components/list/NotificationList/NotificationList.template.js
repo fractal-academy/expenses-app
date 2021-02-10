@@ -24,7 +24,6 @@ const NotificationList = (props) => {
       const notifications =
         value &&
         value.docs.map((item) => {
-          console.log(item.data())
           return {
             id: item.id,
             notificationText: item.data().text,
