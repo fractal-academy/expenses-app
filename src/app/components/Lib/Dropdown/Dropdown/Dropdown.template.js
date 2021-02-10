@@ -30,7 +30,7 @@ const Dropdown = (props) => {
         keepMounted
         open={open}
         onClose={handleClose}>
-        <div>{cloneElement(overlay, { id: id, onClick: handleClose })}</div>
+        <div>{cloneElement(overlay, { id, onClick: handleClose })}</div>
       </Menu>
     </Box>
   )
