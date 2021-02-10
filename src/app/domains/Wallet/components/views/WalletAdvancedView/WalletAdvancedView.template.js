@@ -8,8 +8,7 @@ import { Avatar } from 'app/components/Lib/Avatar'
 import { useStyles } from './WalletAdvancedView.styles'
 import { MoreHorizOutlined, Edit, Delete } from '@material-ui/icons'
 import { DropdownItem, Dropdown } from 'app/components/Lib/Dropdown'
-import { getData } from 'app/services'
-import { deleteData } from 'app/services/Firestore'
+import { deleteData, getData } from 'app/services/Firestore'
 import { useEffect, useState, Fragment } from 'react'
 import { COLLECTIONS } from 'app/constants'
 
@@ -34,7 +33,6 @@ const WalletAdvancedView = (props) => {
     setOpenSnackbarError(false)
   }
 
-  //useEffect needs refactor
   useEffect(
     () =>
       idMember &&
@@ -77,7 +75,7 @@ const WalletAdvancedView = (props) => {
     </>
   )
   return (
-    <Fragment>
+    <>
       <Snackbar
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={openSnackbarSuccess}
@@ -182,7 +180,7 @@ const WalletAdvancedView = (props) => {
           </Col>
         </Row>
       </Container>
-    </Fragment>
+    </>
   )
 }
 
