@@ -4,16 +4,21 @@ import { useForm } from 'react-hook-form'
 import { Alert } from '@material-ui/lab'
 import { Modal, FabButton } from 'app/components/Lib'
 import { WalletForm } from 'app/domains/Wallet/components/form/WalletForm'
+import { setData } from 'app/services'
 import PropTypes from 'prop-types'
+import { COLLECTIONS } from 'app/constants'
+import md5 from 'md5'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { auth } from 'app/services'
 
 const WalletCombined = (props) => {
   const {
     idWallet,
     nameWallet,
-    typeWallet,
     balance,
-    member,
-    currency,
+    idCurrency,
+    idMember,
+    privateWallet,
     title,
     typeModalEdit,
     children
@@ -22,18 +27,38 @@ const WalletCombined = (props) => {
   const [open, setOpen] = useState(children && !children)
   const [openSnackbarSuccess, setOpenSnackbarSuccess] = useState(false)
   const [openSnackbarError, setOpenSnackbarError] = useState(false)
+  const [user] = useAuthState(auth)
 
   const form = useForm({
     defaultValues: {
+      idWallet: idWallet,
       nameWallet: nameWallet,
       balance: balance,
-      member: member,
-      typeWallet: typeWallet,
-      currency: currency
+      idCurrency: idCurrency,
+      privateWallet: privateWallet,
+      idMember: idMember
     }
   })
 
-  const onSubmit = () => {
+  const onSubmit = async (data) => {
+    let { privateWallet } = data
+
+    !!privateWallet && idMember
+      ? (data.idMember = idMember)
+      : !!privateWallet
+      ? (data.idMember = md5(user.email))
+      : delete data.idMember
+
+    if (typeof data.idCurrency === 'object')
+      data.idCurrency = data.idCurrency.cc
+
+    try {
+      await setData(COLLECTIONS.WALLETS, idWallet, data)
+      setOpenSnackbarSuccess(true)
+    } catch (error) {
+      setOpenSnackbarError(true)
+    }
+
     setOpen(false)
   }
 
@@ -96,12 +121,13 @@ const WalletCombined = (props) => {
         <WalletForm
           formData={{
             nameWallet: nameWallet,
+            idMember: idMember,
             balance: balance,
-            member: member,
-            currency: currency
+            privateWallet: privateWallet,
+            idCurrency: idCurrency
           }}
           form={form}
-          show={['nameWallet', 'balance', 'currency', 'access']}
+          show={['nameWallet', 'balance', 'idCurrency', 'privateWallet']}
           onSubmit={onSubmit}
           buttonProps={{ visible: false }}
         />
