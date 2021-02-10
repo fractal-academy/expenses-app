@@ -9,7 +9,7 @@ const metadata = {
     show: {
       control: {
         type: 'select',
-        options: ['nameWallet', 'member', 'balance', 'currency']
+        options: ['nameWallet', 'member', 'budget', 'idCurrency']
       }
     }
   }
@@ -21,5 +21,5 @@ const Template = (args) => <WalletForm {...args} />
 export const WalletFormStory = Template.bind({})
 
 WalletFormStory.args = {
-  show: ['nameWallet', 'member', 'balance', 'currency']
+  show: ['nameWallet', 'member', 'budget', 'idCurrency']
 }
