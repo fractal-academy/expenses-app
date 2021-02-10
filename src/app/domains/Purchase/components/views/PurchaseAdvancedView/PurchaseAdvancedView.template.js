@@ -6,11 +6,11 @@ import { PropTypes } from 'prop-types'
 
 const PurchaseAdvancedView = (props) => {
   const { item } = props
-  const [elipsis, setElipsis] = useState(true)
+  // const [elipsis, setElipsis] = useState(true)
 
-  const changeElipsis = () => {
-    setElipsis(!elipsis)
-  }
+  // const changeElipsis = () => {
+  //   setElipsis(!elipsis)
+  // }
   return (
     <Paper>
       <Row>
@@ -20,10 +20,7 @@ const PurchaseAdvancedView = (props) => {
         <Col>
           <Row pt="1">
             <Col maxWidth="40vw">
-              <Typography
-                noWrap={elipsis}
-                variant="subtitle1"
-                onClick={changeElipsis}>
+              <Typography noWrap variant="subtitle1">
                 {item.prod}
               </Typography>
             </Col>

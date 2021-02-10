@@ -4,7 +4,7 @@ const ROUTES_PATHS = {
   MEMBER_EDIT: '/members/:id/edit',
   MEMBERS_ALL: '/members',
   PURCHASE_ALL: '/purchases',
-  PURCHASE_SHOW: 'purchases/:id',
+  PURCHASE_SHOW: '/purchases/:id',
   NOTIFICATIONS_ALL: '/notifications',
   CATEGORIES_ALL: '/categories',
   LOGS_ALL: '/logs',

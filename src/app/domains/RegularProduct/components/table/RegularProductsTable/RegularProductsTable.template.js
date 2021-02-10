@@ -8,7 +8,7 @@ import {
   Paper
 } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
-import { ROUTES_PATHS } from '../../../../../constants'
+import { ROUTES_PATHS } from 'app/constants'
 
 const RegularProductsTable = (props) => {
   const { products } = props

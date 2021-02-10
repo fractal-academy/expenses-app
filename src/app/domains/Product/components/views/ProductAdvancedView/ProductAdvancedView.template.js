@@ -1,6 +1,6 @@
 import moment from 'moment'
 import PropTypes from 'prop-types'
-import { useHistory, useLocation } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import { Typography, IconButton } from '@material-ui/core'
 import { Container, Row, Col } from '@qonsoll/react-design'
@@ -28,21 +28,20 @@ const productTypeMap = {
           </Typography>
         </Col>
       </Row>
-    )
+    ),
+    displayElements: true
   },
   wish: {
     item: 'Approve',
     editRoute: ROUTES_PATHS.WISHES_EDIT,
     layout: (props) => (
       <Row h="between" mb={4}>
-        <Col cw="auto">
-          <Typography>Reminder date</Typography>
-        </Col>
-        <Col cw="auto">
-          <Typography>{moment(props.reminderDate).format('MMM Do')}</Typography>
+        <Col>
+          <ProgressBar value={props.categoryBalance || 0} />
         </Col>
       </Row>
-    )
+    ),
+    displayElements: true
   },
 
   product: {
@@ -50,11 +49,22 @@ const productTypeMap = {
     editRoute: ROUTES_PATHS.REGULAR_PRODUCT_EDIT,
     layout: (props) => (
       <Row mb={4}>
-        <Col>
-          <ProgressBar value={props.categoryBalance || 0} />
+        <Col cw="auto">
+          <Typography>Reminder date</Typography>
+        </Col>
+        <Col cw="auto">
+          <Typography>{moment(props.reminderDate).format('MMM Do')}</Typography>
         </Col>
       </Row>
-    )
+    ),
+    displayElements: true
+  },
+
+  purchase: {
+    item: '',
+    editRoute: '',
+    layout: (props) => <></>,
+    displayElements: false
   }
 }
 
@@ -70,13 +80,14 @@ const ProductAdvancedView = (props) => {
     assignedUser
   } = props
   const history = useHistory()
-  const location = useLocation()
 
   const firstElement = productTypeMap[type].item
 
   const editPages = productTypeMap[type].editRoute
 
   const ProductLayout = productTypeMap[type].layout
+
+  const displayElements = productTypeMap[type].displayElements
 
   const DropdownList = (
     <Container>
@@ -100,7 +111,7 @@ const ProductAdvancedView = (props) => {
             <Col cw="8">
               <Typography variant="h5">{name || 'No name'}</Typography>
             </Col>
-            {location === !ROUTES_PATHS.PURCHASE_SHOW && (
+            {displayElements && (
               <Col cw="auto">
                 <Dropdown overlay={DropdownList}>
                   <IconButton>
@@ -139,7 +150,7 @@ const ProductAdvancedView = (props) => {
             </Col>
           </Row>
           <ProductLayout {...props} />
-          <CommentList />
+          {displayElements && <CommentList />}
         </Col>
       </Row>
     </Container>
