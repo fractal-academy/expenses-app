@@ -9,7 +9,7 @@ import { useStyles } from './WalletAdvancedView.styles'
 import { MoreHorizOutlined, Edit, Delete } from '@material-ui/icons'
 import { DropdownItem, Dropdown } from 'app/components/Lib/Dropdown'
 import { deleteData, getData } from 'app/services/Firestore'
-import { useEffect, useState, Fragment } from 'react'
+import { useEffect, useState } from 'react'
 import { COLLECTIONS } from 'app/constants'
 
 const WalletAdvancedView = (props) => {
