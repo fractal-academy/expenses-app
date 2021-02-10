@@ -3,10 +3,11 @@ import { useCollection } from 'react-firebase-hooks/firestore'
 import { CircularProgress } from '@material-ui/core'
 import { getCollectionRef } from 'app/services'
 import { Container, Row, Col } from '@qonsoll/react-design'
+import { COLLECTIONS } from 'app/constants'
 
 const WalletList = () => {
   const [dataForListWallets, loading] = useCollection(
-    getCollectionRef('wallets')
+    getCollectionRef(COLLECTIONS.WALLETS)
   )
   return loading ? (
     <Container height="100%" verticalAlign="middle" display="flex">
