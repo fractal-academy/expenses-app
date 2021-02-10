@@ -9,7 +9,7 @@ import { Avatar } from 'components/Lib'
 import { ROUTES_PATHS } from 'app/constants'
 
 const MemberAdvancedView = (props) => {
-  const history = useHistory()
+  let history = useHistory()
   return (
     <Container>
       <Row noGutters>

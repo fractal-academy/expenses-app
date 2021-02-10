@@ -15,55 +15,27 @@ const productTypeMap = {
   cart: {
     item: 'Buy',
     editRoute: ROUTES_PATHS.CART_EDIT,
-    layout: (props) => (
-      <Row h="between" mb={4}>
-        <Col cw="auto">
-          <Typography>Purchased</Typography>
-        </Col>
-        <Col cw="auto">
-          <Typography>
-            {props.purchasedDate
-              ? moment(props.purchasedDate).format('MMM Do')
-              : 'None'}
-          </Typography>
-        </Col>
-      </Row>
-    ),
+    layout: '',
     displayElements: true
   },
   wish: {
     item: 'Approve',
     editRoute: ROUTES_PATHS.WISHES_EDIT,
-    layout: (props) => (
-      <Row h="between" mb={4}>
-        <Col>
-          <ProgressBar value={props.categoryBalance || 0} />
-        </Col>
-      </Row>
-    ),
+    layout: '',
     displayElements: true
   },
 
   product: {
     item: 'Get QR',
     editRoute: ROUTES_PATHS.REGULAR_PRODUCT_EDIT,
-    layout: (props) => (
-      <Row mb={4}>
-        <Col cw="auto">
-          <Typography>Reminder date</Typography>
-        </Col>
-        <Col cw="auto">
-          <Typography>{moment(props.reminderDate).format('MMM Do')}</Typography>
-        </Col>
-      </Row>
-    ),
+    layout: '',
     displayElements: true
   },
 
   purchase: {
     item: '',
     editRoute: '',
-    layout: (props) => <></>,
+    layout: '',
     displayElements: false
   }
 }
@@ -79,14 +51,14 @@ const ProductAdvancedView = (props) => {
     currency,
     assignedUser
   } = props
-  const history = useHistory()
+
+  let history = useHistory()
+
+  const reminderDate = moment(props.reminderDate).format('MMM Do')
+  const purchasedDate = moment(props.purchasedDate).format('MMM Do')
 
   const firstElement = productTypeMap[type].item
-
   const editPages = productTypeMap[type].editRoute
-
-  const ProductLayout = productTypeMap[type].layout
-
   const displayElements = productTypeMap[type].displayElements
 
   const DropdownList = (
@@ -130,17 +102,17 @@ const ProductAdvancedView = (props) => {
           </Row>
           <MeasureSimpleView productNumber={number} text={measure} />
           <CategorySimpleView />
-          <Row display="flex" h="between" v="center" mb={2}>
-            <Col cw="auto">
-              <Typography>Price</Typography>
-            </Col>
-            <Col display="flex" cw="auto">
-              <Typography>{price || 'None'}</Typography>
-              <Typography>
-                {(currency && <CurrencySimpleView />) || 'currency'}
-              </Typography>
-            </Col>
-          </Row>
+          {price && (
+            <Row display="flex" h="between" v="center" mb={2}>
+              <Col cw="auto">
+                <Typography>Price</Typography>
+              </Col>
+              <Col display="flex" cw="auto">
+                <Typography>{price}</Typography>
+                <Typography>{currency && <CurrencySimpleView />}</Typography>
+              </Col>
+            </Row>
+          )}
           <Row h="between" v="center" mb={2}>
             <Col cw="auto">
               <Typography>Assigned user</Typography>
@@ -149,7 +121,33 @@ const ProductAdvancedView = (props) => {
               <Typography>{assignedUser || 'None'}</Typography>
             </Col>
           </Row>
-          <ProductLayout {...props} />
+          {type === 'cart' ? (
+            <Row h="between" mb={4}>
+              <Col cw="auto">
+                <Typography>Purchased</Typography>
+              </Col>
+              <Col cw="auto">
+                <Typography>{purchasedDate || 'None'}</Typography>
+              </Col>
+            </Row>
+          ) : type === 'wish' ? (
+            <Row mb={4}>
+              <Col>
+                <ProgressBar value={props.categoryBalance} />
+              </Col>
+            </Row>
+          ) : type === 'product' ? (
+            <Row h="between" mb={4}>
+              <Col cw="auto">
+                <Typography>Reminder date</Typography>
+              </Col>
+              <Col cw="auto">
+                <Typography>{reminderDate || 'None'}</Typography>
+              </Col>
+            </Row>
+          ) : (
+            <></>
+          )}
           {displayElements && <CommentList />}
         </Col>
       </Row>

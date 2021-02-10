@@ -6,11 +6,7 @@ import { PropTypes } from 'prop-types'
 
 const PurchaseAdvancedView = (props) => {
   const { item } = props
-  // const [elipsis, setElipsis] = useState(true)
 
-  // const changeElipsis = () => {
-  //   setElipsis(!elipsis)
-  // }
   return (
     <Paper>
       <Row>

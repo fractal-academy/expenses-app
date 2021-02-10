@@ -36,12 +36,16 @@ const PURCHASED = [
 ]
 //TODO delete mock data
 const PurchaseList = () => {
-  const history = useHistory()
+  let history = useHistory()
   return (
     <List>
       {PURCHASED.map((item) => {
         return (
-          <Box mb={3} onClick={() => history.push(ROUTES_PATHS.PURCHASE_SHOW)}>
+          <Box
+            mb={3}
+            onClick={() =>
+              history.push(`${ROUTES_PATHS.PURCHASE_ALL}/{purchaseId}`)
+            }>
             <PurchaseAdvancedView item={item} />
           </Box>
         )

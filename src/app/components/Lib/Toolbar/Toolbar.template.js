@@ -19,7 +19,7 @@ const toolbarItems = [
 ]
 
 const CustomToolbar = (props) => {
-  const history = useHistory()
+  let history = useHistory()
   const [value, setValue] = useState()
 
   const info = `${props.numSelected} selected`

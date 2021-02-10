@@ -8,7 +8,7 @@ const CartCombined = (props) => {
   const { title, typeModalEdit } = props
 
   const [open, setOpen] = useState(false)
-  const form = useForm({})
+  const form = useForm()
 
   const onSubmit = () => {
     setOpen(false)

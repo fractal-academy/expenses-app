@@ -21,17 +21,17 @@ const tableTypeMap = {
   cart: {
     multiselect: true,
     middleCell: TABLE_CELLS[1],
-    productPath: ROUTES_PATHS.CART_SHOW
+    productPath: `${ROUTES_PATHS.CART_ALL}/{cartId}`
   },
   wishes: {
     multiselect: true,
     middleCell: TABLE_CELLS[0],
-    productPath: ROUTES_PATHS.WISHES_SHOW
+    productPath: `${ROUTES_PATHS.WISHES_ALL}/{wishId}`
   },
   regular: {
     multiselect: false,
     middleCell: TABLE_CELLS[1],
-    productPath: ROUTES_PATHS.REGULAR_PRODUCT_SHOW
+    productPath: `${ROUTES_PATHS.REGULAR_PRODUCTS_ALL}/{regularProductId}`
   }
 }
 
@@ -104,7 +104,9 @@ const CustomTable = (props) => {
                       )}
                       <TableCell
                         align="center"
-                        onClick={() => history.push(ROUTES_PATHS.MEMBER_SHOW)}>
+                        onClick={() =>
+                          history.push(`${ROUTES_PATHS.MEMBERS_ALL}/{memberId}`)
+                        }>
                         {row.asignedUser}
                       </TableCell>
                       <TableCell
