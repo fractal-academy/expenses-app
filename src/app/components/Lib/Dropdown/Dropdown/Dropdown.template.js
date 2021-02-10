@@ -3,9 +3,16 @@ import { Box } from '@qonsoll/react-design'
 import { cloneElement, useState } from 'react'
 
 const Dropdown = (props) => {
-  const { overlay, children, idMenu } = props
+  // INTERFACE
+  const { overlay, children, idMenu, id } = props
+
+  // STATE
   const [anchorEl, setAnchorEl] = useState(null)
+
+  // COMPUTED PROPERTIES
   const open = Boolean(anchorEl)
+
+  // HELPER FUNCTIONS
   const handleOpen = (event) => {
     setAnchorEl(event.currentTarget)
   }
@@ -13,6 +20,7 @@ const Dropdown = (props) => {
     setAnchorEl(null)
   }
 
+  // TEMPLATE
   return (
     <Box>
       {cloneElement(children, { onClick: handleOpen })}
@@ -22,7 +30,7 @@ const Dropdown = (props) => {
         keepMounted
         open={open}
         onClose={handleClose}>
-        <div>{cloneElement(overlay, { onClick: handleClose })}</div>
+        <div>{cloneElement(overlay, { id, onClick: handleClose })}</div>
       </Menu>
     </Box>
   )
