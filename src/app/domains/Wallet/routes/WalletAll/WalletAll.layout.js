@@ -4,10 +4,10 @@ import { Fragment } from 'react'
 
 const WalletAll = (props) => {
   return (
-    <Fragment>
+    <>
       <WalletList />
       <WalletCombined title={'Create new wallet'} />
-    </Fragment>
+    </>
   )
 }
 

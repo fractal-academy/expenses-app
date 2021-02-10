@@ -41,7 +41,7 @@ const WalletCombined = (props) => {
   })
 
   const onSubmit = async (data) => {
-    let { privateWallet } = data
+    const { privateWallet } = data
 
     !!privateWallet && idMember
       ? (data.idMember = idMember)
