@@ -8,19 +8,21 @@ import {
 } from '@material-ui/icons'
 import { useHistory } from 'react-router-dom'
 import { DropdownItem, Dropdown } from 'components/Lib'
+import { useSession } from 'app/context/SessionContext'
+import { auth } from 'app/services/Auth'
 import { ROUTES_PATHS } from 'app/constants'
 import { useStyles } from './Header.style'
-import { auth } from 'app/services/Auth'
+
 const Header = (props) => {
   const { goBack } = props
   let history = useHistory()
   const classes = useStyles(props)
-
+  const { id } = useSession()
   const DropdownList = (
     <div>
       <DropdownItem
         divider
-        onClick={() => history.push(ROUTES_PATHS.MEMBER_SHOW)}>
+        onClick={() => history.push(`${ROUTES_PATHS.MEMBERS_ALL}/${id}`)}>
         <AccountCircle />
         Profile
       </DropdownItem>

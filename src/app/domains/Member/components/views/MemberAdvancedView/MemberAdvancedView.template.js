@@ -22,7 +22,7 @@ const MemberAdvancedView = (props) => {
                   borderRadius="xxl">
                   <Avatar
                     size={props.horizontal ? 'sm' : 'lg'}
-                    src={props.avatarUrl}
+                    src={props.avatarURL}
                   />
                 </Box>
               </Row>
@@ -30,14 +30,16 @@ const MemberAdvancedView = (props) => {
             {!props.horizontal ? (
               <Col cw={2} v="flex-end">
                 <IconButton
-                  onClick={() => history.push(ROUTES_PATHS.MEMBER_EDIT)}>
+                  onClick={() =>
+                    history.push(`${ROUTES_PATHS.MEMBERS_ALL}/${props.id}/edit`)
+                  }>
                   <CreateRoundedIcon />
                 </IconButton>
               </Col>
             ) : (
               <Col>
                 <Typography>
-                  {props.name} {props.surname}
+                  {props.firstName} {props.surname}
                 </Typography>
                 <RoleSimpleView
                   variant="caption"
@@ -53,7 +55,7 @@ const MemberAdvancedView = (props) => {
               <Row mb={4}>
                 <Col cw="auto">
                   <Typography variant="h5">
-                    {props.name} {props.surname}
+                    {props.firstName} {props.surname}
                   </Typography>
                 </Col>
                 <Col v="center">
@@ -78,18 +80,20 @@ const MemberAdvancedView = (props) => {
                   </Row>
                 </Col>
               </Row>
-              <Row mb={3}>
-                <Col>
-                  <Row>
-                    <Typography variant="body2" color="textSecondary">
-                      Phone
-                    </Typography>
-                  </Row>
-                  <Row>
-                    <Typography variant="h6">{props.phone}</Typography>
-                  </Row>
-                </Col>
-              </Row>
+              {props.phone && (
+                <Row mb={3}>
+                  <Col>
+                    <Row>
+                      <Typography variant="body2" color="textSecondary">
+                        Phone
+                      </Typography>
+                    </Row>
+                    <Row>
+                      <Typography variant="h6">{props.phone}</Typography>
+                    </Row>
+                  </Col>
+                </Row>
+              )}
               {props.birthday && (
                 <Row mb={3}>
                   <Col>

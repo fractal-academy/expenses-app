@@ -1,6 +1,7 @@
 import { useReducer } from 'react'
 import { SessionContext, SessionDispatchContext } from './SessionContext'
 import reducer from './rootReducer'
+
 const SessionProvider = (props) => {
   const [state, dispatch] = useReducer(reducer)
   return (
