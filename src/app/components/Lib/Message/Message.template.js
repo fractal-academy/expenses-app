@@ -32,8 +32,9 @@ Message.propTypes = {
   message: PropTypes.string,
   severity: PropTypes.string,
   open: PropTypes.bool,
-  handleClose: PropTypes.func,
+  onClose: PropTypes.func,
   horizontal: PropTypes.string,
+  vertical: PropTypes.string,
   variant: PropTypes.string,
   autoHideDuration: PropTypes.number
 }
