@@ -1,7 +1,5 @@
 import { useState } from 'react'
-import Paper from '@material-ui/core/Paper'
-import Tabs from '@material-ui/core/Tabs'
-import Tab from '@material-ui/core/Tab'
+import { Paper, Tabs, Tab } from '@material-ui/core'
 import { useStyles } from './StatisticSimpleFilter.style'
 import { useStatisticContext } from 'app/context/StatisticsContext'
 import moment from 'moment'
@@ -48,8 +46,5 @@ const StatisticSimpleFilter = (props) => {
     </Paper>
   )
 }
-
-StatisticSimpleFilter.propTypes = {}
-StatisticSimpleFilter.defaultProps = {}
 
 export default StatisticSimpleFilter

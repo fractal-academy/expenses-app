@@ -1,28 +1,40 @@
 import PropTypes from 'prop-types'
+import { useState, useEffect } from 'react'
 import { ROUTES_PATHS } from 'app/constants'
-import CheckIcon from '@material-ui/icons/Check'
-import DeleteIcon from '@material-ui/icons/Delete'
-import VisibilityIcon from '@material-ui/icons/Visibility'
-import { useHistory, useLocation } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { Container, Row, Col } from '@qonsoll/react-design'
-import { Button, Toolbar, IconButton, Typography } from '@material-ui/core/'
+import {
+  Toolbar,
+  Typography,
+  IconButton,
+  BottomNavigation,
+  BottomNavigationAction
+} from '@material-ui/core/'
+
+import { Check, Delete, Receipt, ShoppingCart } from '@material-ui/icons/'
+
+const toolbarItems = [
+  { path: ROUTES_PATHS.CART_ALL, icon: <ShoppingCart />, label: 'Cart' },
+  { path: ROUTES_PATHS.WISHES_ALL, icon: <Receipt />, label: 'Wishes' }
+]
 
 const CustomToolbar = (props) => {
-  let history = useHistory()
-  let location = useLocation()
+  const history = useHistory()
+  const [value, setValue] = useState()
 
   const info = `${props.numSelected} selected`
-  const productRoute =
-    location.pathname === ROUTES_PATHS.WISHES_ALL
-      ? ROUTES_PATHS.WISHES_SHOW
-      : location.pathname === ROUTES_PATHS.CART_ALL
-      ? ROUTES_PATHS.CART_SHOW
-      : ROUTES_PATHS.REGULAR_PRODUCT_SHOW
+
+  const onMenuChange = (event, newPage) => setValue(newPage)
+  useEffect(() => {
+    setValue(
+      toolbarItems.findIndex((item) => item.path === history.location.pathname)
+    )
+  }, [history])
 
   return (
     <Container>
       <Row>
-        <Col>
+        <Col pr={0}>
           <Toolbar disableGutters>
             {props.numSelected > 0 ? (
               <Container>
@@ -31,18 +43,11 @@ const CustomToolbar = (props) => {
                     <Typography variant="button">{info}</Typography>
                   </Col>
                   <Col cw="auto">
-                    {props.numSelected === 1 && (
-                      <IconButton
-                        color="primary"
-                        onClick={() => history.push(productRoute)}>
-                        <VisibilityIcon />
-                      </IconButton>
-                    )}
                     <IconButton color="primary">
-                      <CheckIcon />
+                      <Check />
                     </IconButton>
                     <IconButton color="primary">
-                      <DeleteIcon />
+                      <Delete />
                     </IconButton>
                   </Col>
                 </Row>
@@ -51,16 +56,19 @@ const CustomToolbar = (props) => {
               <Container display="box">
                 <Row h="center">
                   <Col cw="auto">
-                    <Button
-                      color="primary"
-                      onClick={() => history.push(ROUTES_PATHS.WISHES_ALL)}>
-                      Wishes
-                    </Button>
-                    <Button
-                      color="primary"
-                      onClick={() => history.push(ROUTES_PATHS.CART_ALL)}>
-                      Cart
-                    </Button>
+                    <BottomNavigation
+                      value={value}
+                      onChange={onMenuChange}
+                      showLabels>
+                      {toolbarItems.map((menuItem) => (
+                        <BottomNavigationAction
+                          label={menuItem.label}
+                          icon={menuItem.icon}
+                          key={menuItem.label}
+                          onClick={() => history.push(menuItem.path)}
+                        />
+                      ))}
+                    </BottomNavigation>
                   </Col>
                 </Row>
               </Container>

@@ -1,11 +1,10 @@
 import { useState } from 'react'
-import PropTypes from 'prop-types'
 import { useStyles } from './CollapseDateRange.styles'
 import { List, ListItem, ListItemText, Collapse } from '@material-ui/core'
 import { ExpandLess, ExpandMore } from '@material-ui/icons'
 import { DateRange } from 'app/components/Lib/DateRange'
 
-const CollapseDateRangeTemplate = (props) => {
+const CollapseDateRangeTemplate = () => {
   const classes = useStyles()
   const [open, setOpen] = useState(false)
 
@@ -32,7 +31,5 @@ const CollapseDateRangeTemplate = (props) => {
     </List>
   )
 }
-CollapseDateRangeTemplate.propTypes = {}
-CollapseDateRangeTemplate.defaultProps = {}
 
 export default CollapseDateRangeTemplate
