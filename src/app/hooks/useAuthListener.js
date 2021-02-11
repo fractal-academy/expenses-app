@@ -31,7 +31,7 @@ const useAuthListener = () => {
   const [user, userLoading] = useAuthState(auth)
   const [isInvited, setIsInvited] = useState(true)
   const [loading, setLoading] = useState(true)
-  let history = useHistory()
+  const history = useHistory()
   const dispatch = useSessionDispatch()
   useEffect(() => {
     const fetchUser = async () => {
@@ -73,7 +73,6 @@ const useAuthListener = () => {
     if (user === null) {
       !userLoading && history.replace(ROUTES_PATHS.LOGIN) && setLoading(false)
     }
-
     //if user loaded -> fetch his data
     !!user && !userLoading && fetchUser()
   }, [user, userLoading])

@@ -83,7 +83,7 @@ const config = [
 ]
 
 const MemberAdvancedForm = (props) => {
-  let history = useHistory()
+  const history = useHistory()
   const back = () => history.push(ROUTES_PATHS.MEMBER_SHOW)
 
   const {

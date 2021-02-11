@@ -15,7 +15,7 @@ import { auth } from 'app/services/Auth'
  */
 
 const RejectLogin = () => {
-  let history = useHistory()
+  const history = useHistory()
   const redirect = () => history.push(ROUTES_PATHS.LOGIN)
   //logout rejected user after 10 seconds
   useEffect(() => {

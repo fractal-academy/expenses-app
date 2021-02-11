@@ -13,7 +13,7 @@ import { useStyles } from './Header.style'
 import { auth } from 'app/services/Auth'
 const Header = (props) => {
   const { goBack } = props
-  let history = useHistory()
+  const history = useHistory()
   const classes = useStyles(props)
 
   const DropdownList = (
