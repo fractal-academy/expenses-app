@@ -1,25 +1,40 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Snackbar } from '@material-ui/core'
-import { Alert } from '@material-ui/lab'
 import { Modal, FabButton } from 'app/components/Lib'
 import { WalletForm } from 'domains/Wallet/components/form/WalletForm'
 import { useForm } from 'react-hook-form'
-
+import { Message } from 'app/components/Lib/Message'
 const WalletCombinedWithSelect = (props) => {
   // INTERFACE
   const { title, typeModalEdit, children } = props
 
   // STATE
   const [open, setOpen] = useState(children && !children)
-  const [openSnackbarSuccess, setOpenSnackbarSuccess] = useState(false)
-  const [openSnackbarError, setOpenSnackbarError] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [statusMessage, setStatusMessage] = useState({
+    open: false,
+    message: '',
+    type: ''
+  })
 
   // CUSTOM HOOKS
   const form = useForm({})
   const formSubmit = () => form.submit()
 
-  const onSubmit = () => {
+  // HELPER FUNCTIONS
+  const onSubmit = async (data) => {
+    console.log('data', data)
+    try {
+      setLoading(true)
+      setStatusMessage({
+        open: true,
+        message: 'Added',
+        type: 'success'
+      })
+    } catch (error) {
+      setStatusMessage({ open: true, message: error, type: 'error' })
+    }
+    setLoading(false)
     setOpen(false)
   }
 
@@ -28,8 +43,7 @@ const WalletCombinedWithSelect = (props) => {
   }
 
   const handleClose = () => {
-    setOpenSnackbarSuccess(false)
-    setOpenSnackbarError(false)
+    setStatusMessage({ open: false, message: '', type: '' })
     setOpen(false)
   }
 
@@ -40,24 +54,16 @@ const WalletCombinedWithSelect = (props) => {
         React.cloneElement(children, { onClick: handleClickOpen })) || (
         <FabButton onClick={handleClickOpen} />
       )}
-      <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        open={openSnackbarSuccess}
-        autoHideDuration={6000}
-        onClose={handleClose}>
-        <Alert variant="filled" severity="success">
-          This is a success message!
-        </Alert>
-      </Snackbar>
-      <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        open={openSnackbarError}
-        autoHideDuration={6000}
-        onClose={handleClose}>
-        <Alert variant="filled" severity="error">
-          This is an error message!
-        </Alert>
-      </Snackbar>
+      <Message
+        open={statusMessage.open}
+        message={statusMessage.message}
+        vertical="top"
+        horizontal="center"
+        autoHideDuration={1500}
+        variant="filled"
+        severity={statusMessage.type}
+        onClose={handleClose}
+      />
 
       <Modal
         open={open}
@@ -71,7 +77,8 @@ const WalletCombinedWithSelect = (props) => {
           text: typeModalEdit ? 'Save' : 'Submit',
           variant: 'contained',
           color: 'primary',
-          onClick: formSubmit
+          onClick: formSubmit,
+          loading
         }}
         buttonCancelProps={{
           text: 'Cancel',
@@ -80,23 +87,6 @@ const WalletCombinedWithSelect = (props) => {
         }}>
         <WalletForm
           form={form}
-          fieldProps={{
-            select: {
-              data: {
-                123: {
-                  nameWallet: 'Olena`s wallet',
-                  balance: '800',
-                  currency: 'USD'
-                },
-                456: { nameWallet: 'wallet', balance: '200', currency: 'USD' },
-                789: {
-                  nameWallet: '1wallet',
-                  balance: '200000',
-                  currency: 'USD'
-                }
-              }
-            }
-          }}
           show={['select']}
           onSubmit={onSubmit}
           buttonProps={{ visible: false }}
