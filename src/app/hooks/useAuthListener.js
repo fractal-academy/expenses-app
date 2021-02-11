@@ -30,10 +30,13 @@ const activateUser = async (user, userData) => {
 const useAuthListener = () => {
   const [user, userLoading] = useAuthState(auth)
   const [isInvited, setIsInvited] = useState(true)
-  const [loading, setLoading] = useState(true)
+
+  const [loading, setLoading] = useState(false)
   const history = useHistory()
+
   const dispatch = useSessionDispatch()
   useEffect(() => {
+    setLoading(true)
     let unsubscribe = () => {}
     const fetchUser = async () => {
       try {

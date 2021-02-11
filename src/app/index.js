@@ -19,7 +19,7 @@ const App = () => {
   if (matches) {
     return <PlugForDesktop />
   }
-  if (loading) {
+  if (loading || !session) {
     return <Spinner />
   }
 
