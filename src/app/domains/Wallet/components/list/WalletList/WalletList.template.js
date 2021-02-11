@@ -7,6 +7,7 @@ const WalletList = ({
   statusMessage,
   ...rest
 }) => {
+  //TEMPLATE
   return dataForListWallets ? (
     <Row noGutters>
       <Col>

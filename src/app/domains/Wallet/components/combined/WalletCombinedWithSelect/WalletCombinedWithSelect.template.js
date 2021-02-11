@@ -7,16 +7,16 @@ import { WalletForm } from 'domains/Wallet/components/form/WalletForm'
 import { useForm } from 'react-hook-form'
 
 const WalletCombinedWithSelect = (props) => {
+  // INTERFACE
   const { title, typeModalEdit, children } = props
+
+  // STATE
   const [open, setOpen] = useState(children && !children)
   const [openSnackbarSuccess, setOpenSnackbarSuccess] = useState(false)
   const [openSnackbarError, setOpenSnackbarError] = useState(false)
-  const form = useForm({
-    defaultValues: {
-      select: '123'
-    }
-  })
 
+  // CUSTOM HOOKS
+  const form = useForm({})
   const formSubmit = () => form.submit()
 
   const onSubmit = () => {
@@ -32,6 +32,8 @@ const WalletCombinedWithSelect = (props) => {
     setOpenSnackbarError(false)
     setOpen(false)
   }
+
+  // TEMPLATE
   return (
     <>
       {(children &&

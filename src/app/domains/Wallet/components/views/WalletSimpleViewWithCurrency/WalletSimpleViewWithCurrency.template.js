@@ -1,9 +1,13 @@
+import PropTypes from 'prop-types'
 import { Typography } from '@material-ui/core'
 import { Container, Row, Col } from '@qonsoll/react-design'
 import { CurrencySimpleView } from 'domains/Currency/components/views'
 
 const WalletSimpleViewWithCurrency = (props) => {
+  // INTERFACE
   const { nameWallet, balance, idCurrency } = props
+
+  // TEMPLATE
   return (
     <Container>
       <Row h="right">
@@ -29,6 +33,10 @@ const WalletSimpleViewWithCurrency = (props) => {
   )
 }
 
-WalletSimpleViewWithCurrency.propTypes = {}
+WalletSimpleViewWithCurrency.propTypes = {
+  nameWallet: PropTypes.string,
+  balance: PropTypes.number,
+  idCurrency: PropTypes.string
+}
 
 export default WalletSimpleViewWithCurrency

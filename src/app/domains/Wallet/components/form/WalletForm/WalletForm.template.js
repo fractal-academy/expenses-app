@@ -58,6 +58,7 @@ const config = [
 ]
 
 const WalletForm = (props) => {
+  // INTERFACE
   const {
     formData,
     show,
@@ -69,6 +70,7 @@ const WalletForm = (props) => {
     fieldProps
   } = props
 
+  // TEMPLATE
   return (
     <Form
       form={form}

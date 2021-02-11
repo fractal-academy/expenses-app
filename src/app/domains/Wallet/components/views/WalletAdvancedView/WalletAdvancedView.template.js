@@ -11,10 +11,10 @@ import { getData } from 'app/services/Firestore'
 import { useEffect, useState } from 'react'
 import { COLLECTIONS } from 'app/constants'
 import { deleteData } from 'app/services/Firestore'
+import PropTypes from 'prop-types'
 
 const WalletAdvancedView = (props) => {
-  const classes = useStyles()
-
+  // INTERFACE
   const {
     idWallet,
     nameWallet,
@@ -25,8 +25,20 @@ const WalletAdvancedView = (props) => {
     setStatusMessage
   } = props
 
+  // STATE
   const [memberData, setMemberData] = useState()
 
+  // CUSTOM HOOKS
+  const classes = useStyles()
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await getData(COLLECTIONS.USERS, idMember)
+      setMemberData(result)
+    }
+    idMember && fetchData()
+  }, [idMember])
+
+  // HELPER FUNCTIONS
   const deleteWallet = async () => {
     try {
       await deleteData(COLLECTIONS.WALLETS, idWallet)
@@ -35,14 +47,6 @@ const WalletAdvancedView = (props) => {
       setStatusMessage({ open: true, message: error, type: 'error' })
     }
   }
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await getData(COLLECTIONS.USERS, idMember)
-      setMemberData(result)
-    }
-    idMember && fetchData()
-  }, [idMember])
 
   const DropdownList = (
     <>
@@ -70,6 +74,8 @@ const WalletAdvancedView = (props) => {
       </DropdownItem>
     </>
   )
+
+  //TEMPLATE
   return (
     <Container mb={3}>
       <Row>
@@ -159,6 +165,13 @@ const WalletAdvancedView = (props) => {
   )
 }
 
-WalletAdvancedView.propTypes = {}
+WalletAdvancedView.propTypes = {
+  idWallet: PropTypes.string,
+  nameWallet: PropTypes.string,
+  balance: PropTypes.number,
+  idMember: PropTypes.string,
+  idCurrency: PropTypes.string,
+  privateWallet: PropTypes.bool
+}
 
 export default WalletAdvancedView
