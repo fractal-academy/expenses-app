@@ -73,7 +73,7 @@ const useAuthListener = () => {
     if (user === null) {
       !userLoading && history.replace(ROUTES_PATHS.LOGIN) && setLoading(false)
     }
-
+    console.log(user, userLoading)
     //if user loaded -> fetch his data
     !!user && !userLoading && fetchUser()
   }, [user, userLoading])
