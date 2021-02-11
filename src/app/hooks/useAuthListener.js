@@ -51,7 +51,7 @@ const useAuthListener = () => {
         //prepare user data for context
         delete userData.isPending
         const data = {
-          id: user.uid,
+          id: md5(user.email),
           ...userData
         }
         dispatch({ type: types.LOGIN_USER, payload: data })
