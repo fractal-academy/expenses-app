@@ -4,10 +4,10 @@ import { useForm } from 'react-hook-form'
 import { Alert } from '@material-ui/lab'
 import { MemberAdvancedForm } from 'domains/Member/components/forms'
 import { Modal, FabButton } from 'app/components/Lib'
-import { setData } from 'app/services/Firestore'
+import { setData, getData } from 'app/services/Firestore'
 import { COLLECTIONS } from 'app/constants'
 import md5 from 'md5'
-import { firebase } from 'app/services/Firebase'
+import firebase from 'app/services/Firebase'
 
 const MemberCombined = (props) => {
   const [open, setOpen] = useState(false)
@@ -22,6 +22,18 @@ const MemberCombined = (props) => {
 
   const onSubmit = async (data) => {
     const { email, role } = data
+
+    try {
+      const user = await getData(COLLECTIONS.USERS, md5(email))
+      if (!user.isPending) {
+        setLoading(false)
+        setOpen(false)
+        return setOpenSnackbarError('User already exist.')
+      }
+    } catch (e) {
+      console.log(e)
+    }
+
     try {
       setLoading(true)
       await setData(COLLECTIONS.USERS, md5(email), {
@@ -35,7 +47,8 @@ const MemberCombined = (props) => {
       await func({ email })
       setOpenSnackbarSuccess(true)
     } catch (error) {
-      setOpenSnackbarError(true)
+      console.log(error)
+      setOpenSnackbarError('Something went wrong.')
     }
     setLoading(false)
     setOpen(false)
@@ -64,11 +77,11 @@ const MemberCombined = (props) => {
       </Snackbar>
       <Snackbar
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        open={openSnackbarError}
+        open={!!openSnackbarError}
         autoHideDuration={1500}
         onClose={handleClose}>
         <Alert variant="filled" severity="error">
-          Something went wrong.
+          {openSnackbarError}
         </Alert>
       </Snackbar>
 
