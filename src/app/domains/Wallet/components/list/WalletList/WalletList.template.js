@@ -1,23 +1,13 @@
 import { WalletAdvancedView } from 'domains/Wallet/components/views'
-import { useCollection } from 'react-firebase-hooks/firestore'
-import { CircularProgress } from '@material-ui/core'
-import { getCollectionRef } from 'app/services'
-import { Container, Row, Col } from '@qonsoll/react-design'
-import { COLLECTIONS } from 'app/constants'
+import { Row, Col } from '@qonsoll/react-design'
 
-const WalletList = () => {
-  const [dataForListWallets, loading] = useCollection(
-    getCollectionRef(COLLECTIONS.WALLETS)
-  )
-  return loading ? (
-    <Container height="100%" verticalAlign="middle" display="flex">
-      <Row width="100%" h="center">
-        <Col cw="auto" display="flex" v="center">
-          <CircularProgress />
-        </Col>
-      </Row>
-    </Container>
-  ) : dataForListWallets ? (
+const WalletList = ({
+  dataForListWallets,
+  setOpenSnackbarError,
+  setOpenSnackbarSuccess,
+  ...rest
+}) => {
+  return dataForListWallets ? (
     <Row noGutters>
       <Col>
         {dataForListWallets.docs.map((doc) => (
@@ -29,6 +19,8 @@ const WalletList = () => {
             balance={doc.data().balance}
             privateWallet={doc.data().privateWallet}
             idCurrency={doc.data().idCurrency}
+            setOpenSnackbarSuccess={setOpenSnackbarSuccess}
+            setOpenSnackbarError={setOpenSnackbarError}
           />
         ))}
       </Col>

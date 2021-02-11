@@ -1,6 +1,5 @@
 import { Row, Container, Col, Box } from '@qonsoll/react-design'
-import { Typography, IconButton, Paper, Snackbar } from '@material-ui/core'
-import { Alert } from '@material-ui/lab'
+import { Typography, IconButton, Paper } from '@material-ui/core'
 import { MemberAdvancedView } from 'domains/Member/components/views/MemberAdvancedView'
 import { WalletCombined } from 'domains/Wallet/components/combined/WalletCombined'
 import { CurrencySimpleView } from 'domains/Currency/components/views'
@@ -8,9 +7,10 @@ import { Avatar } from 'app/components/Lib/Avatar'
 import { useStyles } from './WalletAdvancedView.styles'
 import { MoreHorizOutlined, Edit, Delete } from '@material-ui/icons'
 import { DropdownItem, Dropdown } from 'app/components/Lib/Dropdown'
-import { deleteData, getData } from 'app/services/Firestore'
+import { getData } from 'app/services/Firestore'
 import { useEffect, useState } from 'react'
 import { COLLECTIONS } from 'app/constants'
+import { deleteData } from 'app/services/Firestore'
 
 const WalletAdvancedView = (props) => {
   const classes = useStyles()
@@ -21,16 +21,20 @@ const WalletAdvancedView = (props) => {
     balance,
     idMember,
     idCurrency,
-    privateWallet
+    privateWallet,
+    setOpenSnackbarSuccess,
+    setOpenSnackbarError
   } = props
 
   const [memberData, setMemberData] = useState()
-  const [openSnackbarSuccess, setOpenSnackbarSuccess] = useState(false)
-  const [openSnackbarError, setOpenSnackbarError] = useState(false)
 
-  const handleClose = () => {
-    setOpenSnackbarSuccess(false)
-    setOpenSnackbarError(false)
+  const deleteWallet = async () => {
+    try {
+      await deleteData(COLLECTIONS.WALLETS, idWallet)
+      setOpenSnackbarSuccess(true)
+    } catch (error) {
+      setOpenSnackbarError(true)
+    }
   }
 
   useEffect(() => {
@@ -41,14 +45,6 @@ const WalletAdvancedView = (props) => {
     idMember && fetchData()
   }, [idMember])
 
-  const deleteWallet = async () => {
-    try {
-      await deleteData(COLLECTIONS.WALLETS, idWallet)
-      setOpenSnackbarSuccess(true)
-    } catch (error) {
-      setOpenSnackbarError(true)
-    }
-  }
   const DropdownList = (
     <>
       <WalletCombined
@@ -77,25 +73,6 @@ const WalletAdvancedView = (props) => {
   )
   return (
     <>
-      <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        open={openSnackbarSuccess}
-        autoHideDuration={1500}
-        onClose={handleClose}>
-        <Alert variant="filled" severity="success">
-          Wallet is deleted!
-        </Alert>
-      </Snackbar>
-      <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        open={openSnackbarError}
-        autoHideDuration={1500}
-        onClose={handleClose}>
-        <Alert variant="filled" severity="error">
-          Error
-        </Alert>
-      </Snackbar>
-
       <Container mb={3}>
         <Row>
           <Col>
