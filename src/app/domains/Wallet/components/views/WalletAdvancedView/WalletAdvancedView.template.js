@@ -47,9 +47,8 @@ const WalletAdvancedView = (props) => {
       setStatusMessage({ open: true, message: error, type: 'error' })
     }
   }
-
   const DropdownList = (
-    <div>
+    <Box>
       <WalletCombined
         title="Edit wallet"
         typeModalEdit
@@ -72,7 +71,7 @@ const WalletAdvancedView = (props) => {
         </Box>
         Delete
       </DropdownItem>
-    </div>
+    </Box>
   )
 
   //TEMPLATE

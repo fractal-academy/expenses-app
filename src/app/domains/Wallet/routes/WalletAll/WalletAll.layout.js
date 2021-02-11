@@ -17,7 +17,6 @@ const WalletAll = (props) => {
   const handleClose = () => {
     setStatusMessage({ open: false, message: '', type: '' })
   }
-
   const [dataForListWallets, loading] = useCollection(
     getCollectionRef(COLLECTIONS.WALLETS)
   )
@@ -29,7 +28,6 @@ const WalletAll = (props) => {
       <WalletList
         dataForListWallets={dataForListWallets}
         setStatusMessage={setStatusMessage}
-        statusMessage={statusMessage}
       />
       <WalletCombined title={'Create new wallet'} />
       <Message

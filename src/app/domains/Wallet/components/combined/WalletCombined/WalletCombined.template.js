@@ -38,17 +38,17 @@ const WalletCombined = (props) => {
   }
   // CUSTOM HOOKS
   const session = useSession()
+  const data = {
+    idWallet,
+    nameWallet,
+    balance,
+    idCurrency,
+    privateWallet,
+    idMember
+  }
   const form = useForm({
-    defaultValues: {
-      idWallet,
-      nameWallet,
-      balance,
-      idCurrency,
-      privateWallet,
-      idMember
-    }
+    defaultValues: (data && data) || {}
   })
-
   // HELPER FUNCTIONS
   const onSubmit = async (data) => {
     const { privateWallet } = data
@@ -74,6 +74,7 @@ const WalletCombined = (props) => {
     } catch (error) {
       setStatusMessage({ open: true, message: error, type: 'error' })
     }
+    form.reset(data)
     setLoading(false)
     setOpen(false)
   }

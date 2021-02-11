@@ -23,7 +23,6 @@ const WalletCombinedWithSelect = (props) => {
 
   // HELPER FUNCTIONS
   const onSubmit = async (data) => {
-    console.log('data', data)
     try {
       setLoading(true)
       setStatusMessage({
