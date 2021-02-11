@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react'
 import { COLLECTIONS } from 'app/constants'
 import { deleteData } from 'app/services/Firestore'
 import PropTypes from 'prop-types'
+import formatCurrency from 'format-currency'
 
 const WalletAdvancedView = (props) => {
   // INTERFACE
@@ -39,6 +40,7 @@ const WalletAdvancedView = (props) => {
   }, [idMember])
 
   // HELPER FUNCTIONS
+  const formattedAvailableBalance = formatCurrency(balance)
   const deleteWallet = async () => {
     try {
       await deleteData(COLLECTIONS.WALLETS, idWallet)
@@ -146,7 +148,9 @@ const WalletAdvancedView = (props) => {
                   <Row>
                     <Col>
                       <Box display="flex">
-                        <Typography variant="body1">{balance}</Typography>
+                        <Typography variant="body1">
+                          {formattedAvailableBalance}
+                        </Typography>
                         <CurrencySimpleView
                           variant="body1"
                           value={idCurrency}

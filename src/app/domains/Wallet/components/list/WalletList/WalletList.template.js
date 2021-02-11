@@ -1,12 +1,10 @@
 import { WalletAdvancedView } from 'domains/Wallet/components/views'
 import { Row, Col } from '@qonsoll/react-design'
 
-const WalletList = ({
-  dataForListWallets,
-  setStatusMessage,
-  statusMessage,
-  ...rest
-}) => {
+const WalletList = (props) => {
+  //INTERFACE
+  const { dataForListWallets, setStatusMessage, statusMessage, ...rest } = props
+
   //TEMPLATE
   return dataForListWallets ? (
     <Row noGutters>
