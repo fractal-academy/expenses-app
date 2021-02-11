@@ -7,7 +7,7 @@ import { getData, setData, setDocumentListener } from 'app/services/Firestore'
 import { COLLECTIONS, ROUTES_PATHS } from 'app/constants'
 import { useSessionDispatch, types } from 'app/context/SessionContext'
 import { START_PAGE } from 'app/constants/role'
-
+import firebase from 'app/services/Firebase'
 /**
  *
  * @param {firebase.User} user
@@ -93,9 +93,18 @@ const useAuthListener = () => {
     return () => unsubscribe()
   }, [user, userLoading])
 
-  useEffect(() => !isInvited && history.replace(ROUTES_PATHS.REJECT_LOGIN), [
-    isInvited
-  ])
+  useEffect(() => {
+    if (!isInvited) {
+      const rejectLogin = async () => {
+        const func = firebase
+          .functions()
+          .httpsCallable('deleteUser', { timeout: 0 })
+        await func({ email: user.email, uid: user.uid })
+      }
+      history.replace(ROUTES_PATHS.REJECT_LOGIN)
+      rejectLogin()
+    }
+  }, [isInvited])
   return { loading, user }
 }
 
