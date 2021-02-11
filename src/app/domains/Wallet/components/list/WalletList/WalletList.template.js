@@ -3,8 +3,8 @@ import { Row, Col } from '@qonsoll/react-design'
 
 const WalletList = ({
   dataForListWallets,
-  setOpenSnackbarError,
-  setOpenSnackbarSuccess,
+  setStatusMessage,
+  statusMessage,
   ...rest
 }) => {
   return dataForListWallets ? (
@@ -19,8 +19,8 @@ const WalletList = ({
             balance={doc.data().balance}
             privateWallet={doc.data().privateWallet}
             idCurrency={doc.data().idCurrency}
-            setOpenSnackbarSuccess={setOpenSnackbarSuccess}
-            setOpenSnackbarError={setOpenSnackbarError}
+            setStatusMessage={setStatusMessage}
+            statusMessage={statusMessage}
           />
         ))}
       </Col>

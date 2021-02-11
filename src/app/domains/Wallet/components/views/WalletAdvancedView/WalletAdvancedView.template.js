@@ -22,8 +22,7 @@ const WalletAdvancedView = (props) => {
     idMember,
     idCurrency,
     privateWallet,
-    setOpenSnackbarSuccess,
-    setOpenSnackbarError
+    setStatusMessage
   } = props
 
   const [memberData, setMemberData] = useState()
@@ -31,9 +30,9 @@ const WalletAdvancedView = (props) => {
   const deleteWallet = async () => {
     try {
       await deleteData(COLLECTIONS.WALLETS, idWallet)
-      setOpenSnackbarSuccess(true)
+      setStatusMessage({ open: true, message: 'Done', type: 'success' })
     } catch (error) {
-      setOpenSnackbarError(true)
+      setStatusMessage({ open: true, message: error, type: 'error' })
     }
   }
 

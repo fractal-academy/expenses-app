@@ -4,19 +4,20 @@ import { Spinner } from 'app/components/Lib'
 import { useCollection } from 'react-firebase-hooks/firestore'
 import { getCollectionRef } from 'app/services'
 import { COLLECTIONS } from 'app/constants'
-import { Container, Row, Col } from '@qonsoll/react-design'
 import { useState } from 'react'
-import { Snackbar } from '@material-ui/core'
-import { Alert } from '@material-ui/lab'
+import { Message } from 'app/components/Lib/Message'
 
 const WalletAll = (props) => {
-  const [openSnackbarSuccess, setOpenSnackbarSuccess] = useState(false)
-  const [openSnackbarError, setOpenSnackbarError] = useState(false)
+  const [statusMessage, setStatusMessage] = useState({
+    open: false,
+    message: '',
+    type: ''
+  })
 
   const handleClose = () => {
-    setOpenSnackbarSuccess(false)
-    setOpenSnackbarError(false)
+    setStatusMessage({ open: false, message: '', type: '' })
   }
+
   const [dataForListWallets, loading] = useCollection(
     getCollectionRef(COLLECTIONS.WALLETS)
   )
@@ -27,28 +28,20 @@ const WalletAll = (props) => {
     <>
       <WalletList
         dataForListWallets={dataForListWallets}
-        setOpenSnackbarSuccess={setOpenSnackbarSuccess}
-        setOpenSnackbarError={setOpenSnackbarError}
+        setStatusMessage={setStatusMessage}
+        statusMessage={statusMessage}
       />
       <WalletCombined title={'Create new wallet'} />
-      <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        open={openSnackbarSuccess}
+      <Message
+        open={statusMessage.open}
+        message={statusMessage.message}
+        vertical="top"
+        horizontal="center"
         autoHideDuration={1500}
-        onClose={handleClose}>
-        <Alert variant="filled" severity="success">
-          Wallet is deleted!
-        </Alert>
-      </Snackbar>
-      <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        open={openSnackbarError}
-        autoHideDuration={1500}
-        onClose={handleClose}>
-        <Alert variant="filled" severity="error">
-          Error
-        </Alert>
-      </Snackbar>
+        variant="filled"
+        severity={statusMessage.type}
+        onClose={handleClose}
+      />
     </>
   )
 }
