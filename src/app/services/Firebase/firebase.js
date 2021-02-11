@@ -1,4 +1,5 @@
 import firebase from 'firebase/app'
+import 'firebase/functions'
 import 'firebase/auth'
 import 'firebase/storage'
 import 'firebase/firestore'

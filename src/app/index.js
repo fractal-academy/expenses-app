@@ -33,7 +33,7 @@ const App = () => {
           return <Route key={route.path} {...route} />
         })}
         <Redirect
-          to={START_PAGE[session.role.toUpperCase()] || ROUTES_PATHS.LOGIN}
+          to={START_PAGE[session?.role.toUpperCase()] || ROUTES_PATHS.LOGIN}
         />
       </Switch>
     </ThemeProvider>
