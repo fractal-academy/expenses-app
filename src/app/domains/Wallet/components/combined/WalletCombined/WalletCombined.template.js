@@ -10,6 +10,7 @@ import md5 from 'md5'
 import { useSession } from 'app/context/SessionContext/hooks'
 
 const WalletCombined = (props) => {
+  // INTERFACE
   const {
     idWallet,
     nameWallet,
@@ -22,6 +23,7 @@ const WalletCombined = (props) => {
     children
   } = props
 
+  // STATE
   const [open, setOpen] = useState(children && !children)
   const [statusMessage, setStatusMessage] = useState({
     open: false,
@@ -31,10 +33,10 @@ const WalletCombined = (props) => {
 
   const handleClose = () => {
     setStatusMessage({ open: false, message: '', type: '' })
+    setOpen(false)
   }
-
+  // CUSTOM HOOKS
   const session = useSession()
-
   const form = useForm({
     defaultValues: {
       idWallet,
@@ -46,6 +48,7 @@ const WalletCombined = (props) => {
     }
   })
 
+  // HELPER FUNCTIONS
   const onSubmit = async (data) => {
     const { privateWallet } = data
 
@@ -78,6 +81,7 @@ const WalletCombined = (props) => {
     setOpen(true)
   }
 
+  // TEMPLATE
   return (
     <>
       {(children &&
