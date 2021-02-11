@@ -19,7 +19,6 @@ const StatisticProvider = (props) => {
   const initState = {
     ...value
   }
-
   const [state, setState] = useState(initState)
   return <StatisticContext.Provider value={{ state, setState }} {...rest} />
 }
