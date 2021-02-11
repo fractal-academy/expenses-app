@@ -11,9 +11,7 @@ import { auth } from 'app/services/Auth'
 const Header = (props) => {
   // INTERFACE
   const { goBack } = props
-
-  // CUSTOM HOOKS
-  let history = useHistory()
+  const history = useHistory()
   const classes = useStyles(props)
 
   // DROPDOWN OVERLAY ELEMENT

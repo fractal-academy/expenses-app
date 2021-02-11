@@ -18,7 +18,7 @@ const MENU_ITEMS = [
 const Navbar = (props) => {
   const classes = useStyles()
   const [value, setValue] = useState()
-  let history = useHistory()
+  const history = useHistory()
 
   useEffect(() => {
     setValue(

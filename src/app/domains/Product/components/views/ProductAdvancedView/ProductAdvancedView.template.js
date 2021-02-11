@@ -15,46 +15,24 @@ const productTypeMap = {
   cart: {
     item: 'Buy',
     editRoute: ROUTES_PATHS.CART_EDIT,
-    layout: (props) => (
-      <Row h="between" mb={4}>
-        <Col cw="auto">
-          <Typography>Purchased</Typography>
-        </Col>
-        <Col cw="auto">
-          <Typography>
-            {props.purchasedDate
-              ? moment(props.purchasedDate).format('MMM Do')
-              : 'None'}
-          </Typography>
-        </Col>
-      </Row>
-    )
+    displayElements: true
   },
   wish: {
     item: 'Approve',
     editRoute: ROUTES_PATHS.WISHES_EDIT,
-    layout: (props) => (
-      <Row h="between" mb={4}>
-        <Col cw="auto">
-          <Typography>Reminder date</Typography>
-        </Col>
-        <Col cw="auto">
-          <Typography>{moment(props.reminderDate).format('MMM Do')}</Typography>
-        </Col>
-      </Row>
-    )
+    displayElements: true
   },
 
   product: {
     item: 'Get QR',
     editRoute: ROUTES_PATHS.REGULAR_PRODUCT_EDIT,
-    layout: (props) => (
-      <Row mb={4}>
-        <Col>
-          <ProgressBar value={props.categoryBalance || 0} />
-        </Col>
-      </Row>
-    )
+    displayElements: true
+  },
+
+  purchase: {
+    item: '',
+    editRoute: '',
+    displayElements: false
   }
 }
 
@@ -69,13 +47,15 @@ const ProductAdvancedView = (props) => {
     currency,
     assignedUser
   } = props
-  let history = useHistory()
+
+  const history = useHistory()
+
+  const reminderDate = moment(props.reminderDate).format('MMM Do')
+  const purchasedDate = moment(props.purchasedDate).format('MMM Do')
 
   const firstElement = productTypeMap[type].item
-
   const editPages = productTypeMap[type].editRoute
-
-  const ProductLayout = productTypeMap[type].layout
+  const displayElements = productTypeMap[type].displayElements
 
   const DropdownList = (
     <Container>
@@ -99,13 +79,15 @@ const ProductAdvancedView = (props) => {
             <Col cw="8">
               <Typography variant="h5">{name || 'No name'}</Typography>
             </Col>
-            <Col cw="auto">
-              <Dropdown overlay={DropdownList}>
-                <IconButton>
-                  <MoreHorizIcon />
-                </IconButton>
-              </Dropdown>
-            </Col>
+            {displayElements && (
+              <Col cw="auto">
+                <Dropdown overlay={DropdownList}>
+                  <IconButton>
+                    <MoreHorizIcon />
+                  </IconButton>
+                </Dropdown>
+              </Col>
+            )}
           </Row>
           <Row mb={4}>
             <Col>
@@ -116,17 +98,17 @@ const ProductAdvancedView = (props) => {
           </Row>
           <MeasureSimpleView productNumber={number} text={measure} />
           <CategorySimpleView />
-          <Row display="flex" h="between" v="center" mb={2}>
-            <Col cw="auto">
-              <Typography>Price</Typography>
-            </Col>
-            <Col display="flex" cw="auto">
-              <Typography>{price || 'None'}</Typography>
-              <Typography>
-                {(currency && <CurrencySimpleView />) || 'currency'}
-              </Typography>
-            </Col>
-          </Row>
+          {price && (
+            <Row display="flex" h="between" v="center" mb={2}>
+              <Col cw="auto">
+                <Typography>Price</Typography>
+              </Col>
+              <Col display="flex" cw="auto">
+                <Typography>{price}</Typography>
+                <Typography>{currency && <CurrencySimpleView />}</Typography>
+              </Col>
+            </Row>
+          )}
           <Row h="between" v="center" mb={2}>
             <Col cw="auto">
               <Typography>Assigned user</Typography>
@@ -135,8 +117,34 @@ const ProductAdvancedView = (props) => {
               <Typography>{assignedUser || 'None'}</Typography>
             </Col>
           </Row>
-          <ProductLayout {...props} />
-          <CommentList />
+          {type === 'cart' ? (
+            <Row h="between" mb={4}>
+              <Col cw="auto">
+                <Typography>Purchased</Typography>
+              </Col>
+              <Col cw="auto">
+                <Typography>{purchasedDate || 'None'}</Typography>
+              </Col>
+            </Row>
+          ) : type === 'wish' ? (
+            <Row mb={4}>
+              <Col>
+                <ProgressBar value={props.categoryBalance} />
+              </Col>
+            </Row>
+          ) : type === 'product' ? (
+            <Row h="between" mb={4}>
+              <Col cw="auto">
+                <Typography>Reminder date</Typography>
+              </Col>
+              <Col cw="auto">
+                <Typography>{reminderDate || 'None'}</Typography>
+              </Col>
+            </Row>
+          ) : (
+            <></>
+          )}
+          {displayElements && <CommentList />}
         </Col>
       </Row>
     </Container>
@@ -144,14 +152,14 @@ const ProductAdvancedView = (props) => {
 }
 
 ProductAdvancedView.propTypes = {
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   number: PropTypes.number,
   description: PropTypes.string,
   quantity: PropTypes.number,
   price: PropTypes.number,
   measure: PropTypes.string,
   purchasedDate: PropTypes.number,
-  categoryBalance: PropTypes.number.isRequired,
+  categoryBalance: PropTypes.number,
   reminderDate: PropTypes.number,
   assignedUser: PropTypes.string,
   type: PropTypes.oneOf(Object.keys(productTypeMap)).isRequired

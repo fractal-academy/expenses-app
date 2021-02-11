@@ -1,7 +1,13 @@
 import { CartTable } from 'domains/Cart/components/table'
+import { CartCombined } from 'domains/Cart/components/combined'
 
 const CartAll = (props) => {
-  return <CartTable />
+  return (
+    <>
+      <CartTable />
+      <CartCombined title="Add new item to cart" />
+    </>
+  )
 }
 
 CartAll.propTypes = {}
