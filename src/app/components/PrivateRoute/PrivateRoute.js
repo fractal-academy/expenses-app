@@ -7,7 +7,7 @@ const PrivateRoute = (props) => {
   const { protect, ...rest } = props
   const [match, setMatch] = useState(true)
   const session = useSession()
-  let history = useHistory()
+  const history = useHistory()
   useEffect(() => session && setMatch(protect.includes(session.role)), [])
   useEffect(
     () => !match && history.replace(START_PAGE[session.role.toUpperCase()]),

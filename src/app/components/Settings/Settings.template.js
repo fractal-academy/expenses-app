@@ -29,7 +29,7 @@ const SETTINGS_MENU = [
 ]
 
 const Settings = (props) => {
-  let history = useHistory()
+  const history = useHistory()
   return (
     <List>
       {SETTINGS_MENU.map((menuItem) => {

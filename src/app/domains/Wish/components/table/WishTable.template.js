@@ -1,25 +1,40 @@
-import { useState } from 'react'
-import { COLLECTIONS } from 'app/constants'
-import { Toolbar, DataGrid } from 'components/Lib'
-import { Container, Row, Col } from '@qonsoll/react-design'
+import { Table } from 'components/Lib'
+
+const products = [
+  {
+    id: 1,
+    asignedUser: 'Ruslan',
+    productName: 'Sugar',
+    category: 'Kitchen'
+  },
+  {
+    id: 2,
+    asignedUser: 'Ruslan',
+    productName: 'Extra spicy soup',
+    category: 'Kitchen'
+  },
+  {
+    id: 3,
+    asignedUser: 'Ruslan',
+    productName: 'Sugar',
+    category: 'Kitchen'
+  },
+  {
+    id: 4,
+    asignedUser: 'Ruslan',
+    productName: 'Extra spicy soup',
+    category: 'Kitchen'
+  },
+  {
+    id: 5,
+    asignedUser: 'Ruslan',
+    productName: 'Extra spicy soup',
+    category: 'Kitchen'
+  }
+]
 
 const WishTable = (props) => {
-  const [numSelected, setNumSelected] = useState([])
-  return (
-    <Container>
-      <Row h="center">
-        <Col>
-          <Toolbar numSelected={numSelected} />
-          <DataGrid
-            collection={COLLECTIONS.WISHES}
-            setNumSelected={setNumSelected}
-          />
-        </Col>
-      </Row>
-    </Container>
-  )
+  return <Table type="wishes" products={products} />
 }
-
-WishTable.propTypes = {}
 
 export default WishTable

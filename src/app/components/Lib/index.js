@@ -4,10 +4,11 @@ import { Modal } from './Modal'
 import { Dropdown, DropdownItem } from './Dropdown'
 import { ProgressBar } from './ProgressBar'
 import { FabButton } from './FabButton'
-import { DataGrid } from './DataGrid'
 import { Toolbar } from './Toolbar'
+import { Table } from './Table'
 import { LoadingButton } from './LoadingButton'
 import { Spinner } from './Spinner'
+import { Message } from './Message'
 
 export {
   Select,
@@ -18,8 +19,9 @@ export {
   DropdownItem,
   ProgressBar,
   FabButton,
-  DataGrid,
   Toolbar,
+  Table,
   LoadingButton,
-  Spinner
+  Spinner,
+  Message
 }

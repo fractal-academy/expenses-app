@@ -7,7 +7,7 @@ import {
   RegularProductEdit,
   RegularProductShow
 } from 'domains/RegularProduct/routes'
-import { PurchaseAll } from 'domains/Purchase/routes'
+import { PurchaseAll, PurchaseShow } from 'domains/Purchase/routes'
 import { NotificationAll } from 'domains/Notification/routes'
 import { CategoryAll } from 'domains/Category/routes'
 import { LogAll } from 'domains/Log/routes'
@@ -54,7 +54,8 @@ const ROUTES = {
   PURCHASE_ALL: {
     protect: ['admin'],
     component: withLayout({ goBack: true })(PurchaseAll),
-    path: ROUTES_PATHS.PURCHASE_ALL
+    path: ROUTES_PATHS.PURCHASE_ALL,
+    exact: true
   },
   NOTIFICATIONS_ALL: {
     component: withLayout({ goBack: true })(NotificationAll),
@@ -126,6 +127,10 @@ const ROUTES = {
     protect: ['admin'],
     component: withLayout({ goBack: true })(RegularProductEdit),
     path: ROUTES_PATHS.REGULAR_PRODUCT_EDIT
+  },
+  PURCHASE_SHOW: {
+    component: withLayout({ goBack: true })(PurchaseShow),
+    path: ROUTES_PATHS.PURCHASE_SHOW
   }
 }
 
