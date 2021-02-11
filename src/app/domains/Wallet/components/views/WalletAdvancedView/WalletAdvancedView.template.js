@@ -119,7 +119,7 @@ const WalletAdvancedView = (props) => {
                             <Row v="center">
                               <Col cw="auto">
                                 <Avatar
-                                  src="https://firebasestorage.googleapis.com/v0/b/expenses-app-development-9ba1c.appspot.com/o/logo-white(sense)-color(teq).jpg?alt=media&token=757d0b30-a6b6-4637-be0c-cc8efbc3f69f"
+                                  src="https://firebasestorage.googleapis.com/v0/b/expenses-app-development-9ba1c.appspot.com/o/logo-white(sense)-color(teq).jpglogo-white(sense)-color(teq).jpg?alt=media&token=15b56667-6f0a-4cca-85c0-c2777c420289"
                                   alt="Senseteq"
                                 />
                               </Col>
