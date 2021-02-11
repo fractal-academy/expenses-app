@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
-import { Snackbar } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
-import { Alert } from '@material-ui/lab'
 import { Modal, FabButton } from 'app/components/Lib'
+import { Message } from 'app/components/Lib/Message'
 import { WalletForm } from 'app/domains/Wallet/components/form/WalletForm'
 import { setData } from 'app/services'
 import PropTypes from 'prop-types'
@@ -24,8 +23,16 @@ const WalletCombined = (props) => {
   } = props
 
   const [open, setOpen] = useState(children && !children)
-  const [openSnackbarSuccess, setOpenSnackbarSuccess] = useState(false)
-  const [openSnackbarError, setOpenSnackbarError] = useState(false)
+  const [statusMessage, setStatusMessage] = useState({
+    open: false,
+    message: '',
+    type: ''
+  })
+
+  const handleClose = () => {
+    setStatusMessage({ open: false, message: '', type: '' })
+  }
+
   const session = useSession()
 
   const form = useForm({
@@ -53,9 +60,13 @@ const WalletCombined = (props) => {
 
     try {
       await setData(COLLECTIONS.WALLETS, idWallet, data)
-      setOpenSnackbarSuccess(true)
+      setStatusMessage({
+        open: true,
+        message: typeModalEdit ? 'Edit' : 'Done',
+        type: 'success'
+      })
     } catch (error) {
-      setOpenSnackbarError(true)
+      setStatusMessage({ open: true, message: error, type: 'error' })
     }
 
     setOpen(false)
@@ -67,36 +78,22 @@ const WalletCombined = (props) => {
     setOpen(true)
   }
 
-  const handleClose = () => {
-    setOpenSnackbarSuccess(false)
-    setOpenSnackbarError(false)
-    setOpen(false)
-  }
   return (
     <>
       {(children &&
         React.cloneElement(children, { onClick: handleClickOpen })) || (
         <FabButton onClick={handleClickOpen} />
       )}
-      <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        open={openSnackbarSuccess}
+      <Message
+        open={statusMessage.open}
+        message={statusMessage.message}
+        vertical="top"
+        horizontal="center"
         autoHideDuration={1500}
-        onClose={handleClose}>
-        <Alert variant="filled" severity="success">
-          Done!
-        </Alert>
-      </Snackbar>
-      <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        open={openSnackbarError}
-        autoHideDuration={1500}
-        onClose={handleClose}>
-        <Alert variant="filled" severity="error">
-          Error!
-        </Alert>
-      </Snackbar>
-
+        variant="filled"
+        severity={statusMessage.type}
+        onClose={handleClose}
+      />
       <Modal
         open={open}
         title={title}
