@@ -36,7 +36,7 @@ const tableTypeMap = {
 }
 
 const CustomTable = (props) => {
-  const { type, products, numSelected = 0 } = props
+  const { type, products } = props
 
   // [ADDITIONAL_HOOKS]
   let history = useHistory()
@@ -56,6 +56,7 @@ const CustomTable = (props) => {
   }
 
   // [COMPUTED_PROPERTIES]
+  let numSelected = selected.length
   const multiselect = tableTypeMap[type].multiselect
   const middleCell = tableTypeMap[type].middleCell
   const productPath = tableTypeMap[type].productPath
