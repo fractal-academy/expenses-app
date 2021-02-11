@@ -1,11 +1,11 @@
 import { CartTable } from 'domains/Cart/components/table'
-import { CartCombined } from 'domains/Cart/components/combined'
+import { ProductCombinedForm } from 'app/domains/Product/components/combined/ProductCombinedForm'
 
 const CartAll = (props) => {
   return (
     <>
       <CartTable />
-      <CartCombined title="Add new item to cart" />
+      <ProductCombinedForm title="Create Product" />
     </>
   )
 }
