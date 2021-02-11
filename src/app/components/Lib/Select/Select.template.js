@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { TextField } from '@material-ui/core'
 
@@ -14,6 +14,7 @@ const Select = (props) => {
     ...rest
   } = props
   const [currentValue, setCurrentValue] = useState(value)
+  useEffect(() => onChange(value), [])
   const handleSelect = (event) => {
     const selectValue = event.target.value
     setCurrentValue(selectValue)
