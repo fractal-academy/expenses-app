@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import { useHistory } from 'react-router-dom'
-import { Typography, IconButton } from '@material-ui/core'
+import { Typography, IconButton, Chip } from '@material-ui/core'
 import CreateRoundedIcon from '@material-ui/icons/CreateRounded'
+import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty'
 import { Container, Row, Col, Box } from '@qonsoll/react-design'
 import { RoleSimpleView } from 'domains/Role/components/views'
 import { Avatar } from 'components/Lib'
@@ -39,7 +40,9 @@ const MemberAdvancedView = (props) => {
             ) : (
               <Col>
                 <Typography>
-                  {props.firstName} {props.surname}
+                  {props.isPending
+                    ? props.email
+                    : `${props.firstName} ${props.surname}`}
                 </Typography>
                 <RoleSimpleView
                   variant="caption"
@@ -47,6 +50,15 @@ const MemberAdvancedView = (props) => {
                   align="center"
                   role={props.role}
                 />
+                {props.isPending && (
+                  <Box mx={2} display="inline-block">
+                    <Chip
+                      size="small"
+                      label="Pending"
+                      icon={<HourglassEmptyIcon />}
+                    />
+                  </Box>
+                )}
               </Col>
             )}
           </Row>
