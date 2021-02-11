@@ -25,6 +25,7 @@ const WalletCombined = (props) => {
 
   // STATE
   const [open, setOpen] = useState(children && !children)
+  const [loading, setLoading] = useState(false)
   const [statusMessage, setStatusMessage] = useState({
     open: false,
     message: '',
@@ -62,7 +63,9 @@ const WalletCombined = (props) => {
       data.idCurrency = data.idCurrency.cc
 
     try {
+      setLoading(true)
       await setData(COLLECTIONS.WALLETS, idWallet, data)
+
       setStatusMessage({
         open: true,
         message: typeModalEdit ? 'Edit' : 'Done',
@@ -71,7 +74,7 @@ const WalletCombined = (props) => {
     } catch (error) {
       setStatusMessage({ open: true, message: error, type: 'error' })
     }
-
+    setLoading(false)
     setOpen(false)
   }
 
@@ -111,7 +114,8 @@ const WalletCombined = (props) => {
           variant: 'contained',
           color: 'primary',
           type: 'submit',
-          onClick: formSubmit
+          onClick: formSubmit,
+          loading
         }}
         buttonCancelProps={{
           text: 'Cancel',
