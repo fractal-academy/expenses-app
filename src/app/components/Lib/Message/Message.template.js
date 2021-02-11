@@ -4,14 +4,14 @@ import { Alert } from '@material-ui/lab'
 
 const Message = (props) => {
   const {
-    message,
-    severity,
-    open,
-    handleClose,
-    vertical,
-    horizontal,
-    variant,
-    autoHideDuration,
+    message, //message for alert
+    severity, //type of alert success ot error
+    open, //status open true or false
+    onClose, //action on close
+    vertical, //vertical position
+    horizontal, //horizontal position
+    variant, // variant filled or outlined
+    autoHideDuration, //duration for message
     ...rest
   } = props
 
@@ -20,7 +20,7 @@ const Message = (props) => {
       anchorOrigin={{ vertical, horizontal }}
       open={open}
       autoHideDuration={autoHideDuration}
-      onClose={handleClose}>
+      onClose={onClose}>
       <Alert variant={variant} severity={severity}>
         {message}
       </Alert>
