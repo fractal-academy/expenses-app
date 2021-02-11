@@ -3,15 +3,14 @@ const nodemailer = require('nodemailer')
 const cors = require('cors')({ origin: true })
 const nodemailerSendgrid = require('nodemailer-sendgrid')
 
-let transporter = nodemailer.createTransport(
-  nodemailerSendgrid({
-    apiKey:
-      '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'
-  })
-)
-
-exports.sendInvitationEmail = functions.https.onRequest((req, res) => {
+exports.sendMail = functions.https.onRequest((req, res) => {
   cors(req, res, async () => {
+    let transporter = nodemailer.createTransport(
+      nodemailerSendgrid({
+        apiKey:
+          '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'
+      })
+    )
     // getting dest email
     const { email } = req.body.data
     const mailOptions = {
@@ -21,13 +20,13 @@ exports.sendInvitationEmail = functions.https.onRequest((req, res) => {
       html: `<p style="font-size: 16px;">You was invited to Senseteq expenses app: <a href="https://expenses-app-development-9ba1c.web.app">Click here.</a></p>`
     }
 
-    transporter
-      .sendMail(mailOptions)
-      .then((info) => res.status(200).json({ data: info }))
-      .catch((error) => {
-        if (error) {
-          return res.send(error.toString())
-        }
-      })
+    try {
+      await transporter.sendMail(mailOptions)
+      res.status(200).json({ data: 'ok' })
+    } catch (error) {
+      if (error) {
+        return res.json({ data: error.toString() })
+      }
+    }
   })
 })
