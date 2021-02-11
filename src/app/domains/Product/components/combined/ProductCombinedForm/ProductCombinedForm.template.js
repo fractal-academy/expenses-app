@@ -6,10 +6,9 @@ import { FabButton, Modal } from 'app/components/Lib'
 import { ProductSimpleForm } from 'app/domains/Product/components/forms/ProductSimpleForm'
 import { RegularProductSimpleForm } from 'app/domains/RegularProduct/components/forms/RegularProductSimpleForm'
 import { addData, setData } from 'app/services/Firestore'
-import { COLLECTIONS } from 'app/constants'
 
 const ProductCombinedForm = (props) => {
-  const { title } = props
+  const { title, colectionName } = props
   const [open, setOpen] = useState(false)
 
   const [switchState, setSwitchState] = useState(true)
@@ -18,8 +17,8 @@ const ProductCombinedForm = (props) => {
 
   // HELPER FUNCTIONS
   const onAddProduct = (data) => {
-    addData(COLLECTIONS.WISHES, {
-      name: data.name,
+    addData(colectionName, {
+      name: data.nameProduct,
       description: data.description
     }).then(() => setOpen(false))
   }
@@ -71,7 +70,7 @@ const ProductCombinedForm = (props) => {
                 Add wish
               </Typography>
             </Row>
-            <ProductSimpleForm form={form} onSubmit={onSubmit} />
+            <ProductSimpleForm form={form} onSubmit={onAddProduct} />
           </>
         ) : (
           <>
@@ -80,7 +79,7 @@ const ProductCombinedForm = (props) => {
                 Add regular product
               </Typography>
             </Row>
-            <RegularProductSimpleForm form={form} onSubmit={onAddProduct} />
+            <RegularProductSimpleForm form={form} onSubmit={onSubmit} />
           </>
         )}
       </Modal>
