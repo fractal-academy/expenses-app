@@ -39,7 +39,7 @@ const CustomTable = (props) => {
   const { type, products } = props
 
   // [ADDITIONAL_HOOKS]
-  let history = useHistory()
+  const history = useHistory()
   const classes = useStyles()
 
   // [COMPONENT_STATE_HOOKS]

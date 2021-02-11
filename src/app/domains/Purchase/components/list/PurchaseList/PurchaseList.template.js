@@ -36,7 +36,7 @@ const PURCHASED = [
 ]
 //TODO delete mock data
 const PurchaseList = () => {
-  let history = useHistory()
+  const history = useHistory()
   return (
     <List>
       {PURCHASED.map((item) => {

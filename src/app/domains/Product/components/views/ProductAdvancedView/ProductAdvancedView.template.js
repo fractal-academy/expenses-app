@@ -15,27 +15,23 @@ const productTypeMap = {
   cart: {
     item: 'Buy',
     editRoute: ROUTES_PATHS.CART_EDIT,
-    layout: '',
     displayElements: true
   },
   wish: {
     item: 'Approve',
     editRoute: ROUTES_PATHS.WISHES_EDIT,
-    layout: '',
     displayElements: true
   },
 
   product: {
     item: 'Get QR',
     editRoute: ROUTES_PATHS.REGULAR_PRODUCT_EDIT,
-    layout: '',
     displayElements: true
   },
 
   purchase: {
     item: '',
     editRoute: '',
-    layout: '',
     displayElements: false
   }
 }
@@ -52,7 +48,7 @@ const ProductAdvancedView = (props) => {
     assignedUser
   } = props
 
-  let history = useHistory()
+  const history = useHistory()
 
   const reminderDate = moment(props.reminderDate).format('MMM Do')
   const purchasedDate = moment(props.purchasedDate).format('MMM Do')
