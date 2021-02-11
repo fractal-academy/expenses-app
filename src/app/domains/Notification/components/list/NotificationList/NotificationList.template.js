@@ -1,11 +1,11 @@
-import { NotificationAdvancedView } from '../../views/NotificationAdvancedView'
+import { NotificationAdvancedView } from 'domains/Notification/components/views'
 import { useState, useEffect } from 'react'
-import { firestore, getData } from 'app/services/Firestore'
+import { getCollectionRef, getData } from 'app/services/Firestore'
 import { useCollection } from 'react-firebase-hooks/firestore'
 import { useSession } from 'app/context/SessionContext/hooks'
+import { COLLECTIONS } from 'app/constants'
 import md5 from 'md5'
 
-//TODO delete mock data
 const NotificationList = (props) => {
   // STATE
   const [data, setData] = useState([])
@@ -13,14 +13,16 @@ const NotificationList = (props) => {
   // CUSTOM HOOKS
   const session = useSession()
   const [value, loading, error] = useCollection(
-    firestore
-      .collection('notifications')
-      .where('userId', '==', md5(session.email))
+    getCollectionRef(COLLECTIONS.NOTIFICATIONS).where(
+      'userId',
+      '==',
+      md5(session.email)
+    )
   )
 
   // USE EFFECTS
   useEffect(() => {
-    getData('users', md5(session.email)).then((result) => {
+    getData(COLLECTIONS.USERS, md5(session.email)).then((result) => {
       const notifications =
         value &&
         value.docs.map((item) => {
