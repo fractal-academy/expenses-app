@@ -49,7 +49,7 @@ const WalletAdvancedView = (props) => {
   }
 
   const DropdownList = (
-    <>
+    <div>
       <WalletCombined
         title="Edit wallet"
         typeModalEdit
@@ -72,7 +72,7 @@ const WalletAdvancedView = (props) => {
         </Box>
         Delete
       </DropdownItem>
-    </>
+    </div>
   )
 
   //TEMPLATE
