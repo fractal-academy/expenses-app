@@ -8,6 +8,7 @@ import { DataGrid } from './DataGrid'
 import { Toolbar } from './Toolbar'
 import { LoadingButton } from './LoadingButton'
 import { Spinner } from './Spinner'
+import { Message } from './Message'
 
 export {
   Select,
@@ -21,5 +22,6 @@ export {
   DataGrid,
   Toolbar,
   LoadingButton,
-  Spinner
+  Spinner,
+  Message
 }
