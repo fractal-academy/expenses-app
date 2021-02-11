@@ -68,7 +68,9 @@ const WalletCombined = (props) => {
 
       setStatusMessage({
         open: true,
-        message: typeModalEdit ? 'Edit' : 'Done',
+        message: typeModalEdit
+          ? 'Wallet successfully edited'
+          : 'Wallet successfully added',
         type: 'success'
       })
     } catch (error) {

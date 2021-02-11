@@ -44,7 +44,11 @@ const WalletAdvancedView = (props) => {
   const deleteWallet = async () => {
     try {
       await deleteData(COLLECTIONS.WALLETS, idWallet)
-      setStatusMessage({ open: true, message: 'Deleted', type: 'success' })
+      setStatusMessage({
+        open: true,
+        message: 'Wallet successfully deleted',
+        type: 'success'
+      })
     } catch (error) {
       setStatusMessage({ open: true, message: error, type: 'error' })
     }
