@@ -1,21 +1,20 @@
 import { Container, Row, Col, Box } from '@qonsoll/react-design'
-import { Badge, Toolbar, AppBar, IconButton } from '@material-ui/core'
-import {
-  AccountCircle,
-  Notifications,
-  ExitToApp,
-  ArrowBack
-} from '@material-ui/icons'
+import { Toolbar, AppBar, IconButton } from '@material-ui/core'
+import { AccountCircle, ExitToApp, ArrowBack } from '@material-ui/icons'
 import { useHistory } from 'react-router-dom'
 import { DropdownItem, Dropdown } from 'components/Lib'
 import { ROUTES_PATHS } from 'app/constants'
 import { useStyles } from './Header.style'
+import { NotificationSimpleView } from 'domains/Notification/components/views'
 import { auth } from 'app/services/Auth'
+
 const Header = (props) => {
+  // INTERFACE
   const { goBack } = props
   const history = useHistory()
   const classes = useStyles(props)
 
+  // DROPDOWN OVERLAY ELEMENT
   const DropdownList = (
     <div>
       <DropdownItem
@@ -31,8 +30,10 @@ const Header = (props) => {
     </div>
   )
 
+  // HELPER FUNCTIONS
   const redirect = () => history.goBack()
 
+  // TEMPLATE
   return (
     <Container>
       <Row noGutters mb={2}>
@@ -45,12 +46,7 @@ const Header = (props) => {
                 </IconButton>
               )}
               <Box display="flex">
-                <IconButton
-                  onClick={() => history.push(ROUTES_PATHS.NOTIFICATIONS_ALL)}>
-                  <Badge badgeContent={11} color="secondary">
-                    <Notifications />
-                  </Badge>
-                </IconButton>
+                <NotificationSimpleView />
                 <Dropdown overlay={DropdownList}>
                   <IconButton
                     aria-label="account of current user"
