@@ -80,7 +80,7 @@ const WalletAdvancedView = (props) => {
       <Snackbar
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={openSnackbarSuccess}
-        autoHideDuration={6000}
+        autoHideDuration={1500}
         onClose={handleClose}>
         <Alert variant="filled" severity="success">
           Wallet is deleted!
@@ -89,7 +89,7 @@ const WalletAdvancedView = (props) => {
       <Snackbar
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={openSnackbarError}
-        autoHideDuration={6000}
+        autoHideDuration={1500}
         onClose={handleClose}>
         <Alert variant="filled" severity="error">
           Error
