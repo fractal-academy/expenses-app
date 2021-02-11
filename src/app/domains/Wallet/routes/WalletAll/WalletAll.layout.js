@@ -1,6 +1,6 @@
 import { WalletList } from 'app/domains/Wallet/components/list'
 import { WalletCombined } from 'app/domains/Wallet/components/combined'
-import { CircularProgress } from '@material-ui/core'
+import { Spinner } from 'app/components/Lib'
 import { useCollection } from 'react-firebase-hooks/firestore'
 import { getCollectionRef } from 'app/services'
 import { COLLECTIONS } from 'app/constants'
@@ -22,13 +22,7 @@ const WalletAll = (props) => {
   )
 
   return loading ? (
-    <Container height="100%" verticalAlign="middle" display="flex">
-      <Row width="100%" h="center">
-        <Col cw="auto" display="flex" v="center">
-          <CircularProgress />
-        </Col>
-      </Row>
-    </Container>
+    <Spinner />
   ) : (
     <>
       <WalletList
