@@ -1,4 +1,4 @@
-import { firebase } from '../Firebase'
+import firebase from '../Firebase'
 
 /**
  *

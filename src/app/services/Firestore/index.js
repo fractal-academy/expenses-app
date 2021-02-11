@@ -1,4 +1,4 @@
-import firestore from './firestore'
+import { firestore } from '../Firebase'
 import setData from './setData'
 import getData from './getData'
 import getDataWithFilter from './getDataWithFilter'
