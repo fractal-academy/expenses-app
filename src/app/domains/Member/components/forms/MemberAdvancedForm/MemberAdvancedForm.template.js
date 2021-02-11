@@ -6,95 +6,107 @@ import {
   FormGenerator,
   FormButtons
 } from 'mui-form-generator-fractal-band-2'
-import { AvatarUploader } from 'components/Lib'
+import { AvatarUploader, LoadingButton } from 'app/components/Lib'
 import { RoleSingleSelect } from 'domains/Role/components/select'
-import { ROUTES_PATHS } from 'app/constants'
-
-const config = [
-  {
-    name: 'avatarURL',
-    Component: AvatarUploader
-  },
-  {
-    label: 'Role',
-    name: 'role',
-    Component: RoleSingleSelect
-  },
-  {
-    type: 'text',
-    label: 'Name',
-    name: 'name',
-    placeholder: 'Enter your name',
-    rules: {
-      required: 'Enter your name',
-      pattern: {
-        value: 'word',
-        message: 'Enter only your name'
-      }
-    }
-  },
-  {
-    type: 'text',
-    label: 'Surname',
-    name: 'surname',
-    placeholder: 'Enter your surname',
-    rules: {
-      required: 'Enter your surname',
-      pattern: {
-        value: 'word',
-        message: 'Enter only your surname'
-      }
-    }
-  },
-  {
-    type: 'date',
-    label: 'Birthday',
-    name: 'dateInSeconds',
-    placeholder: 'Enter your birthday',
-    rules: {
-      required: 'Enter your birthday'
-    }
-  },
-  {
-    type: 'text',
-    label: 'Email',
-    name: 'email',
-    placeholder: 'Enter your email',
-    rules: {
-      required: 'Enter your email',
-      pattern: {
-        value: 'email',
-        message: 'Enter example@senseteq.io'
-      }
-    }
-  },
-  {
-    type: 'phone',
-    label: 'Phone',
-    name: 'phone',
-    placeholder: 'Enter your Phone',
-    rules: {
-      pattern: {
-        value: 'phone',
-        message: 'Enter correct phone number'
-      }
-    }
-  }
-]
+import { useMemo } from 'react'
 
 const MemberAdvancedForm = (props) => {
-  let history = useHistory()
-  const back = () => history.push(ROUTES_PATHS.MEMBER_SHOW)
-
   const {
     formData,
     show,
+    hide,
     onSubmit,
     onSubmitFail,
     form,
     buttonProps,
-    formProps
+    formProps,
+    onCancel,
+    loading
   } = props
+
+  let history = useHistory()
+
+  //because AvatarUploader import as unde
+  const config = useMemo(
+    () => [
+      {
+        name: 'avatarURL',
+        Component: AvatarUploader
+      },
+      {
+        label: 'Role',
+        name: 'role',
+        Component: RoleSingleSelect
+      },
+      {
+        type: 'text',
+        label: 'Name',
+        name: 'firstName',
+        placeholder: 'Enter your name',
+        rules: {
+          required: 'Enter your name',
+          pattern: {
+            value: 'word',
+            message: 'Enter only your name'
+          }
+        }
+      },
+      {
+        type: 'text',
+        label: 'Surname',
+        name: 'surname',
+        placeholder: 'Enter your surname',
+        rules: {
+          required: 'Enter your surname',
+          pattern: {
+            value: 'word',
+            message: 'Enter only your surname'
+          }
+        }
+      },
+      {
+        type: 'date',
+        label: 'Birthday',
+        name: 'birthday',
+        props: { disableFuture: true },
+        placeholder: 'Enter your birthday',
+        rules: {
+          required: 'Enter your birthday'
+        }
+      },
+      {
+        type: 'text',
+        label: 'Email',
+        name: 'email',
+        inputProps: { inputProps: { readOnly: true } },
+        placeholder: 'Enter your email',
+        rules: {
+          required: 'Enter your email',
+          pattern: {
+            value: 'email',
+            message: 'Enter example@senseteq.io'
+          }
+        }
+      },
+      {
+        type: 'phone',
+        label: 'Phone',
+        name: 'phone',
+        placeholder: 'Enter your Phone',
+        rules: {
+          pattern: {
+            value: 'phone',
+            message: 'Enter correct phone number'
+          }
+        }
+      }
+    ],
+    []
+  )
+  const onClickCancel = (data) => {
+    onCancel && onCancel(data)
+    history.goBack()
+  }
 
   return (
     <Form
@@ -103,11 +115,12 @@ const MemberAdvancedForm = (props) => {
       onSubmitFail={onSubmitFail}
       defaultValues={formData}
       {...formProps}>
-      <FormGenerator config={config} show={show} />
+      <FormGenerator config={config} show={show} hide={hide} />
       <FormButtons
-        Button={Button}
+        Button={LoadingButton}
         visibleCancel={true}
-        onClickCancel={back}
+        onClickCancel={onClickCancel}
+        buttonPropsSubmit={{ loading }}
         {...buttonProps}
       />
     </Form>
@@ -119,6 +132,7 @@ MemberAdvancedForm.propTypes = {
   onSubmit: PropTypes.func,
   onSubmitFail: PropTypes.func,
   show: PropTypes.array,
+  hide: PropTypes.array,
   buttonProps: PropTypes.object,
   formProps: PropTypes.object
 }

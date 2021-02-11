@@ -120,7 +120,7 @@ const MemberAdvancedView = (props) => {
 
 MemberAdvancedView.propTypes = {
   horizontal: PropTypes.bool,
-  name: PropTypes.string.isRequired,
+  firstName: PropTypes.string.isRequired,
   surname: PropTypes.string,
   role: PropTypes.string.isRequired,
   email: PropTypes.string,

@@ -7,8 +7,11 @@ import getOrderedData from './getOrderedData'
 import getTimestamp from './getTimestamp'
 import addData from './addData'
 import deleteData from './deleteData'
-
+import setDocumentListener from './setDocumentListener'
+import updateData from './updateData'
 export {
+  updateData,
+  setDocumentListener,
   deleteData,
   addData,
   setData,
