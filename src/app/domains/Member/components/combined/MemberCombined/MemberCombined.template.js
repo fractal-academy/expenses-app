@@ -23,11 +23,13 @@ const MemberCombined = (props) => {
   const onSubmit = async (data) => {
     const { email, role } = data
 
+    //check if user already exist
     try {
       const user = await getData(COLLECTIONS.USERS, md5(email))
       if (!user.isPending) {
         setLoading(false)
         setOpen(false)
+        //TODO refactor: error message to const
         return setOpenSnackbarError('User already exist.')
       }
     } catch (e) {
