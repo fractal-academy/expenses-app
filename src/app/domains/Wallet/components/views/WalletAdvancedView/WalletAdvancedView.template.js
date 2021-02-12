@@ -4,6 +4,7 @@ import { MemberAdvancedView } from 'domains/Member/components/views/MemberAdvanc
 import { WalletCombined } from 'domains/Wallet/components/combined/WalletCombined'
 import { CurrencySimpleView } from 'domains/Currency/components/views'
 import { Avatar } from 'app/components/Lib/Avatar'
+import { Confirmation } from 'app/components/Lib/Confirmation'
 import { useStyles } from './WalletAdvancedView.styles'
 import { MoreHorizOutlined, Edit, Delete } from '@material-ui/icons'
 import { DropdownItem, Dropdown } from 'app/components/Lib/Dropdown'
@@ -28,7 +29,9 @@ const WalletAdvancedView = (props) => {
 
   // STATE
   const [memberData, setMemberData] = useState()
-
+  const [confirm, setConfirm] = useState(false)
+  const [deleteLoading, setDeleteLoading] = useState(false)
+  console.log(idWallet)
   // CUSTOM HOOKS
   const classes = useStyles()
   useEffect(() => {
@@ -53,6 +56,8 @@ const WalletAdvancedView = (props) => {
       setStatusMessage({ open: true, message: error, type: 'error' })
     }
   }
+
+  //TEMPLATE
   const DropdownList = (
     <Box>
       <WalletCombined
@@ -71,16 +76,23 @@ const WalletAdvancedView = (props) => {
           Edit
         </DropdownItem>
       </WalletCombined>
-      <DropdownItem danger onClick={deleteWallet}>
-        <Box mr={2}>
-          <Delete />
-        </Box>
-        Delete
-      </DropdownItem>
+      <Confirmation
+        action="Delete"
+        text={`Do you want to delete ${nameWallet} from application?`}
+        open={confirm}
+        setOpen={setConfirm}
+        loading={deleteLoading}
+        onConfirm={deleteWallet}>
+        <DropdownItem danger>
+          <Box mr={2}>
+            <Delete />
+          </Box>
+          Delete
+        </DropdownItem>
+      </Confirmation>
     </Box>
   )
 
-  //TEMPLATE
   return (
     <Container mb={3}>
       <Row>
@@ -115,7 +127,7 @@ const WalletAdvancedView = (props) => {
                     {/*there is member`s info*/}
 
                     <Col>
-                      {privateWallet ? (
+                      {privateWallet && (
                         <MemberAdvancedView
                           horizontal
                           firstName={memberData && memberData.firstName}
@@ -123,20 +135,6 @@ const WalletAdvancedView = (props) => {
                           avatarURL={memberData && memberData.avatarURL}
                           role={'owner'}
                         />
-                      ) : (
-                        <Container>
-                          <Row v="center">
-                            <Col cw="auto">
-                              <Avatar
-                                src="https://firebasestorage.googleapis.com/v0/b/expenses-app-development-9ba1c.appspot.com/o/logo-white(sense)-color(teq).jpglogo-white(sense)-color(teq).jpg?alt=media&token=15b56667-6f0a-4cca-85c0-c2777c420289"
-                                alt="Senseteq"
-                              />
-                            </Col>
-                            <Col cw="auto">
-                              <Typography>Senseteq</Typography>
-                            </Col>
-                          </Row>
-                        </Container>
                       )}
                     </Col>
                   </Row>
