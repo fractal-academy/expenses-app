@@ -11,6 +11,14 @@ import { Confirmation, DropdownItem, Spinner } from 'app/components/Lib'
 import { COLLECTIONS, ROUTES_PATHS } from 'app/constants'
 import { useStyles } from './MemberShow.styles'
 
+/**
+ * @info MemberShow (18 Jan 2021) // CREATION DATE
+ *
+ * @since 12 Feb 2021 ( v.0.0.5 ) // LAST-EDIT DATE
+ *
+ * @return {ReactComponent}
+ */
+
 const MemberShow = () => {
   // [ADDITIONAL_HOOKS]
   const user = useSession()
