@@ -1,8 +1,20 @@
 import PropTypes from 'prop-types'
+import { COLLECTIONS } from 'app/constants'
+import { useParams } from 'react-router-dom'
+import { Spinner } from 'app/components/Lib'
+import { firestore } from 'app/services/Firestore'
+import { useCollection } from 'react-firebase-hooks/firestore'
 import { ProductAdvancedView } from 'domains/Product/components/views'
 
 const WishShow = (props) => {
-  return <ProductAdvancedView type="wish" {...props} />
+  const { id } = useParams()
+  const [value, loading] = useCollection(
+    firestore.collection(COLLECTIONS.WISHES).doc(id)
+  )
+  if (loading) {
+    return <Spinner />
+  }
+  return <ProductAdvancedView type="wish" data={{ ...value.data(), id }} />
 }
 
 WishShow.propTypes = {

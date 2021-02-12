@@ -4,14 +4,14 @@ const RegularProductEdit = (props) => {
   return (
     <ProductAdvancedForm
       show={[
-        'ProductName',
-        'Description',
-        'Price',
-        'Currency',
-        'Assign',
-        'Category',
-        'Measures',
-        'Remind'
+        'productName',
+        'description',
+        'price',
+        'currency',
+        'assign',
+        'category',
+        'measures',
+        'remind'
       ]}
     />
   )
