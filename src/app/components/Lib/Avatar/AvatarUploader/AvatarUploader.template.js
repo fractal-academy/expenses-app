@@ -1,38 +1,60 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { Button } from '@material-ui/core'
 import CloudUploadIcon from '@material-ui/icons/CloudUpload'
 import { Row, Col, Container } from '@qonsoll/react-design'
 import { Avatar } from '../Avatar'
 import { useStyles } from './AvatarUploader.styles'
+import { LoadingButton } from '../../index'
+import upload from 'app/services/Storage/upload'
+
+/**
+ * @info RecruiterListItem (26 Jan 2021) // CREATION DATE
+ * *
+ * @since 10 Feb 2021 ( v.0.0.2 ) // LAST-EDIT DATE
+ *
+ * @return {ReactComponent}
+ */
 
 const CustomAvatarUploader = (props) => {
-  const classes = useStyles()
   // can choose and upload photo to form
   // after will see a selected photo
   const { onChange, value } = props
   //onChange - function provides the ability to attach a parent component to it
   //value is props for this component (it is avatarUrl)
 
+  // [ADDITIONAL_HOOKS]
+  const classes = useStyles()
+
+  // [COMPONENT_STATE_HOOKS]
   const fileUpload = useRef(null)
-
   const [avatarUrl, setAvatarUrl] = useState(value)
-
+  const [loading, setLoading] = useState(false)
+  // [HELPER_FUNCTIONS]
   const fileUploadClick = () => {
     fileUpload.current.click()
   }
 
-  //TODO create service for storage upload
+  //upload photo to storage and form
   const changeAvatar = async () => {
-    //   //upload photo to storage and form
-    //   const fileRef = STORAGE.ref().child(fileUpload.current.files[0].name)
-    //   await fileRef.put(fileUpload.current.files[0]) //add url to storage
-    //   fileRef.getDownloadURL().then((url) => {
-    //     //get url from storage
-    //     setAvatarUrl(url)
-    //     onChange(url) //this value will be available in the parent component
-    //   })
+    try {
+      setLoading(true)
+      //add url to storage
+      const url = await upload(
+        fileUpload.current.files[0],
+        fileUpload.current.files[0].name
+      )
+
+      setAvatarUrl(url)
+
+      //this value will be available in the parent component
+      onChange && onChange(url)
+    } catch (e) {
+      console.log(e)
+    }
+    setLoading(false)
   }
+
+  useEffect(() => value && setAvatarUrl(value), [value])
 
   return (
     <Container>
@@ -43,16 +65,16 @@ const CustomAvatarUploader = (props) => {
       </Row>
       <Row h="center" mb={2}>
         <Col cw={'auto'}>
-          <Button
+          <LoadingButton
+            loading={loading}
             size="small"
             color="primary"
             onClick={fileUploadClick}
-            variant="contained"
             className={classes.button}
             component={'span'}
             startIcon={<CloudUploadIcon />}>
             Upload photo
-          </Button>
+          </LoadingButton>
           <input
             accept="image/*"
             className={classes.uploader}

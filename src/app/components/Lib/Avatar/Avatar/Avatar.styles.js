@@ -1,4 +1,8 @@
 const styles = (theme) => ({
+  xs: {
+    width: theme.spacing(4),
+    height: theme.spacing(4)
+  },
   sm: {
     width: theme.spacing(5),
     height: theme.spacing(5)

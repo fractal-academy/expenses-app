@@ -1,11 +1,22 @@
 import Menu from '@material-ui/core/Menu'
 import { Box } from '@qonsoll/react-design'
 import { cloneElement, useState } from 'react'
+import { Popover } from '@material-ui/core'
+
+const posBottom = { vertical: 'bottom', horizontal: 'center' }
+const transfBottom = { vertical: 'top', horizontal: 'center' }
 
 const Dropdown = (props) => {
-  const { overlay, children, idMenu } = props
+  // INTERFACE
+  const { overlay, children, idMenu, id } = props
+
+  // STATE
   const [anchorEl, setAnchorEl] = useState(null)
+
+  // COMPUTED PROPERTIES
   const open = Boolean(anchorEl)
+
+  // HELPER FUNCTIONS
   const handleOpen = (event) => {
     setAnchorEl(event.currentTarget)
   }
@@ -13,17 +24,20 @@ const Dropdown = (props) => {
     setAnchorEl(null)
   }
 
+  // TEMPLATE
   return (
     <Box>
       {cloneElement(children, { onClick: handleOpen })}
-      <Menu
+      <Popover
         id={idMenu}
         anchorEl={anchorEl}
         keepMounted
         open={open}
-        onClose={handleClose}>
+        onClose={handleClose}
+        anchorOrigin={posBottom}
+        transformOrigin={transfBottom}>
         <div>{cloneElement(overlay, { onClick: handleClose })}</div>
-      </Menu>
+      </Popover>
     </Box>
   )
 }
