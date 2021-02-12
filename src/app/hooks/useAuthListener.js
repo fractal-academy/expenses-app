@@ -87,7 +87,7 @@ const useAuthListener = () => {
     //if user loaded -> fetch his data
     !!user && !userLoading && fetchUser()
     user && session && setLoading(false)
-  }, [user, userLoading, session])
+  }, [user, userLoading])
 
   useEffect(() => {
     const unsubscribe =
@@ -105,7 +105,7 @@ const useAuthListener = () => {
           dispatch({ type: types.LOGIN_USER, payload: data })
           console.log('in')
         })
-    return () => unsubscribe()
+    return () => unsubscribe && unsubscribe()
   }, [])
 
   useEffect(() => {
