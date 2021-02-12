@@ -1,6 +1,10 @@
 import Menu from '@material-ui/core/Menu'
 import { Box } from '@qonsoll/react-design'
 import { cloneElement, useState } from 'react'
+import { Popover } from '@material-ui/core'
+
+const posBottom = { vertical: 'bottom', horizontal: 'center' }
+const transfBottom = { vertical: 'top', horizontal: 'center' }
 
 const Dropdown = (props) => {
   // INTERFACE
@@ -24,14 +28,16 @@ const Dropdown = (props) => {
   return (
     <Box>
       {cloneElement(children, { onClick: handleOpen })}
-      <Menu
+      <Popover
         id={idMenu}
         anchorEl={anchorEl}
         keepMounted
         open={open}
-        onClose={handleClose}>
-        <div>{cloneElement(overlay, { id, onClick: handleClose })}</div>
-      </Menu>
+        onClose={handleClose}
+        anchorOrigin={posBottom}
+        transformOrigin={transfBottom}>
+        <div>{cloneElement(overlay, { onClick: handleClose })}</div>
+      </Popover>
     </Box>
   )
 }

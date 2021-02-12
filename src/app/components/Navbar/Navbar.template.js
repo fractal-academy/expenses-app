@@ -18,7 +18,7 @@ const MENU_ITEMS = [
 const Navbar = (props) => {
   const classes = useStyles()
   const [value, setValue] = useState()
-  const history = useHistory()
+  let history = useHistory()
 
   useEffect(() => {
     setValue(
@@ -29,14 +29,17 @@ const Navbar = (props) => {
   const onMenuChange = (event, newPage) => setValue(newPage)
 
   return (
-    <AppBar className={classes.root} component="nav" position="sticky">
+    <AppBar className={classes.root} component="nav">
       <BottomNavigation value={value} onChange={onMenuChange} showLabels>
         {MENU_ITEMS.map((menuItem) => (
           <BottomNavigationAction
             label={menuItem.label}
             icon={menuItem.icon}
             key={menuItem.label}
-            onClick={() => history.push(menuItem.path)}
+            onClick={() => {
+              console.log('click', menuItem.path)
+              history.push(menuItem.path)
+            }}
           />
         ))}
       </BottomNavigation>
