@@ -5,9 +5,13 @@ import { WalletSimpleViewWithCurrency } from 'app/domains/Wallet/components/view
 import { useStyles } from './WalletSingleSelect.styles'
 
 const WalletSingleSelect = (props) => {
+  // INTERFACE
+  const { data, value, ...rest } = props
+
+  // CUSTOM HOOKS
   const classes = useStyles()
 
-  const { data, value, ...rest } = props
+  // TEMPLATE
   return data ? (
     <Select
       data={Object.values(data)}
@@ -25,13 +29,12 @@ const WalletSingleSelect = (props) => {
       )}
     </Select>
   ) : (
-    <div>no data</div>
+    <div>No data</div>
   )
 }
 
 WalletSingleSelect.propTypes = {
-  id: PropTypes.string,
-  data: PropTypes.object
+  id: PropTypes.string
 }
 
 export default WalletSingleSelect
