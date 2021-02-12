@@ -32,9 +32,7 @@ const MemberCombined = (props) => {
         //TODO refactor: error message to const
         return setOpenSnackbarError('User already exist.')
       }
-    } catch (e) {
-      console.log(e)
-    }
+    } catch (e) {}
 
     try {
       setLoading(true)

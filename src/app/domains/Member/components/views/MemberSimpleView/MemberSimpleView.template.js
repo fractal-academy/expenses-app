@@ -1,23 +1,22 @@
 import { Avatar } from 'components/Lib'
 import PropTypes from 'prop-types'
 import { Typography } from '@material-ui/core'
-import { Container, Row, Col } from '@qonsoll/react-design'
+import { Row, Col } from '@qonsoll/react-design'
 
 const MemberSimpleView = (props) => {
-  const { avatarUrl, withName, name } = props
+  const { avatarURL, withName, name } = props
+
   return (
-    <Container>
-      <Row v="center">
-        <Col cw="auto">
-          <Avatar size="sm" src={avatarUrl} />
+    <Row v="center" noGutters>
+      <Col cw="auto">
+        <Avatar size="xs" src={avatarURL} />
+      </Col>
+      {withName && (
+        <Col>
+          <Typography>{name}</Typography>
         </Col>
-        {withName && (
-          <Col>
-            <Typography>{name}</Typography>
-          </Col>
-        )}
-      </Row>
-    </Container>
+      )}
+    </Row>
   )
 }
 

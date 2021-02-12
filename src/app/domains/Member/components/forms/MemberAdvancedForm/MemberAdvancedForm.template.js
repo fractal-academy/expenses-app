@@ -1,6 +1,5 @@
 import { useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import Button from '@material-ui/core/Button'
 import {
   Form,
   FormGenerator,
@@ -21,12 +20,13 @@ const MemberAdvancedForm = (props) => {
     buttonProps,
     formProps,
     onCancel,
-    loading
+    loading,
+    profile
   } = props
 
-  let history = useHistory()
+  const history = useHistory()
 
-  //because AvatarUploader import as unde
+  //because AvatarUploader import as undefined
   const config = useMemo(
     () => [
       {
@@ -78,7 +78,7 @@ const MemberAdvancedForm = (props) => {
         type: 'text',
         label: 'Email',
         name: 'email',
-        inputProps: { inputProps: { readOnly: true } },
+        inputProps: profile && { inputProps: { readOnly: true } },
         placeholder: 'Enter your email',
         rules: {
           required: 'Enter your email',
