@@ -1,5 +1,11 @@
-import { Container, Row, Col, Box } from '@qonsoll/react-design'
-import { Toolbar, AppBar, IconButton } from '@material-ui/core'
+import { Box } from '@qonsoll/react-design'
+import {
+  Toolbar,
+  AppBar,
+  IconButton,
+  Typography,
+  Divider
+} from '@material-ui/core'
 import { AccountCircle, ExitToApp, ArrowBack } from '@material-ui/icons'
 import { useHistory } from 'react-router-dom'
 import { DropdownItem, Dropdown } from 'components/Lib'
@@ -11,7 +17,7 @@ import { NotificationSimpleView } from 'domains/Notification/components/views'
 
 const Header = (props) => {
   // INTERFACE
-  const { goBack } = props
+  const { goBack, title } = props
   const history = useHistory()
   const classes = useStyles(props)
   const { id } = useSession()
@@ -32,37 +38,39 @@ const Header = (props) => {
     </div>
   )
 
-  // HELPER FUNCTIONS
   const redirect = () => history.goBack()
 
-  // TEMPLATE
   return (
-    <Container>
-      <Row noGutters mb={2}>
-        <Col>
-          <AppBar className={classes.appBar} position="sticky">
-            <Toolbar className={classes.toolBar}>
-              {goBack && (
-                <IconButton edge="start" onClick={redirect}>
-                  <ArrowBack />
-                </IconButton>
-              )}
-              <Box display="flex">
-                <NotificationSimpleView />
-                <Dropdown overlay={DropdownList}>
-                  <IconButton
-                    aria-label="account of current user"
-                    aria-controls="menu-appbar"
-                    aria-haspopup="true">
-                    <AccountCircle />
-                  </IconButton>
-                </Dropdown>
+    <AppBar className={classes.appBar}>
+      <Toolbar className={classes.toolBar}>
+        <Box display="flex" style={{ alignItems: 'center' }}>
+          {goBack && (
+            <>
+              <IconButton edge="start" onClick={redirect}>
+                <ArrowBack />
+              </IconButton>
+              <Box p={1}>
+                <Divider className={classes.divider} orientation="vertical" />
               </Box>
-            </Toolbar>
-          </AppBar>
-        </Col>
-      </Row>
-    </Container>
+            </>
+          )}
+          <Typography color="textPrimary" variant="body1">
+            {title}
+          </Typography>
+        </Box>
+        <Box display="flex">
+          <NotificationSimpleView />
+          <Dropdown overlay={DropdownList}>
+            <IconButton
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true">
+              <AccountCircle />
+            </IconButton>
+          </Dropdown>
+        </Box>
+      </Toolbar>
+    </AppBar>
   )
 }
 

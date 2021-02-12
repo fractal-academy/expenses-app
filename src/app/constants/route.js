@@ -32,43 +32,49 @@ const ROUTES = {
     exact: true
   },
   MEMBER_SHOW: {
-    component: withLayout({ goBack: true })(MemberShow),
+    component: withLayout({ goBack: true, title: 'Member Profile' })(
+      MemberShow
+    ),
     path: ROUTES_PATHS.MEMBER_SHOW,
     exact: true
   },
   MEMBER_EDIT: {
-    component: withLayout()(MemberEdit),
+    component: withLayout({ goBack: true, title: 'Member Edit' })(MemberEdit),
     path: ROUTES_PATHS.MEMBER_EDIT
   },
   MEMBERS_ALL: {
     protect: ['admin'],
-    component: withLayout({ goBack: true })(MemberAll),
+    component: withLayout({ goBack: true, title: 'Members' })(MemberAll),
     path: ROUTES_PATHS.MEMBERS_ALL
   },
   REGULAR_PRODUCTS_ALL: {
     protect: ['admin'],
-    component: withLayout({ goBack: true })(RegularProductAll),
+    component: withLayout({ goBack: true, title: 'Products' })(
+      RegularProductAll
+    ),
     path: ROUTES_PATHS.REGULAR_PRODUCTS_ALL,
     exact: true
   },
   PURCHASE_ALL: {
     protect: ['admin', 'observer'],
-    component: withLayout({ goBack: true })(PurchaseAll),
+    component: withLayout({ goBack: true, title: 'Purchases' })(PurchaseAll),
     path: ROUTES_PATHS.PURCHASE_ALL,
     exact: true
   },
   NOTIFICATIONS_ALL: {
-    component: withLayout({ goBack: true })(NotificationAll),
+    component: withLayout({ goBack: true, title: 'Notifications' })(
+      NotificationAll
+    ),
     path: ROUTES_PATHS.NOTIFICATIONS_ALL
   },
   CATEGORIES_ALL: {
     protect: ['admin'],
-    component: withLayout({ goBack: true })(CategoryAll),
+    component: withLayout({ goBack: true, title: 'Categories' })(CategoryAll),
     path: ROUTES_PATHS.CATEGORIES_ALL
   },
   LOGS_ALL: {
     protect: ['admin'],
-    component: withLayout({ goBack: true })(LogAll),
+    component: withLayout({ goBack: true, title: 'Logs' })(LogAll),
     path: ROUTES_PATHS.LOGS_ALL
   },
   WISHES_ALL: {
@@ -94,42 +100,54 @@ const ROUTES = {
   },
   WALLETS_ALL: {
     protect: ['admin'],
-    component: withLayout({ goBack: true })(WalletAll),
+    component: withLayout({ goBack: true, title: 'Wallets' })(WalletAll),
     path: ROUTES_PATHS.WALLETS_ALL
   },
   CART_SHOW: {
     protect: ['admin'],
-    component: withLayout({ goBack: true })(CartShow),
+    component: withLayout({ goBack: true, title: 'Cart Product Card' })(
+      CartShow
+    ),
     path: ROUTES_PATHS.CART_SHOW,
     exact: true
   },
   CART_EDIT: {
     protect: ['admin'],
-    component: withLayout({ goBack: true })(CartEdit),
+    component: withLayout({ goBack: true, title: 'Cart Product Edit' })(
+      CartEdit
+    ),
     path: ROUTES_PATHS.CART_EDIT
   },
   WISH_SHOW: {
-    component: withLayout({ goBack: true })(WishShow),
+    component: withLayout({ goBack: true, title: 'Wish Product Card' })(
+      WishShow
+    ),
     path: ROUTES_PATHS.WISHES_SHOW,
     exact: true
   },
   WISH_EDIT: {
-    component: withLayout({ goBack: true })(WishEdit),
+    component: withLayout({ goBack: true, title: 'Wish Product Edit' })(
+      WishEdit
+    ),
     path: ROUTES_PATHS.WISHES_EDIT
   },
   REGULAR_PRODUCT_SHOW: {
     protect: ['admin'],
-    component: withLayout({ goBack: true })(RegularProductShow),
+    component: withLayout({ goBack: true, title: 'Product' })(
+      RegularProductShow
+    ),
     path: ROUTES_PATHS.REGULAR_PRODUCT_SHOW,
     exact: true
   },
   REGULAR_PRODUCT_EDIT: {
     protect: ['admin'],
-    component: withLayout({ goBack: true })(RegularProductEdit),
+    component: withLayout({ goBack: true, title: 'Product Edit' })(
+      RegularProductEdit
+    ),
     path: ROUTES_PATHS.REGULAR_PRODUCT_EDIT
   },
   PURCHASE_SHOW: {
-    component: withLayout({ goBack: true })(PurchaseShow),
+    component: withLayout({ goBack: true, title: 'Purchase' })(PurchaseShow),
     path: ROUTES_PATHS.PURCHASE_SHOW
   }
 }

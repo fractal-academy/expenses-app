@@ -36,7 +36,7 @@ const MENU_ITEMS = [
 const Navbar = (props) => {
   const classes = useStyles()
   const [value, setValue] = useState()
-  let history = useHistory()
+  const history = useHistory()
   const user = useSession()
   useEffect(() => {
     setValue(
@@ -47,7 +47,7 @@ const Navbar = (props) => {
   const onMenuChange = (event, newPage) => setValue(newPage)
 
   return (
-    <AppBar className={classes.root} component="nav" position="sticky">
+    <AppBar className={classes.root} component="nav">
       <BottomNavigation value={value} onChange={onMenuChange} showLabels>
         {MENU_ITEMS.map(
           (menuItem) =>
