@@ -4,7 +4,8 @@ import {
   Group,
   ViewList,
   AccountBalanceWallet,
-  Assignment
+  Assignment,
+  CreditCard
 } from '@material-ui/icons'
 import { Container, Row, Col } from '@qonsoll/react-design'
 import { useHistory } from 'react-router-dom'
@@ -24,11 +25,11 @@ const SETTINGS_MENU = [
     icon: <ViewList />
   },
   { title: 'Purchase', path: ROUTES_PATHS.PURCHASE_ALL, icon: <Receipt /> },
-  { title: 'Wallets', path: ROUTES_PATHS.WALLETS_ALL, icon: <Receipt /> }
+  { title: 'Wallets', path: ROUTES_PATHS.WALLETS_ALL, icon: <CreditCard /> }
 ]
 
 const Settings = (props) => {
-  let history = useHistory()
+  const history = useHistory()
   return (
     <List>
       {SETTINGS_MENU.map((menuItem) => {

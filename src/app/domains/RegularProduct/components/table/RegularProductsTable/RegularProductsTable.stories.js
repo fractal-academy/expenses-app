@@ -10,17 +10,4 @@ const Template = (args) => <RegularProductsTable {...args} />
 
 export const RegularProductsTableStory = Template.bind({})
 
-RegularProductsTableStory.args = {
-  products: [
-    {
-      productName: 'sugar',
-      categoryName: 'kitchen',
-      asignee: 'Zhenya'
-    },
-    {
-      productName: 'sugar',
-      categoryName: 'kitchen',
-      asignee: 'Zhenya'
-    }
-  ]
-}
+RegularProductsTableStory.args = {}

@@ -17,12 +17,16 @@ import { useHistory } from 'react-router-dom'
 import { DropdownItem, Dropdown } from 'components/Lib'
 import { ROUTES_PATHS } from 'app/constants'
 import { useStyles } from './Header.style'
+import { NotificationSimpleView } from 'domains/Notification/components/views'
+import { auth } from 'app/services/Auth'
 
 const Header = (props) => {
+  // INTERFACE
   const { goBack, title } = props
-  let history = useHistory()
+  const history = useHistory()
   const classes = useStyles(props)
 
+  // DROPDOWN OVERLAY ELEMENT
   const DropdownList = (
     <div>
       <DropdownItem
@@ -31,10 +35,7 @@ const Header = (props) => {
         <AccountCircle />
         Profile
       </DropdownItem>
-      <DropdownItem
-        divider
-        danger
-        onClick={() => history.push(ROUTES_PATHS.LOGIN)}>
+      <DropdownItem divider danger onClick={() => auth.signOut()}>
         <ExitToApp />
         Log out
       </DropdownItem>

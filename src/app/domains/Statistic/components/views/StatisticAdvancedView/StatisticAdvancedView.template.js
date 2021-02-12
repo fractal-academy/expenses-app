@@ -1,54 +1,27 @@
+import PropTypes from 'prop-types'
+import { useState, useEffect } from 'react'
 import Chart from 'react-apexcharts'
-
-const options = {
-  chart: {
-    id: 'basic-bar',
-    animations: {
-      speed: 200
-    }
-  },
-  legend: {
-    fontSize: 15,
-    markers: {
-      radius: 4,
-      width: 22
-    },
-    itemMargin: {
-      vertical: 4
-    }
-  },
-  tooltip: {
-    enabled: false
-  },
-  plotOptions: {
-    pie: {
-      donut: {
-        labels: {
-          show: true,
-          total: {
-            show: true,
-            fontWeight: 600,
-            color: '#373d3f'
-          }
-        }
-      }
-    }
-  },
-  labels: ['Apples', 'Oranges', 'Berries', 'Grapes'],
-  dataLabels: {
-    formatter: function (val, opts) {
-      return opts.w.globals.series[opts.seriesIndex]
-    }
-  }
-}
-
-const series = [5030, 3000, 1000, 1400]
+import { useStatisticContext } from 'app/context/StatisticsContext'
+import filterDataForChart from 'app/domains/Statistic/helpers/filterDataForChart'
+import optionsForChart from 'app/domains/Statistic/components/views/StatisticAdvancedView/optionsForChart'
 
 const StatisticAdvancedView = (props) => {
-  return <Chart options={options} series={series} type="donut" />
+  const { dataFromDB } = props
+  const { state } = useStatisticContext()
+
+  const [resArrCategory, productSum] = filterDataForChart(
+    state.date,
+    dataFromDB
+  )
+  const [config, setConfig] = useState(optionsForChart)
+  useEffect(() => {
+    setConfig({ ...optionsForChart, labels: resArrCategory })
+  }, [state])
+  return <Chart options={config} series={productSum} type="donut" />
 }
 
-StatisticAdvancedView.propTypes = {}
-StatisticAdvancedView.defaultProps = {}
+StatisticAdvancedView.propTypes = {
+  dataFromDB: PropTypes.array.isRequired
+}
 
 export default StatisticAdvancedView

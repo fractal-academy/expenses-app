@@ -64,7 +64,6 @@ const config = [
       required: 'Enter your email',
       pattern: {
         value: 'email',
-        domain: 'senseteq.io',
         message: 'Enter example@senseteq.io'
       }
     }
@@ -84,7 +83,7 @@ const config = [
 ]
 
 const MemberAdvancedForm = (props) => {
-  let history = useHistory()
+  const history = useHistory()
   const back = () => history.push(ROUTES_PATHS.MEMBER_SHOW)
 
   const {

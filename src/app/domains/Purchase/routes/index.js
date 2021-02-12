@@ -1,2 +1,3 @@
 import { PurchaseAll } from './PurchaseAll'
-export { PurchaseAll }
+import { PurchaseShow } from './PurchaseShow'
+export { PurchaseAll, PurchaseShow }

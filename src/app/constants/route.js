@@ -7,13 +7,14 @@ import {
   RegularProductEdit,
   RegularProductShow
 } from 'domains/RegularProduct/routes'
-import { PurchaseAll } from 'domains/Purchase/routes'
+import { PurchaseAll, PurchaseShow } from 'domains/Purchase/routes'
 import { NotificationAll } from 'domains/Notification/routes'
 import { CategoryAll } from 'domains/Category/routes'
 import { LogAll } from 'domains/Log/routes'
 import { WishAll, WishEdit, WishShow } from 'domains/Wish/routes'
 import { CartAll, CartEdit, CartShow } from 'domains/Cart/routes'
 import { StatisticAll } from 'domains/Statistic/routes'
+import { RejectLogin } from 'app/components'
 import { Settings } from 'app/components/Settings'
 import { WalletAll } from 'domains/Wallet/routes'
 
@@ -22,7 +23,13 @@ import ROUTES_PATHS from './routePaths'
 const ROUTES = {
   LOGIN: {
     component: SessionLogin,
-    path: ROUTES_PATHS.LOGIN
+    path: ROUTES_PATHS.LOGIN,
+    exact: true
+  },
+  REJECT_LOGIN: {
+    render: () => <RejectLogin />,
+    path: ROUTES_PATHS.REJECT_LOGIN,
+    exact: true
   },
   MEMBER_SHOW: {
     component: withLayout({ goBack: true, title: 'Member Profile' })(
@@ -36,10 +43,12 @@ const ROUTES = {
     path: ROUTES_PATHS.MEMBER_EDIT
   },
   MEMBERS_ALL: {
+    protect: ['admin'],
     component: withLayout({ goBack: true, title: 'Members' })(MemberAll),
     path: ROUTES_PATHS.MEMBERS_ALL
   },
   REGULAR_PRODUCTS_ALL: {
+    protect: ['admin'],
     component: withLayout({ goBack: true, title: 'Regular Products' })(
       RegularProductAll
     ),
@@ -47,8 +56,10 @@ const ROUTES = {
     exact: true
   },
   PURCHASE_ALL: {
+    protect: ['admin'],
     component: withLayout({ goBack: true, title: 'Purchases' })(PurchaseAll),
-    path: ROUTES_PATHS.PURCHASE_ALL
+    path: ROUTES_PATHS.PURCHASE_ALL,
+    exact: true
   },
   NOTIFICATIONS_ALL: {
     component: withLayout({ goBack: true, title: 'Notifications' })(
@@ -57,10 +68,12 @@ const ROUTES = {
     path: ROUTES_PATHS.NOTIFICATIONS_ALL
   },
   CATEGORIES_ALL: {
+    protect: ['admin'],
     component: withLayout({ goBack: true, title: 'Categories' })(CategoryAll),
     path: ROUTES_PATHS.CATEGORIES_ALL
   },
   LOGS_ALL: {
+    protect: ['admin'],
     component: withLayout({ goBack: true, title: 'Logs' })(LogAll),
     path: ROUTES_PATHS.LOGS_ALL
   },
@@ -70,23 +83,28 @@ const ROUTES = {
     exact: true
   },
   CARTS_ALL: {
+    protect: ['admin'],
     component: withLayout()(CartAll),
     path: ROUTES_PATHS.CART_ALL,
     exact: true
   },
   STATISTICS_ALL: {
+    protect: ['admin', 'observer'],
     component: withLayout()(StatisticAll),
     path: ROUTES_PATHS.STATISTICS_ALL
   },
   SETTINGS: {
+    protect: ['admin'],
     component: withLayout()(Settings),
     path: ROUTES_PATHS.SETTINGS
   },
   WALLETS_ALL: {
+    protect: ['admin'],
     component: withLayout({ goBack: true, title: 'Wallets' })(WalletAll),
     path: ROUTES_PATHS.WALLETS_ALL
   },
   CART_SHOW: {
+    protect: ['admin'],
     component: withLayout({ goBack: true, title: 'Cart Product Card' })(
       CartShow
     ),
@@ -94,6 +112,7 @@ const ROUTES = {
     exact: true
   },
   CART_EDIT: {
+    protect: ['admin'],
     component: withLayout({ goBack: true, title: 'Cart Product Edit' })(
       CartEdit
     ),
@@ -113,19 +132,23 @@ const ROUTES = {
     path: ROUTES_PATHS.WISHES_EDIT
   },
   REGULAR_PRODUCT_SHOW: {
+    protect: ['admin'],
     component: withLayout(
-      { goBack: true },
-      { title: true }
+      { goBack: true,  title: "Products" }
     )(RegularProductShow),
     path: ROUTES_PATHS.REGULAR_PRODUCT_SHOW,
     exact: true
   },
   REGULAR_PRODUCT_EDIT: {
+    protect: ['admin'],
     component: withLayout(
-      { goBack: true },
-      { title: true }
+      { goBack: true, title: "Product Edit" }
     )(RegularProductEdit),
     path: ROUTES_PATHS.REGULAR_PRODUCT_EDIT
+  },
+  PURCHASE_SHOW: {
+    component: withLayout({ goBack: true })(PurchaseShow),
+    path: ROUTES_PATHS.PURCHASE_SHOW
   }
 }
 
