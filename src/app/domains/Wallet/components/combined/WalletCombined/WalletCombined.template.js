@@ -1,39 +1,83 @@
 import React, { useState } from 'react'
-import { Snackbar } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
-import { Alert } from '@material-ui/lab'
 import { Modal, FabButton } from 'app/components/Lib'
+import { Message } from 'app/components/Lib/Message'
 import { WalletForm } from 'app/domains/Wallet/components/form/WalletForm'
+import { setData } from 'app/services'
 import PropTypes from 'prop-types'
+import { COLLECTIONS } from 'app/constants'
+import md5 from 'md5'
+import { useSession } from 'app/context/SessionContext/hooks'
 
 const WalletCombined = (props) => {
+  // INTERFACE
   const {
     idWallet,
     nameWallet,
-    typeWallet,
     balance,
-    member,
-    currency,
+    idCurrency,
+    idMember,
+    privateWallet,
     title,
     typeModalEdit,
     children
   } = props
 
+  // STATE
   const [open, setOpen] = useState(children && !children)
-  const [openSnackbarSuccess, setOpenSnackbarSuccess] = useState(false)
-  const [openSnackbarError, setOpenSnackbarError] = useState(false)
-
-  const form = useForm({
-    defaultValues: {
-      nameWallet: nameWallet,
-      balance: balance,
-      member: member,
-      typeWallet: typeWallet,
-      currency: currency
-    }
+  const [loading, setLoading] = useState(false)
+  const [statusMessage, setStatusMessage] = useState({
+    open: false,
+    message: '',
+    type: ''
   })
 
-  const onSubmit = () => {
+  const handleClose = () => {
+    setStatusMessage({ open: false, message: '', type: '' })
+    setOpen(false)
+  }
+  // CUSTOM HOOKS
+  const session = useSession()
+  const data = {
+    idWallet,
+    nameWallet,
+    balance,
+    idCurrency,
+    privateWallet,
+    idMember
+  }
+  const form = useForm({
+    defaultValues: (data && data) || {}
+  })
+  // HELPER FUNCTIONS
+  const onSubmit = async (data) => {
+    const { privateWallet } = data
+
+    !!privateWallet && idMember
+      ? (data.idMember = idMember)
+      : !!privateWallet
+      ? (data.idMember = md5(session.email))
+      : delete data.idMember
+
+    if (typeof data.idCurrency === 'object')
+      data.idCurrency = data.idCurrency.cc
+
+    try {
+      setLoading(true)
+      await setData(COLLECTIONS.WALLETS, idWallet, data)
+
+      setStatusMessage({
+        open: true,
+        message: typeModalEdit
+          ? 'Wallet successfully edited'
+          : 'Wallet successfully added',
+        type: 'success'
+      })
+    } catch (error) {
+      setStatusMessage({ open: true, message: error, type: 'error' })
+    }
+    typeModalEdit ? form.reset(data) : form.reset({})
+    setLoading(false)
     setOpen(false)
   }
 
@@ -43,36 +87,23 @@ const WalletCombined = (props) => {
     setOpen(true)
   }
 
-  const handleClose = () => {
-    setOpenSnackbarSuccess(false)
-    setOpenSnackbarError(false)
-    setOpen(false)
-  }
+  // TEMPLATE
   return (
     <>
       {(children &&
         React.cloneElement(children, { onClick: handleClickOpen })) || (
         <FabButton onClick={handleClickOpen} />
       )}
-      <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        open={openSnackbarSuccess}
-        autoHideDuration={6000}
-        onClose={handleClose}>
-        <Alert variant="filled" severity="success">
-          This is a success message!
-        </Alert>
-      </Snackbar>
-      <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        open={openSnackbarError}
-        autoHideDuration={6000}
-        onClose={handleClose}>
-        <Alert variant="filled" severity="error">
-          This is an error message!
-        </Alert>
-      </Snackbar>
-
+      <Message
+        open={statusMessage.open}
+        message={statusMessage.message}
+        vertical="top"
+        horizontal="center"
+        autoHideDuration={1500}
+        variant="filled"
+        severity={statusMessage.type}
+        onClose={handleClose}
+      />
       <Modal
         open={open}
         title={title}
@@ -86,7 +117,8 @@ const WalletCombined = (props) => {
           variant: 'contained',
           color: 'primary',
           type: 'submit',
-          onClick: formSubmit
+          onClick: formSubmit,
+          loading
         }}
         buttonCancelProps={{
           text: 'Cancel',
@@ -94,14 +126,8 @@ const WalletCombined = (props) => {
           onClick: handleClose
         }}>
         <WalletForm
-          formData={{
-            nameWallet: nameWallet,
-            balance: balance,
-            member: member,
-            currency: currency
-          }}
           form={form}
-          show={['nameWallet', 'typeWallet', 'balance', 'currency']}
+          show={['nameWallet', 'balance', 'idCurrency', 'privateWallet']}
           onSubmit={onSubmit}
           buttonProps={{ visible: false }}
         />
@@ -114,5 +140,7 @@ WalletCombined.propTypes = {
   typeModalEdit: PropTypes.bool,
   children: PropTypes.element
 }
-WalletCombined.defaultProps = { title: 'Title', typeModalEdit: false }
+WalletCombined.defaultProps = {
+  typeModalEdit: false
+}
 export default WalletCombined

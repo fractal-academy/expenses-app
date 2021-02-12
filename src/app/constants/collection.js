@@ -7,7 +7,8 @@ const COLLECTIONS = {
   LOGS: 'logs',
   NOTIFICATIONS: 'notifications',
   COMMENTS: 'comments',
-  CATEGORIES: 'categories'
+  CATEGORIES: 'categories',
+  WALLETS: 'wallets'
 }
 
 export default COLLECTIONS
