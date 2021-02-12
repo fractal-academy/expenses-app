@@ -1,40 +1,32 @@
 import PropTypes from 'prop-types'
-import { useState, useEffect } from 'react'
+import { useMemo } from 'react'
 import { MenuItem } from '@material-ui/core'
 import { Select } from 'components/Lib'
-import { getData } from 'app/services/Firestore'
+import { getCollectionRef } from 'app/services/Firestore'
 import { COLLECTIONS } from 'app/constants'
+import { useCollection } from 'react-firebase-hooks/firestore'
 
 const MemberSingleSelect = (props) => {
-  const [currentUser, setCurrentUser] = useState('')
-  const [members, setMembers] = useState([])
-
-  //TODO getData need filter all !pending users
-  useEffect(() => {
-    const fetchUsers = async () => {
-      const res = await getData(COLLECTIONS.USERS)
-      const users = Object.values(res)
-      if (users) {
-        setMembers(users)
-        setCurrentUser(users[0].email)
-      }
-    }
-    fetchUsers()
-  }, [])
-
+  const [value] = useCollection(
+    getCollectionRef(COLLECTIONS.USERS).where('isPending', '!=', true)
+  )
+  const members = useMemo(
+    () => value && value.docs.map((member) => member.data()),
+    [value]
+  )
   return (
-    <Select data={members} value={currentUser} {...props}>
+    <Select data={members && members} value={members && members[0]} {...props}>
       {(item) => (
-        <MenuItem key={item.email} value={item.email}>
-          {item.email}
+        <MenuItem key={item} value={item}>
+          {item.firstName && item.surname
+            ? `${item.firstName} ${item.surname}`
+            : item.email}
         </MenuItem>
       )}
     </Select>
   )
 }
-
 MemberSingleSelect.propTypes = {
   onChange: PropTypes.func.isRequired
 }
-
 export default MemberSingleSelect
