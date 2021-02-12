@@ -1,39 +1,39 @@
-import { Box } from '@qonsoll/react-design'
-import { MemberAdvancedView } from '../../components/views'
-import { useSession } from 'app/context/SessionContext'
+import { useState, useCallback } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { useStyles } from './MemberShow.styles'
-import { useEffect, useState, useCallback } from 'react'
-import { COLLECTIONS, ROUTES_PATHS } from 'app/constants'
-import { getData } from 'app/services/Firestore'
-import { Confirmation, DropdownItem, Spinner } from 'app/components/Lib'
-import firebase from 'app/services/Firebase'
+import { useDocumentData } from 'react-firebase-hooks/firestore'
+import { Box } from '@qonsoll/react-design'
 import { Delete, Edit } from '@material-ui/icons'
+import { useSession } from 'app/context/SessionContext'
+import firebase from 'app/services/Firebase'
+import { getCollectionRef } from 'app/services/Firestore'
+import { MemberAdvancedView } from 'domains/Member/components/views'
+import { Confirmation, DropdownItem, Spinner } from 'app/components/Lib'
+import { COLLECTIONS, ROUTES_PATHS } from 'app/constants'
+import { useStyles } from './MemberShow.styles'
 
-const MemberShow = (props) => {
-  const classes = useStyles()
-  const [userData, setUserData] = useState({})
-  const [loading, setLoading] = useState(false)
-  const [deleteLoading, setDeleteLoading] = useState(false)
-  const [confirm, setConfirm] = useState(false)
+/**
+ * @info MemberShow (18 Jan 2021) // CREATION DATE
+ *
+ * @since 12 Feb 2021 ( v.0.0.5 ) // LAST-EDIT DATE
+ *
+ * @return {ReactComponent}
+ */
+
+const MemberShow = () => {
+  // [ADDITIONAL_HOOKS]
   const user = useSession()
   const { id } = useParams()
   const history = useHistory()
+  const classes = useStyles()
+  const [userData, loading] = useDocumentData(
+    getCollectionRef(COLLECTIONS.USERS).doc(id)
+  )
 
-  useEffect(() => {
-    if (id === user.id) {
-      setUserData(user)
-    } else {
-      setLoading(true)
-      const fetchUser = async () => {
-        const res = await getData(COLLECTIONS.USERS, id)
-        setUserData({ ...res, id })
-      }
-      fetchUser()
-    }
-    setLoading(false)
-  }, [id])
+  // [COMPONENT_STATE_HOOKS]
+  const [deleteLoading, setDeleteLoading] = useState(false)
+  const [confirm, setConfirm] = useState(false)
 
+  // [HELPER_FUNCTIONS]
   const deleteUser = useCallback(async () => {
     setDeleteLoading(true)
     const func = firebase
@@ -45,17 +45,17 @@ const MemberShow = (props) => {
     history.push(ROUTES_PATHS.MEMBERS_ALL)
   }, [userData])
 
-  if (loading || !Object.keys(userData).length) {
+  if (loading || !userData) {
     return <Spinner />
   }
+
+  // [COMPUTED_PROPERTIES]
+  const EDIT_PATH = `${ROUTES_PATHS.MEMBERS_ALL}/${id}/edit`
 
   // DROPDOWN OVERLAY ELEMENT
   const DropdownList = (
     <Box>
-      <DropdownItem
-        onClick={() =>
-          history.push(`${ROUTES_PATHS.MEMBERS_ALL}/${userData.id}/edit`)
-        }>
+      <DropdownItem onClick={() => history.push(EDIT_PATH)}>
         <Box mr={2}>
           <Edit />
         </Box>

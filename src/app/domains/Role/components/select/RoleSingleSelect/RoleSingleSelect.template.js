@@ -6,9 +6,13 @@ import { useStyles } from './RoleSingleSelect.styles'
 
 const RoleSingleSelect = (props) => {
   const classes = useStyles()
-
+  const { value, ...rest } = props
   return (
-    <Select data={ROLES} value={ROLES[0]} className={classes.root} {...props}>
+    <Select
+      data={ROLES}
+      value={value || 'user'}
+      className={classes.root}
+      {...rest}>
       {(item) => (
         <MenuItem value={item} key={item} className={classes.menuItem}>
           {item}
@@ -18,6 +22,8 @@ const RoleSingleSelect = (props) => {
   )
 }
 
-RoleSingleSelect.propTypes = {}
+RoleSingleSelect.propTypes = {
+  value: PropTypes.string.isRequired
+}
 
 export default RoleSingleSelect
