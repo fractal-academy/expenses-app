@@ -7,6 +7,7 @@ const COLLECTIONS = {
   LOGS: 'logs',
   NOTIFICATIONS: 'notifications',
   COMMENTS: 'comments',
+  WALLETS: 'wallets',
   REGULAR_PRODUCTS: 'regularProducts'
 }
 

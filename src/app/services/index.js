@@ -8,8 +8,10 @@ import {
 } from './Firestore'
 import { upload, getURL, deleteURL } from './Storage'
 import { firebase } from './Firebase'
+import { auth } from './Auth'
 
 export {
+  auth,
   setData,
   getData,
   firestore,

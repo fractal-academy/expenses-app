@@ -7,30 +7,11 @@ import {
 } from 'mui-form-generator-fractal-band-2'
 import { CurrencySingleSelect } from 'domains/Currency/components/select'
 import { WalletSingleSelect } from 'domains/Wallet/components/select'
-import { WalletTypeSingleSelect } from 'domains/Wallet/components/selectWalletType'
 
 const config = [
   {
-    label: 'Wallet Type',
-    name: 'typeWallet',
-    Component: WalletTypeSingleSelect,
-    data: ['public', 'private'],
-    defaultValue: '',
-    rules: {
-      required: 'Select wallet type'
-    }
-  },
-  {
-    label: 'Currency',
-    name: 'currency',
-    Component: CurrencySingleSelect,
-    rules: {
-      required: 'Select currency'
-    }
-  },
-  {
     type: 'text',
-    label: 'Name',
+    label: 'Name wallet',
     name: 'nameWallet',
     placeholder: 'Enter name wallet',
     rules: {
@@ -41,13 +22,30 @@ const config = [
     }
   },
   {
-    type: 'number',
-    label: 'Balance',
-    name: 'balance',
-    placeholder: 'Enter balance',
-    rules: {
-      required: 'Enter balance'
-    }
+    label: 'Private',
+    name: 'privateWallet',
+    type: 'checkbox'
+  },
+  {
+    inlineLayout: [
+      {
+        type: 'number',
+        label: 'Balance',
+        name: 'balance',
+        placeholder: 'Enter balance',
+        rules: {
+          required: 'Enter balance'
+        }
+      },
+      {
+        label: 'Currency',
+        name: 'idCurrency',
+        Component: CurrencySingleSelect,
+        rules: {
+          required: 'Select currency'
+        }
+      }
+    ]
   },
   {
     label: 'Wallet',
@@ -60,6 +58,7 @@ const config = [
 ]
 
 const WalletForm = (props) => {
+  // INTERFACE
   const {
     formData,
     show,
@@ -70,6 +69,8 @@ const WalletForm = (props) => {
     formProps,
     fieldProps
   } = props
+
+  // TEMPLATE
   return (
     <Form
       form={form}
