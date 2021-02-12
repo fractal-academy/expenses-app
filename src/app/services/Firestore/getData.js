@@ -20,8 +20,16 @@ async function getData(collection, document) {
       console.log('data', e)
     }
   }
+  let res
+  try {
+    res = await getCollectionRef(collection).get()
+    if (res.empty) {
+      return Promise.reject(new Error('Empty collection'))
+    }
+  } catch (e) {
+    return Promise.reject(e)
+  }
 
-  const res = await getCollectionRef(collection).get()
   res.docs.forEach((doc) => {
     result = { ...result, [doc.id]: doc.data() }
   })
