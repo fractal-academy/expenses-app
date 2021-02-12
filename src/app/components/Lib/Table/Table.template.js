@@ -91,7 +91,7 @@ const CustomTable = (props) => {
                 </TableHead>
                 <TableBody>
                   {products.map((row) => (
-                    <TableRow key={row.name}>
+                    <TableRow key={row.id}>
                       {multiselect && (
                         <TableCell padding="checkbox">
                           <Checkbox

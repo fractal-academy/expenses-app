@@ -4,6 +4,10 @@ import { CollapseWallet } from 'domains/Statistic/components/CollapseWallet'
 import { StatisticProvider } from 'app/context/StatisticsContext'
 import { Typography } from '@material-ui/core'
 import { Row, Container, Col } from '@qonsoll/react-design'
+import { COLLECTIONS } from 'app/constants'
+import { useCollection } from 'react-firebase-hooks/firestore'
+import { Spinner } from 'app/components/Lib'
+import { firestore } from 'app/services'
 
 const mockData = [
   {
@@ -88,31 +92,47 @@ const mockData = [
     price: 400
   }
 ]
+
 const StatisticAll = (props) => {
+  const [value, loading] = useCollection(
+    firestore.collection(COLLECTIONS.PURCHASES)
+  )
+  const data = value?.docs.map((item) => ({
+    ...item.data()
+  }))
+
+  if (loading) {
+    return <Spinner />
+  }
   return (
-    <StatisticProvider>
-      <FiltersWithCollapse />
-      <Container pb={4}>
-        <Row v="center" h="center" noGutters>
-          <Col>
-            <Typography align="center" variant="h5">
-              Category statistic
-            </Typography>
-          </Col>
-        </Row>
-      </Container>
-      <StatisticAdvancedView dataFromDB={mockData} />
-      <Container my={3}>
-        <Row v="center" h="center" noGutters>
-          <Col>
-            <Typography align="center" variant="h5">
-              Wallets statistic
-            </Typography>
-          </Col>
-        </Row>
-      </Container>
-      <CollapseWallet dataFromDB={mockData} />
-    </StatisticProvider>
+    //Switch to firebase data as it'll be ready :)
+    <>
+      {data && (
+        <StatisticProvider>
+          <FiltersWithCollapse />
+          <Container pb={4}>
+            <Row v="center" h="center" noGutters>
+              <Col>
+                <Typography align="center" variant="h5">
+                  Category statistic
+                </Typography>
+              </Col>
+            </Row>
+          </Container>
+          <StatisticAdvancedView dataFromDB={mockData} />
+          <Container my={3}>
+            <Row v="center" h="center" noGutters>
+              <Col>
+                <Typography align="center" variant="h5">
+                  Wallets statistic
+                </Typography>
+              </Col>
+            </Row>
+          </Container>
+          <CollapseWallet dataFromDB={mockData} />
+        </StatisticProvider>
+      )}
+    </>
   )
 }
 

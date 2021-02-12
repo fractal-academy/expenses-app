@@ -16,14 +16,14 @@ import { useDocumentData } from 'react-firebase-hooks/firestore'
 const productTypeMap = {
   cart: {
     item: 'Buy',
-    editRoute: ROUTES_PATHS.CART_EDIT,
+    editRoute: (id) => `${ROUTES_PATHS.CART_ALL}/${id}/edit`,
     actionCollection: 'purchases',
     collection: 'cart',
     displayElements: true
   },
   wish: {
     item: 'Approve',
-    editRoute: ROUTES_PATHS.WISHES_EDIT,
+    editRoute: (id) => `${ROUTES_PATHS.WISHES_ALL}/${id}/edit`,
     actionCollection: 'cart',
     collection: 'wishes',
     displayElements: true
@@ -31,7 +31,7 @@ const productTypeMap = {
 
   product: {
     item: 'Get QR',
-    editRoute: ROUTES_PATHS.REGULAR_PRODUCT_EDIT,
+    editRoute: (id) => `${ROUTES_PATHS.REGULAR_PRODUCTS_ALL}/${id}/edit`,
     actionCollection: '',
     collection: 'regularProduct',
     displayElements: true
@@ -47,14 +47,14 @@ const productTypeMap = {
 }
 
 const ProductAdvancedView = (props) => {
-  const { type } = props
+  const { type, data } = props
 
   const { id } = useParams()
 
   const history = useHistory()
 
   const reminderDate = moment(props.reminderDate).format('MMM Do')
-  const purchasedDate = moment(props.purchasedDate).format('MMM Do')
+  const purchasedDate = moment(data?.dateBuy).format('MMM Do')
 
   const handleDelete = () => {
     deleteData(productCollection, id).then(() => history.goBack())
@@ -66,15 +66,15 @@ const ProductAdvancedView = (props) => {
   }
 
   const firstElement = productTypeMap[type].item
-  const editPages = productTypeMap[type].editRoute
+  const editPages = productTypeMap[type].editRoute(id)
   const displayElements = productTypeMap[type].displayElements
   const productCollection = productTypeMap[type].collection
   const editPath = editPages.replace(':id', id)
   const actionCollection = productTypeMap[type].actionCollection
-  const [data] = useDocumentData(
-    firestore.collection(productCollection).doc(id)
-  )
-
+  // const [data] = useDocumentData(
+  //   firestore.collection(productCollection).doc(id)
+  // )
+  console.log(data)
   const DropdownList = (
     <Container>
       <DropdownItem onClick={handleMoveProduct} divider>
@@ -88,7 +88,6 @@ const ProductAdvancedView = (props) => {
       </DropdownItem>
     </Container>
   )
-
   return (
     <Container>
       <Row h="center">
@@ -118,7 +117,7 @@ const ProductAdvancedView = (props) => {
             productNumber={data?.number}
             text={data?.measure}
           />
-          <CategorySimpleView />
+          <CategorySimpleView nameCategory={data.category} />
           {data?.price && (
             <Row display="flex" h="between" v="center" mb={2}>
               <Col cw="auto">
@@ -137,7 +136,7 @@ const ProductAdvancedView = (props) => {
               <Typography>Assigned user</Typography>
             </Col>
             <Col cw="auto">
-              <Typography>{data?.assignedUser || 'None'}</Typography>
+              <Typography>{data?.assign || 'None'}</Typography>
             </Col>
           </Row>
           {type === 'cart' ? (
