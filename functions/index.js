@@ -5,4 +5,4 @@ const admin = require('firebase-admin')
 admin.initializeApp()
 
 exports.sendMail = sendMail
-exports.deletUser = deleteUser
+exports.deleteUser = deleteUser
