@@ -32,10 +32,6 @@ const WalletCombined = (props) => {
     type: ''
   })
 
-  const handleClose = () => {
-    setStatusMessage({ open: false, message: '', type: '' })
-    setOpen(false)
-  }
   // CUSTOM HOOKS
   const session = useSession()
   const data = {
@@ -49,7 +45,13 @@ const WalletCombined = (props) => {
   const form = useForm({
     defaultValues: (data && data) || {}
   })
+
   // HELPER FUNCTIONS
+  const handleClose = () => {
+    setStatusMessage({ open: false, message: '', type: '' })
+    setOpen(false)
+  }
+
   const onSubmit = async (data) => {
     const { privateWallet } = data
 
@@ -127,7 +129,12 @@ const WalletCombined = (props) => {
         }}>
         <WalletForm
           form={form}
-          show={['nameWallet', 'balance', 'idCurrency', 'privateWallet']}
+          show={[
+            'nameWallet',
+            'balance',
+            'idCurrency',
+            !typeModalEdit && 'privateWallet'
+          ]}
           onSubmit={onSubmit}
           buttonProps={{ visible: false }}
         />
