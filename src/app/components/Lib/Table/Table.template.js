@@ -111,7 +111,7 @@ const CustomTable = (props) => {
                           row.asignedUser &&
                           history.push(`${ROUTES_PATHS.MEMBERS_ALL}/{memberId}`)
                         }>
-                        {row.asignedUser}
+                        {row.assign}
                       </TableCell>
                       <TableCell
                         align="center"

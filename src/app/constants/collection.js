@@ -2,13 +2,13 @@ const COLLECTIONS = {
   USERS: 'users',
   WISHES: 'wishes',
   CART: 'cart',
-  PRODUCTS: 'products',
+  REGULAR_PRODUCTS: 'regularProducts',
   PURCHASES: 'purchases',
   LOGS: 'logs',
   NOTIFICATIONS: 'notifications',
   COMMENTS: 'comments',
-  WALLETS: 'wallets',
-  REGULAR_PRODUCTS: 'regularProducts'
+  CATEGORIES: 'categories',
+  WALLETS: 'wallets'
 }
 
 export default COLLECTIONS

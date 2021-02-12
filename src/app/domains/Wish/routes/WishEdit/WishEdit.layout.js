@@ -16,7 +16,16 @@ const WishEdit = (props) => {
     return <Spinner />
   }
   const onEditProduct = (data) => {
-    setData(COLLECTIONS.WISHES, id, data)
+    setData(COLLECTIONS.WISHES, id, {
+      assign: data.assign.firstName,
+      category: data.category,
+      description: data.description,
+      id: id,
+      price: data.price,
+      measures: data.measures,
+      name: data.name,
+      quantity: data.quantity
+    })
   }
 
   const onSubmitButton = () => history.goBack()

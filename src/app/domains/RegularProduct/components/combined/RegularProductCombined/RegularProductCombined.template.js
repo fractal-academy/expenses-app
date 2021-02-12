@@ -2,6 +2,8 @@ import { Modal, FabButton } from 'app/components/Lib'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
 import { RegularProductAdvancedForm } from 'app/domains/RegularProduct/components/forms'
+import { COLLECTIONS } from 'app/constants'
+import { addData } from 'app/services/Firestore'
 import PropTypes from 'prop-types'
 
 const RegularProductCombined = (props) => {
@@ -10,8 +12,13 @@ const RegularProductCombined = (props) => {
   const [open, setOpen] = useState(false)
   const form = useForm({})
 
-  const onSubmit = () => {
-    setOpen(false)
+  const onAddRegularProduct = (data) => {
+    addData(COLLECTIONS.REGULAR_PRODUCTS, {
+      name: data.productName,
+      category: data.categoryName,
+      assign: data.assigneeName.firstName,
+      reminderDate: new Date(data.reminderDate).getTime()
+    }).then(() => setOpen(false))
   }
   const submitForm = () => form.submit()
 
@@ -47,7 +54,7 @@ const RegularProductCombined = (props) => {
         }}>
         <RegularProductAdvancedForm
           form={form}
-          onSubmit={onSubmit}
+          onSubmit={onAddRegularProduct}
           buttonProps={{ visible: false }}
         />
       </Modal>
