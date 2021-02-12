@@ -11,7 +11,7 @@ import {
   useSession
 } from 'app/context/SessionContext'
 import { START_PAGE } from 'app/constants/role'
-import firebase, { firestore } from 'app/services/Firebase'
+import firebase from 'app/services/Firebase'
 /**
  *
  * @param {firebase.User} user
@@ -19,7 +19,10 @@ import firebase, { firestore } from 'app/services/Firebase'
  * @returns {object} user data
  */
 const activateUser = async (user, userData) => {
-  const userName = user.displayName.split(' ')
+  let userName = user.displayName.split(' ')
+  if (!user.displayName) {
+    userName = ['', '']
+  }
   const data = {
     ...userData,
     isPending: false,
@@ -48,7 +51,12 @@ const useAuthListener = () => {
 
         //first login after invite
         if (userData.isPending) {
-          userData = await activateUser(user, userData)
+          try {
+            userData = await activateUser(user, userData)
+          } catch (e) {
+            console.log(e)
+            setLoading(false)
+          }
         }
 
         //prepare user data for context
@@ -71,7 +79,7 @@ const useAuthListener = () => {
         //if document not exist that means user wasn't invite
         if (e.message.includes('document not exist.')) {
           setLoading(true)
-          sessionStorage.setItem('loggedIn', 'false')
+          sessionStorage.setItem('reject', 'true')
           return setIsInvited(false)
         }
         console.log(e)
@@ -85,25 +93,30 @@ const useAuthListener = () => {
       setLoading(userLoading)
     }
     //if user loaded -> fetch his data
-    !!user && !userLoading && fetchUser()
+    user && !userLoading && fetchUser()
     user && session && setLoading(false)
   }, [user, userLoading])
 
   useEffect(() => {
     const unsubscribe =
       user &&
-      firestore
-        .collection(COLLECTIONS.USERS)
-        .doc(md5(user.email))
-        .onSnapshot((doc) => {
-          const userData = doc.data()
+      setDocumentListener(COLLECTIONS.USERS, md5(user.email), (doc) => {
+        const userData = doc.data()
+        if (!userData && !JSON.parse(sessionStorage.getItem('reject'))) {
+          setLoading(true)
+          auth.signOut()
+          dispatch({ type: types.LOGOUT_USER })
+          history.push(ROUTES_PATHS.LOGIN)
+          setLoading(false)
+        } else if (userData) {
           delete userData.isPending
           const data = {
             id: md5(user.email),
             ...userData
           }
           dispatch({ type: types.LOGIN_USER, payload: data })
-        })
+        }
+      })
     return () => unsubscribe && unsubscribe()
   }, [user])
 
@@ -116,6 +129,7 @@ const useAuthListener = () => {
           .httpsCallable('deleteUser', { timeout: 0 })
         await func({ email: user.email, uid: user.uid })
         setLoading(false)
+        sessionStorage.delete('reject')
       }
       history.push(ROUTES_PATHS.REJECT_LOGIN)
       setLoading(false)
