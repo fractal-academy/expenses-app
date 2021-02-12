@@ -6,11 +6,16 @@ import CreateRoundedIcon from '@material-ui/icons/CreateRounded'
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty'
 import { Container, Row, Col, Box } from '@qonsoll/react-design'
 import { RoleSimpleView } from 'domains/Role/components/views'
-import { Avatar } from 'components/Lib'
+import { Avatar, Dropdown } from 'components/Lib'
 import { ROUTES_PATHS } from 'app/constants'
+import { MoreHorizOutlined } from '@material-ui/icons'
+
+// firebase.functions().useEmulator('localhost', 5001)
 
 const MemberAdvancedView = (props) => {
+  const { profile, DropdownList } = props
   const history = useHistory()
+
   return (
     <Container>
       <Row noGutters>
@@ -30,12 +35,22 @@ const MemberAdvancedView = (props) => {
             </Col>
             {!props.horizontal ? (
               <Col cw={2} v="flex-end">
-                <IconButton
-                  onClick={() =>
-                    history.push(`${ROUTES_PATHS.MEMBERS_ALL}/${props.id}/edit`)
-                  }>
-                  <CreateRoundedIcon />
-                </IconButton>
+                {profile ? (
+                  <IconButton
+                    onClick={() =>
+                      history.push(
+                        `${ROUTES_PATHS.MEMBERS_ALL}/${props.id}/edit`
+                      )
+                    }>
+                    <CreateRoundedIcon />
+                  </IconButton>
+                ) : (
+                  <Dropdown overlay={DropdownList}>
+                    <IconButton color="primary">
+                      <MoreHorizOutlined />
+                    </IconButton>
+                  </Dropdown>
+                )}
               </Col>
             ) : (
               <Col>
