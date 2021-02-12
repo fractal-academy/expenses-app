@@ -14,12 +14,9 @@ const RegularProductCombined = (props) => {
 
   const onAddRegularProduct = (data) => {
     addData(COLLECTIONS.REGULAR_PRODUCTS, {
-      productName: data.productName,
-      categoryName: data.categoryName,
-      assigneeName: {
-        id: data.assigneeName.id,
-        firstName: data.assigneeName.firstName
-      },
+      name: data.productName,
+      category: data.categoryName,
+      assign: data.assigneeName.firstName,
       reminderDate: new Date(data.reminderDate).getTime()
     }).then(() => setOpen(false))
   }

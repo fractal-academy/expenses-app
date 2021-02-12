@@ -48,11 +48,7 @@ const RegularProductsTable = (props) => {
   // USE EFFECTS
   useEffect(() => {
     const recievedData = value?.docs.map((item) => {
-      return {
-        id: item.id,
-        assignedUser: item.data().assigneeName,
-        ...item.data()
-      }
+      return { id: item.id, ...item.data() }
     })
     setProducts(recievedData)
     return () => {}

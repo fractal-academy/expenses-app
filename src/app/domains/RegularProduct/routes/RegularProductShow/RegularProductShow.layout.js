@@ -3,36 +3,25 @@ import { ProductAdvancedView } from 'domains/Product/components/views'
 import { useEffect, useState } from 'react'
 import { getData } from 'app/services/Firestore'
 import { COLLECTIONS } from 'app/constants'
+import { useParams } from 'react-router-dom'
 
 const RegularProductShow = (props) => {
-  const productId = window.location.hash.substring(1)
-  const [product, setProduct] = useState({})
+  const { id } = useParams()
+  const [product, setProduct] = useState(undefined)
 
   useEffect(() => {
+    console.log(id)
     const fetchProduct = async () => {
-      const fetchedProduct = await getData(
-        COLLECTIONS.REGULAR_PRODUCTS,
-        productId
-      )
-      setProduct({
-        ...fetchedProduct,
-        firstName: fetchedProduct.assigneeName.firstName
-      })
+      const fetchedProduct = await getData(COLLECTIONS.REGULAR_PRODUCTS, id)
+      setProduct(fetchedProduct)
     }
     fetchProduct()
-  }, [productId])
+  }, [id])
 
   return (
     <>
       {product && (
-        <ProductAdvancedView
-          type="product"
-          {...props}
-          id={productId}
-          assignedUser={product.firstName}
-          name={product.productName}
-          nameCategory={product.nameCategory}
-        />
+        <ProductAdvancedView type="product" {...props} id={id} data={product} />
       )}
     </>
   )

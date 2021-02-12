@@ -14,7 +14,7 @@ const WishShow = (props) => {
   if (loading) {
     return <Spinner />
   }
-  return <ProductAdvancedView type="wish" data={{ ...value.data(), id }} />
+  return <ProductAdvancedView type="wish" data={value.data()} id={id} />
 }
 
 WishShow.propTypes = {

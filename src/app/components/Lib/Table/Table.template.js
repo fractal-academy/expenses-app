@@ -111,7 +111,7 @@ const CustomTable = (props) => {
                           row.asignedUser &&
                           history.push(`${ROUTES_PATHS.MEMBERS_ALL}/{memberId}`)
                         }>
-                        {row.assignedUser.firstName}
+                        {row.assign}
                       </TableCell>
                       <TableCell
                         align="center"
@@ -126,7 +126,7 @@ const CustomTable = (props) => {
                           row.category &&
                           history.push(ROUTES_PATHS.CATEGORIES_ALL)
                         }>
-                        {row.categoryName}
+                        {row.category}
                       </TableCell>
                     </TableRow>
                   ))}
