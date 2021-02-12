@@ -1,6 +1,6 @@
 import moment from 'moment'
 import PropTypes from 'prop-types'
-import { deleteData, firestore, setData } from 'app/services/Firestore'
+import { deleteData, firestore, setData, addData } from 'app/services/Firestore'
 import { useHistory, useParams } from 'react-router-dom'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import { Typography, IconButton } from '@material-ui/core'
@@ -17,31 +17,31 @@ const productTypeMap = {
   cart: {
     item: 'Buy',
     editRoute: ROUTES_PATHS.CART_EDIT,
+    actionCollection: 'purchases',
     collection: 'cart',
-    action: 'handleBuy',
     displayElements: true
   },
   wish: {
     item: 'Approve',
     editRoute: ROUTES_PATHS.WISHES_EDIT,
+    actionCollection: 'cart',
     collection: 'wishes',
-    action: 'handleApprove',
     displayElements: true
   },
 
   product: {
     item: 'Get QR',
     editRoute: ROUTES_PATHS.REGULAR_PRODUCT_EDIT,
+    actionCollection: '',
     collection: 'regularProduct',
-    action: 'handleQR',
     displayElements: true
   },
 
   purchase: {
     item: '',
     editRoute: '',
+    actionCollection: '',
     collection: 'purchases',
-    action: '',
     displayElements: false
   }
 }
@@ -59,12 +59,10 @@ const ProductAdvancedView = (props) => {
   const handleDelete = () => {
     deleteData(productCollection, id).then(() => history.goBack())
   }
-  const handleBuy = () => {
-    setData('purchases', id, {
-      id: id,
-      name: data.nameProduct,
-      description: data.description
-    }).then(() => handleDelete())
+  const handleMoveProduct = () => {
+    setData(actionCollection, id, data)
+      .then(() => handleDelete())
+      .then(() => history.goBack())
   }
 
   const firstElement = productTypeMap[type].item
@@ -72,14 +70,14 @@ const ProductAdvancedView = (props) => {
   const displayElements = productTypeMap[type].displayElements
   const productCollection = productTypeMap[type].collection
   const editPath = editPages.replace(':id', id)
-  const handleAction = productTypeMap[type].action
+  const actionCollection = productTypeMap[type].actionCollection
   const [data] = useDocumentData(
     firestore.collection(productCollection).doc(id)
   )
 
   const DropdownList = (
     <Container>
-      <DropdownItem divider>
+      <DropdownItem onClick={handleMoveProduct} divider>
         <Typography>{firstElement}</Typography>
       </DropdownItem>
       <DropdownItem onClick={() => history.push(editPath)} divider>
