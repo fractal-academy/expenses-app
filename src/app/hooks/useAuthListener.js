@@ -26,10 +26,14 @@ const activateUser = async (user, userData) => {
   const data = {
     ...userData,
     isPending: false,
-    avatarURL: user.photoURL,
     firstName: userName[0],
     surname: userName[1]
   }
+
+  if (user.photoURL) {
+    data.avatarURL = user.photoURL
+  }
+
   await setData(COLLECTIONS.USERS, md5(user.email), data)
   return data
 }
