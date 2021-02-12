@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import CloudUploadIcon from '@material-ui/icons/CloudUpload'
 import { Row, Col, Container } from '@qonsoll/react-design'
@@ -53,6 +53,8 @@ const CustomAvatarUploader = (props) => {
     }
     setLoading(false)
   }
+
+  useEffect(() => value && setAvatarUrl(value), [value])
 
   return (
     <Container>
