@@ -40,7 +40,9 @@ const Navbar = (props) => {
   const user = useSession()
   useEffect(() => {
     setValue(
-      MENU_ITEMS.findIndex((item) => item.path() === history.location.pathname)
+      MENU_ITEMS.findIndex(
+        (item) => item.path(user.role) === history.location.pathname
+      )
     )
   }, [history])
 

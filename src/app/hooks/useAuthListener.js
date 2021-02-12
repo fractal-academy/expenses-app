@@ -81,7 +81,7 @@ const useAuthListener = () => {
     //if user logout or hasn't login yet
     if (user === null) {
       dispatch({ type: types.LOGOUT_USER })
-      !userLoading && history.push('/')
+      !userLoading && history.push('')
       setLoading(userLoading)
     }
     //if user loaded -> fetch his data
@@ -105,7 +105,7 @@ const useAuthListener = () => {
           dispatch({ type: types.LOGIN_USER, payload: data })
         })
     return () => unsubscribe && unsubscribe()
-  }, [])
+  }, [user])
 
   useEffect(() => {
     if (!isInvited) {
