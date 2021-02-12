@@ -39,10 +39,10 @@ const MemberEdit = (props) => {
       }
       fetchUser()
     }
-  }, [id, user])
+  }, [id])
 
   useEffect(() => {
-    if (Object.keys(userData).length) {
+    if (pageLoading && Object.keys(userData).length) {
       form.reset(userData)
       setPageLoading(false)
     }
