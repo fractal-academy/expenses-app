@@ -36,7 +36,7 @@ const tableTypeMap = {
 }
 
 const CustomTable = (props) => {
-  const { type, products } = props
+  const { type, products, actions = true } = props
 
   // [ADDITIONAL_HOOKS]
   const history = useHistory()
@@ -65,13 +65,15 @@ const CustomTable = (props) => {
     <Container>
       <Row h="center">
         <Col>
-          {multiselect && <Toolbar type={type} numSelected={numSelected} />}
+          {actions && multiselect && (
+            <Toolbar type={type} numSelected={numSelected} />
+          )}
           <Paper variant="outlined" elevation={0}>
             <TableContainer>
               <Table aria-label="customized table">
                 <TableHead>
                   <TableRow className={classes.root}>
-                    {multiselect && (
+                    {actions && multiselect && (
                       <TableCell padding="checkbox">
                         <Checkbox
                           color="primary"
@@ -92,7 +94,7 @@ const CustomTable = (props) => {
                 <TableBody>
                   {products.map((row) => (
                     <TableRow key={row.name}>
-                      {multiselect && (
+                      {actions && multiselect && (
                         <TableCell padding="checkbox">
                           <Checkbox
                             color="primary"
@@ -137,6 +139,7 @@ CustomTable.propTypes = {
   id: PropTypes.number.isRequired,
   type: PropTypes.string.isRequired,
   products: PropTypes.array.isRequired,
+  actions: PropTypes.bool,
   numSelected: PropTypes.number
 }
 export default CustomTable

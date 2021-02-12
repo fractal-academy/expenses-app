@@ -1,4 +1,4 @@
-import storage from './storage'
+import { storage } from '../Firebase'
 import storageReference from './storageReference'
 import upload from './upload'
 import getURL from './getURL'

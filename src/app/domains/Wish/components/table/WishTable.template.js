@@ -1,5 +1,5 @@
 import { Table } from 'components/Lib'
-
+import { useSession } from 'app/context/SessionContext'
 const products = [
   {
     id: 1,
@@ -34,7 +34,10 @@ const products = [
 ]
 
 const WishTable = (props) => {
-  return <Table type="wishes" products={products} />
+  const user = useSession()
+  return (
+    <Table type="wishes" products={products} actions={user.role !== 'user'} />
+  )
 }
 
 export default WishTable

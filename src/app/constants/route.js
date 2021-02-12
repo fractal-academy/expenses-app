@@ -56,7 +56,7 @@ const ROUTES = {
     exact: true
   },
   PURCHASE_ALL: {
-    protect: ['admin'],
+    protect: ['admin', 'observer'],
     component: withLayout({ goBack: true, title: 'Purchases' })(PurchaseAll),
     path: ROUTES_PATHS.PURCHASE_ALL,
     exact: true

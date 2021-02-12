@@ -8,6 +8,9 @@ const reducer = (state, action) => {
         ...action.payload
       }
     }
+    case type.LOGOUT_USER: {
+      return null
+    }
     default:
       return state
   }
