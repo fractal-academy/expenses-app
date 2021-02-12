@@ -1,40 +1,36 @@
 import { useState } from 'react'
-import { Switch, Typography } from '@material-ui/core'
 import { Row } from '@qonsoll/react-design'
-import { useForm } from 'mui-form-generator-fractal-band-2'
 import { FabButton, Modal } from 'app/components/Lib'
+import { Switch, Typography } from '@material-ui/core'
+import { firestore, setData } from 'app/services/Firestore'
+import { useForm } from 'mui-form-generator-fractal-band-2'
 import { ProductSimpleForm } from 'app/domains/Product/components/forms/ProductSimpleForm'
 import { RegularProductSimpleForm } from 'app/domains/RegularProduct/components/forms/RegularProductSimpleForm'
-import { addData, setData } from 'app/services/Firestore'
 
 const ProductCombinedForm = (props) => {
-  const { title, colectionName } = props
-  const [open, setOpen] = useState(false)
+  const { title, collectionName } = props
 
+  const [open, setOpen] = useState(false)
   const [switchState, setSwitchState] = useState(true)
 
   const form = useForm()
 
-  // HELPER FUNCTIONS
   const onAddProduct = (data) => {
-    addData(colectionName, {
+    const id = firestore.collection(collectionName).doc().id
+    setData(collectionName, id, {
+      id: id,
       name: data.nameProduct,
       description: data.description
     }).then(() => setOpen(false))
   }
 
-  const onSubmit = () => {
-    setOpen(false)
-  }
   const submitForm = () => form.submit()
 
-  const handleClickOpen = () => {
-    setOpen(true)
-  }
+  const onSubmit = () => setOpen(false)
 
-  const handleClose = () => {
-    setOpen(false)
-  }
+  const handleClickOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
+
   return (
     <>
       <FabButton onClick={handleClickOpen} />

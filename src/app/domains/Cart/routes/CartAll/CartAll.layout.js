@@ -1,13 +1,13 @@
+import { COLLECTIONS } from 'app/constants'
 import { CartTable } from 'domains/Cart/components/table'
 import { ProductCombinedForm } from 'app/domains/Product/components/combined/ProductCombinedForm'
-import { COLLECTIONS } from 'app/constants'
 const CartAll = (props) => {
   return (
     <>
       <CartTable />
       <ProductCombinedForm
         title="Create Product"
-        colectionName={COLLECTIONS.CART}
+        collectionName={COLLECTIONS.CART}
       />
     </>
   )

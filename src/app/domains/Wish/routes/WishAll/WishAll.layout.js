@@ -1,5 +1,5 @@
-import { WishTable } from 'app/domains/Wish/components/table'
 import { COLLECTIONS } from 'app/constants'
+import { WishTable } from 'app/domains/Wish/components/table'
 import { ProductCombinedForm } from 'domains/Product/components/combined/ProductCombinedForm'
 
 const WishAll = (props) => {
@@ -8,7 +8,7 @@ const WishAll = (props) => {
       <WishTable />
       <ProductCombinedForm
         title="Create Product"
-        colectionName={COLLECTIONS.WISHES}
+        collectionName={COLLECTIONS.WISHES}
       />
     </>
   )
