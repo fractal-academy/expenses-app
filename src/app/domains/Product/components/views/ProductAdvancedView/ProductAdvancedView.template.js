@@ -74,7 +74,6 @@ const ProductAdvancedView = (props) => {
   // const [data] = useDocumentData(
   //   firestore.collection(productCollection).doc(id)
   // )
-  console.log(data)
   const DropdownList = (
     <Container>
       <DropdownItem onClick={handleMoveProduct} divider>

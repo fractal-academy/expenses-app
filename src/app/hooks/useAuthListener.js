@@ -103,7 +103,6 @@ const useAuthListener = () => {
             ...userData
           }
           dispatch({ type: types.LOGIN_USER, payload: data })
-          console.log('in')
         })
     return () => unsubscribe && unsubscribe()
   }, [])
