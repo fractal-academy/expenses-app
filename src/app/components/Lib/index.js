@@ -8,6 +8,8 @@ import { Toolbar } from './Toolbar'
 import { Table } from './Table'
 import { LoadingButton } from './LoadingButton'
 import { Spinner } from './Spinner'
+import { Message } from './Message'
+import { Confirmation } from './Confirmation'
 
 export {
   Select,
@@ -21,5 +23,7 @@ export {
   Toolbar,
   Table,
   LoadingButton,
-  Spinner
+  Spinner,
+  Message,
+  Confirmation
 }

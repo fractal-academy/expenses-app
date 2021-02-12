@@ -1,8 +1,16 @@
-import { storageReference } from '../Storage'
+import { storageReference, getURL } from '../Storage'
 
+/**
+ * @param {Blob | Uint8Array | ArrayBuffer} file - selected filse
+ * @param {string} [path] - upload path
+ * @returns {Promise<firebase.storage.Reference>}
+ */
 async function upload(file, path) {
-  let ref = storageReference(path ? `${path}${file.name}` : file.name)
-  await ref.put(file)
-  return ref
+  const ref = storageReference(path ? `${path}${file.name}` : file.name)
+  const res = await ref.put(file)
+  if (path) {
+    return getURL(ref)
+  }
+  return res
 }
 export default upload

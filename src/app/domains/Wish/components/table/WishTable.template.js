@@ -1,40 +1,11 @@
 import { Table } from 'components/Lib'
-
-const products = [
-  {
-    id: 1,
-    asignedUser: 'Ruslan',
-    productName: 'Sugar',
-    category: 'Kitchen'
-  },
-  {
-    id: 2,
-    asignedUser: 'Ruslan',
-    productName: 'Extra spicy soup',
-    category: 'Kitchen'
-  },
-  {
-    id: 3,
-    asignedUser: 'Ruslan',
-    productName: 'Sugar',
-    category: 'Kitchen'
-  },
-  {
-    id: 4,
-    asignedUser: 'Ruslan',
-    productName: 'Extra spicy soup',
-    category: 'Kitchen'
-  },
-  {
-    id: 5,
-    asignedUser: 'Ruslan',
-    productName: 'Extra spicy soup',
-    category: 'Kitchen'
-  }
-]
+import { COLLECTIONS } from 'app/constants'
+import { firestore } from 'app/services/Firestore'
+import { useCollectionData } from 'react-firebase-hooks/firestore'
 
 const WishTable = (props) => {
-  return <Table type="wishes" products={products} />
+  const [data] = useCollectionData(firestore.collection(COLLECTIONS.WISHES))
+  return <>{data && <Table type="wishes" products={data} />}</>
 }
 
 export default WishTable

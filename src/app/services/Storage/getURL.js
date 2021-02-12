@@ -1,6 +1,9 @@
+/**
+ * @param {firebase.storage.Reference} reference - The reference to the given path.
+ * @returns {Promise<string|any>}
+ */
 async function getURL(reference) {
-  let url = await reference.getDownloadURL()
-  return url
+  return reference.getDownloadURL()
 }
 
 export default getURL

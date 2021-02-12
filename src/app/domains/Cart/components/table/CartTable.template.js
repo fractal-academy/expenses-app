@@ -1,41 +1,17 @@
-import { Table } from 'components/Lib'
+import { Table } from 'app/components/Lib'
+import { firestore } from 'app/services/Firestore'
+import { useCollection } from 'react-firebase-hooks/firestore'
+import { COLLECTIONS } from 'app/constants'
 
-const products = [
-  {
-    id: 1,
-    asignedUser: 'Ruslan',
-    productName: 'Cake',
-    category: 'Kitchen'
-  },
-  {
-    id: 2,
-    asignedUser: 'Ruslan',
-    productName: 'Sugar',
-    category: 'Kitchen'
-  },
-  {
-    id: 3,
-    asignedUser: 'Ruslan',
-    productName: 'Extra spicy soup',
-    category: 'Kitchen'
-  },
-  {
-    id: 4,
-    asignedUser: 'Ruslan',
-    productName: 'Extra spicy soup',
-    category: 'Kitchen'
-  },
-  {
-    id: 5,
-    asignedUser: 'Ruslan',
-    productName: 'Extra spicy soup',
-    category: 'Kitchen'
-  }
-]
-const CartTable = (props) => {
-  return <Table type="cart" products={products} />
+const CartTable = () => {
+  // CUSTOM HOOKS
+  const [value] = useCollection(firestore.collection(COLLECTIONS.CART))
+  const data = value?.docs.map((item) => ({
+    id: item.id,
+    ...item.data()
+  }))
+
+  return <>{value && <Table type="cart" products={data} />}</>
 }
-
-CartTable.propTypes = {}
 
 export default CartTable

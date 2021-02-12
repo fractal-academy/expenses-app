@@ -9,23 +9,12 @@ import {
 import { Container, Row, Col } from '@qonsoll/react-design'
 import { MemberAdvancedView } from 'domains/Member/components/views'
 import SearchIcon from '@material-ui/icons/Search'
+import { useHistory } from 'react-router-dom'
+import { ROUTES_PATHS } from 'app/constants'
 
-const USERS = [
-  { name: 'Olena', role: 'User' },
-  { name: 'Sasha', role: 'User' },
-  { name: 'Max', role: 'User' },
-  { name: 'Dima', role: 'User' },
-  { name: 'Olena', role: 'User' },
-  { name: 'Sasha', role: 'User' },
-  { name: 'Max', role: 'User' },
-  { name: 'Dima', role: 'User' },
-  { name: 'Olena', role: 'User' },
-  { name: 'Sasha', role: 'User' },
-  { name: 'Max', role: 'User' },
-  { name: 'Dima', role: 'User' },
-  { name: 'Ruslan', role: 'Admin' }
-]
-const MemberList = () => {
+const MemberList = (props) => {
+  const { users } = props
+  let history = useHistory()
   return (
     <Container>
       <Row>
@@ -45,17 +34,14 @@ const MemberList = () => {
           />
 
           <List>
-            {USERS.map((user) => {
+            {users.map((user) => {
               return (
-                <Fragment key={Math.random()}>
-                  <ListItem>
-                    <MemberAdvancedView
-                      horizontal
-                      withName
-                      role={user.role}
-                      name={user.name}
-                      avatarUrl="https://cdn4.iconfinder.com/data/icons/avatars-xmas-giveaway/128/girl_avatar_child_kid-512.png"
-                    />
+                <Fragment key={user.id}>
+                  <ListItem
+                    onClick={() =>
+                      history.push(`${ROUTES_PATHS.MEMBERS_ALL}/${user.id}`)
+                    }>
+                    <MemberAdvancedView horizontal withName {...user} />
                   </ListItem>
                   <Divider />
                 </Fragment>

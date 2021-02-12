@@ -9,14 +9,12 @@ import { MemberSingleSelect } from 'app/domains/Member/components/select'
 import { CategorySelectWithCreate } from 'app/domains/Category/components/select'
 import { MeasureSingleSelectWithCreate } from 'app/domains/Measure/components/select'
 import { CurrencySingleSelect } from 'domains/Currency/components/select'
-// if you need to use form on Product Edit(Wish) use props show show: [ 'ProductName','Description', 'Price','Assign','Category','Measures' ]
-//if you need to use form on Product Edit(Cart) use props show show: [ 'ProductName','Description', 'Price','Assign','Category','Measures','Date' ]
-//if you need to use form on Product Edit(Regular) use props show show: [ 'ProductName','Description', 'Price','Assign','Category','Measures','Remind' ]
+
 const config = [
   {
     type: 'text',
     label: 'Product Name',
-    name: 'ProductName',
+    name: 'name',
     placeholder: 'Enter product name',
     rules: {
       required: 'Enter product name',
@@ -28,7 +26,7 @@ const config = [
   {
     type: 'multiline',
     label: 'Description',
-    name: 'Description',
+    name: 'description',
     placeholder: 'Enter description'
   },
   {
@@ -36,7 +34,7 @@ const config = [
       {
         type: 'number',
         label: 'Price',
-        name: 'Price',
+        name: 'price',
         placeholder: 'Enter price',
         rules: {
           required: 'Enter price'
@@ -51,28 +49,34 @@ const config = [
   },
   {
     label: 'Measures',
-    name: 'Measures',
+    name: 'measures',
     Component: MeasureSingleSelectWithCreate
   },
   {
     label: 'Assign',
-    name: 'Assign',
+    name: 'assign',
     Component: MemberSingleSelect
   },
   {
     label: 'Category',
-    name: 'Category',
+    name: 'category',
     Component: CategorySelectWithCreate
   },
   {
     type: 'date',
-    label: 'Remind',
+    label: 'remind',
     name: 'Remind'
   },
   {
     type: 'date',
     label: 'Date',
-    name: 'Date'
+    name: 'dateBuy'
+  },
+  {
+    type: 'number',
+    label: 'Quantity',
+    name: 'quantity',
+    placeholder: 'Enter quantity'
   }
 ]
 
@@ -86,7 +90,6 @@ const ProductAdvancedForm = (props) => {
     buttonProps,
     formProps
   } = props
-
   return (
     <Form
       form={form}
