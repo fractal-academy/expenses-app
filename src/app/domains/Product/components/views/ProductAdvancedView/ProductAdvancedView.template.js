@@ -16,6 +16,7 @@ import { useDocumentData } from 'react-firebase-hooks/firestore'
 const productTypeMap = {
   cart: {
     item: 'Buy',
+    path: ROUTES_PATHS.CART_ALL,
     editRoute: (id) => `${ROUTES_PATHS.CART_ALL}/${id}/edit`,
     actionCollection: 'purchases',
     collection: 'cart',
@@ -23,6 +24,7 @@ const productTypeMap = {
   },
   wish: {
     item: 'Approve',
+    path: ROUTES_PATHS.WISHES_ALL,
     editRoute: (id) => `${ROUTES_PATHS.WISHES_ALL}/${id}/edit`,
     actionCollection: 'cart',
     collection: 'wishes',
@@ -31,6 +33,7 @@ const productTypeMap = {
 
   product: {
     item: 'Get QR',
+    path: ROUTES_PATHS.REGULAR_PRODUCTS_ALL,
     editRoute: (id) => `${ROUTES_PATHS.REGULAR_PRODUCTS_ALL}/${id}/edit`,
     actionCollection: '',
     collection: 'regularProduct',
@@ -39,6 +42,7 @@ const productTypeMap = {
 
   purchase: {
     item: '',
+    path: ROUTES_PATHS.PURCHASE_ALL,
     editRoute: '',
     actionCollection: '',
     collection: 'purchases',
@@ -47,9 +51,7 @@ const productTypeMap = {
 }
 
 const ProductAdvancedView = (props) => {
-  const { type, data } = props
-
-  const { id } = useParams()
+  const { type, data, id } = props
 
   const history = useHistory()
 
@@ -62,9 +64,9 @@ const ProductAdvancedView = (props) => {
   const handleMoveProduct = () => {
     setData(actionCollection, id, data)
       .then(() => handleDelete())
-      .then(() => history.goBack())
+      .then(() => history.push(ROUTES_PATHS.CART_ALL))
   }
-
+  const path = productTypeMap[type].path
   const firstElement = productTypeMap[type].item
   const editPages = productTypeMap[type].editRoute(id)
   const displayElements = productTypeMap[type].displayElements
@@ -79,7 +81,7 @@ const ProductAdvancedView = (props) => {
       <DropdownItem onClick={handleMoveProduct} divider>
         <Typography>{firstElement}</Typography>
       </DropdownItem>
-      <DropdownItem onClick={() => history.push(editPath)} divider>
+      <DropdownItem onClick={() => history.push(editPages)} divider>
         <Typography>Edit</Typography>
       </DropdownItem>
       <DropdownItem onClick={handleDelete} danger>
@@ -113,10 +115,10 @@ const ProductAdvancedView = (props) => {
             </Col>
           </Row>
           <MeasureSimpleView
-            productNumber={data?.number}
+            productNumber={data?.quantity}
             text={data?.measure}
           />
-          <CategorySimpleView nameCategory={data.category} />
+          <CategorySimpleView nameCategory={data?.category} />
           {data?.price && (
             <Row display="flex" h="between" v="center" mb={2}>
               <Col cw="auto">

@@ -15,7 +15,7 @@ const CartShow = (props) => {
   if (loading) {
     return <Spinner />
   }
-  return <ProductAdvancedView type="cart" data={{ ...value.data(), id }} />
+  return <ProductAdvancedView type="cart" data={value.data()} id={id} />
 }
 
 CartShow.propTypes = {

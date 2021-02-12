@@ -17,7 +17,7 @@ const ListHOC = (props) => {
   //     })
   // }, [])
 
-  return <List>{data.map(children)}</List>
+  return <>{data && <List>{data.map(children)}</List>}</>
 }
 
 export default ListHOC

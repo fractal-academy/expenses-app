@@ -11,12 +11,24 @@ const CartEdit = (props) => {
   const [value, loading] = useCollection(
     firestore.collection(COLLECTIONS.CART).doc(id)
   )
-
   if (loading) {
     return <Spinner />
   }
-  const onEditProduct = (data) => {
-    setData(COLLECTIONS.CART, id, data)
+  console.log(value.data(), loading)
+
+  const onEditProduct = async (data) => {
+    console.log('data', data)
+    await setData(COLLECTIONS.CART, id, {
+      assign: data.assign.firstName,
+      category: data.category,
+      dateBuy: data.dateBuy,
+      description: data.description,
+      id: id,
+      price: data.price,
+      measures: data.measures,
+      name: data.name,
+      quantity: data.quantity
+    })
   }
 
   const onSubmitButton = () => history.goBack()

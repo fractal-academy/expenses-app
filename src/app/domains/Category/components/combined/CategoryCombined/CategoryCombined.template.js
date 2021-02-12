@@ -6,6 +6,7 @@ import { Modal, FabButton } from 'app/components/Lib'
 import { CategoryForm } from 'domains/Category/components/form'
 import PropTypes from 'prop-types'
 import { addData, setData } from 'app/services/Firestore'
+import { COLLECTIONS } from 'app/constants'
 
 const CategoryCombined = (props) => {
   // INTERFACE
@@ -21,7 +22,7 @@ const CategoryCombined = (props) => {
 
   // HELPER FUNCTIONS
   const onAddCategory = (data) => {
-    addData('categories', {
+    addData(COLLECTIONS.CATEGORIES, {
       nameCategory: data.nameCategory,
       colorCategory: data.color,
       currency: data.currency.cc,
@@ -31,7 +32,7 @@ const CategoryCombined = (props) => {
   }
 
   const onEditCategory = (data) => {
-    setData('categories', categoryId, {
+    setData(COLLECTIONS.CATEGORIES, categoryId, {
       nameCategory: data.nameCategory,
       colorCategory: data.color,
       currency: data.currency.cc,
