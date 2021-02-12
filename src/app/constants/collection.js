@@ -2,11 +2,12 @@ const COLLECTIONS = {
   USERS: 'users',
   WISHES: 'wishes',
   CART: 'cart',
-  PRODUCTS: 'products',
+  REGULAR_PRODUCTS: 'regularProducts',
   PURCHASES: 'purchases',
   LOGS: 'logs',
   NOTIFICATIONS: 'notifications',
-  COMMENTS: 'comments'
+  COMMENTS: 'comments',
+  CATEGORIES: 'categories'
 }
 
 export default COLLECTIONS

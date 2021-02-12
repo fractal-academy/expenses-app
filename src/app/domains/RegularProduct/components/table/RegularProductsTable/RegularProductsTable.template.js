@@ -1,4 +1,8 @@
 import { Table } from 'components/Lib'
+import { useEffect, useState } from 'react'
+import { useCollection } from 'react-firebase-hooks/firestore'
+import { getCollectionRef } from 'app/services/Firestore'
+import { COLLECTIONS } from 'app/constants'
 
 const products = [
   {
@@ -34,7 +38,27 @@ const products = [
 ]
 
 const RegularProductsTable = (props) => {
-  return <Table type="regular" products={products} />
+  const [products, setProducts] = useState([])
+
+  // CUSTOM HOOKS
+  const [value, loading, error] = useCollection(
+    getCollectionRef(COLLECTIONS.REGULAR_PRODUCTS)
+  )
+
+  // USE EFFECTS
+  useEffect(() => {
+    const recievedData = value?.docs.map((item) => {
+      return {
+        id: item.id,
+        assignedUser: item.data().assigneeName,
+        ...item.data()
+      }
+    })
+    setProducts(recievedData)
+    return () => {}
+  }, [value])
+
+  return <>{products && <Table type="regular" products={products} />}</>
 }
 
 export default RegularProductsTable

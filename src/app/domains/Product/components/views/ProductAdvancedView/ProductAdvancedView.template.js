@@ -10,7 +10,6 @@ import { CommentList } from 'domains/Comment/components/list/CommentList'
 import { CategorySimpleView } from 'domains/Category/components/views/CategorySimpleView'
 import { CurrencySimpleView } from 'domains/Currency/components/views/CurrencySimpleView'
 import { ROUTES_PATHS } from 'app/constants'
-
 const productTypeMap = {
   cart: {
     item: 'Buy',
@@ -38,6 +37,7 @@ const productTypeMap = {
 
 const ProductAdvancedView = (props) => {
   const {
+    id,
     type,
     name,
     description,
@@ -45,7 +45,8 @@ const ProductAdvancedView = (props) => {
     measure,
     price,
     currency,
-    assignedUser
+    assignedUser,
+    nameCategory
   } = props
 
   const history = useHistory()
@@ -62,7 +63,9 @@ const ProductAdvancedView = (props) => {
       <DropdownItem divider>
         <Typography>{firstElement}</Typography>
       </DropdownItem>
-      <DropdownItem onClick={() => history.push(editPages)} divider>
+      <DropdownItem
+        onClick={() => history.push(`${editPages}=#${id}/edit`)}
+        divider>
         <Typography>Edit</Typography>
       </DropdownItem>
       <DropdownItem divider danger>
@@ -97,7 +100,7 @@ const ProductAdvancedView = (props) => {
             </Col>
           </Row>
           <MeasureSimpleView productNumber={number} text={measure} />
-          <CategorySimpleView />
+          <CategorySimpleView nameCategory={nameCategory} />
           {price && (
             <Row display="flex" h="between" v="center" mb={2}>
               <Col cw="auto">

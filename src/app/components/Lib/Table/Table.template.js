@@ -31,7 +31,7 @@ const tableTypeMap = {
   regular: {
     multiselect: false,
     middleCell: TABLE_CELLS[1],
-    productPath: `${ROUTES_PATHS.REGULAR_PRODUCTS_ALL}/{regularProductId}`
+    productPath: ROUTES_PATHS.REGULAR_PRODUCTS_ALL
   }
 }
 
@@ -91,7 +91,7 @@ const CustomTable = (props) => {
                 </TableHead>
                 <TableBody>
                   {products.map((row) => (
-                    <TableRow key={row.name}>
+                    <TableRow key={row.id}>
                       {multiselect && (
                         <TableCell padding="checkbox">
                           <Checkbox
@@ -108,11 +108,13 @@ const CustomTable = (props) => {
                         onClick={() =>
                           history.push(`${ROUTES_PATHS.MEMBERS_ALL}/{memberId}`)
                         }>
-                        {row.asignedUser}
+                        {row.assignedUser.firstName}
                       </TableCell>
                       <TableCell
                         align="center"
-                        onClick={() => history.push(productPath)}>
+                        onClick={() =>
+                          history.push(`${productPath}/:id=#${row.id}`)
+                        }>
                         {row.productName}
                       </TableCell>
                       <TableCell
@@ -120,7 +122,7 @@ const CustomTable = (props) => {
                         onClick={() =>
                           history.push(ROUTES_PATHS.CATEGORIES_ALL)
                         }>
-                        {row.category}
+                        {row.categoryName}
                       </TableCell>
                     </TableRow>
                   ))}
