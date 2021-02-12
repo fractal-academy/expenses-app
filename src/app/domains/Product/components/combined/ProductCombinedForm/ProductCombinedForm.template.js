@@ -5,7 +5,7 @@ import { useForm } from 'mui-form-generator-fractal-band-2'
 import { FabButton, Modal } from 'app/components/Lib'
 import { ProductSimpleForm } from 'app/domains/Product/components/forms/ProductSimpleForm'
 import { RegularProductSimpleForm } from 'app/domains/RegularProduct/components/forms/RegularProductSimpleForm'
-import { addData, setData } from 'app/services/Firestore'
+import { addData } from 'app/services/Firestore'
 
 const ProductCombinedForm = (props) => {
   const { title, collectionName } = props

@@ -15,12 +15,13 @@ const CartEdit = (props) => {
   if (loading) {
     return <Spinner />
   }
-
-  const onEditCategory = (data) => {
+  console.log(value)
+  const onEditProduct = (data) => {
+    console.log(data)
     setData(COLLECTIONS.CART, id, data)
   }
-  const onSubmit = () => history.push(ROUTES_PATHS.CART_ALL)
-  const onCancel = () => history.push(`${ROUTES_PATHS.CART_ALL}/${id}`)
+  const onSubmitButton = () => history.goBack()
+  const onCancel = () => history.goBack()
   return (
     <ProductAdvancedForm
       show={[
@@ -31,11 +32,11 @@ const CartEdit = (props) => {
         'assign',
         'category',
         'measures',
-        'date'
+        'dateBuy'
       ]}
       formData={{ ...value.data(), id }}
-      onSubmit={onEditCategory}
-      buttonProps={{ onClickSubmit: onSubmit, onClickCancel: onCancel }}
+      onSubmit={onEditProduct}
+      buttonProps={{ onClickSubmit: onSubmitButton, onClickCancel: onCancel }}
     />
   )
 }

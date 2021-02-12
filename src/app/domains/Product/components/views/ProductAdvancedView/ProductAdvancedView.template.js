@@ -37,11 +37,21 @@ const productTypeMap = {
 }
 
 const ProductAdvancedView = (props) => {
-  const { type, number, measure, price, currency, assignedUser, data } = props
+  const {
+    type,
+    name,
+    description,
+    number,
+    measure,
+    price,
+    currency,
+    assignedUser,
+    data
+  } = props
   const history = useHistory()
 
   const reminderDate = moment(props.reminderDate).format('MMM Do')
-  const purchasedDate = moment(data.date).format('MMM Do')
+  const purchasedDate = moment(data.dateBuy).format('MMM Do')
 
   const firstElement = productTypeMap[type].item
   const editPages = productTypeMap[type].editRoute(data.id)
@@ -87,7 +97,7 @@ const ProductAdvancedView = (props) => {
           </Row>
           <MeasureSimpleView productNumber={number} text={measure} />
           <CategorySimpleView nameCategory={data.category} />
-          {data.price && (
+          {price && (
             <Row display="flex" h="between" v="center" mb={2}>
               <Col cw="auto">
                 <Typography>Price</Typography>
@@ -129,7 +139,7 @@ const ProductAdvancedView = (props) => {
                 <Typography>Reminder date</Typography>
               </Col>
               <Col cw="auto">
-                <Typography>{data.reminderDate || 'None'}</Typography>
+                <Typography>{reminderDate || 'None'}</Typography>
               </Col>
             </Row>
           ) : (

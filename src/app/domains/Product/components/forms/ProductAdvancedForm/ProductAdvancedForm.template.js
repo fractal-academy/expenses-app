@@ -72,7 +72,7 @@ const config = [
   {
     type: 'date',
     label: 'Date',
-    name: 'date'
+    name: 'dateBuy'
   }
 ]
 
