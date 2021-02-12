@@ -76,7 +76,7 @@ const WalletCombined = (props) => {
     } catch (error) {
       setStatusMessage({ open: true, message: error, type: 'error' })
     }
-    form.reset(data)
+    typeModalEdit ? form.reset(data) : form.reset({})
     setLoading(false)
     setOpen(false)
   }
