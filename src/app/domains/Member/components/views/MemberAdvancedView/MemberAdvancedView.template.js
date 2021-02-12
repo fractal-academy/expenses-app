@@ -1,15 +1,21 @@
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import { useHistory } from 'react-router-dom'
-import { Typography, IconButton } from '@material-ui/core'
+import { Typography, IconButton, Chip } from '@material-ui/core'
 import CreateRoundedIcon from '@material-ui/icons/CreateRounded'
+import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty'
 import { Container, Row, Col, Box } from '@qonsoll/react-design'
 import { RoleSimpleView } from 'domains/Role/components/views'
-import { Avatar } from 'components/Lib'
+import { Avatar, Dropdown } from 'components/Lib'
 import { ROUTES_PATHS } from 'app/constants'
+import { MoreHorizOutlined } from '@material-ui/icons'
+
+// firebase.functions().useEmulator('localhost', 5001)
 
 const MemberAdvancedView = (props) => {
+  const { profile, DropdownList } = props
   const history = useHistory()
+
   return (
     <Container>
       <Row noGutters>
@@ -22,22 +28,36 @@ const MemberAdvancedView = (props) => {
                   borderRadius="xxl">
                   <Avatar
                     size={props.horizontal ? 'sm' : 'lg'}
-                    src={props.avatarUrl}
+                    src={props.avatarURL}
                   />
                 </Box>
               </Row>
             </Col>
             {!props.horizontal ? (
               <Col cw={2} v="flex-end">
-                <IconButton
-                  onClick={() => history.push(ROUTES_PATHS.MEMBER_EDIT)}>
-                  <CreateRoundedIcon />
-                </IconButton>
+                {profile ? (
+                  <IconButton
+                    onClick={() =>
+                      history.push(
+                        `${ROUTES_PATHS.MEMBERS_ALL}/${props.id}/edit`
+                      )
+                    }>
+                    <CreateRoundedIcon />
+                  </IconButton>
+                ) : (
+                  <Dropdown overlay={DropdownList}>
+                    <IconButton color="primary">
+                      <MoreHorizOutlined />
+                    </IconButton>
+                  </Dropdown>
+                )}
               </Col>
             ) : (
               <Col>
                 <Typography>
-                  {props.name} {props.surname}
+                  {props.isPending
+                    ? props.email
+                    : `${props.firstName} ${props.surname}`}
                 </Typography>
                 <RoleSimpleView
                   variant="caption"
@@ -45,6 +65,15 @@ const MemberAdvancedView = (props) => {
                   align="center"
                   role={props.role}
                 />
+                {props.isPending && (
+                  <Box mx={2} display="inline-block">
+                    <Chip
+                      size="small"
+                      label="Pending"
+                      icon={<HourglassEmptyIcon />}
+                    />
+                  </Box>
+                )}
               </Col>
             )}
           </Row>
@@ -53,7 +82,7 @@ const MemberAdvancedView = (props) => {
               <Row mb={4}>
                 <Col cw="auto">
                   <Typography variant="h5">
-                    {props.name} {props.surname}
+                    {props.firstName} {props.surname}
                   </Typography>
                 </Col>
                 <Col v="center">
@@ -78,18 +107,20 @@ const MemberAdvancedView = (props) => {
                   </Row>
                 </Col>
               </Row>
-              <Row mb={3}>
-                <Col>
-                  <Row>
-                    <Typography variant="body2" color="textSecondary">
-                      Phone
-                    </Typography>
-                  </Row>
-                  <Row>
-                    <Typography variant="h6">{props.phone}</Typography>
-                  </Row>
-                </Col>
-              </Row>
+              {props.phone && (
+                <Row mb={3}>
+                  <Col>
+                    <Row>
+                      <Typography variant="body2" color="textSecondary">
+                        Phone
+                      </Typography>
+                    </Row>
+                    <Row>
+                      <Typography variant="h6">{props.phone}</Typography>
+                    </Row>
+                  </Col>
+                </Row>
+              )}
               {props.birthday && (
                 <Row mb={3}>
                   <Col>
@@ -116,7 +147,7 @@ const MemberAdvancedView = (props) => {
 
 MemberAdvancedView.propTypes = {
   horizontal: PropTypes.bool,
-  name: PropTypes.string.isRequired,
+  firstName: PropTypes.string.isRequired,
   surname: PropTypes.string,
   role: PropTypes.string.isRequired,
   email: PropTypes.string,

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 
 const useStyles = makeStyles(styles)
 
-const SIZE_AVATAR = ['sm', 'md', 'lg']
+const SIZE_AVATAR = ['xs', 'sm', 'md', 'lg']
 
 const CustomAvatar = (props) => {
   const { alt, src, children } = props

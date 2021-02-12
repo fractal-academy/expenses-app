@@ -21,22 +21,22 @@ const tableTypeMap = {
   cart: {
     multiselect: true,
     middleCell: TABLE_CELLS[1],
-    productPath: `${ROUTES_PATHS.CART_ALL}/{cartId}`
+    productPath: ROUTES_PATHS.CART_ALL
   },
   wishes: {
     multiselect: true,
     middleCell: TABLE_CELLS[0],
-    productPath: `${ROUTES_PATHS.WISHES_ALL}/{wishId}`
+    productPath: ROUTES_PATHS.WISHES_ALL
   },
   regular: {
     multiselect: false,
     middleCell: TABLE_CELLS[1],
-    productPath: `${ROUTES_PATHS.REGULAR_PRODUCTS_ALL}/{regularProductId}`
+    productPath: ROUTES_PATHS.REGULAR_PRODUCTS_ALL
   }
 }
 
 const CustomTable = (props) => {
-  const { type, products } = props
+  const { type, products, actions = true } = props
 
   // [ADDITIONAL_HOOKS]
   const history = useHistory()
@@ -65,13 +65,15 @@ const CustomTable = (props) => {
     <Container>
       <Row h="center">
         <Col>
-          {multiselect && <Toolbar type={type} numSelected={numSelected} />}
+          {actions && multiselect && (
+            <Toolbar type={type} numSelected={numSelected} />
+          )}
           <Paper variant="outlined" elevation={0}>
             <TableContainer>
               <Table aria-label="customized table">
                 <TableHead>
                   <TableRow className={classes.root}>
-                    {multiselect && (
+                    {actions && multiselect && (
                       <TableCell padding="checkbox">
                         <Checkbox
                           color="primary"
@@ -91,8 +93,8 @@ const CustomTable = (props) => {
                 </TableHead>
                 <TableBody>
                   {products.map((row) => (
-                    <TableRow key={row.name}>
-                      {multiselect && (
+                    <TableRow key={row.id}>
+                      {actions && multiselect && (
                         <TableCell padding="checkbox">
                           <Checkbox
                             color="primary"
@@ -106,18 +108,22 @@ const CustomTable = (props) => {
                       <TableCell
                         align="center"
                         onClick={() =>
+                          row.asignedUser &&
                           history.push(`${ROUTES_PATHS.MEMBERS_ALL}/{memberId}`)
                         }>
                         {row.asignedUser}
                       </TableCell>
                       <TableCell
                         align="center"
-                        onClick={() => history.push(productPath)}>
-                        {row.productName}
+                        onClick={() =>
+                          history.push(`${productPath}/${row.id}`)
+                        }>
+                        {row.name}
                       </TableCell>
                       <TableCell
                         align="center"
                         onClick={() =>
+                          row.category &&
                           history.push(ROUTES_PATHS.CATEGORIES_ALL)
                         }>
                         {row.category}
@@ -137,6 +143,7 @@ CustomTable.propTypes = {
   id: PropTypes.number.isRequired,
   type: PropTypes.string.isRequired,
   products: PropTypes.array.isRequired,
+  actions: PropTypes.bool,
   numSelected: PropTypes.number
 }
 export default CustomTable

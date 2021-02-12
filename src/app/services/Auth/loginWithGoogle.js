@@ -1,5 +1,4 @@
-import { auth } from './'
-import { firebase } from '../'
+import firebase, { auth } from '../Firebase'
 
 const loginWithGoogle = () => {
   const googleProvider = new firebase.auth.GoogleAuthProvider()

@@ -20,7 +20,7 @@ const Select = (props) => {
     setCurrentValue(selectValue)
     onChange && onChange(event, selectValue)
   }
-
+  useEffect(() => onChange(value), [])
   //in children use your own template
   return (
     <TextField

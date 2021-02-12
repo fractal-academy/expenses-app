@@ -1,45 +1,57 @@
 import { useState } from 'react'
-import { IconButton, Switch, Typography } from '@material-ui/core'
-import AddCircleIcon from '@material-ui/icons/AddCircle'
 import { Row } from '@qonsoll/react-design'
+import { FabButton, Modal } from 'app/components/Lib'
+import { Switch, Typography } from '@material-ui/core'
+import { firestore, setData } from 'app/services/Firestore'
 import { useForm } from 'mui-form-generator-fractal-band-2'
-import { Modal } from 'app/components/Lib'
 import { ProductSimpleForm } from 'app/domains/Product/components/forms/ProductSimpleForm'
 import { RegularProductSimpleForm } from 'app/domains/RegularProduct/components/forms/RegularProductSimpleForm'
 
 const ProductCombinedForm = (props) => {
+  const { title, collectionName } = props
+
   const [open, setOpen] = useState(false)
-
   const [switchState, setSwitchState] = useState(true)
-  const formRef = useForm()
 
-  const submitForm = () => formRef.submit()
-  const onSubmit = ({ measure }) => {
-    setOpen(false)
+  const form = useForm()
+
+  const onAddProduct = (data) => {
+    const id = firestore.collection(collectionName).doc().id
+    setData(collectionName, id, {
+      id: id,
+      name: data.nameProduct,
+      description: data.description
+    }).then(() => setOpen(false))
   }
-  const onCancel = () => {
-    setOpen(false)
-  }
+
+  const submitForm = () => form.submit()
+
+  const onSubmit = () => setOpen(false)
+
+  const handleClickOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
+
   return (
     <>
-      <IconButton onClick={() => setOpen(true)}>
-        <AddCircleIcon />
-      </IconButton>
+      <FabButton onClick={handleClickOpen} />
       <Modal
         open={open}
+        title={title}
+        titleTypographyProps={{ variant: 'h5' }}
+        dialogProps={{
+          maxWidth: 'sm',
+          fullWidth: true
+        }}
         buttonSubmitProps={{
-          type: 'submit',
-          form: 'product-form',
-          size: 'small',
-          color: 'primary',
+          text: 'Submit',
           variant: 'contained',
+          color: 'primary',
           onClick: submitForm
         }}
         buttonCancelProps={{
-          onClick: onCancel,
-          size: 'small',
-          color: 'secondary',
-          variant: 'contained'
+          text: 'Cancel',
+          variant: 'contained',
+          onClick: handleClose
         }}>
         <Row v="center" mb={2}>
           <Typography>Single</Typography>
@@ -54,9 +66,7 @@ const ProductCombinedForm = (props) => {
                 Add wish
               </Typography>
             </Row>
-            <Row>
-              <ProductSimpleForm form={formRef} onSubmit={onSubmit} />
-            </Row>
+            <ProductSimpleForm form={form} onSubmit={onAddProduct} />
           </>
         ) : (
           <>
@@ -65,9 +75,7 @@ const ProductCombinedForm = (props) => {
                 Add regular product
               </Typography>
             </Row>
-            <Row>
-              <RegularProductSimpleForm form={formRef} onSubmit={onSubmit} />
-            </Row>
+            <RegularProductSimpleForm form={form} onSubmit={onSubmit} />
           </>
         )}
       </Modal>

@@ -118,9 +118,9 @@ const WalletAdvancedView = (props) => {
                       {privateWallet ? (
                         <MemberAdvancedView
                           horizontal
-                          name={memberData && memberData.firstName}
+                          firstName={memberData && memberData.firstName}
                           surname={memberData && memberData.surname}
-                          avatarUrl={memberData && memberData.avatarURL}
+                          avatarURL={memberData && memberData.avatarURL}
                           role={'owner'}
                         />
                       ) : (

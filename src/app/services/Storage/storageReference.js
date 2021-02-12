@@ -1,7 +1,11 @@
-import { storage } from '../Storage'
+import { storage } from './'
 
-function storageReference(name) {
-  return storage.ref().child(name)
+/**
+ * @param {string} path - File path.
+ * @returns {firebase.storage.Reference} - The reference to the given path.
+ */
+function storageReference(path) {
+  return storage.ref().child(path)
 }
 
 export default storageReference
