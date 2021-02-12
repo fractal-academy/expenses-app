@@ -11,16 +11,17 @@ import { useHistory } from 'react-router-dom'
 import { DropdownItem, Dropdown } from 'components/Lib'
 import { useSession } from 'app/context/SessionContext'
 import { auth } from 'app/services/Auth'
+import { NotificationSimpleView } from 'domains/Notification/components/views'
+import { MemberSimpleView } from 'domains/Member/components/views'
 import { ROUTES_PATHS } from 'app/constants'
 import { useStyles } from './Header.style'
-import { NotificationSimpleView } from 'domains/Notification/components/views'
 
 const Header = (props) => {
   // INTERFACE
   const { goBack, title } = props
   const history = useHistory()
   const classes = useStyles(props)
-  const { id } = useSession()
+  const { id, avatarURL } = useSession()
 
   // DROPDOWN OVERLAY ELEMENT
   const DropdownList = (
@@ -38,8 +39,10 @@ const Header = (props) => {
     </div>
   )
 
+  // HELPER FUNCTIONS
   const redirect = () => history.goBack()
 
+  // TEMPLATE
   return (
     <AppBar className={classes.appBar}>
       <Toolbar className={classes.toolBar}>
@@ -65,7 +68,7 @@ const Header = (props) => {
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true">
-              <AccountCircle />
+              <MemberSimpleView avatarURL={avatarURL} />
             </IconButton>
           </Dropdown>
         </Box>
