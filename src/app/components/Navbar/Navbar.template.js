@@ -4,7 +4,7 @@ import {
   BottomNavigationAction,
   AppBar
 } from '@material-ui/core'
-import { ShoppingCart, BarChart, Settings } from '@material-ui/icons'
+import { ShoppingCart, BarChart, Settings, ListAlt } from '@material-ui/icons'
 import { ROUTES_PATHS } from 'app/constants'
 import { useStyles } from './Navbar.style'
 import { useHistory } from 'react-router-dom'
@@ -14,21 +14,22 @@ const MENU_ITEMS = [
   {
     path: (role) =>
       role === 'user' ? ROUTES_PATHS.WISHES_ALL : ROUTES_PATHS.CART_ALL,
-    icon: <ShoppingCart />,
+    icon: () => <ShoppingCart />,
     label: (role) => (role === 'user' ? 'Wishes' : 'Cart'),
     hide: ['observer']
   },
   {
     path: () => ROUTES_PATHS.STATISTICS_ALL,
-    icon: <BarChart />,
+    icon: () => <BarChart />,
     label: () => 'Statistic',
     hide: ['user']
   },
   {
-    path: () => ROUTES_PATHS.SETTINGS,
-    icon: <Settings />,
-    label: () => 'Settings',
-    hide: ['user', 'observer']
+    path: (role) =>
+      role === 'observer' ? ROUTES_PATHS.PURCHASE_ALL : ROUTES_PATHS.SETTINGS,
+    icon: (role) => (role === 'observer' ? <ListAlt /> : <Settings />),
+    label: (role) => (role === 'observer' ? 'Purchase' : 'Settings'),
+    hide: ['user']
   }
 ]
 
@@ -36,10 +37,10 @@ const Navbar = (props) => {
   const classes = useStyles()
   const [value, setValue] = useState()
   let history = useHistory()
-  const session = useSession()
+  const user = useSession()
   useEffect(() => {
     setValue(
-      MENU_ITEMS.findIndex((item) => item.path === history.location.pathname)
+      MENU_ITEMS.findIndex((item) => item.path() === history.location.pathname)
     )
   }, [history])
 
@@ -50,12 +51,12 @@ const Navbar = (props) => {
       <BottomNavigation value={value} onChange={onMenuChange} showLabels>
         {MENU_ITEMS.map(
           (menuItem) =>
-            !menuItem.hide.includes(session.role) && (
+            !menuItem.hide.includes(user.role) && (
               <BottomNavigationAction
-                label={menuItem.label(session.role)}
-                icon={menuItem.icon}
-                key={menuItem.label}
-                onClick={() => history.push(menuItem.path(session.role))}
+                label={menuItem.label(user.role)}
+                icon={menuItem.icon(user.role)}
+                key={menuItem.label()}
+                onClick={() => history.push(menuItem.path(user.role))}
               />
             )
         )}

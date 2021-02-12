@@ -1,4 +1,4 @@
-import { WishTable } from 'app/domains/Wish/components/table/'
+import { WishTable } from 'app/domains/Wish/components/table'
 import { WishCombined } from 'domains/Wish/components/combined'
 
 const WishAll = (props) => {
