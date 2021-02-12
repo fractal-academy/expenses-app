@@ -18,7 +18,7 @@ const MENU_ITEMS = [
 const Navbar = (props) => {
   const classes = useStyles()
   const [value, setValue] = useState()
-  const history = useHistory()
+  let history = useHistory()
 
   useEffect(() => {
     setValue(
@@ -36,7 +36,10 @@ const Navbar = (props) => {
             label={menuItem.label}
             icon={menuItem.icon}
             key={menuItem.label}
-            onClick={() => history.push(menuItem.path)}
+            onClick={() => {
+              console.log('click', menuItem.path)
+              history.push(menuItem.path)
+            }}
           />
         ))}
       </BottomNavigation>

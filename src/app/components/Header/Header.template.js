@@ -1,18 +1,12 @@
 import { Box } from '@qonsoll/react-design'
 import {
-  Badge,
   Toolbar,
   AppBar,
   IconButton,
   Typography,
   Divider
 } from '@material-ui/core'
-import {
-  AccountCircle,
-  Notifications,
-  ExitToApp,
-  ArrowBack
-} from '@material-ui/icons'
+import { AccountCircle, ExitToApp, ArrowBack } from '@material-ui/icons'
 import { useHistory } from 'react-router-dom'
 import { DropdownItem, Dropdown } from 'components/Lib'
 import { ROUTES_PATHS } from 'app/constants'
@@ -53,7 +47,9 @@ const Header = (props) => {
               <IconButton edge="start" onClick={redirect}>
                 <ArrowBack />
               </IconButton>
-              <Divider className={classes.divider} orientation="vertical" />
+              <Box p={1}>
+                <Divider className={classes.divider} orientation="vertical" />
+              </Box>
             </>
           )}
           <Typography color="textPrimary" variant="body1">
@@ -61,12 +57,7 @@ const Header = (props) => {
           </Typography>
         </Box>
         <Box display="flex">
-          <IconButton
-            onClick={() => history.push(ROUTES_PATHS.NOTIFICATIONS_ALL)}>
-            <Badge badgeContent={11} color="secondary">
-              <Notifications />
-            </Badge>
-          </IconButton>
+          <NotificationSimpleView />
           <Dropdown overlay={DropdownList}>
             <IconButton
               aria-label="account of current user"

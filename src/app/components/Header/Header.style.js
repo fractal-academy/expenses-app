@@ -14,6 +14,6 @@ export const useStyles = makeStyles((theme) => ({
   },
   divider: {
     height: theme.spacing(3),
-    margin: theme.spacing(2)
+    marginRight: theme.spacing(1.5)
   }
 }))

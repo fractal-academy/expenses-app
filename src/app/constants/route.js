@@ -49,7 +49,7 @@ const ROUTES = {
   },
   REGULAR_PRODUCTS_ALL: {
     protect: ['admin'],
-    component: withLayout({ goBack: true, title: 'Regular Products' })(
+    component: withLayout({ goBack: true, title: 'Products' })(
       RegularProductAll
     ),
     path: ROUTES_PATHS.REGULAR_PRODUCTS_ALL,
@@ -133,21 +133,21 @@ const ROUTES = {
   },
   REGULAR_PRODUCT_SHOW: {
     protect: ['admin'],
-    component: withLayout(
-      { goBack: true,  title: "Products" }
-    )(RegularProductShow),
+    component: withLayout({ goBack: true, title: 'Product' })(
+      RegularProductShow
+    ),
     path: ROUTES_PATHS.REGULAR_PRODUCT_SHOW,
     exact: true
   },
   REGULAR_PRODUCT_EDIT: {
     protect: ['admin'],
-    component: withLayout(
-      { goBack: true, title: "Product Edit" }
-    )(RegularProductEdit),
+    component: withLayout({ goBack: true, title: 'Product Edit' })(
+      RegularProductEdit
+    ),
     path: ROUTES_PATHS.REGULAR_PRODUCT_EDIT
   },
   PURCHASE_SHOW: {
-    component: withLayout({ goBack: true })(PurchaseShow),
+    component: withLayout({ goBack: true, title: 'Purchase' })(PurchaseShow),
     path: ROUTES_PATHS.PURCHASE_SHOW
   }
 }
