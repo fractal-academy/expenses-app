@@ -9,6 +9,7 @@ import { Table } from './Table'
 import { LoadingButton } from './LoadingButton'
 import { Spinner } from './Spinner'
 import { Message } from './Message'
+import { Confirmation } from './Confirmation'
 
 export {
   Select,
@@ -23,5 +24,6 @@ export {
   Table,
   LoadingButton,
   Spinner,
-  Message
+  Message,
+  Confirmation
 }
