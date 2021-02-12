@@ -11,7 +11,7 @@ import {
   useSession
 } from 'app/context/SessionContext'
 import { START_PAGE } from 'app/constants/role'
-import firebase from 'app/services/Firebase'
+import firebase, { firestore } from 'app/services/Firebase'
 /**
  *
  * @param {firebase.User} user
@@ -41,7 +41,6 @@ const useAuthListener = () => {
   const dispatch = useSessionDispatch()
   useEffect(() => {
     setLoading(true)
-    let unsubscribe = () => {}
     const fetchUser = async () => {
       try {
         setLoading(true)
@@ -66,20 +65,8 @@ const useAuthListener = () => {
           sessionStorage.setItem('loggedIn', 'false')
           history.push(START_PAGE[data.role.toUpperCase()])
         }
-        unsubscribe = setDocumentListener(
-          COLLECTIONS.USERS,
-          md5(user.email),
-          (doc) => {
-            const userData = doc.data()
-            delete userData.isPending
-            const data = {
-              id: md5(user.email),
-              ...userData
-            }
-            dispatch({ type: types.LOGIN_USER, payload: data })
-          }
-        )
-        return setLoading(false)
+
+        setLoading(false)
       } catch (e) {
         //if document not exist that means user wasn't invite
         if (e.message.includes('document not exist.')) {
@@ -100,8 +87,26 @@ const useAuthListener = () => {
     //if user loaded -> fetch his data
     !!user && !userLoading && fetchUser()
     user && session && setLoading(false)
-    return () => unsubscribe()
   }, [user, userLoading, session])
+
+  useEffect(() => {
+    const unsubscribe =
+      user &&
+      firestore
+        .collection(COLLECTIONS.USERS)
+        .doc(md5(user.email))
+        .onSnapshot((doc) => {
+          const userData = doc.data()
+          delete userData.isPending
+          const data = {
+            id: md5(user.email),
+            ...userData
+          }
+          dispatch({ type: types.LOGIN_USER, payload: data })
+          console.log('in')
+        })
+    return () => unsubscribe()
+  }, [])
 
   useEffect(() => {
     if (!isInvited) {
