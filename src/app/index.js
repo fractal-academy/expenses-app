@@ -19,10 +19,9 @@ const App = () => {
   if (matches) {
     return <PlugForDesktop />
   }
-  if (loading || !session) {
+  if (loading) {
     return <Spinner />
   }
-
   return (
     <ThemeProvider theme={Theme}>
       <Switch>
@@ -33,7 +32,10 @@ const App = () => {
           return <Route key={route.path} {...route} />
         })}
         <Redirect
-          to={START_PAGE[session?.role?.toUpperCase()] || ROUTES_PATHS.LOGIN}
+          to={
+            (session && START_PAGE[session?.role?.toUpperCase()]) ||
+            ROUTES_PATHS.LOGIN
+          }
         />
       </Switch>
     </ThemeProvider>
