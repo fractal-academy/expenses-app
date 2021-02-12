@@ -36,7 +36,7 @@ const tableTypeMap = {
 }
 
 const CustomTable = (props) => {
-  const { type, products, actions } = props
+  const { type, products, actions = true } = props
 
   // [ADDITIONAL_HOOKS]
   const history = useHistory()
