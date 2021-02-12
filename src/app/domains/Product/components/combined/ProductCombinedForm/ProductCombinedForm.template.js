@@ -8,7 +8,7 @@ import { RegularProductSimpleForm } from 'app/domains/RegularProduct/components/
 import { addData, setData } from 'app/services/Firestore'
 
 const ProductCombinedForm = (props) => {
-  const { title, colectionName } = props
+  const { title, collectionName } = props
   const [open, setOpen] = useState(false)
 
   const [switchState, setSwitchState] = useState(true)
@@ -17,7 +17,7 @@ const ProductCombinedForm = (props) => {
 
   // HELPER FUNCTIONS
   const onAddProduct = (data) => {
-    addData(colectionName, {
+    addData(collectionName, {
       name: data.nameProduct,
       description: data.description
     }).then(() => setOpen(false))

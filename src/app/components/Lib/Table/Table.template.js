@@ -21,7 +21,7 @@ const tableTypeMap = {
   cart: {
     multiselect: true,
     middleCell: TABLE_CELLS[1],
-    productPath: `${ROUTES_PATHS.CART_ALL}/{cartId}`
+    productPath: `${ROUTES_PATHS.CART_ALL}`
   },
   wishes: {
     multiselect: true,
@@ -91,7 +91,7 @@ const CustomTable = (props) => {
                 </TableHead>
                 <TableBody>
                   {products.map((row) => (
-                    <TableRow key={row.name}>
+                    <TableRow key={row.id}>
                       {multiselect && (
                         <TableCell padding="checkbox">
                           <Checkbox
@@ -112,8 +112,10 @@ const CustomTable = (props) => {
                       </TableCell>
                       <TableCell
                         align="center"
-                        onClick={() => history.push(productPath)}>
-                        {row.productName}
+                        onClick={() => {
+                          history.push(`${productPath}/${row.id}`)
+                        }}>
+                        {row.name}
                       </TableCell>
                       <TableCell
                         align="center"

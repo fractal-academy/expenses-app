@@ -8,7 +8,7 @@ const WishAll = (props) => {
       <WishTable />
       <ProductCombinedForm
         title="Create Product"
-        colectionName={COLLECTIONS.WISHES}
+        collectionName={COLLECTIONS.WISHES}
       />
     </>
   )

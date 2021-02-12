@@ -7,7 +7,7 @@ const CartAll = (props) => {
       <CartTable />
       <ProductCombinedForm
         title="Create Product"
-        colectionName={COLLECTIONS.CART}
+        collectionName={COLLECTIONS.CART}
       />
     </>
   )

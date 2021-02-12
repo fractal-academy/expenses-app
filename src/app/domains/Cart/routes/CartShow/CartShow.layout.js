@@ -1,8 +1,20 @@
 import PropTypes from 'prop-types'
 import { ProductAdvancedView } from 'domains/Product/components/views'
-
+import { firestore } from 'app/services/Firestore'
+import { useParams } from 'react-router-dom'
+import { useCollection } from 'react-firebase-hooks/firestore'
+import { COLLECTIONS } from 'app/constants'
+import { Spinner } from 'app/components/Lib'
 const CartShow = (props) => {
-  return <ProductAdvancedView type="cart" {...props} />
+  // CUSTOM HOOKS
+  const { id } = useParams()
+  const [value, loading, error] = useCollection(
+    firestore.collection(COLLECTIONS.CART).doc(id)
+  )
+  if (loading) {
+    return <Spinner />
+  }
+  return <ProductAdvancedView type="cart" data={{ ...value.data(), id }} />
 }
 
 CartShow.propTypes = {
