@@ -19,30 +19,22 @@ const WalletAdvancedView = (props) => {
     idWallet,
     nameWallet,
     balance,
-    idMember,
     idCurrency,
     privateWallet,
     setStatusMessage
   } = props
 
   // STATE
-  const [memberData, setMemberData] = useState()
   const [confirm, setConfirm] = useState(false)
   const [deleteLoading, setDeleteLoading] = useState(false)
 
-  // CUSTOM HOOKS
+  //CUSTOM HOOKS
   const classes = useStyles()
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await getData(COLLECTIONS.USERS, idMember)
-      setMemberData(result)
-    }
-    idMember && fetchData()
-  }, [idMember])
 
   // HELPER FUNCTIONS
   const formattedAvailableBalance = formatCurrency(balance)
   const deleteWallet = async () => {
+    setDeleteLoading(true)
     try {
       await deleteData(COLLECTIONS.WALLETS, idWallet)
       setStatusMessage({
@@ -53,6 +45,7 @@ const WalletAdvancedView = (props) => {
     } catch (error) {
       setStatusMessage({ open: true, message: error, type: 'error' })
     }
+    setDeleteLoading(false)
   }
 
   //TEMPLATE
@@ -64,7 +57,6 @@ const WalletAdvancedView = (props) => {
         idWallet={idWallet}
         nameWallet={nameWallet}
         balance={balance}
-        idMember={idMember}
         idCurrency={idCurrency}
         privateWallet={privateWallet}>
         <DropdownItem>
