@@ -15,8 +15,7 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Checkbox,
-  Typography
+  Checkbox
 } from '@material-ui/core'
 
 const tableTypeMap = {
@@ -41,7 +40,7 @@ const tableTypeMap = {
   purchase: {
     multiselect: false,
     tableCells: TABLE_CELLS.PURCHASES_CELLS,
-    productPath: ROUTES_PATHS.PURCHASE_SHOW,
+    productPath: ROUTES_PATHS.PURCHASE_ALL,
     additionalInfo: true
   }
 }
@@ -78,7 +77,11 @@ const CustomTable = (props) => {
       <Row h="center">
         <Col>
           {actions && multiselect && (
-            <Toolbar type={type} numSelected={numSelected} />
+            <Toolbar
+              type={type}
+              numSelected={numSelected}
+              selectedItems={selected}
+            />
           )}
           <Paper variant="outlined" elevation={0}>
             <TableContainer>
@@ -117,12 +120,7 @@ const CustomTable = (props) => {
                           />
                         </TableCell>
                       )}
-                      <TableCell
-                        align="center"
-                        onClick={() =>
-                          row.asignedUser &&
-                          history.push(`${ROUTES_PATHS.MEMBERS_ALL}/{memberId}`)
-                        }>
+                      <TableCell align="center">
                         {row.assign || 'None'}
                       </TableCell>
                       <TableCell
@@ -142,7 +140,10 @@ const CustomTable = (props) => {
                       </TableCell>
                       {additionalInfo && (
                         <TableCell>
-                          <Box display="flex">
+                          <Box
+                            display="flex"
+                            alignItems="center"
+                            justifyContent="center">
                             {row.price || 'None'}
                             {row.price && <CurrencySimpleView />}
                           </Box>

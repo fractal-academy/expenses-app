@@ -2,7 +2,9 @@ import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
 import { ROUTES_PATHS } from 'app/constants'
 import { useHistory } from 'react-router-dom'
+import { firestore, deleteData } from 'app/services/Firestore'
 import { Container, Row, Col } from '@qonsoll/react-design'
+import { useCollectionData } from 'react-firebase-hooks/firestore'
 import {
   Toolbar,
   Typography,
@@ -10,33 +12,56 @@ import {
   BottomNavigation,
   BottomNavigationAction
 } from '@material-ui/core/'
-
-import { Check, Delete, Receipt, ShoppingCart } from '@material-ui/icons/'
+import {
+  Check,
+  Delete,
+  ReceiptRounded,
+  StarBorderRounded
+} from '@material-ui/icons/'
 
 const toolbarItems = [
-  { path: ROUTES_PATHS.CART_ALL, icon: <ShoppingCart />, label: 'Cart' },
-  { path: ROUTES_PATHS.WISHES_ALL, icon: <Receipt />, label: 'Wishes' }
+  { path: ROUTES_PATHS.CART_ALL, icon: <ReceiptRounded />, label: 'To buy' },
+  {
+    path: ROUTES_PATHS.WISHES_ALL,
+    icon: <StarBorderRounded />,
+    label: 'Wishes'
+  }
 ]
 
 const CustomToolbar = (props) => {
+  const { type, numSelected, selectedItems } = props
+
+  // [ADDITIONAL_HOOKS]
   const history = useHistory()
+
+  // [COMPONENT_STATE_HOOKS]
   const [value, setValue] = useState()
 
-  const info = `${props.numSelected} selected`
-
+  // [HELPER_FUNCTIONS]
   const onMenuChange = (event, newPage) => setValue(newPage)
   useEffect(() => {
     setValue(
       toolbarItems.findIndex((item) => item.path === history.location.pathname)
     )
   }, [history])
+  const handleMultipleMove = () => {
+    selectedItems.map((item) => {})
+  }
+  const handleMultipleDelete = () => {
+    selectedItems.map((item) => {
+      deleteData(type, item)
+    })
+  }
+
+  // [COMPUTED_PROPERTIES]
+  const info = `${numSelected} selected`
 
   return (
     <Container>
       <Row>
         <Col pr={0}>
           <Toolbar disableGutters>
-            {props.numSelected > 0 ? (
+            {numSelected > 0 ? (
               <Container>
                 <Row h="right" v="center">
                   <Col pl={2}>
@@ -44,10 +69,10 @@ const CustomToolbar = (props) => {
                   </Col>
                   <Col cw="auto">
                     <IconButton color="primary">
-                      <Check />
+                      <Check onClick={handleMultipleMove} />
                     </IconButton>
                     <IconButton color="primary">
-                      <Delete />
+                      <Delete onClick={handleMultipleDelete} />
                     </IconButton>
                   </Col>
                 </Row>
@@ -80,6 +105,8 @@ const CustomToolbar = (props) => {
   )
 }
 CustomToolbar.propTypes = {
-  numSelected: PropTypes.number.isRequired
+  type: PropTypes.string,
+  numSelected: PropTypes.number.isRequired,
+  selectedItems: PropTypes.array
 }
 export default CustomToolbar

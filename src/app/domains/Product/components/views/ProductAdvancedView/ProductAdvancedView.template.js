@@ -1,5 +1,6 @@
 import moment from 'moment'
 import PropTypes from 'prop-types'
+import { useStyles } from './ProductAdvancedView.styles'
 import { ROUTES_PATHS } from 'app/constants'
 import { useHistory } from 'react-router-dom'
 import { deleteData, setData } from 'app/services/Firestore'
@@ -15,16 +16,14 @@ import { CurrencySimpleView } from 'domains/Currency/components/views/CurrencySi
 const productTypeMap = {
   cart: {
     item: 'Buy',
-    path: ROUTES_PATHS.CART_ALL,
-    editRoute: (id) => `${ROUTES_PATHS.CART_ALL}/${id}/edit`,
+    editPath: ROUTES_PATHS.CART_EDIT,
     actionCollection: 'purchases',
     collection: 'cart',
     displayElements: true
   },
   wish: {
     item: 'Approve',
-    path: ROUTES_PATHS.WISHES_ALL,
-    editRoute: (id) => `${ROUTES_PATHS.WISHES_ALL}/${id}/edit`,
+    editPath: ROUTES_PATHS.WISHES_EDIT,
     actionCollection: 'cart',
     collection: 'wishes',
     displayElements: true
@@ -32,8 +31,7 @@ const productTypeMap = {
 
   product: {
     item: 'Get QR',
-    path: ROUTES_PATHS.REGULAR_PRODUCTS_ALL,
-    editRoute: (id) => `${ROUTES_PATHS.REGULAR_PRODUCTS_ALL}/${id}/edit`,
+    editPath: ROUTES_PATHS.REGULAR_PRODUCT_EDIT,
     actionCollection: '',
     collection: 'regularProduct',
     displayElements: true
@@ -41,8 +39,7 @@ const productTypeMap = {
 
   purchase: {
     item: '',
-    path: ROUTES_PATHS.PURCHASE_ALL,
-    editRoute: '',
+    editPath: '',
     actionCollection: '',
     collection: 'purchases',
     displayElements: false
@@ -54,34 +51,32 @@ const ProductAdvancedView = (props) => {
 
   // [ADDITIONAL_HOOKS]
   const history = useHistory()
+  const classes = useStyles()
 
   // [HELPER_FUNCTIONS]
   const handleDelete = () => {
     deleteData(productCollection, id).then(() => history.goBack())
   }
   const handleMoveProduct = () => {
-    setData(actionCollection, id, data)
-      .then(() => handleDelete())
-      .then(() => history.push('/cart'))
+    setData(actionCollection, id, data).then(() => handleDelete())
   }
 
   // [COMPUTED_PROPERTIES]
   const reminderDate = moment(props.reminderDate).format('MMM Do')
   const purchasedDate = moment(data?.dateBuy).format('MMM Do')
-  const path = productTypeMap[type].path
   const firstElement = productTypeMap[type].item
-  const editPages = productTypeMap[type].editRoute(id)
+  const editPages = productTypeMap[type].editPath
   const displayElements = productTypeMap[type].displayElements
   const productCollection = productTypeMap[type].collection
-  const editPath = editPages.replace(':id', id)
   const actionCollection = productTypeMap[type].actionCollection
+  const editPage = editPages.replace(':id', id)
 
   const DropdownList = (
     <Container>
       <DropdownItem onClick={handleMoveProduct} divider>
         <Typography>{firstElement}</Typography>
       </DropdownItem>
-      <DropdownItem onClick={() => history.push(editPages)} divider>
+      <DropdownItem onClick={() => history.push(editPage)} divider>
         <Typography>Edit</Typography>
       </DropdownItem>
       <DropdownItem onClick={handleDelete} danger>
@@ -89,12 +84,13 @@ const ProductAdvancedView = (props) => {
       </DropdownItem>
     </Container>
   )
+
   return (
     <Container>
       <Row h="center">
         <Col>
-          <Row h="between" display="flex" mb={2}>
-            <Col cw="8">
+          <Row h="between" display="flex" ml={2} mb={2}>
+            <Col cw="8" className={classes.limitWidth}>
               <Typography variant="h5">{data?.name || 'No name'}</Typography>
             </Col>
             {displayElements && (
