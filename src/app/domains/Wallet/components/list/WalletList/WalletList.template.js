@@ -10,13 +10,13 @@ const WalletList = (props) => {
   //TEMPLATE
   return (
     <>
-      {publicWallets.docs.length > 0 && (
-        <Container>
-          <Row mb={2} h="center">
-            <Col cw="auto" ml={2}>
-              <Typography variant="body1">Public wallets</Typography>
-            </Col>
-          </Row>
+      <Container>
+        <Row mb={2} h="center">
+          <Col cw="auto" ml={2}>
+            <Typography variant="h6">Public wallets</Typography>
+          </Col>
+        </Row>
+        {publicWallets.docs.length > 0 ? (
           <Row noGutters mb={2}>
             <Col>
               {publicWallets.docs.map((doc) => (
@@ -32,16 +32,24 @@ const WalletList = (props) => {
               ))}
             </Col>
           </Row>
-        </Container>
-      )}
-
-      {myWallets.docs.length > 0 && (
-        <Container>
-          <Row mb={2} h="center">
-            <Col cw="auto" ml={2}>
-              <Typography variant="body1">My wallets</Typography>
+        ) : (
+          <Row mb={4} h="center">
+            <Col cw={'auto'}>
+              <Typography variant="body2" color="textSecondary">
+                There are not public wallets. You can create a first one
+              </Typography>
             </Col>
           </Row>
+        )}
+      </Container>
+
+      <Container>
+        <Row mb={2} h="center">
+          <Col cw="auto" ml={2}>
+            <Typography variant="h6">My wallets</Typography>
+          </Col>
+        </Row>
+        {myWallets.docs.length > 0 ? (
           <Row noGutters mb={2}>
             <Col>
               {myWallets.docs.map((doc) => (
@@ -58,8 +66,16 @@ const WalletList = (props) => {
               ))}
             </Col>
           </Row>
-        </Container>
-      )}
+        ) : (
+          <Row mb={2} h="center">
+            <Col cw={'auto'}>
+              <Typography variant="body2" color="textSecondary">
+                There are not your wallets. You can create a first one
+              </Typography>
+            </Col>
+          </Row>
+        )}
+      </Container>
     </>
   )
 }
