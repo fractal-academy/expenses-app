@@ -14,7 +14,7 @@ import { useStyles } from './MemberShow.styles'
 /**
  * @info MemberShow (18 Jan 2021) // CREATION DATE
  *
- * @since 12 Feb 2021 ( v.0.0.5 ) // LAST-EDIT DATE
+ * @since 13 Feb 2021 ( v.0.0.6 ) // LAST-EDIT DATE
  *
  * @return {ReactComponent}
  */
@@ -26,7 +26,8 @@ const MemberShow = () => {
   const history = useHistory()
   const classes = useStyles()
   const [userData, loading] = useDocumentData(
-    getCollectionRef(COLLECTIONS.USERS).doc(id)
+    getCollectionRef(COLLECTIONS.USERS).doc(id),
+    { idField: 'id' }
   )
 
   // [COMPONENT_STATE_HOOKS]
@@ -78,6 +79,7 @@ const MemberShow = () => {
     </Box>
   )
 
+  //[TEMPLATE]
   return (
     <>
       <img src="/logo.jpg" alt="Logo" className={classes.headerImage} />
