@@ -6,8 +6,7 @@ import { Confirmation } from 'app/components/Lib/Confirmation'
 import { useStyles } from './WalletAdvancedView.styles'
 import { MoreHorizOutlined, Edit, Delete } from '@material-ui/icons'
 import { DropdownItem, Dropdown } from 'app/components/Lib/Dropdown'
-import { getData } from 'app/services/Firestore'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { COLLECTIONS } from 'app/constants'
 import { deleteData } from 'app/services/Firestore'
 import PropTypes from 'prop-types'
@@ -17,6 +16,7 @@ const WalletAdvancedView = (props) => {
   // INTERFACE
   const {
     idWallet,
+    idMember,
     nameWallet,
     balance,
     idCurrency,
@@ -56,9 +56,11 @@ const WalletAdvancedView = (props) => {
         typeModalEdit
         idWallet={idWallet}
         nameWallet={nameWallet}
+        idMember={idMember}
         balance={balance}
         idCurrency={idCurrency}
-        privateWallet={privateWallet}>
+        privateWallet={privateWallet}
+        setStatusMessage={setStatusMessage}>
         <DropdownItem>
           <Box mr={2}>
             <Edit />

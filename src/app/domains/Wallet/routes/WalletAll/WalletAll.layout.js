@@ -38,7 +38,10 @@ const WalletAll = (props) => {
         dataForListWallets={{ publicWallets, myWallets }}
         setStatusMessage={setStatusMessage}
       />
-      <WalletCombined title={'Create a new wallet'} />
+      <WalletCombined
+        title={'Create a new wallet'}
+        setStatusMessage={setStatusMessage}
+      />
       <Message
         open={statusMessage.open}
         message={statusMessage.message}

@@ -4,13 +4,13 @@ import { Typography } from '@material-ui/core'
 
 const WalletList = (props) => {
   //INTERFACE
-  const { dataForListWallets, setStatusMessage, statusMessage, ...rest } = props
+  const { dataForListWallets, setStatusMessage, ...rest } = props
   const { publicWallets, myWallets } = dataForListWallets
 
   //TEMPLATE
   return (
     <>
-      {publicWallets && (
+      {publicWallets.docs.length > 0 && (
         <Container>
           <Row mb={2} h="center">
             <Col cw="auto" ml={2}>
@@ -23,6 +23,7 @@ const WalletList = (props) => {
                 <WalletAdvancedView
                   key={doc.id}
                   idWallet={doc.id}
+                  privateWallet={doc.data().privateWallet}
                   nameWallet={doc.data().nameWallet}
                   balance={doc.data().balance}
                   idCurrency={doc.data().idCurrency}
@@ -34,7 +35,7 @@ const WalletList = (props) => {
         </Container>
       )}
 
-      {myWallets && (
+      {myWallets.docs.length > 0 && (
         <Container>
           <Row mb={2} h="center">
             <Col cw="auto" ml={2}>
@@ -47,7 +48,9 @@ const WalletList = (props) => {
                 <WalletAdvancedView
                   key={doc.id}
                   idWallet={doc.id}
+                  privateWallet={doc.data().privateWallet}
                   nameWallet={doc.data().nameWallet}
+                  idMember={doc.data().idMember}
                   balance={doc.data().balance}
                   idCurrency={doc.data().idCurrency}
                   setStatusMessage={setStatusMessage}
