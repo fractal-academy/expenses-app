@@ -1,31 +1,82 @@
 import { WalletAdvancedView } from 'domains/Wallet/components/views'
-import { Row, Col } from '@qonsoll/react-design'
+import { Row, Col, Container } from '@qonsoll/react-design'
+import { Typography } from '@material-ui/core'
 
 const WalletList = (props) => {
   //INTERFACE
-  const { dataForListWallets, setStatusMessage, statusMessage, ...rest } = props
+  const { dataForListWallets, setStatusMessage, ...rest } = props
+  const { publicWallets, myWallets } = dataForListWallets
 
   //TEMPLATE
-  return dataForListWallets ? (
-    <Row noGutters>
-      <Col>
-        {dataForListWallets.docs.map((doc) => (
-          <WalletAdvancedView
-            key={doc.id}
-            idWallet={doc.id}
-            nameWallet={doc.data().nameWallet}
-            idMember={doc.data().idMember}
-            balance={doc.data().balance}
-            privateWallet={doc.data().privateWallet}
-            idCurrency={doc.data().idCurrency}
-            setStatusMessage={setStatusMessage}
-            statusMessage={statusMessage}
-          />
-        ))}
-      </Col>
-    </Row>
-  ) : (
-    <div>No data</div>
+  return (
+    <>
+      <Container>
+        <Row mb={2} h="center">
+          <Col cw="auto" ml={2}>
+            <Typography variant="h6">Public wallets</Typography>
+          </Col>
+        </Row>
+        {publicWallets.docs.length > 0 ? (
+          <Row noGutters mb={2}>
+            <Col>
+              {publicWallets.docs.map((doc) => (
+                <WalletAdvancedView
+                  key={doc.id}
+                  idWallet={doc.id}
+                  privateWallet={doc.data().privateWallet}
+                  nameWallet={doc.data().nameWallet}
+                  balance={doc.data().balance}
+                  idCurrency={doc.data().idCurrency}
+                  setStatusMessage={setStatusMessage}
+                />
+              ))}
+            </Col>
+          </Row>
+        ) : (
+          <Row mb={4} h="center">
+            <Col cw={'auto'}>
+              <Typography variant="body2" color="textSecondary">
+                There are not public wallets. You can create a first one
+              </Typography>
+            </Col>
+          </Row>
+        )}
+      </Container>
+
+      <Container>
+        <Row mb={2} h="center">
+          <Col cw="auto" ml={2}>
+            <Typography variant="h6">My wallets</Typography>
+          </Col>
+        </Row>
+        {myWallets.docs.length > 0 ? (
+          <Row noGutters mb={2}>
+            <Col>
+              {myWallets.docs.map((doc) => (
+                <WalletAdvancedView
+                  key={doc.id}
+                  idWallet={doc.id}
+                  privateWallet={doc.data().privateWallet}
+                  nameWallet={doc.data().nameWallet}
+                  idMember={doc.data().idMember}
+                  balance={doc.data().balance}
+                  idCurrency={doc.data().idCurrency}
+                  setStatusMessage={setStatusMessage}
+                />
+              ))}
+            </Col>
+          </Row>
+        ) : (
+          <Row mb={2} h="center">
+            <Col cw={'auto'}>
+              <Typography variant="body2" color="textSecondary">
+                There are not your wallets. You can create a first one
+              </Typography>
+            </Col>
+          </Row>
+        )}
+      </Container>
+    </>
   )
 }
 export default WalletList

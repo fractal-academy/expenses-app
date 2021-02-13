@@ -1,14 +1,12 @@
 import { Row, Container, Col, Box } from '@qonsoll/react-design'
-import { Typography, IconButton, Paper } from '@material-ui/core'
-import { MemberAdvancedView } from 'domains/Member/components/views/MemberAdvancedView'
+import { Typography, IconButton, Paper, Divider } from '@material-ui/core'
 import { WalletCombined } from 'domains/Wallet/components/combined/WalletCombined'
 import { CurrencySimpleView } from 'domains/Currency/components/views'
-import { Avatar } from 'app/components/Lib/Avatar'
+import { Confirmation } from 'app/components/Lib/Confirmation'
 import { useStyles } from './WalletAdvancedView.styles'
 import { MoreHorizOutlined, Edit, Delete } from '@material-ui/icons'
 import { DropdownItem, Dropdown } from 'app/components/Lib/Dropdown'
-import { getData } from 'app/services/Firestore'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { COLLECTIONS } from 'app/constants'
 import { deleteData } from 'app/services/Firestore'
 import PropTypes from 'prop-types'
@@ -18,30 +16,25 @@ const WalletAdvancedView = (props) => {
   // INTERFACE
   const {
     idWallet,
+    idMember,
     nameWallet,
     balance,
-    idMember,
     idCurrency,
     privateWallet,
     setStatusMessage
   } = props
 
   // STATE
-  const [memberData, setMemberData] = useState()
+  const [confirm, setConfirm] = useState(false)
+  const [deleteLoading, setDeleteLoading] = useState(false)
 
-  // CUSTOM HOOKS
+  //CUSTOM HOOKS
   const classes = useStyles()
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await getData(COLLECTIONS.USERS, idMember)
-      setMemberData(result)
-    }
-    idMember && fetchData()
-  }, [idMember])
 
   // HELPER FUNCTIONS
   const formattedAvailableBalance = formatCurrency(balance)
   const deleteWallet = async () => {
+    setDeleteLoading(true)
     try {
       await deleteData(COLLECTIONS.WALLETS, idWallet)
       setStatusMessage({
@@ -52,18 +45,22 @@ const WalletAdvancedView = (props) => {
     } catch (error) {
       setStatusMessage({ open: true, message: error, type: 'error' })
     }
+    setDeleteLoading(false)
   }
+
+  //TEMPLATE
   const DropdownList = (
     <Box>
       <WalletCombined
-        title="Edit wallet"
+        title={`Editing ${nameWallet}`}
         typeModalEdit
         idWallet={idWallet}
         nameWallet={nameWallet}
-        balance={balance}
         idMember={idMember}
+        balance={balance}
         idCurrency={idCurrency}
-        privateWallet={privateWallet}>
+        privateWallet={privateWallet}
+        setStatusMessage={setStatusMessage}>
         <DropdownItem>
           <Box mr={2}>
             <Edit />
@@ -71,29 +68,38 @@ const WalletAdvancedView = (props) => {
           Edit
         </DropdownItem>
       </WalletCombined>
-      <DropdownItem danger onClick={deleteWallet}>
-        <Box mr={2}>
-          <Delete />
-        </Box>
-        Delete
-      </DropdownItem>
+      <Confirmation
+        action="Delete"
+        text={`Do you want to delete ${nameWallet} from application?`}
+        open={confirm}
+        setOpen={setConfirm}
+        loading={deleteLoading}
+        onConfirm={deleteWallet}>
+        <DropdownItem danger>
+          <Box mr={2}>
+            <Delete />
+          </Box>
+          Delete
+        </DropdownItem>
+      </Confirmation>
     </Box>
   )
 
-  //TEMPLATE
   return (
     <Container mb={3}>
       <Row>
         <Col>
           <Paper className={classes.styledPaper}>
             <Container p={2}>
-              <Row>
+              <Row mb={2}>
                 <Col>
-                  <Row h="between" v="center" mb={4}>
+                  <Row h="between" v="center">
                     {/*there are name of wallet and drop down with edit and delete functions*/}
 
                     <Col cw="auto">
-                      <Typography variant="body1">{nameWallet}</Typography>
+                      <Typography variant="body1" className={classes.bold}>
+                        {nameWallet}
+                      </Typography>
                     </Col>
                     <Col cw="auto">
                       <Dropdown overlay={DropdownList}>
@@ -109,44 +115,20 @@ const WalletAdvancedView = (props) => {
                   </Row>
                 </Col>
               </Row>
-              <Row v="center" noGutters>
+              <Row mb={3}>
                 <Col>
-                  <Row>
-                    {/*there is member`s info*/}
-
-                    <Col>
-                      {privateWallet ? (
-                        <MemberAdvancedView
-                          horizontal
-                          firstName={memberData && memberData.firstName}
-                          surname={memberData && memberData.surname}
-                          avatarURL={memberData && memberData.avatarURL}
-                          role={'owner'}
-                        />
-                      ) : (
-                        <Container>
-                          <Row v="center">
-                            <Col cw="auto">
-                              <Avatar
-                                src="https://firebasestorage.googleapis.com/v0/b/expenses-app-development-9ba1c.appspot.com/o/logo-white(sense)-color(teq).jpglogo-white(sense)-color(teq).jpg?alt=media&token=15b56667-6f0a-4cca-85c0-c2777c420289"
-                                alt="Senseteq"
-                              />
-                            </Col>
-                            <Col cw="auto">
-                              <Typography>Senseteq</Typography>
-                            </Col>
-                          </Row>
-                        </Container>
-                      )}
-                    </Col>
-                  </Row>
+                  <Divider />
                 </Col>
+              </Row>
+              <Row v="center">
                 <Col cw="auto">
                   {/*there is info about balance*/}
 
                   <Row>
                     <Col>
-                      <Typography variant="caption">Balance</Typography>
+                      <Typography variant="caption" color={'textSecondary'}>
+                        Balance
+                      </Typography>
                     </Col>
                   </Row>
                   <Row>
