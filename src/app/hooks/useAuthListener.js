@@ -4,7 +4,7 @@ import md5 from 'md5'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from 'app/services/Auth'
 import { getData, setData, setDocumentListener } from 'app/services/Firestore'
-import { COLLECTIONS, ROUTES_PATHS } from 'app/constants'
+import { COLLECTIONS, ROUTES_PATHS, EMAIL_DOMAIN } from 'app/constants'
 import {
   useSessionDispatch,
   types,
@@ -50,7 +50,7 @@ const activateUser = async (user, userData) => {
  * @return {Object [type=hook]}
  */
 
-const FIRST_USER_EMAIL_DOMAIN = 'gmail.com'
+const FIRST_USER_EMAIL_DOMAIN = EMAIL_DOMAIN
 
 const useAuthListener = () => {
   // [ADDITIONAL_HOOKS]

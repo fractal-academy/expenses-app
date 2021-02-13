@@ -7,9 +7,12 @@ import ROLES from './role.js'
 import PRIORITIES from './priority.js'
 import COLLECTIONS from './collection'
 import TABLE_CELLS from './tableCells.js'
+import EMAIL_DOMAIN from './emailDomain'
+
 export {
   FIREBASE_CONFIG,
   CURRENCIES,
+  EMAIL_DOMAIN,
   TABLE_CELLS,
   ROUTES,
   ROUTES_PATHS,

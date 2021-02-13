@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {
@@ -7,7 +8,7 @@ import {
 } from 'mui-form-generator-fractal-band-2'
 import { AvatarUploader, LoadingButton } from 'app/components/Lib'
 import { RoleSingleSelect } from 'domains/Role/components/select'
-import { useMemo } from 'react'
+import { EMAIL_DOMAIN } from 'app/constants'
 
 const MemberAdvancedForm = (props) => {
   const {
@@ -84,6 +85,7 @@ const MemberAdvancedForm = (props) => {
           required: 'Enter your email',
           pattern: {
             value: 'email',
+            domain: EMAIL_DOMAIN,
             message: 'Enter example@senseteq.io'
           }
         }
