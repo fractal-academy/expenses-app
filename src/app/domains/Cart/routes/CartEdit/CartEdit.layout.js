@@ -17,7 +17,6 @@ const CartEdit = (props) => {
   console.log(value.data(), loading)
 
   const onEditProduct = async (data) => {
-    console.log('data', data)
     await setData(COLLECTIONS.CART, id, {
       assign: data.assign.firstName,
       category: data.category,

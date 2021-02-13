@@ -4,7 +4,8 @@ import { Toolbar } from 'components/Lib'
 import { useStyles } from './Table.styles'
 import { useHistory } from 'react-router-dom'
 import { ROUTES_PATHS, TABLE_CELLS } from 'app/constants'
-import { Container, Row, Col } from '@qonsoll/react-design'
+import { Container, Row, Col, Box } from '@qonsoll/react-design'
+import { CurrencySimpleView } from 'domains/Currency/components/views/CurrencySimpleView'
 
 import {
   Table,
@@ -14,24 +15,34 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Checkbox
+  Checkbox,
+  Typography
 } from '@material-ui/core'
 
 const tableTypeMap = {
   cart: {
     multiselect: true,
-    middleCell: TABLE_CELLS[1],
-    productPath: ROUTES_PATHS.CART_ALL
+    tableCells: TABLE_CELLS.CART_CELLS,
+    productPath: ROUTES_PATHS.CART_ALL,
+    additionalInfo: false
   },
   wishes: {
     multiselect: true,
-    middleCell: TABLE_CELLS[0],
-    productPath: ROUTES_PATHS.WISHES_ALL
+    tableCells: TABLE_CELLS.WISHES_CELLS,
+    productPath: ROUTES_PATHS.WISHES_ALL,
+    additionalInfo: false
   },
   regular: {
     multiselect: false,
-    middleCell: TABLE_CELLS[1],
-    productPath: ROUTES_PATHS.REGULAR_PRODUCTS_ALL
+    tableCells: TABLE_CELLS.REGULAR_PRODUCT_CELLS,
+    productPath: ROUTES_PATHS.REGULAR_PRODUCTS_ALL,
+    additionalInfo: false
+  },
+  purchase: {
+    multiselect: false,
+    tableCells: TABLE_CELLS.PURCHASES_CELLS,
+    productPath: ROUTES_PATHS.PURCHASE_SHOW,
+    additionalInfo: true
   }
 }
 
@@ -58,8 +69,9 @@ const CustomTable = (props) => {
   // [COMPUTED_PROPERTIES]
   let numSelected = selected.length
   const multiselect = tableTypeMap[type].multiselect
-  const middleCell = tableTypeMap[type].middleCell
+  const cells = tableTypeMap[type].tableCells
   const productPath = tableTypeMap[type].productPath
+  const additionalInfo = tableTypeMap[type].additionalInfo
 
   return (
     <Container>
@@ -86,9 +98,9 @@ const CustomTable = (props) => {
                         />
                       </TableCell>
                     )}
-                    <TableCell align="center">Assigned</TableCell>
-                    <TableCell align="center">{middleCell}</TableCell>
-                    <TableCell align="center">Category</TableCell>
+                    {cells.map((cell) => (
+                      <TableCell align="center">{cell}</TableCell>
+                    ))}
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -111,7 +123,7 @@ const CustomTable = (props) => {
                           row.asignedUser &&
                           history.push(`${ROUTES_PATHS.MEMBERS_ALL}/{memberId}`)
                         }>
-                        {row.assign}
+                        {row.assign || 'None'}
                       </TableCell>
                       <TableCell
                         align="center"
@@ -126,8 +138,16 @@ const CustomTable = (props) => {
                           row.category &&
                           history.push(ROUTES_PATHS.CATEGORIES_ALL)
                         }>
-                        {row.category}
+                        {row.category || 'None'}
                       </TableCell>
+                      {additionalInfo && (
+                        <TableCell>
+                          <Box display="flex">
+                            {row.price || 'None'}
+                            {row.price && <CurrencySimpleView />}
+                          </Box>
+                        </TableCell>
+                      )}
                     </TableRow>
                   ))}
                 </TableBody>

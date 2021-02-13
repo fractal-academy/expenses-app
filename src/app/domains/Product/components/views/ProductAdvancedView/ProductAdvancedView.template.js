@@ -1,7 +1,8 @@
 import moment from 'moment'
 import PropTypes from 'prop-types'
-import { deleteData, firestore, setData, addData } from 'app/services/Firestore'
-import { useHistory, useParams } from 'react-router-dom'
+import { ROUTES_PATHS } from 'app/constants'
+import { useHistory } from 'react-router-dom'
+import { deleteData, setData } from 'app/services/Firestore'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import { Typography, IconButton } from '@material-ui/core'
 import { Container, Row, Col } from '@qonsoll/react-design'
@@ -10,8 +11,6 @@ import { MeasureSimpleView } from 'domains/Measure/components/views/MeasureSimpl
 import { CommentList } from 'domains/Comment/components/list/CommentList'
 import { CategorySimpleView } from 'domains/Category/components/views/CategorySimpleView'
 import { CurrencySimpleView } from 'domains/Currency/components/views/CurrencySimpleView'
-import { ROUTES_PATHS, COLLECTIONS } from 'app/constants'
-import { useDocumentData } from 'react-firebase-hooks/firestore'
 
 const productTypeMap = {
   cart: {
@@ -53,19 +52,22 @@ const productTypeMap = {
 const ProductAdvancedView = (props) => {
   const { type, data, id } = props
 
+  // [ADDITIONAL_HOOKS]
   const history = useHistory()
 
-  const reminderDate = moment(props.reminderDate).format('MMM Do')
-  const purchasedDate = moment(data?.dateBuy).format('MMM Do')
-
+  // [HELPER_FUNCTIONS]
   const handleDelete = () => {
     deleteData(productCollection, id).then(() => history.goBack())
   }
   const handleMoveProduct = () => {
     setData(actionCollection, id, data)
       .then(() => handleDelete())
-      .then(() => history.push(ROUTES_PATHS.CART_ALL))
+      .then(() => history.push('/cart'))
   }
+
+  // [COMPUTED_PROPERTIES]
+  const reminderDate = moment(props.reminderDate).format('MMM Do')
+  const purchasedDate = moment(data?.dateBuy).format('MMM Do')
   const path = productTypeMap[type].path
   const firstElement = productTypeMap[type].item
   const editPages = productTypeMap[type].editRoute(id)
@@ -73,9 +75,7 @@ const ProductAdvancedView = (props) => {
   const productCollection = productTypeMap[type].collection
   const editPath = editPages.replace(':id', id)
   const actionCollection = productTypeMap[type].actionCollection
-  // const [data] = useDocumentData(
-  //   firestore.collection(productCollection).doc(id)
-  // )
+
   const DropdownList = (
     <Container>
       <DropdownItem onClick={handleMoveProduct} divider>
