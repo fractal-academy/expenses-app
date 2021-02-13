@@ -130,7 +130,7 @@ const WalletCombined = (props) => {
         <WalletForm
           form={form}
           show={[
-            'nameWallet',
+            !typeModalEdit && 'nameWallet',
             'balance',
             'idCurrency',
             !typeModalEdit && 'privateWallet'

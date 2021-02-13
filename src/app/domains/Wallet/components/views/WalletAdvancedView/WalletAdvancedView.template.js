@@ -1,9 +1,7 @@
 import { Row, Container, Col, Box } from '@qonsoll/react-design'
-import { Typography, IconButton, Paper } from '@material-ui/core'
-import { MemberAdvancedView } from 'domains/Member/components/views/MemberAdvancedView'
+import { Typography, IconButton, Paper, Divider } from '@material-ui/core'
 import { WalletCombined } from 'domains/Wallet/components/combined/WalletCombined'
 import { CurrencySimpleView } from 'domains/Currency/components/views'
-import { Avatar } from 'app/components/Lib/Avatar'
 import { Confirmation } from 'app/components/Lib/Confirmation'
 import { useStyles } from './WalletAdvancedView.styles'
 import { MoreHorizOutlined, Edit, Delete } from '@material-ui/icons'
@@ -31,7 +29,7 @@ const WalletAdvancedView = (props) => {
   const [memberData, setMemberData] = useState()
   const [confirm, setConfirm] = useState(false)
   const [deleteLoading, setDeleteLoading] = useState(false)
-  console.log(idWallet)
+
   // CUSTOM HOOKS
   const classes = useStyles()
   useEffect(() => {
@@ -61,7 +59,7 @@ const WalletAdvancedView = (props) => {
   const DropdownList = (
     <Box>
       <WalletCombined
-        title="Edit wallet"
+        title={`Editing ${nameWallet}`}
         typeModalEdit
         idWallet={idWallet}
         nameWallet={nameWallet}
@@ -99,13 +97,15 @@ const WalletAdvancedView = (props) => {
         <Col>
           <Paper className={classes.styledPaper}>
             <Container p={2}>
-              <Row>
+              <Row mb={2}>
                 <Col>
-                  <Row h="between" v="center" mb={4}>
+                  <Row h="between" v="center">
                     {/*there are name of wallet and drop down with edit and delete functions*/}
 
                     <Col cw="auto">
-                      <Typography variant="body1">{nameWallet}</Typography>
+                      <Typography variant="body1" className={classes.bold}>
+                        {nameWallet}
+                      </Typography>
                     </Col>
                     <Col cw="auto">
                       <Dropdown overlay={DropdownList}>
@@ -121,30 +121,20 @@ const WalletAdvancedView = (props) => {
                   </Row>
                 </Col>
               </Row>
-              <Row v="center" noGutters>
+              <Row mb={3}>
                 <Col>
-                  <Row>
-                    {/*there is member`s info*/}
-
-                    <Col>
-                      {privateWallet && (
-                        <MemberAdvancedView
-                          horizontal
-                          firstName={memberData && memberData.firstName}
-                          surname={memberData && memberData.surname}
-                          avatarURL={memberData && memberData.avatarURL}
-                          role={'owner'}
-                        />
-                      )}
-                    </Col>
-                  </Row>
+                  <Divider />
                 </Col>
+              </Row>
+              <Row v="center">
                 <Col cw="auto">
                   {/*there is info about balance*/}
 
                   <Row>
                     <Col>
-                      <Typography variant="caption">Balance</Typography>
+                      <Typography variant="caption" color={'textSecondary'}>
+                        Balance
+                      </Typography>
                     </Col>
                   </Row>
                   <Row>
