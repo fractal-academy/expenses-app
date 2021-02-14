@@ -22,7 +22,7 @@ const MemberSimpleView = (props) => {
 
 MemberSimpleView.propTypes = {
   withName: PropTypes.bool,
-  avatarUrl: PropTypes.string,
+  avatarURL: PropTypes.string,
   name: PropTypes.string
 }
 
