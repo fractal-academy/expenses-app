@@ -3,6 +3,7 @@ import { ThemeProvider } from '@qonsoll/react-design'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { PlugForDesktop, PrivateRoute } from 'components'
 import moment from 'moment'
+import { NotificationProvider } from 'app/context/NotificationContext'
 import { useAuthListener } from 'app/hooks'
 import { useSession } from 'app/context/SessionContext'
 import { ROUTES_PATHS, ROUTES_VALUE } from './constants'
@@ -24,20 +25,22 @@ const App = () => {
   }
   return (
     <ThemeProvider theme={Theme}>
-      <Switch>
-        {ROUTES_VALUE.map((route) => {
-          if (route.protect) {
-            return <PrivateRoute {...route} key={route.path} />
-          }
-          return <Route key={route.path} {...route} />
-        })}
-        <Redirect
-          to={
-            (session && START_PAGE[session?.role?.toUpperCase()]) ||
-            ROUTES_PATHS.LOGIN
-          }
-        />
-      </Switch>
+      <NotificationProvider>
+        <Switch>
+          {ROUTES_VALUE.map((route) => {
+            if (route.protect) {
+              return <PrivateRoute {...route} key={route.path} />
+            }
+            return <Route key={route.path} {...route} />
+          })}
+          <Redirect
+            to={
+              (session && START_PAGE[session?.role?.toUpperCase()]) ||
+              ROUTES_PATHS.LOGIN
+            }
+          />
+        </Switch>
+      </NotificationProvider>
     </ThemeProvider>
   )
 }
