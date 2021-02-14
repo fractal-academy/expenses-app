@@ -1,28 +1,47 @@
 import PropTypes from 'prop-types'
 import { ProductAdvancedView } from 'domains/Product/components/views'
-import { useEffect, useState } from 'react'
-import { getData } from 'app/services/Firestore'
+import { useState } from 'react'
+import { firestore } from 'app/services/Firestore'
 import { COLLECTIONS } from 'app/constants'
 import { useParams } from 'react-router-dom'
+import { useCollection } from 'react-firebase-hooks/firestore'
+import { Message, Spinner } from 'app/components/Lib'
 
 const RegularProductShow = (props) => {
   const { id } = useParams()
-  const [product, setProduct] = useState(undefined)
 
-  useEffect(() => {
-    console.log(id)
-    const fetchProduct = async () => {
-      const fetchedProduct = await getData(COLLECTIONS.REGULAR_PRODUCTS, id)
-      setProduct(fetchedProduct)
-    }
-    fetchProduct()
-  }, [id])
+  const [value, loading] = useCollection(
+    firestore.collection(COLLECTIONS.REGULAR_PRODUCTS).doc(id)
+  )
+  const [statusMessage, setStatusMessage] = useState({
+    open: false,
+    message: '',
+    type: ''
+  })
+  const handleClose = () => {
+    setStatusMessage({ open: false, message: '', type: '' })
+  }
 
-  return (
+  return loading ? (
+    <Spinner />
+  ) : (
     <>
-      {product && (
-        <ProductAdvancedView type="product" {...props} id={id} data={product} />
-      )}
+      <ProductAdvancedView
+        type="product"
+        id={id}
+        data={value.data()}
+        setStatusMessage={setStatusMessage}
+      />
+      <Message
+        open={statusMessage.open}
+        message={statusMessage.message}
+        vertical="top"
+        horizontal="center"
+        autoHideDuration={1500}
+        variant="filled"
+        severity={statusMessage.type}
+        onClose={handleClose}
+      />
     </>
   )
 }

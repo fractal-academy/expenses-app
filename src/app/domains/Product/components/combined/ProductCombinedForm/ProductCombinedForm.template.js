@@ -31,6 +31,23 @@ const ProductCombinedForm = (props) => {
     setLoading(false)
     setOpen(false)
   }
+  const onAddRegularProduct = async (data) => {
+    try {
+      console.log(data)
+      setLoading(true)
+      const id = firestore.collection(collectionName).doc().id
+      await setData(collectionName, id, {
+        id: id,
+        name: data.productSelect,
+        description: data.description
+      })
+      form.reset({})
+    } catch (error) {
+      console.log(error)
+    }
+    setLoading(false)
+    setOpen(false)
+  }
 
   const submitForm = () => form.submit()
 
@@ -90,7 +107,7 @@ const ProductCombinedForm = (props) => {
             </Row>
             <RegularProductSimpleForm
               form={form}
-              onSubmit={onSubmit}
+              onSubmit={onAddRegularProduct}
               buttonProps={{ visible: false }}
             />
           </>

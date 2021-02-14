@@ -65,7 +65,7 @@ const config = [
   {
     type: 'date',
     label: 'remind',
-    name: 'Remind'
+    name: 'remind'
   },
   {
     type: 'date',
@@ -112,5 +112,7 @@ ProductAdvancedForm.propTypes = {
   buttonProps: PropTypes.object,
   formProps: PropTypes.object
 }
-
+ProductAdvancedForm.defaultProps = {
+  remind: ''
+}
 export default ProductAdvancedForm

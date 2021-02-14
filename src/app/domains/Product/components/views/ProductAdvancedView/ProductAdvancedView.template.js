@@ -43,14 +43,14 @@ const productTypeMap = {
     path: ROUTES_PATHS.REGULAR_PRODUCTS_ALL,
     editRoute: (id) => `${ROUTES_PATHS.REGULAR_PRODUCTS_ALL}/${id}/edit`,
     actionCollection: '',
-    collection: 'regularProduct',
+    collection: 'regularProducts',
     displayElements: true
   },
 
   purchase: {
     item: '',
     path: ROUTES_PATHS.PURCHASE_ALL,
-    editRoute: '',
+    editRoute: (id) => `${ROUTES_PATHS.PURCHASE_ALL}/${id}/edit`,
     actionCollection: '',
     collection: 'purchases',
     displayElements: false
@@ -59,7 +59,6 @@ const productTypeMap = {
 
 const ProductAdvancedView = (props) => {
   const { type, data, id, setStatusMessage } = props
-
   // [ADDITIONAL_HOOKS]
   const history = useHistory()
   const user = useSession()
