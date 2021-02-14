@@ -7,12 +7,12 @@ const MemberSimpleView = (props) => {
   const { avatarURL, withName, name } = props
 
   return (
-    <Row v="center" noGutters>
+    <Row v="center" noOuterGutters>
       <Col cw="auto">
         <Avatar size="xs" src={avatarURL} />
       </Col>
       {withName && (
-        <Col>
+        <Col px={0}>
           <Typography>{name}</Typography>
         </Col>
       )}
@@ -22,7 +22,7 @@ const MemberSimpleView = (props) => {
 
 MemberSimpleView.propTypes = {
   withName: PropTypes.bool,
-  avatarUrl: PropTypes.string,
+  avatarURL: PropTypes.string,
   name: PropTypes.string
 }
 

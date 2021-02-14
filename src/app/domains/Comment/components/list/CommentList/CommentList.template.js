@@ -17,12 +17,12 @@ const CommentList = (props) => {
   // [TEMPLATE]
   return (
     <List>
-      {comments.map((item, index) => (
+      {comments.map((item) => (
         <CommentAdvancedView
-          commentTime={item.date}
+          commentTime={item.date.toDate()}
           member={item.member}
           text={item.text}
-          key={index}
+          key={item.id}
         />
       ))}
     </List>

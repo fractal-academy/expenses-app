@@ -4,6 +4,7 @@ import { Paper, Typography } from '@material-ui/core'
 import { Row, Col } from '@qonsoll/react-design'
 import { MemberSimpleView } from 'domains/Member/components/views'
 import { useStyles } from './CommentAdvancedView.style'
+import { useEffect, useState } from 'react'
 
 /**
  * @info CommentAdvancedView (18 Jan 2021) // CREATION DATE
@@ -21,14 +22,24 @@ const CommentAdvancedView = (props) => {
   // [ADDITIONAL_HOOKS]
   const classes = useStyles()
 
-  // [COMPUTED_PROPERTIES]
-  const COMMENTS_DATE = moment(commentTime).fromNow()
+  // [COMPONENT_STATE_HOOKS]
+  const [commentsDate, setCommentsDate] = useState(
+    moment(commentTime).fromNow()
+  )
+  // [USE_EFFECTS]
+  useEffect(() => {
+    const updateTime = () => setCommentsDate(moment(commentTime).fromNow())
+
+    //live comment date update
+    const timer = setInterval(updateTime, 30000)
+
+    return () => clearInterval(timer)
+  }, [])
 
   // [TEMPLATE]
   return (
     <Paper elevation={1} className={classes.itemList}>
       <Row mb={1} pt={2} h="between">
-        {/*when MemberSimpleView will be approved - insert it here instead of 2 collumns*/}
         <Col cw="auto">
           <MemberSimpleView
             avatarURL={avatarURL}
@@ -36,9 +47,8 @@ const CommentAdvancedView = (props) => {
             withName
           />
         </Col>
-        {/*when MemberSimpleView will be approved - insert it here instead of 2 collumns*/}
         <Col cw="auto">
-          <Typography variant={'subtitle2'}>{COMMENTS_DATE}</Typography>
+          <Typography variant={'subtitle2'}>{commentsDate}</Typography>
         </Col>
       </Row>
       <Row>
@@ -53,7 +63,7 @@ const CommentAdvancedView = (props) => {
 }
 
 CommentAdvancedView.propTypes = {
-  commentTime: PropTypes.number.isRequired,
+  commentTime: PropTypes.instanceOf(Date),
   member: PropTypes.shape({
     avatarURL: PropTypes.string,
     firstName: PropTypes.string,

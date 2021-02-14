@@ -31,7 +31,7 @@ const CommentSimpleForm = (props) => {
         className={classes.SendIcon}
         aria-label="send"
         color="secondary"
-        onClick={addComment}>
+        type="submit">
         <SendIcon color="primary" />
       </IconButton>
     </Paper>
