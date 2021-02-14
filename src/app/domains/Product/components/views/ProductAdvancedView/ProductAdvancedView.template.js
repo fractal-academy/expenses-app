@@ -1,11 +1,10 @@
 import moment from 'moment'
+import { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useStyles } from './ProductAdvancedView.styles'
 import { ROUTES_PATHS } from 'app/constants'
 import { useHistory } from 'react-router-dom'
 import { deleteData, setData } from 'app/services/Firestore'
-// import { useHistory } from 'react-router-dom'
-
 import { useSession } from 'app/context/SessionContext'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import { Typography, IconButton } from '@material-ui/core'
@@ -15,7 +14,7 @@ import {
   Dropdown,
   DropdownItem,
   Confirmation
-} from 'components/Lib'
+} from 'app/components/Lib'
 import { MeasureSimpleView } from 'domains/Measure/components/views/MeasureSimpleView'
 import { CommentList } from 'domains/Comment/components/list/CommentList'
 import { CategorySimpleView } from 'domains/Category/components/views/CategorySimpleView'
@@ -99,14 +98,11 @@ const ProductAdvancedView = (props) => {
   }
 
   // [COMPUTED_PROPERTIES]
-  // const reminderDate = moment(props.reminderDate).format('MMM Do')
-  // const purchasedDate = moment(data?.dateBuy).format('MMM Do')
   const firstElement = productTypeMap[type].item
-  const editPages = productTypeMap[type].editPath
+  const editPages = productTypeMap[type].editRoute(id)
   const displayElements = productTypeMap[type].displayElements
   const productCollection = productTypeMap[type].collection
   const actionCollection = productTypeMap[type].actionCollection
-  // const editPage = editPages.replace(':id', id)
 
   const DropdownList = (
     <Container>

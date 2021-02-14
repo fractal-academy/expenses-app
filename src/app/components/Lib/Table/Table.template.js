@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Toolbar } from 'components/Lib'
+import { Toolbar } from 'app/components/Lib'
 import { useStyles } from './Table.styles'
 import { useHistory } from 'react-router-dom'
 import { ROUTES_PATHS, TABLE_CELLS } from 'app/constants'

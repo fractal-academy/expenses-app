@@ -6,7 +6,7 @@ import {
   DialogActions,
   Typography
 } from '@material-ui/core'
-import { LoadingButton } from 'components/Lib'
+import { LoadingButton } from 'app/components/Lib'
 
 import PropTypes from 'prop-types'
 

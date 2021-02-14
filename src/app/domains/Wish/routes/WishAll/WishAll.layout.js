@@ -14,9 +14,13 @@ const WishAll = (props) => {
   const handleClose = () => {
     setStatusMessage({ open: false, message: '', type: '' })
   }
+
   return (
     <>
-      <WishTable setStatusMessage={setStatusMessage} actions={session.role === 'admin'}/>
+      <WishTable
+        setStatusMessage={setStatusMessage}
+        actions={session.role === 'admin'}
+      />
       <ProductCombinedForm
         title="Create Product"
         collectionName={COLLECTIONS.WISHES}

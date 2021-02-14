@@ -14,7 +14,6 @@ const CartEdit = (props) => {
   if (loading) {
     return <Spinner />
   }
-  console.log(value.data(), loading)
 
   const onEditProduct = async (data) => {
     await setData(COLLECTIONS.CART, id, {

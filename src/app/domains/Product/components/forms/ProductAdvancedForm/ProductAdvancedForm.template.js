@@ -90,7 +90,7 @@ const ProductAdvancedForm = (props) => {
     buttonProps,
     formProps
   } = props
-  console.log(formData)
+
   return (
     <Form
       form={form}

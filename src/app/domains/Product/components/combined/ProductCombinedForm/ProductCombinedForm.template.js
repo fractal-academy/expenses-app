@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { Row } from '@qonsoll/react-design'
 import { FabButton, Modal } from 'app/components/Lib'
 import { Switch, Typography } from '@material-ui/core'
@@ -12,16 +12,24 @@ const ProductCombinedForm = (props) => {
 
   const [open, setOpen] = useState(false)
   const [switchState, setSwitchState] = useState(true)
+  const [loading, setLoading] = useState(false)
 
   const form = useForm()
-
-  const onAddProduct = (data) => {
-    const id = firestore.collection(collectionName).doc().id
-    setData(collectionName, id, {
-      id: id,
-      name: data.nameProduct,
-      description: data.description
-    }).then(() => setOpen(false))
+  const onAddProduct = async (data) => {
+    try {
+      setLoading(true)
+      const id = firestore.collection(collectionName).doc().id
+      await setData(collectionName, id, {
+        id: id,
+        name: data.nameProduct,
+        description: data.description
+      })
+      form.reset({})
+    } catch (error) {
+      console.log(error)
+    }
+    setLoading(false)
+    setOpen(false)
   }
 
   const submitForm = () => form.submit()
@@ -46,7 +54,8 @@ const ProductCombinedForm = (props) => {
           text: 'Submit',
           variant: 'contained',
           color: 'primary',
-          onClick: submitForm
+          onClick: submitForm,
+          loading
         }}
         buttonCancelProps={{
           text: 'Cancel',
@@ -66,7 +75,11 @@ const ProductCombinedForm = (props) => {
                 Add wish
               </Typography>
             </Row>
-            <ProductSimpleForm form={form} onSubmit={onAddProduct} />
+            <ProductSimpleForm
+              form={form}
+              onSubmit={onAddProduct}
+              buttonProps={{ visible: false }}
+            />
           </>
         ) : (
           <>
@@ -75,7 +88,11 @@ const ProductCombinedForm = (props) => {
                 Add regular product
               </Typography>
             </Row>
-            <RegularProductSimpleForm form={form} onSubmit={onSubmit} />
+            <RegularProductSimpleForm
+              form={form}
+              onSubmit={onSubmit}
+              buttonProps={{ visible: false }}
+            />
           </>
         )}
       </Modal>

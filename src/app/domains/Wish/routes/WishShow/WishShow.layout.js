@@ -28,7 +28,12 @@ const WishShow = (props) => {
     <Spinner />
   ) : (
     <>
-      <ProductAdvancedView type="wish" data={value.data()} id={id} />
+      <ProductAdvancedView
+        type="wish"
+        data={value.data()}
+        id={id}
+        setStatusMessage={setStatusMessage}
+      />
       <Message
         open={statusMessage.open}
         message={statusMessage.message}

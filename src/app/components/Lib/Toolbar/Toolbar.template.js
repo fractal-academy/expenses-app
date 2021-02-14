@@ -57,6 +57,7 @@ const CustomToolbar = (props) => {
         message: 'Products were successfully deleted.',
         type: 'success'
       })
+      setConfirm(false)
     } catch (error) {
       setStatusMessage({ open: true, message: error, type: 'error' })
     }

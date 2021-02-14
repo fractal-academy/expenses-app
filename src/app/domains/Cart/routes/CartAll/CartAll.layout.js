@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { COLLECTIONS } from 'app/constants'
 import { Message } from 'app/components/Lib/Message'
-import { CartTable } from 'domains/Cart/components/table'
+import { CartTable } from 'app/domains/Cart/components/table'
 import { ProductCombinedForm } from 'app/domains/Product/components/combined/ProductCombinedForm'
 
 const CartAll = (props) => {
