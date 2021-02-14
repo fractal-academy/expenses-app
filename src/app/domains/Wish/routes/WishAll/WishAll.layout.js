@@ -3,8 +3,9 @@ import { COLLECTIONS } from 'app/constants'
 import { Message } from 'app/components/Lib/Message'
 import { WishTable } from 'app/domains/Wish/components/table'
 import { ProductCombinedForm } from 'domains/Product/components/combined/ProductCombinedForm'
-
+import { useSession } from 'app/context/SessionContext'
 const WishAll = (props) => {
+  const session = useSession()
   const [statusMessage, setStatusMessage] = useState({
     open: false,
     message: '',
@@ -15,7 +16,7 @@ const WishAll = (props) => {
   }
   return (
     <>
-      <WishTable setStatusMessage={setStatusMessage} />
+      <WishTable setStatusMessage={setStatusMessage} actions={session.role === 'admin'}/>
       <ProductCombinedForm
         title="Create Product"
         collectionName={COLLECTIONS.WISHES}
@@ -35,6 +36,5 @@ const WishAll = (props) => {
 }
 
 WishAll.propTypes = {}
-WishAll.defaultProps = {}
 
 export default WishAll

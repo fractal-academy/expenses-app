@@ -1,10 +1,12 @@
-import { useState } from 'react'
 import moment from 'moment'
 import PropTypes from 'prop-types'
 import { useStyles } from './ProductAdvancedView.styles'
 import { ROUTES_PATHS } from 'app/constants'
 import { useHistory } from 'react-router-dom'
 import { deleteData, setData } from 'app/services/Firestore'
+// import { useHistory } from 'react-router-dom'
+
+import { useSession } from 'app/context/SessionContext'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import { Typography, IconButton } from '@material-ui/core'
 import { Container, Row, Col } from '@qonsoll/react-design'
@@ -22,14 +24,16 @@ import { CurrencySimpleView } from 'domains/Currency/components/views/CurrencySi
 const productTypeMap = {
   cart: {
     item: 'Buy',
-    editPath: ROUTES_PATHS.CART_EDIT,
+    path: ROUTES_PATHS.CART_ALL,
+    editRoute: (id) => `${ROUTES_PATHS.CART_ALL}/${id}/edit`,
     actionCollection: 'purchases',
     collection: 'cart',
     displayElements: true
   },
   wish: {
     item: 'Approve',
-    editPath: ROUTES_PATHS.WISHES_EDIT,
+    path: ROUTES_PATHS.WISHES_ALL,
+    editRoute: (id) => `${ROUTES_PATHS.WISHES_ALL}/${id}/edit`,
     actionCollection: 'cart',
     collection: 'wishes',
     displayElements: true
@@ -37,7 +41,8 @@ const productTypeMap = {
 
   product: {
     item: 'Get QR',
-    editPath: ROUTES_PATHS.REGULAR_PRODUCT_EDIT,
+    path: ROUTES_PATHS.REGULAR_PRODUCTS_ALL,
+    editRoute: (id) => `${ROUTES_PATHS.REGULAR_PRODUCTS_ALL}/${id}/edit`,
     actionCollection: '',
     collection: 'regularProduct',
     displayElements: true
@@ -45,7 +50,8 @@ const productTypeMap = {
 
   purchase: {
     item: '',
-    editPath: '',
+    path: ROUTES_PATHS.PURCHASE_ALL,
+    editRoute: '',
     actionCollection: '',
     collection: 'purchases',
     displayElements: false
@@ -57,6 +63,9 @@ const ProductAdvancedView = (props) => {
 
   // [ADDITIONAL_HOOKS]
   const history = useHistory()
+  const user = useSession()
+  const reminderDate = moment(props.reminderDate).format('MMM Do')
+  const purchasedDate = moment(data?.dateBuy).format('MMM Do')
   const classes = useStyles()
 
   // [COMPONENT_STATE_HOOKS]
@@ -90,21 +99,24 @@ const ProductAdvancedView = (props) => {
   }
 
   // [COMPUTED_PROPERTIES]
-  const reminderDate = moment(props.reminderDate).format('MMM Do')
-  const purchasedDate = moment(data?.dateBuy).format('MMM Do')
+  // const reminderDate = moment(props.reminderDate).format('MMM Do')
+  // const purchasedDate = moment(data?.dateBuy).format('MMM Do')
   const firstElement = productTypeMap[type].item
   const editPages = productTypeMap[type].editPath
   const displayElements = productTypeMap[type].displayElements
   const productCollection = productTypeMap[type].collection
   const actionCollection = productTypeMap[type].actionCollection
-  const editPage = editPages.replace(':id', id)
+  // const editPage = editPages.replace(':id', id)
 
   const DropdownList = (
     <Container>
-      <DropdownItem onClick={handleMoveProduct} divider>
-        <Typography>{firstElement}</Typography>
-      </DropdownItem>
-      <DropdownItem onClick={() => history.push(editPage)} divider>
+      {user.role !== 'user' && (
+        <DropdownItem onClick={handleMoveProduct} divider>
+          <Typography>{firstElement}</Typography>
+        </DropdownItem>
+      )}
+
+      <DropdownItem onClick={() => history.push(editPages)} divider>
         <Typography>Edit</Typography>
       </DropdownItem>
       <Confirmation
@@ -120,7 +132,6 @@ const ProductAdvancedView = (props) => {
       </Confirmation>
     </Container>
   )
-
   return (
     <Container>
       <Row h="center">

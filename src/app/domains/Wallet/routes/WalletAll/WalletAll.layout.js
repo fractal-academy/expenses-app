@@ -6,30 +6,42 @@ import { getCollectionRef } from 'app/services'
 import { COLLECTIONS } from 'app/constants'
 import { useState } from 'react'
 import { Message } from 'app/components/Lib/Message'
+import { useSession } from 'app/context/SessionContext/hooks'
 
 const WalletAll = (props) => {
+  // STATE
   const [statusMessage, setStatusMessage] = useState({
     open: false,
     message: '',
     type: ''
   })
+  //CUSTOMS HOOKS
+  const session = useSession()
+  const [publicWallets, loadingPublicWallets] = useCollection(
+    getCollectionRef(COLLECTIONS.WALLETS).where('privateWallet', '==', false)
+  )
+  const [myWallets, loadingMyWallets] = useCollection(
+    getCollectionRef(COLLECTIONS.WALLETS).where('idMember', '==', session.id)
+  )
 
+  // HELPER FUNCTIONS
   const handleClose = () => {
     setStatusMessage({ open: false, message: '', type: '' })
   }
-  const [dataForListWallets, loading] = useCollection(
-    getCollectionRef(COLLECTIONS.WALLETS)
-  )
 
-  return loading ? (
+  // TEMPLATE
+  return loadingPublicWallets || loadingMyWallets ? (
     <Spinner />
   ) : (
     <>
       <WalletList
-        dataForListWallets={dataForListWallets}
+        dataForListWallets={{ publicWallets, myWallets }}
         setStatusMessage={setStatusMessage}
       />
-      <WalletCombined title={'Create new wallet'} />
+      <WalletCombined
+        title={'Create a new wallet'}
+        setStatusMessage={setStatusMessage}
+      />
       <Message
         open={statusMessage.open}
         message={statusMessage.message}

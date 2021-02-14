@@ -6,6 +6,7 @@ import { useCollectionData } from 'react-firebase-hooks/firestore'
 const WishTable = (props) => {
   const { setStatusMessage } = props
 
+  const { actions } = props
   const [data] = useCollectionData(firestore.collection(COLLECTIONS.WISHES))
 
   return (
@@ -15,6 +16,7 @@ const WishTable = (props) => {
           type="wishes"
           products={data}
           setStatusMessage={setStatusMessage}
+          actions={actions}
         />
       )}
     </>

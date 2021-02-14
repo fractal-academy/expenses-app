@@ -1,17 +1,17 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useHistory } from 'react-router-dom'
 import md5 from 'md5'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from 'app/services/Auth'
 import { getData, setData, setDocumentListener } from 'app/services/Firestore'
-import { COLLECTIONS, ROUTES_PATHS } from 'app/constants'
+import { COLLECTIONS, ROUTES_PATHS, EMAIL_DOMAIN } from 'app/constants'
 import {
   useSessionDispatch,
   types,
   useSession
 } from 'app/context/SessionContext'
 import { START_PAGE } from 'app/constants/role'
-import firebase, { firestore } from 'app/services/Firebase'
+import firebase from 'app/services/Firebase'
 /**
  *
  * @param {firebase.User} user
@@ -19,26 +19,94 @@ import firebase, { firestore } from 'app/services/Firebase'
  * @returns {object} user data
  */
 const activateUser = async (user, userData) => {
-  const userName = user.displayName.split(' ')
+  let userName = user.displayName.split(' ')
+  if (!user.displayName) {
+    userName = ['', '']
+  }
   const data = {
+    email: user.email,
+    role: 'admin',
     ...userData,
     isPending: false,
-    avatarURL: user.photoURL,
     firstName: userName[0],
     surname: userName[1]
   }
+
+  if (user.photoURL) {
+    data.avatarURL = user.photoURL
+  }
+
   await setData(COLLECTIONS.USERS, md5(user.email), data)
   return data
 }
 
-const useAuthListener = () => {
-  const [user, userLoading] = useAuthState(auth)
-  const [isInvited, setIsInvited] = useState(true)
+/**
+ * @info RecruiterListItem (09 Feb 2021) // CREATION DATE
+ *
+ * @comment Authenticate hook
+ *
+ * @since 12 Feb 2021 ( v.0.1.0 ) // LAST-EDIT DATE
+ *
+ * @return {Object [type=hook]}
+ */
 
-  const [loading, setLoading] = useState(true)
+const FIRST_USER_EMAIL_DOMAIN = EMAIL_DOMAIN
+
+const useAuthListener = () => {
+  // [ADDITIONAL_HOOKS]
+  const [user, userLoading] = useAuthState(auth)
   const history = useHistory()
   const session = useSession()
   const dispatch = useSessionDispatch()
+
+  // [STATE_HOOKS]
+  const [isInvited, setIsInvited] = useState(true)
+  const [loading, setLoading] = useState(true)
+
+  // [HELPER_FUNCTIONS]
+  const rejectLogin = useCallback(async (email, uid) => {
+    const func = firebase
+      .functions()
+      .httpsCallable('deleteUser', { timeout: 0 })
+    await func({ email, uid })
+    setLoading(false)
+    sessionStorage.removeItem('reject')
+  }, [])
+
+  const checkFirstUser = async (user) => {
+    try {
+      await getData(COLLECTIONS.USERS)
+    } catch (e) {
+      if (
+        e.message.includes('Empty collection') &&
+        user.email.includes(FIRST_USER_EMAIL_DOMAIN)
+      ) {
+        const userData = await activateUser(user)
+        setUserToContext(userData)
+        return false
+      }
+      console.log(e)
+    }
+    return true
+  }
+
+  const setUserToContext = (userData) => {
+    //prepare user data for context
+    delete userData.isPending
+    const data = {
+      id: md5(user.email),
+      ...userData
+    }
+    dispatch({ type: types.LOGIN_USER, payload: data })
+    //check flag if user come from login page
+    const loggedIn = JSON.parse(sessionStorage.getItem('loggedIn'))
+    if (loggedIn) {
+      sessionStorage.removeItem('loggedIn')
+      history.push(START_PAGE[data.role.toUpperCase()])
+    }
+  }
+
+  // [USE_EFFECTS]
   useEffect(() => {
     setLoading(true)
     const fetchUser = async () => {
@@ -48,30 +116,22 @@ const useAuthListener = () => {
 
         //first login after invite
         if (userData.isPending) {
-          userData = await activateUser(user, userData)
+          try {
+            userData = await activateUser(user, userData)
+          } catch (e) {
+            console.log(e)
+            setLoading(false)
+          }
         }
 
-        //prepare user data for context
-        delete userData.isPending
-        const data = {
-          id: md5(user.email),
-          ...userData
-        }
-        dispatch({ type: types.LOGIN_USER, payload: data })
-
-        //check flag if user come from login page
-        const loggedIn = JSON.parse(sessionStorage.getItem('loggedIn'))
-        if (loggedIn) {
-          sessionStorage.setItem('loggedIn', 'false')
-          history.push(START_PAGE[data.role.toUpperCase()])
-        }
+        setUserToContext(userData)
 
         setLoading(false)
       } catch (e) {
         //if document not exist that means user wasn't invite
         if (e.message.includes('document not exist.')) {
           setLoading(true)
-          sessionStorage.setItem('loggedIn', 'false')
+          sessionStorage.setItem('reject', 'true')
           return setIsInvited(false)
         }
         console.log(e)
@@ -81,45 +141,53 @@ const useAuthListener = () => {
     //if user logout or hasn't login yet
     if (user === null) {
       dispatch({ type: types.LOGOUT_USER })
-      !userLoading && history.push('/')
+      !userLoading && history.push('')
       setLoading(userLoading)
     }
     //if user loaded -> fetch his data
-    !!user && !userLoading && fetchUser()
+    user && !userLoading && fetchUser()
+    //finish loading only after session is set
     user && session && setLoading(false)
   }, [user, userLoading])
 
   useEffect(() => {
     const unsubscribe =
       user &&
-      firestore
-        .collection(COLLECTIONS.USERS)
-        .doc(md5(user.email))
-        .onSnapshot((doc) => {
-          const userData = doc.data()
+      setDocumentListener(COLLECTIONS.USERS, md5(user.email), (doc) => {
+        const userData = doc.data()
+        //if user was deleted and hi didn't come from login page
+        if (!userData && !JSON.parse(sessionStorage.getItem('reject'))) {
+          setLoading(true)
+          auth.signOut()
+          dispatch({ type: types.LOGOUT_USER })
+          history.push(ROUTES_PATHS.LOGIN)
+          setLoading(false)
+        } else if (userData) {
+          //update user context
           delete userData.isPending
           const data = {
             id: md5(user.email),
             ...userData
           }
           dispatch({ type: types.LOGIN_USER, payload: data })
-        })
+        }
+      })
     return () => unsubscribe && unsubscribe()
-  }, [])
+  }, [user])
 
   useEffect(() => {
     if (!isInvited) {
-      setLoading(true)
-      const rejectLogin = async () => {
-        const func = firebase
-          .functions()
-          .httpsCallable('deleteUser', { timeout: 0 })
-        await func({ email: user.email, uid: user.uid })
+      const reject = async () => {
+        setLoading(true)
+        const res = await checkFirstUser(user)
+        if (res) {
+          history.push(ROUTES_PATHS.REJECT_LOGIN)
+          setLoading(false)
+          rejectLogin(user.email, user.uid)
+        }
         setLoading(false)
       }
-      history.push(ROUTES_PATHS.REJECT_LOGIN)
-      setLoading(false)
-      user && rejectLogin()
+      user && reject()
     }
   }, [isInvited])
   return { loading, user }

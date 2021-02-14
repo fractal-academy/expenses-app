@@ -10,12 +10,29 @@ import { Avatar, Dropdown } from 'components/Lib'
 import { ROUTES_PATHS } from 'app/constants'
 import { MoreHorizOutlined } from '@material-ui/icons'
 
-// firebase.functions().useEmulator('localhost', 5001)
+/**
+ * @info MemberAdvancedView (18 Jan 2021) // CREATION DATE
+ *
+ * @since 13 Feb 2021 ( v.0.0.6 ) // LAST-EDIT DATE
+ *
+ * @return {ReactComponent}
+ */
 
 const MemberAdvancedView = (props) => {
+  // [INTERFACES]
   const { profile, DropdownList } = props
+
+  // [ADDITIONAL_HOOKS]
   const history = useHistory()
 
+  // [COMPUTED_PROPERTIES]
+  const EDIT_PATH = `${ROUTES_PATHS.MEMBERS_ALL}/${props.id}/edit`
+  const HORIZONTAL_DISPLAY_NAME =
+    props.horizontal && props.isPending
+      ? props.email
+      : `${props.firstName} ${props.surname}`
+
+  // [TEMPLATE]
   return (
     <Container>
       <Row noGutters>
@@ -37,11 +54,7 @@ const MemberAdvancedView = (props) => {
               <Col cw={2} v="flex-end">
                 {profile ? (
                   <IconButton
-                    onClick={() =>
-                      history.push(
-                        `${ROUTES_PATHS.MEMBERS_ALL}/${props.id}/edit`
-                      )
-                    }>
+                    onClick={() => props.id && history.push(EDIT_PATH)}>
                     <CreateRoundedIcon />
                   </IconButton>
                 ) : (
@@ -54,11 +67,7 @@ const MemberAdvancedView = (props) => {
               </Col>
             ) : (
               <Col>
-                <Typography>
-                  {props.isPending
-                    ? props.email
-                    : `${props.firstName} ${props.surname}`}
-                </Typography>
+                <Typography>{HORIZONTAL_DISPLAY_NAME}</Typography>
                 <RoleSimpleView
                   variant="caption"
                   color="textSecondary"
@@ -147,7 +156,7 @@ const MemberAdvancedView = (props) => {
 
 MemberAdvancedView.propTypes = {
   horizontal: PropTypes.bool,
-  firstName: PropTypes.string.isRequired,
+  firstName: PropTypes.string,
   surname: PropTypes.string,
   role: PropTypes.string.isRequired,
   email: PropTypes.string,

@@ -6,10 +6,13 @@ import * as COLORS from './colors.js'
 import ROLES from './role.js'
 import PRIORITIES from './priority.js'
 import COLLECTIONS from './collection'
-import * as TABLE_CELLS from './tableCells.js'
+import TABLE_CELLS from './tableCells.js'
+import EMAIL_DOMAIN from './emailDomain'
+
 export {
   FIREBASE_CONFIG,
   CURRENCIES,
+  EMAIL_DOMAIN,
   TABLE_CELLS,
   ROUTES,
   ROUTES_PATHS,
