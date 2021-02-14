@@ -40,7 +40,6 @@ const CommentAdvancedView = (props) => {
   return (
     <Paper elevation={1} className={classes.itemList}>
       <Row mb={1} pt={2} h="between">
-        {/*when MemberSimpleView will be approved - insert it here instead of 2 collumns*/}
         <Col cw="auto">
           <MemberSimpleView
             avatarURL={avatarURL}
@@ -48,7 +47,6 @@ const CommentAdvancedView = (props) => {
             withName
           />
         </Col>
-        {/*when MemberSimpleView will be approved - insert it here instead of 2 collumns*/}
         <Col cw="auto">
           <Typography variant={'subtitle2'}>{commentsDate}</Typography>
         </Col>

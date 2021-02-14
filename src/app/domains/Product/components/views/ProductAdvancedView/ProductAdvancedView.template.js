@@ -168,9 +168,7 @@ const ProductAdvancedView = (props) => {
                 <Typography>{reminderDate || 'None'}</Typography>
               </Col>
             </Row>
-          ) : (
-            <></>
-          )}
+          ) : null}
           {displayElements && <CommentListWithAdd />}
         </Col>
       </Row>
