@@ -1,17 +1,24 @@
 import { Table } from 'app/components/Lib'
-import { firestore } from 'app/services/Firestore'
-import { useCollection } from 'react-firebase-hooks/firestore'
 import { COLLECTIONS } from 'app/constants'
+import { firestore } from 'app/services/Firestore'
+import { useCollectionData } from 'react-firebase-hooks/firestore'
 
-const CartTable = () => {
-  // CUSTOM HOOKS
-  const [value] = useCollection(firestore.collection(COLLECTIONS.CART))
-  const data = value?.docs.map((item) => ({
-    id: item.id,
-    ...item.data()
-  }))
+const CartTable = (props) => {
+  const { setStatusMessage } = props
 
-  return <>{value && <Table type="cart" products={data} />}</>
+  const [data] = useCollectionData(firestore.collection(COLLECTIONS.CART))
+
+  return (
+    <>
+      {data && (
+        <Table
+          type="cart"
+          products={data}
+          setStatusMessage={setStatusMessage}
+        />
+      )}
+    </>
+  )
 }
 
 export default CartTable

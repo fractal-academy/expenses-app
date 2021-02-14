@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types'
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { Toolbar } from 'components/Lib'
 import { useStyles } from './Table.styles'
 import { useHistory } from 'react-router-dom'
@@ -46,7 +46,7 @@ const tableTypeMap = {
 }
 
 const CustomTable = (props) => {
-  const { type, products, actions = true } = props
+  const { type, products, setStatusMessage, actions = true } = props
 
   // [ADDITIONAL_HOOKS]
   const history = useHistory()
@@ -79,8 +79,9 @@ const CustomTable = (props) => {
           {actions && multiselect && (
             <Toolbar
               type={type}
-              numSelected={numSelected}
               selectedItems={selected}
+              numSelected={numSelected}
+              setStatusMessage={setStatusMessage}
             />
           )}
           <Paper variant="outlined" elevation={0}>

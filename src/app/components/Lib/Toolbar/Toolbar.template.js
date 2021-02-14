@@ -2,9 +2,9 @@ import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
 import { ROUTES_PATHS } from 'app/constants'
 import { useHistory } from 'react-router-dom'
-import { firestore, deleteData } from 'app/services/Firestore'
+import { Confirmation } from 'components/Lib'
+import { deleteData } from 'app/services/Firestore'
 import { Container, Row, Col } from '@qonsoll/react-design'
-import { useCollectionData } from 'react-firebase-hooks/firestore'
 import {
   Toolbar,
   Typography,
@@ -29,13 +29,15 @@ const toolbarItems = [
 ]
 
 const CustomToolbar = (props) => {
-  const { type, numSelected, selectedItems } = props
+  const { type, numSelected, selectedItems, setStatusMessage } = props
 
   // [ADDITIONAL_HOOKS]
   const history = useHistory()
 
   // [COMPONENT_STATE_HOOKS]
   const [value, setValue] = useState()
+  const [confirm, setConfirm] = useState(false)
+  const [deleteLoading, setDeleteLoading] = useState(false)
 
   // [HELPER_FUNCTIONS]
   const onMenuChange = (event, newPage) => setValue(newPage)
@@ -44,13 +46,20 @@ const CustomToolbar = (props) => {
       toolbarItems.findIndex((item) => item.path === history.location.pathname)
     )
   }, [history])
-  const handleMultipleMove = () => {
-    selectedItems.map((item) => {})
-  }
+  const handleMultipleMove = () => {}
   const handleMultipleDelete = () => {
-    selectedItems.map((item) => {
-      deleteData(type, item)
-    })
+    try {
+      selectedItems.map((item) => {
+        deleteData(type, item)
+      })
+      setStatusMessage({
+        open: true,
+        message: 'Products were successfully deleted.',
+        type: 'success'
+      })
+    } catch (error) {
+      setStatusMessage({ open: true, message: error, type: 'error' })
+    }
   }
 
   // [COMPUTED_PROPERTIES]
@@ -71,9 +80,17 @@ const CustomToolbar = (props) => {
                     <IconButton color="primary">
                       <Check onClick={handleMultipleMove} />
                     </IconButton>
-                    <IconButton color="primary">
-                      <Delete onClick={handleMultipleDelete} />
-                    </IconButton>
+                    <Confirmation
+                      action="Delete"
+                      text={'Do you want to delete this products?'}
+                      open={confirm}
+                      setOpen={setConfirm}
+                      loading={deleteLoading}
+                      onConfirm={handleMultipleDelete}>
+                      <IconButton color="primary">
+                        <Delete />
+                      </IconButton>
+                    </Confirmation>
                   </Col>
                 </Row>
               </Container>

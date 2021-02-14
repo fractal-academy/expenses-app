@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import moment from 'moment'
 import PropTypes from 'prop-types'
 import { useStyles } from './ProductAdvancedView.styles'
@@ -7,7 +8,12 @@ import { deleteData, setData } from 'app/services/Firestore'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import { Typography, IconButton } from '@material-ui/core'
 import { Container, Row, Col } from '@qonsoll/react-design'
-import { ProgressBar, Dropdown, DropdownItem } from 'components/Lib'
+import {
+  ProgressBar,
+  Dropdown,
+  DropdownItem,
+  Confirmation
+} from 'components/Lib'
 import { MeasureSimpleView } from 'domains/Measure/components/views/MeasureSimpleView'
 import { CommentList } from 'domains/Comment/components/list/CommentList'
 import { CategorySimpleView } from 'domains/Category/components/views/CategorySimpleView'
@@ -47,18 +53,40 @@ const productTypeMap = {
 }
 
 const ProductAdvancedView = (props) => {
-  const { type, data, id } = props
+  const { type, data, id, setStatusMessage } = props
 
   // [ADDITIONAL_HOOKS]
   const history = useHistory()
   const classes = useStyles()
 
+  // [COMPONENT_STATE_HOOKS]
+  const [confirm, setConfirm] = useState(false)
+  const [deleteLoading, setDeleteLoading] = useState(false)
+
   // [HELPER_FUNCTIONS]
   const handleDelete = () => {
-    deleteData(productCollection, id).then(() => history.goBack())
+    try {
+      deleteData(productCollection, id).then(() => history.goBack())
+      setStatusMessage({
+        open: true,
+        message: 'Product was successfully deleted.',
+        type: 'success'
+      })
+    } catch (error) {
+      setStatusMessage({ open: true, message: error, type: 'error' })
+    }
   }
   const handleMoveProduct = () => {
-    setData(actionCollection, id, data).then(() => handleDelete())
+    try {
+      setData(actionCollection, id, data).then(() => handleDelete())
+      setStatusMessage({
+        open: true,
+        message: `Product was successfully moved to ${actionCollection}`,
+        type: 'success'
+      })
+    } catch (error) {
+      setStatusMessage({ open: true, message: error, type: 'error' })
+    }
   }
 
   // [COMPUTED_PROPERTIES]
@@ -79,9 +107,17 @@ const ProductAdvancedView = (props) => {
       <DropdownItem onClick={() => history.push(editPage)} divider>
         <Typography>Edit</Typography>
       </DropdownItem>
-      <DropdownItem onClick={handleDelete} danger>
-        <Typography>Delete</Typography>
-      </DropdownItem>
+      <Confirmation
+        action="Delete"
+        text={'Do you want to delete product?'}
+        open={confirm}
+        setOpen={setConfirm}
+        loading={deleteLoading}
+        onConfirm={handleDelete}>
+        <DropdownItem onClick={handleDelete} danger>
+          <Typography>Delete</Typography>
+        </DropdownItem>
+      </Confirmation>
     </Container>
   )
 
