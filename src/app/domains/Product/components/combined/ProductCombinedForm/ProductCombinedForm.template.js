@@ -34,7 +34,6 @@ const ProductCombinedForm = (props) => {
   }
   const onAddRegularProduct = async (data) => {
     try {
-      console.log(data)
       setLoading(true)
       const id = firestore.collection(collectionName).doc().id
       await setData(collectionName, id, {
