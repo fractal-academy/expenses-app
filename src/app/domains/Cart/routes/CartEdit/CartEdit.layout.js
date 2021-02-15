@@ -9,7 +9,7 @@ import React, { useEffect, useState } from 'react'
 const CartEdit = (props) => {
   const history = useHistory()
   const { id } = useParams()
-  const [value, load] = useDocumentData(
+  const [value] = useDocumentData(
     firestore.collection(COLLECTIONS.CART).doc(id)
   )
   const [loading, setLoading] = useState(true)
@@ -18,14 +18,11 @@ const CartEdit = (props) => {
     const fetchData = async () => {
       const dataUsers =
         value.assign && (await getData(COLLECTIONS.USERS, value.assign))
-      const dataMeasures =
-        value.measures &&
-        (await getData(COLLECTIONS.MEASURES, value.measures.id))
-      setDataForDefaultValue({
-        ...value,
-        assign: dataUsers,
-        measure: dataMeasures
-      })
+      const data = value
+      if (dataUsers) {
+        data.assign = { ...dataUsers, id: value.assign }
+      }
+      setDataForDefaultValue(data)
       setLoading(false)
     }
     value && fetchData()
@@ -37,16 +34,16 @@ const CartEdit = (props) => {
   const onEditProduct = async (data) => {
     try {
       await setData(COLLECTIONS.CART, id, {
+        id: id,
+        name: data.name,
+        description: data.description,
         firstName: data?.assign?.firstName || '',
         assign: data?.assign?.id || '',
         category: data.category,
-        dateBuy: data.dateBuy,
-        description: data.description,
-        id: id,
         price: data.price,
-        measures: data?.measures?.measure || '',
-        name: data.name,
-        quantity: data.quantity
+        quantity: data.quantity,
+        measures: data?.measures || '',
+        dateBuy: data.dateBuy
       })
       history.goBack()
     } catch (error) {

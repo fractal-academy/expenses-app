@@ -19,7 +19,6 @@ const WishEdit = (props) => {
     const fetchData = async () => {
       const dataUsers =
         value.assign && (await getData(COLLECTIONS.USERS, value.assign))
-
       const data = value
       if (dataUsers) {
         data.assign = { ...dataUsers, id: value.assign }
@@ -36,15 +35,15 @@ const WishEdit = (props) => {
   const onEditProduct = async (data) => {
     try {
       await setData(COLLECTIONS.WISHES, id, {
+        id: id,
+        name: data.name,
+        description: data.description,
         firstName: data?.assign?.firstName || '',
         assign: data?.assign?.id || '',
         category: data.category,
-        description: data.description,
-        id: id,
         price: data.price,
-        measures: data?.measures || '',
-        name: data.name,
-        quantity: data.quantity
+        quantity: data.quantity,
+        measures: data?.measures || ''
       })
       history.goBack()
     } catch (error) {

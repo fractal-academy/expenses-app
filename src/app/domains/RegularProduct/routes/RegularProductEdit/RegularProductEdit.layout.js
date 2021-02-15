@@ -9,25 +9,21 @@ import React, { useEffect, useState } from 'react'
 const RegularProductEdit = (props) => {
   const history = useHistory()
   const { id } = useParams()
-  const [value, load] = useDocumentData(
+  const [value] = useDocumentData(
     firestore.collection(COLLECTIONS.REGULAR_PRODUCTS).doc(id)
   )
   const [loading, setLoading] = useState(true)
   const [dataForDefaultValue, setDataForDefaultValue] = useState()
-  console.log('value reqgProduct', value)
+
   useEffect(() => {
     const fetchData = async () => {
       const dataUsers =
         value.assign && (await getData(COLLECTIONS.USERS, value.assign))
-      const dataMeasures =
-        value.measures &&
-        (await getData(COLLECTIONS.MEASURES, value.measuresId))
-      console.log('dataMeasures', dataMeasures)
-      setDataForDefaultValue({
-        ...value,
-        assign: dataUsers,
-        measure: dataMeasures
-      })
+      const data = value
+      if (dataUsers) {
+        data.assign = { ...dataUsers, id: value.assign }
+      }
+      setDataForDefaultValue(data)
       setLoading(false)
     }
     value && fetchData()
@@ -35,17 +31,16 @@ const RegularProductEdit = (props) => {
   const onEditProduct = async (data) => {
     try {
       await setData(COLLECTIONS.REGULAR_PRODUCTS, id, {
+        id: id,
+        name: data.name,
+        description: data.description,
         firstName: data?.assign?.firstName || '',
         assign: data?.assign?.id || '',
         category: data.category,
-        description: data.description,
-        remind: data.remind,
-        id: id,
         price: data.price,
-        measures: data?.measures?.measure || '',
-        measuresId: data?.measures?.id || '',
-        name: data.name,
-        quantity: data.quantity
+        quantity: data.quantity,
+        measures: data?.measures || '',
+        remind: data.remind
       })
       history.goBack()
     } catch (error) {
