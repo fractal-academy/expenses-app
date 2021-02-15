@@ -3,8 +3,10 @@
     "baseUrl": "src/",
     "paths": {
       "app": ["./app/*"],
-      "components": ["./app/components/*","./app/components"],
-      "domains/*": ["./app/domains/*"]
+      "components/*": ["./app/components/*"],
+      "components": ["./app/components"],
+      "domains/*": ["./app/domains/*"],
+      "qr-module/*": ["./modules/qr-module/*"]
     }
   }
 }

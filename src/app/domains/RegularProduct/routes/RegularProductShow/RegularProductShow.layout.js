@@ -1,17 +1,19 @@
 import PropTypes from 'prop-types'
-import { ProductAdvancedView } from 'domains/Product/components/views'
-import { useState } from 'react'
-import { firestore } from 'app/services/Firestore'
-import { COLLECTIONS } from 'app/constants'
 import { useParams } from 'react-router-dom'
-import { useCollection } from 'react-firebase-hooks/firestore'
-import { Message, Spinner } from 'app/components/Lib'
+import { Typography } from '@material-ui/core'
+import { useDocumentData } from 'react-firebase-hooks/firestore'
+import { getCollectionRef } from 'app/services/Firestore'
+import { DropdownItem, Spinner, Message } from 'app/components/Lib'
+import { QRCombinedModal } from 'qr-module/components/combined/modal'
+import { ProductAdvancedView } from 'app/domains/Product/components/views'
+import { useState } from 'react'
+import { COLLECTIONS } from 'app/constants'
 
 const RegularProductShow = (props) => {
+  // [ADDITIONAL_HOOKS]
   const { id } = useParams()
-
-  const [value, loading] = useCollection(
-    firestore.collection(COLLECTIONS.REGULAR_PRODUCTS).doc(id)
+  const [product, loading] = useDocumentData(
+    getCollectionRef(COLLECTIONS.REGULAR_PRODUCTS).doc(id)
   )
   const [statusMessage, setStatusMessage] = useState({
     open: false,
@@ -21,7 +23,18 @@ const RegularProductShow = (props) => {
   const handleClose = () => {
     setStatusMessage({ open: false, message: '', type: '' })
   }
-
+  if (loading) {
+    return <Spinner />
+  }
+  // first element in dropdown
+  const qr = (
+    <QRCombinedModal>
+      <DropdownItem divider>
+        <Typography>Get QR</Typography>
+      </DropdownItem>
+    </QRCombinedModal>
+  )
+  // [TEMPLATE]
   return loading ? (
     <Spinner />
   ) : (
@@ -29,8 +42,10 @@ const RegularProductShow = (props) => {
       <ProductAdvancedView
         type="product"
         id={id}
-        data={value.data()}
+        data={product}
+        dropdownItem={qr}
         setStatusMessage={setStatusMessage}
+        {...props}
       />
       <Message
         open={statusMessage.open}

@@ -7,6 +7,7 @@ import { ProductAdvancedForm } from 'domains/Product/components/forms/ProductAdv
 import React, { useEffect, useState } from 'react'
 
 const WishEdit = (props) => {
+  const { buttonProps } = props
   const history = useHistory()
   const { id } = useParams()
   const [value] = useDocumentData(
@@ -70,7 +71,10 @@ const WishEdit = (props) => {
         'measures'
       ]}
       onSubmit={onEditProduct}
-      buttonProps={{ onClickCancel: onCancel }}
+      buttonProps={{
+        onClickCancel: onCancel,
+        ...buttonProps
+      }}
     />
   )
 }
