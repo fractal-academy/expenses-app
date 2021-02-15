@@ -5,6 +5,7 @@ import { useStyles } from './Table.styles'
 import { useHistory } from 'react-router-dom'
 import { ROUTES_PATHS, TABLE_CELLS } from 'app/constants'
 import { Container, Row, Col, Box } from '@qonsoll/react-design'
+import { MeasureSimpleView } from 'domains/Measure/components/views/MeasureSimpleView'
 import { CurrencySimpleView } from 'domains/Currency/components/views/CurrencySimpleView'
 
 import {
@@ -66,7 +67,7 @@ const CustomTable = (props) => {
   }
 
   // [COMPUTED_PROPERTIES]
-  let numSelected = selected.length
+  const numRows = products.length
   const multiselect = tableTypeMap[type].multiselect
   const cells = tableTypeMap[type].tableCells
   const productPath = tableTypeMap[type].productPath
@@ -78,9 +79,9 @@ const CustomTable = (props) => {
         <Col>
           {actions && multiselect && (
             <Toolbar
+              numRows={numRows}
               type={type}
               selectedItems={selected}
-              numSelected={numSelected}
               setStatusMessage={setStatusMessage}
             />
           )}
@@ -93,7 +94,10 @@ const CustomTable = (props) => {
                       <TableCell padding="checkbox">
                         <Checkbox
                           color="primary"
-                          checked={products.length === selected.length}
+                          checked={
+                            products.length &&
+                            products.length === selected.length
+                          }
                           indeterminate={
                             products.length > selected.length &&
                             selected.length > 0
@@ -131,23 +135,32 @@ const CustomTable = (props) => {
                         }>
                         <Box className={classes.newLine}>{row.name}</Box>
                       </TableCell>
-                      <TableCell
-                        align="center"
-                        onClick={() =>
-                          row.category &&
-                          history.push(ROUTES_PATHS.CATEGORIES_ALL)
-                        }>
-                        {row.category || 'None'}
-                      </TableCell>
-                      {additionalInfo && (
-                        <TableCell>
-                          <Box
-                            display="flex"
-                            alignItems="center"
-                            justifyContent="center">
-                            {row.price || 'None'}
-                            {row.price && <CurrencySimpleView />}
-                          </Box>
+                      {additionalInfo ? (
+                        <>
+                          <TableCell align="center">
+                            <MeasureSimpleView
+                              productNumber={row.quantity}
+                              text={row.measures}
+                            />
+                          </TableCell>
+                          <TableCell>
+                            <Box
+                              display="flex"
+                              alignItems="center"
+                              justifyContent="center">
+                              {row.price || 'None'}
+                              {row.price && <CurrencySimpleView />}
+                            </Box>
+                          </TableCell>
+                        </>
+                      ) : (
+                        <TableCell
+                          align="center"
+                          onClick={() =>
+                            row.category &&
+                            history.push(ROUTES_PATHS.CATEGORIES_ALL)
+                          }>
+                          {row.category || 'None'}
                         </TableCell>
                       )}
                     </TableRow>
@@ -162,10 +175,10 @@ const CustomTable = (props) => {
   )
 }
 CustomTable.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   products: PropTypes.array.isRequired,
-  actions: PropTypes.bool,
-  numSelected: PropTypes.number
+  setStatusMessage: PropTypes.func,
+  actions: PropTypes.bool
 }
 export default CustomTable

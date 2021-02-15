@@ -4,11 +4,14 @@ import { FabButton, Modal } from 'app/components/Lib'
 import { Switch, Typography } from '@material-ui/core'
 import { firestore, setData } from 'app/services/Firestore'
 import { useForm } from 'mui-form-generator-fractal-band-2'
+import { useSession } from 'app/context/SessionContext/hooks'
 import { ProductSimpleForm } from 'app/domains/Product/components/forms/ProductSimpleForm'
 import { RegularProductSimpleForm } from 'app/domains/RegularProduct/components/forms/RegularProductSimpleForm'
 
 const ProductCombinedForm = (props) => {
   const { title, collectionName } = props
+
+  const session = useSession()
 
   const [open, setOpen] = useState(false)
   const [switchState, setSwitchState] = useState(true)
@@ -22,7 +25,8 @@ const ProductCombinedForm = (props) => {
       await setData(collectionName, id, {
         id: id,
         name: data.nameProduct,
-        description: data.description
+        description: data.description,
+        creator: session.id
       })
       form.reset({})
     } catch (error) {
