@@ -129,7 +129,7 @@ const CustomTable = (props) => {
                         onClick={() =>
                           history.push(`${productPath}/${row.id}`)
                         }>
-                        {row.name}
+                        <Box className={classes.newLine}>{row.name}</Box>
                       </TableCell>
                       <TableCell
                         align="center"
