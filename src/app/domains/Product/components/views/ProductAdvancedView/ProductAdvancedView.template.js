@@ -8,7 +8,7 @@ import { deleteData, setData } from 'app/services/Firestore'
 import { useSession } from 'app/context/SessionContext'
 import { ProgressBar, Dropdown, DropdownItem } from 'components/Lib'
 import { MeasureSimpleView } from 'domains/Measure/components/views'
-import { CommentList } from 'domains/Comment/components/list'
+import { CommentListWithAdd } from 'domains/Comment/components/combined/list'
 import { CategorySimpleView } from 'domains/Category/components/views'
 import { CurrencySimpleView } from 'domains/Currency/components/views'
 import { ROUTES_PATHS } from 'app/constants'
@@ -168,10 +168,8 @@ const ProductAdvancedView = (props) => {
                 <Typography>{reminderDate || 'None'}</Typography>
               </Col>
             </Row>
-          ) : (
-            <></>
-          )}
-          {displayElements && <CommentList />}
+          ) : null}
+          {displayElements && <CommentListWithAdd />}
         </Col>
       </Row>
     </Container>
