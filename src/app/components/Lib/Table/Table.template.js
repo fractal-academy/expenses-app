@@ -134,23 +134,29 @@ const CustomTable = (props) => {
                         }>
                         {row.name}
                       </TableCell>
-                      <TableCell
-                        align="center"
-                        onClick={() =>
-                          row.category &&
-                          history.push(ROUTES_PATHS.CATEGORIES_ALL)
-                        }>
-                        {row.category || 'None'}
-                      </TableCell>
-                      {additionalInfo && (
-                        <TableCell>
-                          <Box
-                            display="flex"
-                            alignItems="center"
-                            justifyContent="center">
-                            {row.price || 'None'}
-                            {row.price && <CurrencySimpleView />}
-                          </Box>
+                      {additionalInfo ? (
+                        <>
+                          <TableCell align="center">
+                            {row.quantity || 0}
+                          </TableCell>
+                          <TableCell>
+                            <Box
+                              display="flex"
+                              alignItems="center"
+                              justifyContent="center">
+                              {row.price || 'None'}
+                              {row.price && <CurrencySimpleView />}
+                            </Box>
+                          </TableCell>
+                        </>
+                      ) : (
+                        <TableCell
+                          align="center"
+                          onClick={() =>
+                            row.category &&
+                            history.push(ROUTES_PATHS.CATEGORIES_ALL)
+                          }>
+                          {row.category || 'None'}
                         </TableCell>
                       )}
                     </TableRow>
