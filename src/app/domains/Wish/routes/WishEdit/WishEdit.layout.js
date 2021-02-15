@@ -6,6 +6,7 @@ import { useCollection } from 'react-firebase-hooks/firestore'
 import { ProductAdvancedForm } from 'domains/Product/components/forms/ProductAdvancedForm'
 
 const WishEdit = (props) => {
+  const { buttonProps } = props
   const history = useHistory()
   const { id } = useParams()
   const [value, loading] = useCollection(
@@ -45,7 +46,11 @@ const WishEdit = (props) => {
       ]}
       formData={{ ...value.data(), id }}
       onSubmit={onEditProduct}
-      buttonProps={{ onClickSubmit: onSubmitButton, onClickCancel: onCancel }}
+      buttonProps={{
+        onClickSubmit: onSubmitButton,
+        onClickCancel: onCancel,
+        ...buttonProps
+      }}
     />
   )
 }

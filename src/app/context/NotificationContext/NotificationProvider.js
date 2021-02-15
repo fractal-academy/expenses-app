@@ -9,7 +9,7 @@ const NotificationProvider = (props) => {
   const session = useSession()
   const [data, loading] = useCollectionData(
     getCollectionRef(COLLECTIONS.NOTIFICATIONS)
-      .where('userId', '==', md5(session?.email || ''))
+      .where('userId', 'array-contains', md5(session?.email || ''))
       .orderBy('date', 'desc'),
     { idField: 'id' }
   )

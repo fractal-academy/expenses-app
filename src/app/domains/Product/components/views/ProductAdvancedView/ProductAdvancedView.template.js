@@ -8,10 +8,10 @@ import { deleteData, setData } from 'app/services/Firestore'
 import { useSession } from 'app/context/SessionContext'
 import { ProgressBar, Dropdown, DropdownItem } from 'components/Lib'
 import { MeasureSimpleView } from 'domains/Measure/components/views'
-import { CommentListWithAdd } from 'domains/Comment/components/combined/list'
 import { CategorySimpleView } from 'domains/Category/components/views'
 import { CurrencySimpleView } from 'domains/Currency/components/views'
 import { ROUTES_PATHS } from 'app/constants'
+import { CommentListWithAdd } from 'domains/Comment/components/combined/list'
 
 const productTypeMap = {
   cart: {
@@ -51,7 +51,7 @@ const productTypeMap = {
 }
 
 const ProductAdvancedView = (props) => {
-  const { type, data, id } = props
+  const { type, data, id, dropdownItem } = props
 
   const history = useHistory()
   const user = useSession()
@@ -66,7 +66,7 @@ const ProductAdvancedView = (props) => {
       .then(() => handleDelete())
       .then(() => history.push(ROUTES_PATHS.CART_ALL))
   }
-  const firstElement = productTypeMap[type].item
+  const firstElement = dropdownItem || productTypeMap[type].item
   const editPages = productTypeMap[type].editRoute(id)
   const displayElements = productTypeMap[type].displayElements
   const productCollection = productTypeMap[type].collection
@@ -74,7 +74,9 @@ const ProductAdvancedView = (props) => {
 
   const DropdownList = (
     <Container>
-      {user.role !== 'user' && (
+      {user.role !== 'user' && typeof firstElement !== 'string' ? (
+        firstElement && firstElement
+      ) : (
         <DropdownItem onClick={handleMoveProduct} divider>
           <Typography>{firstElement}</Typography>
         </DropdownItem>
@@ -88,6 +90,7 @@ const ProductAdvancedView = (props) => {
       </DropdownItem>
     </Container>
   )
+
   return (
     <Container>
       <Row h="center">
@@ -168,7 +171,9 @@ const ProductAdvancedView = (props) => {
                 <Typography>{reminderDate || 'None'}</Typography>
               </Col>
             </Row>
-          ) : null}
+          ) : (
+            <></>
+          )}
           {displayElements && <CommentListWithAdd />}
         </Col>
       </Row>
