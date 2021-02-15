@@ -20,7 +20,9 @@ const ROUTES_PATHS = {
   CART_EDIT: '/cart/:id/edit',
   REGULAR_PRODUCTS_ALL: '/regular-products',
   REGULAR_PRODUCT_SHOW: '/regular-products/:id',
-  REGULAR_PRODUCT_EDIT: '/regular-products/:id'
+  REGULAR_PRODUCT_EDIT: '/regular-products/:id',
+  QR_ADD_WISH: '/add-wish/:id',
+  QR: '/add-wish'
 }
 
 export default ROUTES_PATHS

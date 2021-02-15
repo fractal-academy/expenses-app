@@ -18,7 +18,8 @@ const Modal = (props) => {
     titleTypographyProps,
     children,
     buttonSubmitProps,
-    buttonCancelProps
+    buttonCancelProps,
+    actions = false
   } = props
   const { loading, ...restButtonSubmitProps } = buttonSubmitProps
   return (
@@ -29,14 +30,21 @@ const Modal = (props) => {
         </Typography>
       </DialogTitle>
       <DialogContent>{children}</DialogContent>
-      <DialogActions>
-        <Button {...buttonCancelProps}>
-          {buttonCancelProps.text || 'Cancel'}
-        </Button>
 
-        <LoadingButton loading={loading} {...restButtonSubmitProps}>
-          {buttonSubmitProps.text || 'Submit'}
-        </LoadingButton>
+      <DialogActions>
+        {!actions ? (
+          <>
+            <Button {...buttonCancelProps}>
+              {buttonCancelProps.text || 'Cancel'}
+            </Button>
+
+            <LoadingButton loading={loading} {...restButtonSubmitProps}>
+              {buttonSubmitProps.text || 'Submit'}
+            </LoadingButton>
+          </>
+        ) : (
+          actions
+        )}
       </DialogActions>
     </Dialog>
   )
@@ -51,6 +59,7 @@ Modal.propTypes = {
     PropTypes.element
   ]),
   buttonSubmitProps: PropTypes.object.isRequired,
-  buttonCancelProps: PropTypes.object.isRequired
+  buttonCancelProps: PropTypes.object.isRequired,
+  actions: PropTypes.element
 }
 export default Modal

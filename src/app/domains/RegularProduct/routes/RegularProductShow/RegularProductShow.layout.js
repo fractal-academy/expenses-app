@@ -1,29 +1,41 @@
 import PropTypes from 'prop-types'
-import { ProductAdvancedView } from 'domains/Product/components/views'
-import { useEffect, useState } from 'react'
-import { getData } from 'app/services/Firestore'
-import { COLLECTIONS } from 'app/constants'
 import { useParams } from 'react-router-dom'
+import { Typography } from '@material-ui/core'
+import { useDocumentData } from 'react-firebase-hooks/firestore'
+import { getCollectionRef } from 'app/services/Firestore'
+import { DropdownItem, Spinner } from 'components/Lib'
+import { QRCombinedModal } from 'qr-module/components/combined/modal'
+import { ProductAdvancedView } from 'domains/Product/components/views'
+import { COLLECTIONS } from 'app/constants'
 
 const RegularProductShow = (props) => {
+  // [ADDITIONAL_HOOKS]
   const { id } = useParams()
-  const [product, setProduct] = useState(undefined)
+  const [product, loading] = useDocumentData(
+    getCollectionRef(COLLECTIONS.REGULAR_PRODUCTS).doc(id)
+  )
 
-  useEffect(() => {
-    console.log(id)
-    const fetchProduct = async () => {
-      const fetchedProduct = await getData(COLLECTIONS.REGULAR_PRODUCTS, id)
-      setProduct(fetchedProduct)
-    }
-    fetchProduct()
-  }, [id])
+  if (loading) {
+    return <Spinner />
+  }
+  // first element in dropdown
+  const qr = (
+    <QRCombinedModal>
+      <DropdownItem divider>
+        <Typography>get QR</Typography>
+      </DropdownItem>
+    </QRCombinedModal>
+  )
 
+  // [TEMPLATE]
   return (
-    <>
-      {product && (
-        <ProductAdvancedView type="product" {...props} id={id} data={product} />
-      )}
-    </>
+    <ProductAdvancedView
+      type="product"
+      {...props}
+      id={id}
+      data={product}
+      dropdownItem={qr}
+    />
   )
 }
 
