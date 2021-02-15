@@ -4,14 +4,19 @@ import { useHistory } from 'react-router-dom'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import { Typography, IconButton } from '@material-ui/core'
 import { Container, Row, Col } from '@qonsoll/react-design'
-import { deleteData, setData } from 'app/services/Firestore'
+import {
+  deleteData,
+  setData,
+  getTimestamp,
+  addData
+} from 'app/services/Firestore'
 import { useSession } from 'app/context/SessionContext'
 import { ProgressBar, Dropdown, DropdownItem } from 'components/Lib'
 import { MeasureSimpleView } from 'domains/Measure/components/views'
 import { CommentListWithAdd } from 'domains/Comment/components/combined/list'
 import { CategorySimpleView } from 'domains/Category/components/views'
 import { CurrencySimpleView } from 'domains/Currency/components/views'
-import { ROUTES_PATHS } from 'app/constants'
+import { COLLECTIONS, ROUTES_PATHS } from 'app/constants'
 
 const productTypeMap = {
   cart: {
@@ -65,6 +70,14 @@ const ProductAdvancedView = (props) => {
     setData(actionCollection, id, data)
       .then(() => handleDelete())
       .then(() => history.push(ROUTES_PATHS.CART_ALL))
+      .then(
+        actionCollection === COLLECTIONS.CART &&
+          addData(COLLECTIONS.NOTIFICATIONS, {
+            date: getTimestamp().now(),
+            text: `Your wish '${data.name}' was approved`,
+            userId: [data.creator]
+          })
+      )
   }
   const firstElement = productTypeMap[type].item
   const editPages = productTypeMap[type].editRoute(id)

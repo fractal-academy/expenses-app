@@ -3,7 +3,14 @@ import { useHistory } from 'react-router-dom'
 import md5 from 'md5'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from 'app/services/Auth'
-import { getData, setData, setDocumentListener } from 'app/services/Firestore'
+import {
+  getCollectionRef,
+  getData,
+  setData,
+  setDocumentListener,
+  addData,
+  getTimestamp
+} from 'app/services/Firestore'
 import { COLLECTIONS, ROUTES_PATHS, EMAIL_DOMAIN } from 'app/constants'
 import {
   useSessionDispatch,
@@ -37,6 +44,7 @@ const activateUser = async (user, userData) => {
   }
 
   await setData(COLLECTIONS.USERS, md5(user.email), data)
+
   return data
 }
 
@@ -90,6 +98,19 @@ const useAuthListener = () => {
     return true
   }
 
+  // Adding notifications for all admin that user has accepted the invite to the application
+  const addNotificationAboutNewUser = async () => {
+    const res = await getCollectionRef(COLLECTIONS.USERS)
+      .where('role', '==', 'admin')
+      .get()
+    console.log('add new user')
+    await addData(COLLECTIONS.NOTIFICATIONS, {
+      date: getTimestamp().now(),
+      text: `User '${user.displayName}' accepted invitation to the app`,
+      userId: res.docs.map((item) => item.id)
+    })
+  }
+
   const setUserToContext = (userData) => {
     //prepare user data for context
     delete userData.isPending
@@ -118,6 +139,7 @@ const useAuthListener = () => {
         if (userData.isPending) {
           try {
             userData = await activateUser(user, userData)
+            addNotificationAboutNewUser()
           } catch (e) {
             console.log(e)
             setLoading(false)

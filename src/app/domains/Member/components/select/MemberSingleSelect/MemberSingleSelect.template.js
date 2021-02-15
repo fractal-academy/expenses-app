@@ -11,7 +11,11 @@ const MemberSingleSelect = (props) => {
     getCollectionRef(COLLECTIONS.USERS).where('isPending', '!=', true)
   )
   const members = useMemo(
-    () => value && value.docs.map((member) => member.data()),
+    () =>
+      value &&
+      value.docs.map((member) => {
+        return { ...member.data(), id: member.id }
+      }),
     [value]
   )
   return (

@@ -1,6 +1,11 @@
 import { COLLECTIONS } from 'app/constants'
 import { Spinner } from 'app/components/Lib'
-import { firestore, setData } from 'app/services'
+import {
+  firestore,
+  setData,
+  addData,
+  getTimestamp
+} from 'app/services/Firestore'
 import { useHistory, useParams } from 'react-router-dom'
 import { useCollection } from 'react-firebase-hooks/firestore'
 import { ProductAdvancedForm } from 'domains/Product/components/forms/ProductAdvancedForm'
@@ -28,6 +33,11 @@ const CartEdit = (props) => {
       measures: data.measures,
       name: data.name,
       quantity: data.quantity
+    })
+    addData(COLLECTIONS.NOTIFICATIONS, {
+      date: getTimestamp().now(),
+      text: `You were assigned to buy '${data.name}' in Cart`,
+      userId: [data.assign.id]
     })
   }
 

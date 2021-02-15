@@ -4,7 +4,7 @@ const RegularProductEdit = (props) => {
   return (
     <ProductAdvancedForm
       show={[
-        'productName',
+        'name',
         'description',
         'price',
         'currency',
