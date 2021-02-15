@@ -158,7 +158,7 @@ const ProductAdvancedView = (props) => {
               <Typography>
                 <MeasureSimpleView
                   productNumber={data?.quantity}
-                  text={data?.measures}
+                  text={data?.measures?.measure}
                 />
               </Typography>
             </Col>
