@@ -36,7 +36,7 @@ const WalletList = (props) => {
           <Row mb={4} h="center">
             <Col cw={'auto'}>
               <Typography variant="body2" color="textSecondary">
-                There are not public wallets. You can create a first one
+                You can create a first one
               </Typography>
             </Col>
           </Row>
@@ -70,7 +70,7 @@ const WalletList = (props) => {
           <Row mb={2} h="center">
             <Col cw={'auto'}>
               <Typography variant="body2" color="textSecondary">
-                There are not your wallets. You can create a first one
+                You can create a first one
               </Typography>
             </Col>
           </Row>
