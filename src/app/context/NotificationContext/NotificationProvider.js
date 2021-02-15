@@ -1,7 +1,7 @@
 import NotificationContext from './NotificationContext'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
-import { getCollectionRef } from '../../services'
-import { COLLECTIONS } from '../../constants'
+import { getCollectionRef } from 'app/services'
+import { COLLECTIONS } from 'app/constants'
 import md5 from 'md5'
 import { useSession } from '../SessionContext'
 

@@ -1,8 +1,8 @@
-import { Avatar, Typography, Divider } from '@material-ui/core'
-import AccountCircleIcon from '@material-ui/icons/AccountCircle'
-import { Row, Col, Container } from '@qonsoll/react-design'
 import PropTypes from 'prop-types'
 import moment from 'moment'
+import { Typography, Divider } from '@material-ui/core'
+import { Row, Col, Container } from '@qonsoll/react-design'
+import { MemberSimpleView } from 'domains/Member/components/views'
 
 /**
  * @info NotificationAdvancedView (18 Jan 2020) // CREATION DATE
@@ -30,9 +30,7 @@ const NotificationAdvancedView = (props) => {
     <Container mb={2}>
       <Row v={verticalAlignment} h={horizontalAlignment} p={2}>
         <Col cw="auto" v="flex-start">
-          <Avatar alt="user" src={userAvatar}>
-            <AccountCircleIcon />
-          </Avatar>
+          <MemberSimpleView avatarURL={userAvatar} avatarSize="sm" />
         </Col>
         <Col>
           <Typography align="right" variant="caption">
