@@ -39,7 +39,7 @@ const UrlSimpleView = (props) => {
     <Tooltip title={title} open={tooltip} onClose={handleTooltipClose}>
       <CopyToClipboard text={url} onCopy={handleTooltipOpen}>
         <Button>
-          <IconButton>
+          <IconButton component="span">
             <FileCopy />
           </IconButton>
         </Button>

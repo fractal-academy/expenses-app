@@ -32,7 +32,7 @@ const productTypeMap = {
   },
 
   product: {
-    item: 'get QR',
+    item: 'Get QR',
     path: ROUTES_PATHS.REGULAR_PRODUCTS_ALL,
     editRoute: (id) => `${ROUTES_PATHS.REGULAR_PRODUCTS_ALL}/${id}/edit`,
     actionCollection: '',

@@ -22,7 +22,7 @@ const RegularProductShow = (props) => {
   const qr = (
     <QRCombinedModal>
       <DropdownItem divider>
-        <Typography>get QR</Typography>
+        <Typography>Get QR</Typography>
       </DropdownItem>
     </QRCombinedModal>
   )
