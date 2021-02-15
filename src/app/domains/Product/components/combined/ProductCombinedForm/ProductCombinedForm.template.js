@@ -29,6 +29,7 @@ const ProductCombinedForm = (props) => {
       console.log(error)
     }
     setLoading(false)
+    setSwitchState(true)
     setOpen(false)
   }
   const onAddRegularProduct = async (data) => {
@@ -46,12 +47,11 @@ const ProductCombinedForm = (props) => {
       console.log(error)
     }
     setLoading(false)
+    setSwitchState(true)
     setOpen(false)
   }
 
   const submitForm = () => form.submit()
-
-  const onSubmit = () => setOpen(false)
 
   const handleClickOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)

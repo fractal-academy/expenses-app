@@ -31,6 +31,7 @@ const MeasureModalWithForm = (props) => {
       console.log(error)
     }
     setLoading(false)
+    setSwitchState(true)
     setOpen(false)
   }
   const onAddMeasure = async (data) => {
@@ -46,12 +47,11 @@ const MeasureModalWithForm = (props) => {
       console.log(error)
     }
     setLoading(false)
+    setSwitchState(true)
+
     setOpen(false)
   }
 
-  const onSubmit = () => {
-    setOpen(false)
-  }
   const submitForm = () => form.submit()
   const handleClickOpen = () => {
     setOpen(true)
