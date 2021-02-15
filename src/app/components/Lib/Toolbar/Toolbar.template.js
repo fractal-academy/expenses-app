@@ -29,7 +29,7 @@ const toolbarItems = [
 ]
 
 const CustomToolbar = (props) => {
-  const { num, type, selectedItems, setStatusMessage } = props
+  const { numRows, type, selectedItems, setStatusMessage } = props
 
   // [ADDITIONAL_HOOKS]
   const history = useHistory()
@@ -73,7 +73,7 @@ const CustomToolbar = (props) => {
       <Row>
         <Col pr={0}>
           <Toolbar disableGutters>
-            {num > 0 && numSelected > 0 ? (
+            {numRows > 0 && numSelected > 0 ? (
               <Container>
                 <Row h="right" v="center">
                   <Col pl={2}>
@@ -126,6 +126,7 @@ const CustomToolbar = (props) => {
 }
 CustomToolbar.propTypes = {
   type: PropTypes.string,
+  numRows: PropTypes.number,
   numSelected: PropTypes.number.isRequired,
   selectedItems: PropTypes.array
 }

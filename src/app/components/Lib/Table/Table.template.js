@@ -5,6 +5,7 @@ import { useStyles } from './Table.styles'
 import { useHistory } from 'react-router-dom'
 import { ROUTES_PATHS, TABLE_CELLS } from 'app/constants'
 import { Container, Row, Col, Box } from '@qonsoll/react-design'
+import { MeasureSimpleView } from 'domains/Measure/components/views/MeasureSimpleView'
 import { CurrencySimpleView } from 'domains/Currency/components/views/CurrencySimpleView'
 
 import {
@@ -66,7 +67,7 @@ const CustomTable = (props) => {
   }
 
   // [COMPUTED_PROPERTIES]
-  const num = products.length
+  const numRows = products.length
   const multiselect = tableTypeMap[type].multiselect
   const cells = tableTypeMap[type].tableCells
   const productPath = tableTypeMap[type].productPath
@@ -78,7 +79,7 @@ const CustomTable = (props) => {
         <Col>
           {actions && multiselect && (
             <Toolbar
-              num={num}
+              numRows={numRows}
               type={type}
               selectedItems={selected}
               setStatusMessage={setStatusMessage}
@@ -137,7 +138,10 @@ const CustomTable = (props) => {
                       {additionalInfo ? (
                         <>
                           <TableCell align="center">
-                            {row.quantity || 0}
+                            <MeasureSimpleView
+                              productNumber={row.quantity}
+                              text={row.measures}
+                            />
                           </TableCell>
                           <TableCell>
                             <Box
@@ -171,10 +175,10 @@ const CustomTable = (props) => {
   )
 }
 CustomTable.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   products: PropTypes.array.isRequired,
-  actions: PropTypes.bool,
-  numSelected: PropTypes.number
+  setStatusMessage: PropTypes.func,
+  actions: PropTypes.bool
 }
 export default CustomTable

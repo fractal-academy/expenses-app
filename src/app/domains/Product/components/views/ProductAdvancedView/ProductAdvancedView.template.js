@@ -9,14 +9,9 @@ import { useSession } from 'app/context/SessionContext'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import { Typography, IconButton } from '@material-ui/core'
 import { Container, Row, Col } from '@qonsoll/react-design'
-import {
-  ProgressBar,
-  Dropdown,
-  DropdownItem,
-  Confirmation
-} from 'app/components/Lib'
-import { MeasureSimpleView } from 'domains/Measure/components/views/MeasureSimpleView'
+import { Dropdown, DropdownItem, Confirmation } from 'app/components/Lib'
 import { CommentList } from 'domains/Comment/components/list/CommentList'
+import { MeasureSimpleView } from 'domains/Measure/components/views/MeasureSimpleView'
 import { CategorySimpleView } from 'domains/Category/components/views/CategorySimpleView'
 import { CurrencySimpleView } from 'domains/Currency/components/views/CurrencySimpleView'
 
@@ -152,10 +147,19 @@ const ProductAdvancedView = (props) => {
               </Typography>
             </Col>
           </Row>
-          <MeasureSimpleView
-            productNumber={data?.quantity}
-            text={data?.measure}
-          />
+          <Row h="between" v="center" mb={2}>
+            <Col cw="auto">
+              <Typography>Quantity</Typography>
+            </Col>
+            <Col cw="auto">
+              <Typography>
+                <MeasureSimpleView
+                  productNumber={data?.quantity}
+                  text={data?.measures}
+                />
+              </Typography>
+            </Col>
+          </Row>
           <CategorySimpleView nameCategory={data?.category} />
           {data?.price && (
             <Row display="flex" h="between" v="center" mb={2}>
@@ -181,16 +185,10 @@ const ProductAdvancedView = (props) => {
           {type === 'cart' ? (
             <Row h="between" mb={4}>
               <Col cw="auto">
-                <Typography>Purchased</Typography>
+                <Typography>Purchased date</Typography>
               </Col>
               <Col cw="auto">
                 <Typography>{purchasedDate || 'None'}</Typography>
-              </Col>
-            </Row>
-          ) : type === 'wish' ? (
-            <Row mb={4}>
-              <Col>
-                <ProgressBar value={props.categoryBalance} />
               </Col>
             </Row>
           ) : type === 'product' ? (
