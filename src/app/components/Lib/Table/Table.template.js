@@ -66,7 +66,7 @@ const CustomTable = (props) => {
   }
 
   // [COMPUTED_PROPERTIES]
-  let numSelected = selected.length
+  const num = products.length
   const multiselect = tableTypeMap[type].multiselect
   const cells = tableTypeMap[type].tableCells
   const productPath = tableTypeMap[type].productPath
@@ -78,9 +78,9 @@ const CustomTable = (props) => {
         <Col>
           {actions && multiselect && (
             <Toolbar
+              num={num}
               type={type}
               selectedItems={selected}
-              numSelected={numSelected}
               setStatusMessage={setStatusMessage}
             />
           )}
@@ -93,7 +93,10 @@ const CustomTable = (props) => {
                       <TableCell padding="checkbox">
                         <Checkbox
                           color="primary"
-                          checked={products.length === selected.length}
+                          checked={
+                            products.length &&
+                            products.length === selected.length
+                          }
                           indeterminate={
                             products.length > selected.length &&
                             selected.length > 0

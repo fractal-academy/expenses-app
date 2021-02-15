@@ -29,7 +29,7 @@ const toolbarItems = [
 ]
 
 const CustomToolbar = (props) => {
-  const { type, numSelected, selectedItems, setStatusMessage } = props
+  const { num, type, selectedItems, setStatusMessage } = props
 
   // [ADDITIONAL_HOOKS]
   const history = useHistory()
@@ -50,8 +50,9 @@ const CustomToolbar = (props) => {
   const handleMultipleDelete = () => {
     try {
       selectedItems.map((item) => {
-        deleteData(type, item)
+        deleteData(type, item).then((numSelected = 0))
       })
+
       setStatusMessage({
         open: true,
         message: 'Products were successfully deleted.',
@@ -64,6 +65,7 @@ const CustomToolbar = (props) => {
   }
 
   // [COMPUTED_PROPERTIES]
+  let numSelected = selectedItems.length
   const info = `${numSelected} selected`
 
   return (
@@ -71,7 +73,7 @@ const CustomToolbar = (props) => {
       <Row>
         <Col pr={0}>
           <Toolbar disableGutters>
-            {numSelected > 0 ? (
+            {num > 0 && numSelected > 0 ? (
               <Container>
                 <Row h="right" v="center">
                   <Col pl={2}>
