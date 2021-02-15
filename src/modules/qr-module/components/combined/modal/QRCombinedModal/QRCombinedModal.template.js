@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react'
+import { useParams } from 'react-router-dom'
 import { saveAs } from 'file-saver'
 import IconButton from '@material-ui/core/IconButton'
 import { Box } from '@qonsoll/react-design'
@@ -6,6 +7,7 @@ import GetAppIcon from '@material-ui/icons/GetApp'
 import { Modal } from 'components/Lib'
 import { QRSimpleView, URLSimpleView } from 'qr-module/components/view'
 import { Print } from 'qr-module/components/Print'
+import { ROUTES_PATHS } from 'app/constants'
 
 /**
  * @info QRCombinedModal (14 Feb 2021) // CREATION DATE
@@ -18,6 +20,8 @@ import { Print } from 'qr-module/components/Print'
 const QRCombinedModal = (props) => {
   // [INTERFACES]
   const { children } = props
+
+  const { id } = useParams()
 
   // [COMPONENT_STATE_HOOKS]
   const qrRef = useRef(null)
@@ -32,11 +36,14 @@ const QRCombinedModal = (props) => {
     })
   }
 
+  // [COMPUTED_PROPERTIES]
+  const url = `${window.location.origin}${ROUTES_PATHS.QR}/${id}`
+
   // Action buttons template
   const actions = (
     <Box display="flex" justifyContent="center" width="100%">
       <Print ref={qrRef} />
-      <URLSimpleView />
+      <URLSimpleView url={url} />
       <IconButton onClick={saveToFile}>
         <GetAppIcon />
       </IconButton>
@@ -52,7 +59,7 @@ const QRCombinedModal = (props) => {
         open={open}
         buttonCancelProps={{ onClick: handleClose }}
         buttonSubmitProps={{ onClick: handleClose }}>
-        <QRSimpleView ref={qrRef} />
+        <QRSimpleView ref={qrRef} url={url} />
       </Modal>
     </>
   )

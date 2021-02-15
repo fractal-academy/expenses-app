@@ -8,7 +8,7 @@ export const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2)
   },
   toolBar: {
-    alignSelf: (props) => props.goBack ?? 'flex-end',
+    alignSelf: (props) => (props.title || props.goBack) ?? 'flex-end',
     display: 'flex',
     justifyContent: 'space-between'
   },

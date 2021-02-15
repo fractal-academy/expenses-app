@@ -1,10 +1,9 @@
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { Tooltip, Typography, IconButton, Button } from '@material-ui/core'
 import { CheckCircleOutline, FileCopy } from '@material-ui/icons'
 import { Box } from '@qonsoll/react-design'
-import { ROUTES_PATHS } from 'app/constants'
 
 /**
  * @info UrlSimpleView (14 Feb 2021) // CREATION DATE
@@ -14,9 +13,9 @@ import { ROUTES_PATHS } from 'app/constants'
  * @return {ReactComponent}
  */
 
-const UrlSimpleView = () => {
-  // [ADDITIONAL_HOOKS]
-  const { id } = useParams()
+const UrlSimpleView = (props) => {
+  // [INTERFACES]
+  const { url } = props
 
   // [COMPONENT_STATE_HOOKS]
   const [tooltip, setTooltip] = useState(false)
@@ -24,9 +23,6 @@ const UrlSimpleView = () => {
   // [HELPER_FUNCTIONS]
   const handleTooltipClose = () => setTooltip(false)
   const handleTooltipOpen = () => setTooltip(true)
-
-  // [COMPUTED_PROPERTIES]
-  const url = `${process.env.REACT_APP_DOMAIN}${ROUTES_PATHS.QR}/${id}`
 
   // title layout
   const title = (
@@ -52,6 +48,8 @@ const UrlSimpleView = () => {
   )
 }
 
-UrlSimpleView.propTypes = {}
+UrlSimpleView.propTypes = {
+  url: PropTypes.string
+}
 
 export default UrlSimpleView
