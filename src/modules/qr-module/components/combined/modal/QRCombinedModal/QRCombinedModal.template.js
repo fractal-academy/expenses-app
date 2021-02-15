@@ -37,7 +37,7 @@ const QRCombinedModal = (props) => {
   }
 
   // [COMPUTED_PROPERTIES]
-  const url = `${window.location.origin}${ROUTES_PATHS.QR}/${id}`
+  const url = `${process.env.REACT_APP_DOMAIN}${ROUTES_PATHS.QR}/${id}`
 
   // Action buttons template
   const actions = (
