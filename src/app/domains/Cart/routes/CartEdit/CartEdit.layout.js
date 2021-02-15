@@ -1,39 +1,67 @@
 import { COLLECTIONS } from 'app/constants'
 import { Spinner } from 'app/components/Lib'
-import { firestore, setData } from 'app/services'
+import { firestore, getData, setData } from 'app/services'
 import { useHistory, useParams } from 'react-router-dom'
-import { useCollection } from 'react-firebase-hooks/firestore'
+import { useDocumentData } from 'react-firebase-hooks/firestore'
 import { ProductAdvancedForm } from 'domains/Product/components/forms/ProductAdvancedForm'
+import React, { useEffect, useState } from 'react'
 
 const CartEdit = (props) => {
   const history = useHistory()
   const { id } = useParams()
-  const [value, loading] = useCollection(
+  const [value, load] = useDocumentData(
     firestore.collection(COLLECTIONS.CART).doc(id)
   )
+  const [loading, setLoading] = useState(true)
+  const [dataForDefaultValue, setDataForDefaultValue] = useState()
+  useEffect(() => {
+    const fetchData = async () => {
+      const dataUsers =
+        value.assign && (await getData(COLLECTIONS.USERS, value.assign))
+      const dataMeasures =
+        value.measures &&
+        (await getData(COLLECTIONS.MEASURES, value.measures.id))
+      setDataForDefaultValue({
+        ...value,
+        assign: dataUsers,
+        measure: dataMeasures
+      })
+      setLoading(false)
+    }
+    value && fetchData()
+  }, [value])
   if (loading) {
     return <Spinner />
   }
 
   const onEditProduct = async (data) => {
-    await setData(COLLECTIONS.CART, id, {
-      assign: data.assign.firstName,
-      category: data.category,
-      dateBuy: data.dateBuy,
-      description: data.description,
-      id: id,
-      price: data.price,
-      measures: data.measures,
-      name: data.name,
-      quantity: data.quantity
-    })
+    try {
+      await setData(COLLECTIONS.CART, id, {
+        firstName: data?.assign?.firstName || '',
+        assign: data?.assign?.id || '',
+        category: data.category,
+        dateBuy: data.dateBuy,
+        description: data.description,
+        id: id,
+        price: data.price,
+        measures: data?.measures?.measure || '',
+        name: data.name,
+        quantity: data.quantity
+      })
+      history.goBack()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
-  const onSubmitButton = () => history.goBack()
+  if (!dataForDefaultValue) {
+    return <Spinner />
+  }
   const onCancel = () => history.goBack()
 
   return (
     <ProductAdvancedForm
+      formData={dataForDefaultValue}
       show={[
         'name',
         'description',
@@ -45,9 +73,8 @@ const CartEdit = (props) => {
         'measures',
         'dateBuy'
       ]}
-      formData={{ ...value.data(), id }}
       onSubmit={onEditProduct}
-      buttonProps={{ onClickSubmit: onSubmitButton, onClickCancel: onCancel }}
+      buttonProps={{ onClickCancel: onCancel }}
     />
   )
 }

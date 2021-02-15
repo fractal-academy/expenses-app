@@ -175,7 +175,7 @@ const ProductAdvancedView = (props) => {
               <Typography>Assigned user</Typography>
             </Col>
             <Col cw="auto">
-              <Typography>{data?.assign || 'None'}</Typography>
+              <Typography>{data?.firstName || 'None'}</Typography>
             </Col>
           </Row>
           {type === 'cart' ? (

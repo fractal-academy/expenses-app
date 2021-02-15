@@ -45,7 +45,10 @@ const config = [
   {
     label: 'Category',
     name: 'category',
-    Component: CategorySelectWithCreate
+    Component: CategorySelectWithCreate,
+    rules: {
+      required: 'select category, motherfucker'
+    }
   },
   {
     type: 'date',
@@ -85,7 +88,6 @@ const ProductAdvancedForm = (props) => {
     buttonProps,
     formProps
   } = props
-
   return (
     <Form
       form={form}
