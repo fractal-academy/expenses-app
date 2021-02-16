@@ -19,6 +19,7 @@ import { Settings } from 'app/components/Settings'
 import { WalletAll } from 'domains/Wallet/routes'
 
 import ROUTES_PATHS from './routePaths'
+import { QRAdd } from 'qr-module/route'
 
 const ROUTES = {
   LOGIN: {
@@ -149,6 +150,11 @@ const ROUTES = {
   PURCHASE_SHOW: {
     component: withLayout({ goBack: true, title: 'Purchase' })(PurchaseShow),
     path: ROUTES_PATHS.PURCHASE_SHOW
+  },
+  QR: {
+    protect: ['admin'],
+    component: withLayout({ title: 'Add Wish' })(QRAdd),
+    path: ROUTES_PATHS.QR_ADD_WISH
   }
 }
 

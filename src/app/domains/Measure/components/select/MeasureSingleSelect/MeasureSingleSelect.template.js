@@ -1,28 +1,29 @@
 import { MenuItem } from '@material-ui/core'
 import { Select } from 'app/components/Lib'
 import PropTypes from 'prop-types'
-import { useEffect, useState } from 'react'
-import { getData } from 'app/services'
+import { getCollectionRef } from 'app/services'
 import { COLLECTIONS } from 'app/constants'
+import { useCollectionData } from 'react-firebase-hooks/firestore'
+import { useEffect, useState } from 'react'
+import _ from 'lodash'
 
 const MeasureSingleSelect = (props) => {
-  const [currentMeasure, setCurrentMeasure] = useState('')
-  const [measures, setMeasures] = useState([])
-
+  const { value, ...rest } = props
+  const [measures] = useCollectionData(getCollectionRef(COLLECTIONS.MEASURES), {
+    idField: 'id'
+  })
+  const [meas, setMeas] = useState()
   useEffect(() => {
-    const fetchCategories = async () => {
-      const data = await getData(COLLECTIONS.MEASURES)
-      const dataArray = Object.values(data).map((item) => item.measure)
-      setMeasures(dataArray)
-      setCurrentMeasure(dataArray[0])
+    if (measures && props.value) {
+      const uniq = _.uniqBy([props.value, ...measures], 'measure')
+      setMeas(uniq)
     }
-    fetchCategories()
-  }, [])
+  }, [measures])
   return (
-    <Select data={measures} value={currentMeasure} {...props}>
+    <Select data={meas || measures} value={value} {...rest}>
       {(item) => (
         <MenuItem value={item} key={item}>
-          {item}
+          {item.measure}
         </MenuItem>
       )}
     </Select>

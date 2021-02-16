@@ -126,7 +126,7 @@ const CustomTable = (props) => {
                         </TableCell>
                       )}
                       <TableCell align="center">
-                        {row.assign || 'None'}
+                        {row.firstName || 'None'}
                       </TableCell>
                       <TableCell
                         align="center"

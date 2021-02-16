@@ -49,6 +49,7 @@ const CustomToolbar = (props) => {
   const handleMultipleMove = () => {}
   const handleMultipleDelete = () => {
     try {
+      setDeleteLoading(true)
       selectedItems.map((item) => {
         deleteData(type, item).then((numSelected = 0))
       })
@@ -59,6 +60,7 @@ const CustomToolbar = (props) => {
         type: 'success'
       })
       setConfirm(false)
+      setDeleteLoading(false)
     } catch (error) {
       setStatusMessage({ open: true, message: error, type: 'error' })
     }

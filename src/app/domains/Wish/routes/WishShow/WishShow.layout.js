@@ -23,10 +23,11 @@ const WishShow = (props) => {
   const handleClose = () => {
     setStatusMessage({ open: false, message: '', type: '' })
   }
+  if (loading) {
+    return <Spinner />
+  }
 
-  return loading ? (
-    <Spinner />
-  ) : (
+  return (
     <>
       <ProductAdvancedView
         type="wish"

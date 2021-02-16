@@ -22,10 +22,9 @@ const MeasureModalWithForm = (props) => {
 
   const onRemoveMeasure = async (data) => {
     try {
+      const { measureSelect } = data
       setLoading(true)
-      console.log(data)
-      // const id = firestore.collection(COLLECTIONS.MEASURES).doc().id
-      await deleteData(COLLECTIONS.MEASURES, data.id)
+      await deleteData(COLLECTIONS.MEASURES, measureSelect.id)
       form.reset({})
     } catch (error) {
       console.log(error)
@@ -42,7 +41,7 @@ const MeasureModalWithForm = (props) => {
         id: id,
         measure: data.measure
       })
-      form.reset({})
+      form.reset()
     } catch (error) {
       console.log(error)
     }

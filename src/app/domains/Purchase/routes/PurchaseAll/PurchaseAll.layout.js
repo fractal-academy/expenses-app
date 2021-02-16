@@ -1,5 +1,5 @@
-import { PurchaseTable } from '../../components/table'
-const PurchaseAll = (props) => {
+import { PurchaseTable } from 'domains/Purchase/components/table'
+const PurchaseAll = () => {
   return <PurchaseTable />
 }
 

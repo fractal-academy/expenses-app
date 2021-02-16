@@ -21,7 +21,8 @@ const RegularProductCombined = (props) => {
         id: id,
         name: data.nameProduct,
         category: data.category,
-        assign: data.assign.firstName,
+        firstName: data?.assign?.firstName || '',
+        assign: data?.assign?.id || '',
         remind: new Date(data.reminderDate).getTime()
       })
       form.reset({})

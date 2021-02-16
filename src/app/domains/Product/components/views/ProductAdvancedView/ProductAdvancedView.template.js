@@ -4,16 +4,16 @@ import PropTypes from 'prop-types'
 import { useStyles } from './ProductAdvancedView.styles'
 import { ROUTES_PATHS } from 'app/constants'
 import { useHistory } from 'react-router-dom'
-import { deleteData, setData } from 'app/services/Firestore'
-import { useSession } from 'app/context/SessionContext'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import { Typography, IconButton } from '@material-ui/core'
 import { Container, Row, Col } from '@qonsoll/react-design'
+import { deleteData, setData } from 'app/services/Firestore'
+import { useSession } from 'app/context/SessionContext'
 import { Dropdown, DropdownItem, Confirmation } from 'app/components/Lib'
-import { CommentList } from 'domains/Comment/components/list/CommentList'
-import { MeasureSimpleView } from 'domains/Measure/components/views/MeasureSimpleView'
-import { CategorySimpleView } from 'domains/Category/components/views/CategorySimpleView'
-import { CurrencySimpleView } from 'domains/Currency/components/views/CurrencySimpleView'
+import { MeasureSimpleView } from 'domains/Measure/components/views'
+import { CategorySimpleView } from 'domains/Category/components/views'
+import { CurrencySimpleView } from 'domains/Currency/components/views'
+import { CommentListWithAdd } from 'app/domains/Comment/components/combined/list'
 
 const productTypeMap = {
   cart: {
@@ -53,7 +53,7 @@ const productTypeMap = {
 }
 
 const ProductAdvancedView = (props) => {
-  const { type, data, id, setStatusMessage } = props
+  const { type, data, id, setStatusMessage, dropdownItem } = props
   // [ADDITIONAL_HOOKS]
   const history = useHistory()
   const user = useSession()
@@ -68,6 +68,7 @@ const ProductAdvancedView = (props) => {
   // [HELPER_FUNCTIONS]
   const handleDelete = () => {
     try {
+      setDeleteLoading(true)
       deleteData(productCollection, id).then(() => history.goBack())
       setStatusMessage({
         open: true,
@@ -77,6 +78,7 @@ const ProductAdvancedView = (props) => {
     } catch (error) {
       setStatusMessage({ open: true, message: error, type: 'error' })
     }
+    setDeleteLoading(false)
   }
   const handleMoveProduct = () => {
     try {
@@ -92,7 +94,7 @@ const ProductAdvancedView = (props) => {
   }
 
   // [COMPUTED_PROPERTIES]
-  const firstElement = productTypeMap[type].item
+  const firstElement = dropdownItem || productTypeMap[type].item
   const editPages = productTypeMap[type].editRoute(id)
   const displayElements = productTypeMap[type].displayElements
   const productCollection = productTypeMap[type].collection
@@ -100,7 +102,9 @@ const ProductAdvancedView = (props) => {
 
   const DropdownList = (
     <Container>
-      {user.role !== 'user' && (
+      {user.role !== 'user' && typeof firstElement !== 'string' ? (
+        firstElement && firstElement
+      ) : (
         <DropdownItem onClick={handleMoveProduct} divider>
           <Typography>{firstElement}</Typography>
         </DropdownItem>
@@ -122,6 +126,7 @@ const ProductAdvancedView = (props) => {
       </Confirmation>
     </Container>
   )
+
   return (
     <Container>
       <Row h="center">
@@ -155,7 +160,7 @@ const ProductAdvancedView = (props) => {
               <Typography>
                 <MeasureSimpleView
                   productNumber={data?.quantity}
-                  text={data?.measures}
+                  text={data?.measures?.measure}
                 />
               </Typography>
             </Col>
@@ -179,7 +184,7 @@ const ProductAdvancedView = (props) => {
               <Typography>Assigned user</Typography>
             </Col>
             <Col cw="auto">
-              <Typography>{data?.assign || 'None'}</Typography>
+              <Typography>{data?.firstName || 'None'}</Typography>
             </Col>
           </Row>
           {type === 'cart' ? (
@@ -203,7 +208,7 @@ const ProductAdvancedView = (props) => {
           ) : (
             <></>
           )}
-          {displayElements && <CommentList />}
+          {displayElements && <CommentListWithAdd />}
         </Col>
       </Row>
     </Container>

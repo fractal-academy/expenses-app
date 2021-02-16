@@ -2,17 +2,16 @@ import { useState } from 'react'
 import PropTypes from 'prop-types'
 import { COLLECTIONS } from 'app/constants'
 import { useParams } from 'react-router-dom'
-import { Spinner } from 'app/components/Lib'
-import { firestore } from 'app/services/Firestore'
-import { Message } from 'app/components/Lib/Message'
-import { useCollection } from 'react-firebase-hooks/firestore'
+import { Spinner, Message } from 'app/components/Lib'
+import { getCollectionRef } from 'app/services/Firestore'
+import { useDocumentData } from 'react-firebase-hooks/firestore'
 import { ProductAdvancedView } from 'domains/Product/components/views'
 
-const CartShow = (props) => {
+const CartShow = () => {
   const { id } = useParams()
 
-  const [value, loading] = useCollection(
-    firestore.collection(COLLECTIONS.CART).doc(id)
+  const [value, loading] = useDocumentData(
+    getCollectionRef(COLLECTIONS.CART).doc(id)
   )
 
   const [statusMessage, setStatusMessage] = useState({
@@ -23,15 +22,16 @@ const CartShow = (props) => {
   const handleClose = () => {
     setStatusMessage({ open: false, message: '', type: '' })
   }
+  if (loading) {
+    return <Spinner />
+  }
 
-  return loading ? (
-    <Spinner />
-  ) : (
+  return (
     <>
       <ProductAdvancedView
         id={id}
         type="cart"
-        data={value.data()}
+        data={value}
         setStatusMessage={setStatusMessage}
       />
       <Message
