@@ -5,7 +5,7 @@ import { COLLECTIONS } from 'app/constants'
 import { firestore, deleteData } from 'app/services/Firestore'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 
-const CartTable = (props) => {
+const WishTable = (props) => {
   const { setStatusMessage, actions } = props
 
   const [confirm, setConfirm] = useState(false)
@@ -44,8 +44,8 @@ const CartTable = (props) => {
   )
 }
 
-CartTable.propTypes = {
+WishTable.propTypes = {
   setStatusMessage: PropTypes.func
 }
 
-export default CartTable
+export default WishTable
