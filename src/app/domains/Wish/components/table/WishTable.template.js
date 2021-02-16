@@ -6,26 +6,30 @@ import { firestore, deleteData, getData, setData } from 'app/services/Firestore'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 
 const WishTable = (props) => {
+  // INTERFACE
   const { setStatusMessage, actions } = props
 
+  // STATE
   const [confirm, setConfirm] = useState(false)
 
+  // CUSTOM HOOKS
   const [data, loading] = useCollectionData(
     firestore.collection(COLLECTIONS.WISHES)
   )
-  if (loading) {
-    return <Spinner />
-  }
+
+  // HELPER FUNCTIONS
   const handleMove = async (selectedItems) => {
     for (let item of selectedItems) {
-      console.log('item', item)
       try {
+        /*
+        get data about  product from wish*/
         let product = await getData(COLLECTIONS.WISHES, item)
-        console.log('1, get product')
+        /*
+        set product to cart*/
         await setData(COLLECTIONS.CART, item, product)
-        console.log('2, set to cart')
+        /*
+        delete product from wish*/
         await deleteData(COLLECTIONS.WISHES, item)
-        console.log('3 delete from wish')
         setStatusMessage({
           open: true,
           message: 'Products were moved',
@@ -58,19 +62,21 @@ const WishTable = (props) => {
     }
   }
 
+  //TEMPLATE
+  if (loading) {
+    return <Spinner />
+  }
   return (
-    <>
-      {data && (
-        <Table
-          type="wishes"
-          products={data}
-          actions={actions}
-          handleDelete={handleDelete}
-          setStatusMessage={setStatusMessage}
-          onCheckClick={handleMove}
-        />
-      )}
-    </>
+    <Table
+      type="wishes"
+      products={data}
+      actions={actions}
+      handleDelete={handleDelete}
+      setStatusMessage={setStatusMessage}
+      /*
+          function for removing products to cart */
+      onCheckClick={handleMove}
+    />
   )
 }
 

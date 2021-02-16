@@ -142,31 +142,29 @@ const CartTable = (props) => {
       setStatusMessage({ open: true, message: error, type: 'error' })
     }
   }
+
+  //TEMPLATE
   if (loading) {
     return <Spinner />
   }
   return (
-    <>
-      {data && (
-        <Table
-          type="cart"
-          products={data}
-          actions={actions}
-          handleDelete={handleDelete}
-          setStatusMessage={setStatusMessage}
-          /*
+    <Table
+      type="cart"
+      products={data}
+      actions={actions}
+      handleDelete={handleDelete}
+      setStatusMessage={setStatusMessage}
+      /*
           component for select wallet*/
-          WrapperForCheck={WalletCombinedWithSelect}
-          /*
+      WrapperForCheck={WalletCombinedWithSelect}
+      /*
           function for checking. every product have filled fields or not. 
           if once field has an empty field, you will not see WrapperForCheck */
-          onCheckClick={onCheckClick}
-          /*
+      onCheckClick={onCheckClick}
+      /*
           function for moving a product from card to purchase*/
-          handleMove={handleMove}
-        />
-      )}
-    </>
+      handleMove={handleMove}
+    />
   )
 }
 
