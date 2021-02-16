@@ -22,6 +22,7 @@ const CartTable = (props) => {
     firestore.collection(COLLECTIONS.CART)
   )
   const session = useSession()
+  const [deleteLoading, setDeleteLoading] = useState(false)
 
   // STATE
   const [confirm, setConfirm] = useState(false)
@@ -129,6 +130,7 @@ const CartTable = (props) => {
 
   const handleDelete = (selectedItems) => {
     try {
+      setDeleteLoading(true)
       selectedItems.map((item) => deleteData(COLLECTIONS.CART, item))
 
       setStatusMessage({
@@ -136,8 +138,8 @@ const CartTable = (props) => {
         message: 'Products were successfully deleted.',
         type: 'success'
       })
-
       setConfirm(false)
+      setDeleteLoading(false)
     } catch (error) {
       setStatusMessage({ open: true, message: error, type: 'error' })
     }
@@ -154,6 +156,9 @@ const CartTable = (props) => {
       actions={actions}
       handleDelete={handleDelete}
       setStatusMessage={setStatusMessage}
+      confirm={confirm}
+      setConfirm={setConfirm}
+      deleteLoading={deleteLoading}
       /*
           component for select wallet*/
       WrapperForCheck={WalletCombinedWithSelect}

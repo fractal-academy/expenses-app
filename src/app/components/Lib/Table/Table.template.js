@@ -55,6 +55,9 @@ const CustomTable = (props) => {
     WrapperForCheck,
     onCheckClick,
     handleMove,
+    confirm,
+    setConfirm,
+    deleteLoading,
     actions = true
   } = props
 
@@ -95,6 +98,9 @@ const CustomTable = (props) => {
               onCheckClick={onCheckClick}
               WrapperForCheck={WrapperForCheck}
               handleMove={handleMove}
+              confirm={confirm}
+              setConfirm={setConfirm}
+              deleteLoading={deleteLoading}
             />
           )}
           <Paper variant="outlined" elevation={0}>

@@ -34,6 +34,9 @@ const CustomToolbar = (props) => {
     handleDelete,
     handleMove,
     onCheckClick,
+    confirm,
+    setConfirm,
+    deleteLoading,
     WrapperForCheck = Box
   } = props
 
@@ -42,8 +45,6 @@ const CustomToolbar = (props) => {
 
   // [COMPONENT_STATE_HOOKS]
   const [value, setValue] = useState()
-  const [confirm, setConfirm] = useState(false)
-  const [deleteLoading, setDeleteLoading] = useState(false)
 
   // [HELPER_FUNCTIONS]
   const onMenuChange = (event, newPage) => setValue(newPage)

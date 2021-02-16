@@ -11,6 +11,7 @@ const WishTable = (props) => {
 
   // STATE
   const [confirm, setConfirm] = useState(false)
+  const [deleteLoading, setDeleteLoading] = useState(false)
 
   // CUSTOM HOOKS
   const [data, loading] = useCollectionData(
@@ -48,6 +49,7 @@ const WishTable = (props) => {
   }
   const handleDelete = (selectedItems) => {
     try {
+      setDeleteLoading(true)
       selectedItems.map((item) => deleteData(COLLECTIONS.WISHES, item))
 
       setStatusMessage({
@@ -57,6 +59,7 @@ const WishTable = (props) => {
       })
 
       setConfirm(false)
+      setDeleteLoading(false)
     } catch (error) {
       setStatusMessage({ open: true, message: error, type: 'error' })
     }
@@ -73,6 +76,9 @@ const WishTable = (props) => {
       actions={actions}
       handleDelete={handleDelete}
       setStatusMessage={setStatusMessage}
+      confirm={confirm}
+      deleteLoading={deleteLoading}
+      setConfirm={setConfirm}
       /*
           function for removing products to cart */
       onCheckClick={handleMove}
