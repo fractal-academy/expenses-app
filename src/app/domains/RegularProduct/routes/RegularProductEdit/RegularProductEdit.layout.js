@@ -6,7 +6,7 @@ import { COLLECTIONS } from 'app/constants'
 import { Spinner } from 'app/components/Lib'
 import React, { useEffect, useState } from 'react'
 
-const RegularProductEdit = (props) => {
+const RegularProductEdit = () => {
   const history = useHistory()
   const { id } = useParams()
   const [value] = useDocumentData(
@@ -40,7 +40,7 @@ const RegularProductEdit = (props) => {
         price: data.price,
         quantity: data.quantity,
         measures: data?.measures || '',
-        remind: data.remind
+        remind: data.remind || null
       })
       history.goBack()
     } catch (error) {
