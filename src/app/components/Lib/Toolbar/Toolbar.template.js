@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Fragment } from 'react'
 import { ROUTES_PATHS } from 'app/constants'
 import { useHistory } from 'react-router-dom'
 import { Confirmation } from 'components/Lib'
@@ -28,7 +28,14 @@ const toolbarItems = [
 ]
 
 const CustomToolbar = (props) => {
-  const { numRows, selectedItems, handleDelete } = props
+  const {
+    numRows,
+    selectedItems,
+    handleDelete,
+    handleMove,
+    onCheckClick,
+    WrapperForCheck = Fragment
+  } = props
 
   // [ADDITIONAL_HOOKS]
   const history = useHistory()
@@ -62,9 +69,15 @@ const CustomToolbar = (props) => {
                     <Typography variant="button">{info}</Typography>
                   </Col>
                   <Col cw="auto">
-                    <IconButton color="primary">
-                      <Check onClick={console.log()} />
-                    </IconButton>
+                    <WrapperForCheck
+                      onClick={() => onCheckClick(selectedItems)}
+                      onSubmitFunction={(data) =>
+                        handleMove(data, selectedItems)
+                      }>
+                      <IconButton color="primary">
+                        <Check />
+                      </IconButton>
+                    </WrapperForCheck>
                     <Confirmation
                       action="Delete"
                       text={'Do you want to delete this products?'}
