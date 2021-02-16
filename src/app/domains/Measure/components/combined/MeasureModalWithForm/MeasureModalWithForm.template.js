@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
-import { Snackbar } from '@material-ui/core'
+import { Snackbar, Switch, Typography } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
 import { Alert } from '@material-ui/lab'
 import { Modal, FabButton } from 'app/components/Lib'
 import { MeasureSimpleForm } from 'domains/Measure/components/forms'
 import PropTypes from 'prop-types'
+import { firestore, setData } from 'app/services'
+import { COLLECTIONS } from 'app/constants'
+import { Row } from '@qonsoll/react-design'
+import { deleteData } from 'app/services/Firestore'
 
 const MeasureModalWithForm = (props) => {
   const { title, children } = props
@@ -12,11 +16,41 @@ const MeasureModalWithForm = (props) => {
   const [open, setOpen] = useState(children && !children)
   const [openSnackbarSuccess, setOpenSnackbarSuccess] = useState(false)
   const [openSnackbarError, setOpenSnackbarError] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [switchState, setSwitchState] = useState(true)
   const form = useForm({})
 
-  const onSubmit = () => {
+  const onRemoveMeasure = async (data) => {
+    try {
+      const { measureSelect } = data
+      setLoading(true)
+      await deleteData(COLLECTIONS.MEASURES, measureSelect.id)
+      form.reset({})
+    } catch (error) {
+      console.log(error)
+    }
+    setLoading(false)
+    setSwitchState(true)
     setOpen(false)
   }
+  const onAddMeasure = async (data) => {
+    try {
+      setLoading(true)
+      const id = firestore.collection(COLLECTIONS.MEASURES).doc().id
+      await setData(COLLECTIONS.MEASURES, id, {
+        id: id,
+        measure: data.measure
+      })
+      form.reset()
+    } catch (error) {
+      console.log(error)
+    }
+    setLoading(false)
+    setSwitchState(true)
+
+    setOpen(false)
+  }
+
   const submitForm = () => form.submit()
   const handleClickOpen = () => {
     setOpen(true)
@@ -61,22 +95,51 @@ const MeasureModalWithForm = (props) => {
           fullWidth: true
         }}
         buttonSubmitProps={{
-          text: 'Submit',
+          text: switchState ? 'Submit' : 'Delete',
           variant: 'contained',
           color: 'primary',
-          onClick: submitForm
+          onClick: submitForm,
+          loading
         }}
         buttonCancelProps={{
           text: 'Cancel',
           variant: 'contained',
           onClick: handleClose
         }}>
-        <MeasureSimpleForm
-          form={form}
-          show={['Measure']}
-          onSubmit={onSubmit}
-          buttonProps={{ visible: false }}
-        />
+        <Row v="center" mb={2}>
+          <Typography>Add</Typography>
+          <Switch onChange={() => setSwitchState(!switchState)} />
+          <Typography>Remove</Typography>
+        </Row>
+        {switchState ? (
+          <>
+            <Row h="center">
+              <Typography variant="h5" align="center">
+                Add measure
+              </Typography>
+            </Row>
+            <MeasureSimpleForm
+              form={form}
+              show={['measure']}
+              onSubmit={onAddMeasure}
+              buttonProps={{ visible: false }}
+            />
+          </>
+        ) : (
+          <>
+            <Row h="center">
+              <Typography variant="h5" align="center">
+                Remove measure
+              </Typography>
+            </Row>
+            <MeasureSimpleForm
+              form={form}
+              show={['measureSelect']}
+              onSubmit={onRemoveMeasure}
+              buttonProps={{ visible: false }}
+            />
+          </>
+        )}
       </Modal>
     </>
   )

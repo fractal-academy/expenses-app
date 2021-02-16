@@ -1,17 +1,20 @@
-import { Table } from 'app/components/Lib'
-import { firestore } from 'app/services/Firestore'
-import { useCollection } from 'react-firebase-hooks/firestore'
+import { Spinner, Table } from 'app/components/Lib'
 import { COLLECTIONS } from 'app/constants'
+import { firestore } from 'app/services/Firestore'
+import { useCollectionData } from 'react-firebase-hooks/firestore'
 
-const CartTable = () => {
-  // CUSTOM HOOKS
-  const [value] = useCollection(firestore.collection(COLLECTIONS.CART))
-  const data = value?.docs.map((item) => ({
-    id: item.id,
-    ...item.data()
-  }))
+const CartTable = (props) => {
+  const { setStatusMessage } = props
 
-  return <>{value && <Table type="cart" products={data} />}</>
+  const [data, loading] = useCollectionData(
+    firestore.collection(COLLECTIONS.CART)
+  )
+  if (loading) {
+    return <Spinner />
+  }
+  return (
+    <Table type="cart" products={data} setStatusMessage={setStatusMessage} />
+  )
 }
 
 export default CartTable

@@ -8,7 +8,8 @@ const COLLECTIONS = {
   NOTIFICATIONS: 'notifications',
   COMMENTS: 'comments',
   CATEGORIES: 'categories',
-  WALLETS: 'wallets'
+  WALLETS: 'wallets',
+  MEASURES: 'measures'
 }
 
 export default COLLECTIONS
