@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import Button from '@material-ui/core/Button'
 import {
   Form,
   FormGenerator,
@@ -8,7 +7,9 @@ import {
 import { MemberSingleSelect } from 'app/domains/Member/components/select'
 import { CategorySelectWithCreate } from 'app/domains/Category/components/select'
 import { MeasureSingleSelectWithCreate } from 'app/domains/Measure/components/select'
+import { LoadingButton } from 'components/Lib'
 
+// form configuration map
 const config = [
   {
     type: 'text',
@@ -78,7 +79,16 @@ const config = [
   }
 ]
 
+/**
+ * @info ProductAdvancedForm (18 Jan 2021) // CREATION DATE
+ *
+ * @since 16 Feb 2021 ( v.0.1.0 ) // LAST-EDIT DATE
+ *
+ * @return {ReactComponent}
+ */
+
 const ProductAdvancedForm = (props) => {
+  // [INTERFACES]
   const {
     formData,
     show,
@@ -88,6 +98,8 @@ const ProductAdvancedForm = (props) => {
     buttonProps,
     formProps
   } = props
+
+  // [TEMPLATE]
   return (
     <Form
       form={form}
@@ -96,7 +108,7 @@ const ProductAdvancedForm = (props) => {
       defaultValues={formData}
       {...formProps}>
       <FormGenerator config={config} show={show} />
-      <FormButtons Button={Button} {...buttonProps} />
+      <FormButtons Button={LoadingButton} {...buttonProps} />
     </Form>
   )
 }
