@@ -52,6 +52,9 @@ const CustomTable = (props) => {
     products,
     handleDelete,
     setStatusMessage,
+    WrapperForCheck,
+    onCheckClick,
+    handleMove,
     actions = true
   } = props
 
@@ -89,6 +92,9 @@ const CustomTable = (props) => {
               selectedItems={selected}
               setStatusMessage={setStatusMessage}
               handleDelete={handleDelete}
+              onCheckClick={onCheckClick}
+              WrapperForCheck={WrapperForCheck}
+              handleMove={handleMove}
             />
           )}
           <Paper variant="outlined" elevation={0}>
