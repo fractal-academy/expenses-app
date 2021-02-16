@@ -4,7 +4,7 @@ const cors = require('cors')({ origin: true })
 const nodemailerSendgrid = require('nodemailer-sendgrid')
 
 //change 'dev'||'prod' config
-const config = require('./config').config.dev
+const config = require('../config').config.dev
 
 exports.sendMail = functions.https.onRequest((req, res) => {
   cors(req, res, async () => {

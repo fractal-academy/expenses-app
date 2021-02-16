@@ -5,11 +5,11 @@ import { Alert } from '@material-ui/lab'
 import { MemberAdvancedForm } from 'domains/Member/components/forms'
 import { Modal, FabButton } from 'app/components/Lib'
 import { setData, getData } from 'app/services/Firestore'
+import { callFunction, func } from 'app/services/Functions'
 import { COLLECTIONS } from 'app/constants'
 import md5 from 'md5'
-import firebase from 'app/services/Firebase'
 
-const MemberCombined = (props) => {
+const MemberCombined = () => {
   const [open, setOpen] = useState(false)
   const [openSnackbarSuccess, setOpenSnackbarSuccess] = useState(false)
   const [openSnackbarError, setOpenSnackbarError] = useState(false)
@@ -41,10 +41,8 @@ const MemberCombined = (props) => {
         role,
         isPending: true
       })
-      const func = firebase
-        .functions()
-        .httpsCallable('sendMail', { timeout: 0 })
-      await func({ email })
+      const sendInvitation = callFunction(func.SEND_INVITATION)
+      await sendInvitation({ email })
       setOpenSnackbarSuccess(true)
     } catch (error) {
       console.log(error)

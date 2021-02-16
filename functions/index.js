@@ -1,8 +1,8 @@
-const sendMail = require('./sendInvitationEmail').sendMail
-const deleteUser = require('./deleteUser').deleteUser
+const functions = require('./functions')
 const admin = require('firebase-admin')
 
 admin.initializeApp()
 
-exports.sendMail = sendMail
-exports.deleteUser = deleteUser
+exports.sendMail = functions.sendMail
+exports.deleteUser = functions.deleteUser
+exports.reminder = functions.reminder

@@ -7,7 +7,7 @@ import {
   Divider
 } from '@material-ui/core'
 import { AccountCircle, ExitToApp, ArrowBack } from '@material-ui/icons'
-import { useHistory } from 'react-router-dom'
+import { useHistory, generatePath } from 'react-router-dom'
 import { DropdownItem, Dropdown } from 'components/Lib'
 import { useSession } from 'app/context/SessionContext'
 import { auth } from 'app/services/Auth'
@@ -26,9 +26,7 @@ const Header = (props) => {
   // DROPDOWN OVERLAY ELEMENT
   const DropdownList = (
     <div>
-      <DropdownItem
-        divider
-        onClick={() => history.push(`${ROUTES_PATHS.MEMBERS_ALL}/${id}`)}>
+      <DropdownItem divider onClick={() => history.push(memberProfile)}>
         <AccountCircle />
         Profile
       </DropdownItem>
@@ -41,6 +39,9 @@ const Header = (props) => {
 
   // HELPER FUNCTIONS
   const redirect = () => history.goBack()
+
+  // [COMPUTED_PROPERTIES]
+  const memberProfile = generatePath(ROUTES_PATHS.MEMBER_SHOW, { id })
 
   // TEMPLATE
   return (
@@ -57,7 +58,7 @@ const Header = (props) => {
               </Box>
             </>
           )}
-          <Typography color="textPrimary" variant="body1">
+          <Typography color="textPrimary" variant="h6">
             {title}
           </Typography>
         </Box>
