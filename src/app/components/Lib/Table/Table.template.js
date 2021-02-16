@@ -47,7 +47,19 @@ const tableTypeMap = {
 }
 
 const CustomTable = (props) => {
-  const { type, products, setStatusMessage, actions = true } = props
+  const {
+    type,
+    products,
+    handleDelete,
+    setStatusMessage,
+    WrapperForCheck,
+    onCheckClick,
+    handleMove,
+    confirm,
+    setConfirm,
+    deleteLoading,
+    actions = true
+  } = props
 
   // [ADDITIONAL_HOOKS]
   const history = useHistory()
@@ -80,9 +92,15 @@ const CustomTable = (props) => {
           {actions && multiselect && (
             <Toolbar
               numRows={numRows}
-              type={type}
               selectedItems={selected}
               setStatusMessage={setStatusMessage}
+              handleDelete={handleDelete}
+              onCheckClick={onCheckClick}
+              WrapperForCheck={WrapperForCheck}
+              handleMove={handleMove}
+              confirm={confirm}
+              setConfirm={setConfirm}
+              deleteLoading={deleteLoading}
             />
           )}
           <Paper variant="outlined" elevation={0}>
@@ -175,7 +193,6 @@ const CustomTable = (props) => {
   )
 }
 CustomTable.propTypes = {
-  id: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   products: PropTypes.array.isRequired,
   setStatusMessage: PropTypes.func,

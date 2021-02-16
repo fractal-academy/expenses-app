@@ -6,13 +6,12 @@ const MeasureSimpleView = (props) => {
 
   const measureName =
     (productNumber > 1 && text.length > 2 && `${text}s`) || text
-  const quantity = `${productNumber} ${measureName}`
 
   return (
     <Container>
       <Row noGutters h="center">
         <Col display="flex" cw="auto">
-          {quantity}
+          {productNumber} {measureName}
         </Col>
       </Row>
     </Container>
@@ -21,7 +20,6 @@ const MeasureSimpleView = (props) => {
 
 MeasureSimpleView.propTypes = {
   text: PropTypes.string,
-  textProps: PropTypes.object,
   productNumber: PropTypes.number
 }
 MeasureSimpleView.defaultProps = {
