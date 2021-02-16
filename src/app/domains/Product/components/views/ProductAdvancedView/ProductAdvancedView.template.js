@@ -134,6 +134,7 @@ const ProductAdvancedView = (props) => {
     } catch (error) {
       setStatusMessage({ open: true, message: error, type: 'error' })
     }
+    return true
   }
 
   // [COMPUTED_PROPERTIES]
@@ -150,6 +151,7 @@ const ProductAdvancedView = (props) => {
         firstElement && firstElement
       ) : (
         <WalletCombinedWithSelect
+          setStatusMessage={setStatusMessage}
           onSubmitFunction={handleMoveProduct}
           onClick={onCheckClick}>
           <DropdownItem divider>
