@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { Spinner, Table } from 'components/Lib'
 import { COLLECTIONS } from 'app/constants'
 import { firestore } from 'app/services/Firestore'
@@ -24,4 +25,7 @@ const WishTable = (props) => {
   )
 }
 
+WishTable.propTypes = {
+  setStatusMessage: PropTypes.func
+}
 export default WishTable

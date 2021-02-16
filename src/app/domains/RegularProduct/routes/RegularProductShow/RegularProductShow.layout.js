@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import { useParams } from 'react-router-dom'
 import { Typography } from '@material-ui/core'
 import { useDocumentData } from 'react-firebase-hooks/firestore'
@@ -57,17 +56,6 @@ const RegularProductShow = (props) => {
       />
     </>
   )
-}
-
-RegularProductShow.propTypes = {
-  price: PropTypes.number,
-  number: PropTypes.number,
-  measure: PropTypes.string,
-  quantity: PropTypes.number,
-  description: PropTypes.string,
-  reminderDate: PropTypes.number,
-  assignedUser: PropTypes.string,
-  name: PropTypes.string.isRequired
 }
 
 export default RegularProductShow

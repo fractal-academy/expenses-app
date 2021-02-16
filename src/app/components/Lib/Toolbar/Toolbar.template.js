@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react'
 import { ROUTES_PATHS } from 'app/constants'
 import { useHistory } from 'react-router-dom'
 import { Confirmation } from 'components/Lib'
-import { deleteData } from 'app/services/Firestore'
 import { Container, Row, Col } from '@qonsoll/react-design'
 import {
   Toolbar,
@@ -29,7 +28,7 @@ const toolbarItems = [
 ]
 
 const CustomToolbar = (props) => {
-  const { numRows, type, selectedItems, setStatusMessage } = props
+  const { numRows, selectedItems, handleDelete } = props
 
   // [ADDITIONAL_HOOKS]
   const history = useHistory()
@@ -46,25 +45,6 @@ const CustomToolbar = (props) => {
       toolbarItems.findIndex((item) => item.path === history.location.pathname)
     )
   }, [history])
-  const handleMultipleMove = () => {}
-  const handleMultipleDelete = () => {
-    try {
-      setDeleteLoading(true)
-      selectedItems.map((item) => {
-        deleteData(type, item).then((numSelected = 0))
-      })
-
-      setStatusMessage({
-        open: true,
-        message: 'Products were successfully deleted.',
-        type: 'success'
-      })
-      setConfirm(false)
-      setDeleteLoading(false)
-    } catch (error) {
-      setStatusMessage({ open: true, message: error, type: 'error' })
-    }
-  }
 
   // [COMPUTED_PROPERTIES]
   let numSelected = selectedItems.length
@@ -83,7 +63,7 @@ const CustomToolbar = (props) => {
                   </Col>
                   <Col cw="auto">
                     <IconButton color="primary">
-                      <Check onClick={handleMultipleMove} />
+                      <Check onClick={console.log()} />
                     </IconButton>
                     <Confirmation
                       action="Delete"
@@ -91,7 +71,7 @@ const CustomToolbar = (props) => {
                       open={confirm}
                       setOpen={setConfirm}
                       loading={deleteLoading}
-                      onConfirm={handleMultipleDelete}>
+                      onConfirm={() => handleDelete(selectedItems)}>
                       <IconButton color="primary">
                         <Delete />
                       </IconButton>
@@ -129,7 +109,7 @@ const CustomToolbar = (props) => {
 CustomToolbar.propTypes = {
   type: PropTypes.string,
   numRows: PropTypes.number,
-  numSelected: PropTypes.number.isRequired,
-  selectedItems: PropTypes.array
+  selectedItems: PropTypes.array,
+  setStatusMessage: PropTypes.func
 }
 export default CustomToolbar
