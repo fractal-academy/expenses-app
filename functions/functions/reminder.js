@@ -43,4 +43,5 @@ exports.reminder = functions.pubsub
             userId: item.userId ? [item.userId] : adminsIds
           })
       })
+    return null
   })
