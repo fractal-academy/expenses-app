@@ -117,7 +117,7 @@ const CartTable = (props) => {
         })
       } catch (error) {
         /* 
-        if we have error, we will see a message about successful operation*/
+        if we have error, we will see a message about unsuccessful operation*/
         setStatusMessage({
           open: true,
           message: error,
@@ -151,6 +151,7 @@ const CartTable = (props) => {
         <Table
           type="cart"
           products={data}
+          actions={actions}
           handleDelete={handleDelete}
           setStatusMessage={setStatusMessage}
           /*

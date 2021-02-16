@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import { useState, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { Table, Spinner } from 'app/components/Lib'
 import { COLLECTIONS } from 'app/constants'
-import { firestore, deleteData } from 'app/services/Firestore'
+import { firestore, deleteData, getData, setData } from 'app/services/Firestore'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 
 const WishTable = (props) => {
@@ -16,7 +16,29 @@ const WishTable = (props) => {
   if (loading) {
     return <Spinner />
   }
-
+  const handleMove = async (selectedItems) => {
+    selectedItems.map(async (item) => {
+      console.log('item', item)
+      try {
+        let product = await getData(COLLECTIONS.WISHES, item)
+        await setData(COLLECTIONS.CART, item, product)
+        await deleteData(COLLECTIONS.WISHES, item)
+        setStatusMessage({
+          open: true,
+          message: 'Products were moved',
+          type: 'success'
+        })
+      } catch (error) {
+        /* 
+        if we have error, we will see a message about unsuccessful operation*/
+        setStatusMessage({
+          open: true,
+          message: error,
+          type: 'error'
+        })
+      }
+    })
+  }
   const handleDelete = (selectedItems) => {
     try {
       selectedItems.map((item) => deleteData(COLLECTIONS.WISHES, item))
@@ -35,15 +57,16 @@ const WishTable = (props) => {
 
   return (
     <>
-      {/* {data && ( */}
-      <Table
-        type="wishes"
-        products={data}
-        actions={actions}
-        handleDelete={handleDelete}
-        setStatusMessage={setStatusMessage}
-      />
-      {/* )} */}
+      {data && (
+        <Table
+          type="wishes"
+          products={data}
+          actions={actions}
+          handleDelete={handleDelete}
+          setStatusMessage={setStatusMessage}
+          onCheckClick={handleMove}
+        />
+      )}
     </>
   )
 }

@@ -3,7 +3,7 @@ import { useState, useEffect, Fragment } from 'react'
 import { ROUTES_PATHS } from 'app/constants'
 import { useHistory } from 'react-router-dom'
 import { Confirmation } from 'components/Lib'
-import { Container, Row, Col } from '@qonsoll/react-design'
+import { Container, Row, Col, Box } from '@qonsoll/react-design'
 import {
   Toolbar,
   Typography,
@@ -34,7 +34,7 @@ const CustomToolbar = (props) => {
     handleDelete,
     handleMove,
     onCheckClick,
-    WrapperForCheck = Fragment
+    WrapperForCheck = Box
   } = props
 
   // [ADDITIONAL_HOOKS]
@@ -69,15 +69,15 @@ const CustomToolbar = (props) => {
                     <Typography variant="button">{info}</Typography>
                   </Col>
                   <Col cw="auto">
-                    <WrapperForCheck
-                      onClick={() => onCheckClick(selectedItems)}
-                      onSubmitFunction={(data) =>
-                        handleMove(data, selectedItems)
-                      }>
-                      <IconButton color="primary">
+                    <IconButton color="primary">
+                      <WrapperForCheck
+                        onClick={() => onCheckClick(selectedItems)}
+                        onSubmitFunction={(data) =>
+                          handleMove(data, selectedItems)
+                        }>
                         <Check />
-                      </IconButton>
-                    </WrapperForCheck>
+                      </WrapperForCheck>
+                    </IconButton>
                     <Confirmation
                       action="Delete"
                       text={'Do you want to delete this products?'}
