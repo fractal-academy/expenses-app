@@ -17,12 +17,15 @@ const WishTable = (props) => {
     return <Spinner />
   }
   const handleMove = async (selectedItems) => {
-    selectedItems.map(async (item) => {
+    for (let item of selectedItems) {
       console.log('item', item)
       try {
         let product = await getData(COLLECTIONS.WISHES, item)
+        console.log('1, get product')
         await setData(COLLECTIONS.CART, item, product)
+        console.log('2, set to cart')
         await deleteData(COLLECTIONS.WISHES, item)
+        console.log('3 delete from wish')
         setStatusMessage({
           open: true,
           message: 'Products were moved',
@@ -37,7 +40,7 @@ const WishTable = (props) => {
           type: 'error'
         })
       }
-    })
+    }
   }
   const handleDelete = (selectedItems) => {
     try {
