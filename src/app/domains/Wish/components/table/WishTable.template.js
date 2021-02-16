@@ -33,7 +33,7 @@ const CartTable = (props) => {
     }
   }
 
-  returnц(
+  return (
     <>
       {/* {data && ( */}
       <Table
