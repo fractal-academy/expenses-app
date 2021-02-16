@@ -47,10 +47,7 @@ const RegularProductEdit = (props) => {
       console.log(error)
     }
   }
-  if (loading) {
-    return <Spinner />
-  }
-  if (!dataForDefaultValue) {
+  if (loading || !dataForDefaultValue) {
     return <Spinner />
   }
   const onCancel = () => history.goBack()

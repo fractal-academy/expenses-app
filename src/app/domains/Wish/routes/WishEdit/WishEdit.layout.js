@@ -30,9 +30,6 @@ const WishEdit = (props) => {
     value && fetchData()
   }, [value])
 
-  if (loading) {
-    return <Spinner />
-  }
   const onEditProduct = async (data) => {
     try {
       await setData(COLLECTIONS.WISHES, id, {
@@ -54,7 +51,7 @@ const WishEdit = (props) => {
 
   const onCancel = () => history.goBack()
 
-  if (!dataForDefaultValue) {
+  if (loading || !dataForDefaultValue) {
     return <Spinner />
   }
   return (

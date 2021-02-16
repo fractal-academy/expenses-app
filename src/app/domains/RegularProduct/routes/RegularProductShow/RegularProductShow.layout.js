@@ -35,9 +35,7 @@ const RegularProductShow = (props) => {
     </QRCombinedModal>
   )
   // [TEMPLATE]
-  return loading ? (
-    <Spinner />
-  ) : (
+  return (
     <>
       <ProductAdvancedView
         type="product"
