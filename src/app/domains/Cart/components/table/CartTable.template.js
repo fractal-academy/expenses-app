@@ -96,6 +96,7 @@ const CartTable = (props) => {
           assign: userName,
           avatarURL: session.avatarURL,
           wallet: data.nameWallet,
+          privateWallet: data.privateWallet,
           dateBuy: data.dateBuy ? data.dateBuy : getTimestamp().now()
         })
         /*

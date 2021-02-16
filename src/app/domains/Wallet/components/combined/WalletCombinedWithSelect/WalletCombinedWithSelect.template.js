@@ -67,6 +67,7 @@ const WalletCombinedWithSelect = (props) => {
     //if result === 0, modal window will be opened
 
     if (result) {
+      console.log('mes')
       setStatusMessage({
         open: true,
         message: 'Fill all fields',

@@ -7,13 +7,20 @@ import { useHistory } from 'react-router-dom'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import { Typography, IconButton } from '@material-ui/core'
 import { Container, Row, Col } from '@qonsoll/react-design'
-import { deleteData, setData } from 'app/services/Firestore'
+import {
+  deleteData,
+  setData,
+  getData,
+  getTimestamp
+} from 'app/services/Firestore'
 import { useSession } from 'app/context/SessionContext'
 import { Dropdown, DropdownItem, Confirmation } from 'app/components/Lib'
 import { MeasureSimpleView } from 'domains/Measure/components/views'
 import { CategorySimpleView } from 'domains/Category/components/views'
 import { CurrencySimpleView } from 'domains/Currency/components/views'
 import { CommentListWithAdd } from 'app/domains/Comment/components/combined/list'
+import { WalletCombinedWithSelect } from 'app/domains/Wallet/components/combined/'
+import { COLLECTIONS } from 'app/constants'
 
 const productTypeMap = {
   cart: {
@@ -80,14 +87,50 @@ const ProductAdvancedView = (props) => {
     }
     setDeleteLoading(false)
   }
-  const handleMoveProduct = () => {
+
+  const onCheckClick = () => {
+    let status = true
+    //required fields
+    const fields = ['name', 'price', 'quantity']
+    for (let field of fields) {
+      data.hasOwnProperty(field)
+        ? data[field]
+          ? (status = status && true)
+          : (status = false)
+        : (status = false)
+    }
+    return !status
+  }
+
+  const handleMoveProduct = async (wallet) => {
     try {
-      setData(actionCollection, id, data).then(() => handleDelete())
+      /*
+      get data about current product */
+      const product = await getData(COLLECTIONS.CART, id)
+      /*
+       set product to collection purchase  with additional fields (info about user)*/
+      await setData(COLLECTIONS.PURCHASES, id, {
+        ...product,
+        assign: userName,
+        avatarURL: user.avatarURL,
+        wallet: wallet.nameWallet,
+        privateWallet: wallet.privateWallet,
+        dateBuy: data.dateBuy ? data.dateBuy : getTimestamp().now()
+      })
+
+      /*
+        set new balance to wallet*/
+      await setData(COLLECTIONS.WALLETS, wallet.id, {
+        balance: wallet.balance - product.price * product.quantity
+      })
       setStatusMessage({
         open: true,
         message: `Product was successfully moved to ${actionCollection}`,
         type: 'success'
       })
+      /*
+        delete current product from collection card */
+      await deleteData(COLLECTIONS.CART, id).then(() => history.goBack())
     } catch (error) {
       setStatusMessage({ open: true, message: error, type: 'error' })
     }
@@ -99,15 +142,20 @@ const ProductAdvancedView = (props) => {
   const displayElements = productTypeMap[type].displayElements
   const productCollection = productTypeMap[type].collection
   const actionCollection = productTypeMap[type].actionCollection
+  const userName = `${user.firstName} ${user.surname}`
 
   const DropdownList = (
     <Container>
       {user.role !== 'user' && typeof firstElement !== 'string' ? (
         firstElement && firstElement
       ) : (
-        <DropdownItem onClick={handleMoveProduct} divider>
-          <Typography>{firstElement}</Typography>
-        </DropdownItem>
+        <WalletCombinedWithSelect
+          onSubmitFunction={handleMoveProduct}
+          onClick={onCheckClick}>
+          <DropdownItem divider>
+            <Typography>{firstElement}</Typography>
+          </DropdownItem>
+        </WalletCombinedWithSelect>
       )}
 
       <DropdownItem onClick={() => history.push(editPages)} divider>
