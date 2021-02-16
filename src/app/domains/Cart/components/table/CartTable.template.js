@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { Table } from 'app/components/Lib'
+import { Table, Spinner } from 'app/components/Lib'
 import { useState } from 'react'
 import { COLLECTIONS } from 'app/constants'
 import {
@@ -15,10 +15,12 @@ import { useSession } from 'app/context/SessionContext/hooks'
 
 const CartTable = (props) => {
   // INTERFACE
-  const { setStatusMessage } = props
+  const { setStatusMessage, actions } = props
 
   // CUSTOM HOOKS
-  const [data] = useCollectionData(firestore.collection(COLLECTIONS.CART))
+  const [data, loading] = useCollectionData(
+    firestore.collection(COLLECTIONS.CART)
+  )
   const session = useSession()
 
   // STATE
@@ -139,7 +141,9 @@ const CartTable = (props) => {
       setStatusMessage({ open: true, message: error, type: 'error' })
     }
   }
-
+  if (loading) {
+    return <Spinner />
+  }
   return (
     <>
       {data && (
