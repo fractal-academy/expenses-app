@@ -155,7 +155,12 @@ const CustomTable = (props) => {
                               alignItems="center"
                               justifyContent="center">
                               {row.price || 'None'}
-                              {row.price && <CurrencySimpleView />}
+                              {row.price && (
+                                <CurrencySimpleView
+                                  variant="body2"
+                                  value="UAH"
+                                />
+                              )}
                             </Box>
                           </TableCell>
                         </>

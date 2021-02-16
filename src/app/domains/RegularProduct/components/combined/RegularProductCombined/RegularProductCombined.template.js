@@ -20,6 +20,10 @@ const RegularProductCombined = (props) => {
       await setData(COLLECTIONS.REGULAR_PRODUCTS, id, {
         id: id,
         name: data.nameProduct,
+        description: '',
+        price: '',
+        quantity: '',
+        measures: '',
         category: data.category,
         firstName: data?.assign?.firstName || '',
         assign: data?.assign?.id || '',

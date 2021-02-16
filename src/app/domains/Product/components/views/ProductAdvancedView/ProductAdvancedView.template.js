@@ -173,9 +173,7 @@ const ProductAdvancedView = (props) => {
               </Col>
               <Col display="flex" cw="auto">
                 <Typography>{data?.price}</Typography>
-                <Typography>
-                  {data?.currency && <CurrencySimpleView />}
-                </Typography>
+                <CurrencySimpleView value="UAH" />
               </Col>
             </Row>
           )}
@@ -202,7 +200,7 @@ const ProductAdvancedView = (props) => {
                 <Typography>Reminder date</Typography>
               </Col>
               <Col cw="auto">
-                <Typography>{reminderDate || 'None'}</Typography>
+                <Typography>{data.reminderDate || 'None'}</Typography>
               </Col>
             </Row>
           ) : (

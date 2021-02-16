@@ -34,17 +34,13 @@ const CartTable = (props) => {
   }
 
   return (
-    <>
-      {/* {data && ( */}
-      <Table
-        type="cart"
-        products={data}
-        actions={actions}
-        handleDelete={handleDelete}
-        setStatusMessage={setStatusMessage}
-      />
-      {/* )} */}
-    </>
+    <Table
+      type="cart"
+      products={data}
+      actions={actions}
+      handleDelete={handleDelete}
+      setStatusMessage={setStatusMessage}
+    />
   )
 }
 

@@ -4,8 +4,10 @@ import { Container, Row, Col } from '@qonsoll/react-design'
 const MeasureSimpleView = (props) => {
   const { text, productNumber } = props
 
+  const pluralize = require('pluralize')
+
   const measureName =
-    (productNumber > 1 && text.length > 2 && `${text}s`) || text
+    (productNumber > 1 && text.length > 2 && pluralize.plural(text)) || text
 
   return (
     <Container>
