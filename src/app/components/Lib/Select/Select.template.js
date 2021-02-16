@@ -14,19 +14,22 @@ const Select = (props) => {
     ...rest
   } = props
   const [currentValue, setCurrentValue] = useState(value)
-  useEffect(() => onChange(value), [])
+  useEffect(() => {
+    onChange(value)
+  }, [])
+
   const handleSelect = (event) => {
     const selectValue = event.target.value
     setCurrentValue(selectValue)
-    onChange && onChange(event, selectValue)
+    onChange && onChange(selectValue)
   }
-  useEffect(() => onChange(value), [])
   //in children use your own template
   return (
     <TextField
       select
       className={className}
       onChange={handleSelect}
+      defaultValue={value}
       value={currentValue}
       helperText={errorText}
       {...inputProps}

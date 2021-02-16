@@ -1,21 +1,30 @@
 import PropTypes from 'prop-types'
-import { useMemo } from 'react'
 import { MenuItem } from '@material-ui/core'
-import { Select } from 'components/Lib'
+import { Select } from 'app/components/Lib'
 import { getCollectionRef } from 'app/services/Firestore'
 import { COLLECTIONS } from 'app/constants'
-import { useCollection } from 'react-firebase-hooks/firestore'
+import { useCollectionData } from 'react-firebase-hooks/firestore'
+import { useEffect, useState } from 'react'
+import _ from 'lodash'
 
 const MemberSingleSelect = (props) => {
-  const [value] = useCollection(
-    getCollectionRef(COLLECTIONS.USERS).where('isPending', '!=', true)
+  const { value, ...rest } = props
+  const [members] = useCollectionData(
+    getCollectionRef(COLLECTIONS.USERS)
+      .where('isPending', '==', false)
+      .where('role', '==', 'admin'),
+    { idField: 'id' }
   )
-  const members = useMemo(
-    () => value && value.docs.map((member) => member.data()),
-    [value]
-  )
+  const [user, setUser] = useState()
+  useEffect(() => {
+    if (members && props.value) {
+      const uniq = _.uniqBy([props.value, ...members], 'email')
+      setUser(uniq)
+    }
+  }, [members])
+
   return (
-    <Select data={members && members} value={members && members[0]} {...props}>
+    <Select data={user || members} value={value} {...rest}>
       {(item) => (
         <MenuItem key={item} value={item}>
           {item.firstName && item.surname

@@ -1,30 +1,32 @@
 import { RegularProductsTable } from 'domains/RegularProduct/components/table'
 import { Container } from '@qonsoll/react-design'
 import { RegularProductCombined } from 'domains/RegularProduct/components/combined'
-
-const products = [
-  {
-    productName: 'sugar',
-    categoryName: 'kitchen',
-    asignee: 'Zhenya'
-  },
-  {
-    productName: 'water',
-    categoryName: 'kitchen',
-    asignee: 'Zhenya'
-  },
-  {
-    productName: 'table',
-    categoryName: 'kitchen',
-    asignee: 'Lyosha'
-  }
-]
+import { useState } from 'react'
+import { Message } from 'app/components/Lib'
 
 const RegularProductAll = (props) => {
+  const [statusMessage, setStatusMessage] = useState({
+    open: false,
+    message: '',
+    type: ''
+  })
+  const handleClose = () => {
+    setStatusMessage({ open: false, message: '', type: '' })
+  }
   return (
     <Container p={2}>
-      <RegularProductsTable products={products} />
+      <RegularProductsTable setStatusMessage={setStatusMessage} />
       <RegularProductCombined title="Add new regular product" />
+      <Message
+        open={statusMessage.open}
+        message={statusMessage.message}
+        vertical="top"
+        horizontal="center"
+        autoHideDuration={1500}
+        variant="filled"
+        severity={statusMessage.type}
+        onClose={handleClose}
+      />
     </Container>
   )
 }

@@ -20,11 +20,11 @@ const SETTINGS_MENU = [
   },
   { title: 'Logs', path: ROUTES_PATHS.LOGS_ALL, icon: <Assignment /> },
   {
-    title: 'Products list',
+    title: 'Regular products',
     path: ROUTES_PATHS.REGULAR_PRODUCTS_ALL,
     icon: <ViewList />
   },
-  { title: 'Purchase', path: ROUTES_PATHS.PURCHASE_ALL, icon: <Receipt /> },
+  { title: 'Purchases', path: ROUTES_PATHS.PURCHASE_ALL, icon: <Receipt /> },
   { title: 'Wallets', path: ROUTES_PATHS.WALLETS_ALL, icon: <CreditCard /> }
 ]
 
