@@ -18,6 +18,7 @@ const LoadingButton = (props) => {
     <Button
       ref={buttonRef}
       {...rest}
+      disabled={loading}
       color={loading && rest.variant ? 'default' : rest.color}
       startIcon={
         (startIcon && loading && (

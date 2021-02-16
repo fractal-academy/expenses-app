@@ -1,13 +1,26 @@
-import { Table } from 'components/Lib'
+import { Spinner, Table } from 'components/Lib'
 import { COLLECTIONS } from 'app/constants'
 import { firestore } from 'app/services/Firestore'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 
 const WishTable = (props) => {
-  const { actions } = props
-  const [data] = useCollectionData(firestore.collection(COLLECTIONS.WISHES))
+  const { setStatusMessage, actions } = props
+
+  const [data, loading] = useCollectionData(
+    firestore.collection(COLLECTIONS.WISHES)
+  )
+  if (loading) {
+    return <Spinner />
+  }
   return (
-    <>{data && <Table type="wishes" products={data} actions={actions} />}</>
+    <>
+      <Table
+        type="wishes"
+        products={data}
+        setStatusMessage={setStatusMessage}
+        actions={actions}
+      />
+    </>
   )
 }
 

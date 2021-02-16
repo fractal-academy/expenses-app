@@ -29,7 +29,7 @@ const config = [
 ]
 
 const ProductSimpleForm = (props) => {
-  const { onSubmit, onSubmitFail, formProps, form } = props
+  const { onSubmit, onSubmitFail, formProps, form, buttonProps } = props
   return (
     <Form
       form={form}
@@ -37,7 +37,7 @@ const ProductSimpleForm = (props) => {
       onSubmitFail={onSubmitFail}
       {...formProps}>
       <FormGenerator config={config} show={show} />
-      <FormButtons Button={Button} visible={false} />
+      <FormButtons Button={Button} {...buttonProps} />
     </Form>
   )
 }

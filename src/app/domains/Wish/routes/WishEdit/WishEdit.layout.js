@@ -4,46 +4,70 @@ import {
   firestore,
   setData,
   addData,
-  getTimestamp
+  getTimestamp,
+  getData
 } from 'app/services/Firestore'
 import { useHistory, useParams } from 'react-router-dom'
-import { useCollection } from 'react-firebase-hooks/firestore'
+import { useDocumentData } from 'react-firebase-hooks/firestore'
 import { ProductAdvancedForm } from 'domains/Product/components/forms/ProductAdvancedForm'
+import React, { useEffect, useState } from 'react'
 
 const WishEdit = (props) => {
   const { buttonProps } = props
   const history = useHistory()
   const { id } = useParams()
-  const [value, loading] = useCollection(
+  const [value] = useDocumentData(
     firestore.collection(COLLECTIONS.WISHES).doc(id)
   )
 
-  if (loading) {
-    return <Spinner />
-  }
-  const onEditProduct = (data) => {
-    setData(COLLECTIONS.WISHES, id, {
-      assign: data.assign.firstName,
-      category: data.category,
-      description: data.description,
-      id: id,
-      price: data.price,
-      measures: data.measures,
-      name: data.name,
-      quantity: data.quantity
-    })
-    addData(COLLECTIONS.NOTIFICATIONS, {
+  const [loading, setLoading] = useState(true)
+  const [dataForDefaultValue, setDataForDefaultValue] = useState()
+  useEffect(() => {
+    const fetchData = async () => {
+      const dataUsers =
+        value.assign && (await getData(COLLECTIONS.USERS, value.assign))
+      const data = value
+      if (dataUsers) {
+        data.assign = { ...dataUsers, id: value.assign }
+      }
+      setDataForDefaultValue(data)
+      setLoading(false)
+    }
+    value && fetchData()
+  }, [value])
+
+  const onEditProduct = async (data) => {
+    try {
+      await setData(COLLECTIONS.WISHES, id, {
+        id: id,
+        name: data.name,
+        description: data.description,
+        firstName: data?.assign?.firstName || '',
+        assign: data?.assign?.id || '',
+        category: data.category,
+        price: data.price,
+        quantity: data.quantity,
+        measures: data?.measures || ''
+      })
+      addData(COLLECTIONS.NOTIFICATIONS, {
       date: getTimestamp().now(),
       text: `You were assigned to buy '${data.name}' in Wishes list`,
       userId: [data.assign.id]
     })
+      history.goBack()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
-  const onSubmitButton = () => history.goBack()
   const onCancel = () => history.goBack()
 
+  if (loading || !dataForDefaultValue) {
+    return <Spinner />
+  }
   return (
     <ProductAdvancedForm
+      formData={dataForDefaultValue}
       show={[
         'name',
         'description',
@@ -54,10 +78,8 @@ const WishEdit = (props) => {
         'quantity',
         'measures'
       ]}
-      formData={{ ...value.data(), id }}
       onSubmit={onEditProduct}
       buttonProps={{
-        onClickSubmit: onSubmitButton,
         onClickCancel: onCancel,
         ...buttonProps
       }}

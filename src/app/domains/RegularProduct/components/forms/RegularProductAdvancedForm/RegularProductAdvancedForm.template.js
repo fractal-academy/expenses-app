@@ -12,7 +12,7 @@ const config = [
   {
     type: 'text',
     label: 'Name',
-    name: 'productName',
+    name: 'nameProduct',
     placeholder: 'Enter regular product name',
     rules: {
       required: 'Enter regular product name',
@@ -23,13 +23,13 @@ const config = [
   },
   {
     label: 'Category',
-    name: 'categoryName',
+    name: 'category',
     Component: CategorySingleSelect,
     defaultValue: ''
   },
   {
     label: 'Assignee',
-    name: 'assigneeName',
+    name: 'assign',
     Component: MemberSingleSelect,
     defaultValue: ''
   },

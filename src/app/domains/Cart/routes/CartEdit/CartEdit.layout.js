@@ -7,22 +7,33 @@ import {
   getTimestamp
 } from 'app/services/Firestore'
 import { useHistory, useParams } from 'react-router-dom'
-import { useCollection } from 'react-firebase-hooks/firestore'
+import { useDocumentData } from 'react-firebase-hooks/firestore'
 import { ProductAdvancedForm } from 'domains/Product/components/forms/ProductAdvancedForm'
+import React, { useEffect, useState } from 'react'
 
 const CartEdit = (props) => {
   const history = useHistory()
   const { id } = useParams()
-  const [value, loading] = useCollection(
+  const [value] = useDocumentData(
     firestore.collection(COLLECTIONS.CART).doc(id)
   )
-  if (loading) {
-    return <Spinner />
-  }
-  console.log(value.data(), loading)
+  const [loading, setLoading] = useState(true)
+  const [dataForDefaultValue, setDataForDefaultValue] = useState()
+  useEffect(() => {
+    const fetchData = async () => {
+      const dataUsers =
+        value.assign && (await getData(COLLECTIONS.USERS, value.assign))
+      const data = value
+      if (dataUsers) {
+        data.assign = { ...dataUsers, id: value.assign }
+      }
+      setDataForDefaultValue(data)
+      setLoading(false)
+    }
+    value && fetchData()
+  }, [value])
 
   const onEditProduct = async (data) => {
-    console.log('data', data)
     await setData(COLLECTIONS.CART, id, {
       assign: data.assign.firstName,
       category: data.category,
@@ -41,11 +52,14 @@ const CartEdit = (props) => {
     })
   }
 
-  const onSubmitButton = () => history.goBack()
+  if (loading || !dataForDefaultValue) {
+    return <Spinner />
+  }
   const onCancel = () => history.goBack()
 
   return (
     <ProductAdvancedForm
+      formData={dataForDefaultValue}
       show={[
         'name',
         'description',
@@ -57,9 +71,8 @@ const CartEdit = (props) => {
         'measures',
         'dateBuy'
       ]}
-      formData={{ ...value.data(), id }}
       onSubmit={onEditProduct}
-      buttonProps={{ onClickSubmit: onSubmitButton, onClickCancel: onCancel }}
+      buttonProps={{ onClickCancel: onCancel }}
     />
   )
 }

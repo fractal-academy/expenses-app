@@ -1,10 +1,12 @@
-import PropTypes from 'prop-types'
 import React, { useState } from 'react'
-import { Toolbar } from 'components/Lib'
+import PropTypes from 'prop-types'
+import { Toolbar } from 'app/components/Lib'
 import { useStyles } from './Table.styles'
 import { useHistory } from 'react-router-dom'
 import { ROUTES_PATHS, TABLE_CELLS } from 'app/constants'
-import { Container, Row, Col } from '@qonsoll/react-design'
+import { Container, Row, Col, Box } from '@qonsoll/react-design'
+import { MeasureSimpleView } from 'domains/Measure/components/views/MeasureSimpleView'
+import { CurrencySimpleView } from 'domains/Currency/components/views/CurrencySimpleView'
 
 import {
   Table,
@@ -20,23 +22,32 @@ import {
 const tableTypeMap = {
   cart: {
     multiselect: true,
-    middleCell: TABLE_CELLS[1],
-    productPath: ROUTES_PATHS.CART_ALL
+    tableCells: TABLE_CELLS.CART_CELLS,
+    productPath: ROUTES_PATHS.CART_ALL,
+    additionalInfo: false
   },
   wishes: {
     multiselect: true,
-    middleCell: TABLE_CELLS[0],
-    productPath: ROUTES_PATHS.WISHES_ALL
+    tableCells: TABLE_CELLS.WISHES_CELLS,
+    productPath: ROUTES_PATHS.WISHES_ALL,
+    additionalInfo: false
   },
   regular: {
     multiselect: false,
-    middleCell: TABLE_CELLS[1],
-    productPath: ROUTES_PATHS.REGULAR_PRODUCTS_ALL
+    tableCells: TABLE_CELLS.REGULAR_PRODUCT_CELLS,
+    productPath: ROUTES_PATHS.REGULAR_PRODUCTS_ALL,
+    additionalInfo: false
+  },
+  purchase: {
+    multiselect: false,
+    tableCells: TABLE_CELLS.PURCHASES_CELLS,
+    productPath: ROUTES_PATHS.PURCHASE_ALL,
+    additionalInfo: true
   }
 }
 
 const CustomTable = (props) => {
-  const { type, products, actions = true } = props
+  const { type, products, setStatusMessage, actions = true } = props
 
   // [ADDITIONAL_HOOKS]
   const history = useHistory()
@@ -56,17 +67,23 @@ const CustomTable = (props) => {
   }
 
   // [COMPUTED_PROPERTIES]
-  let numSelected = selected.length
+  const numRows = products.length
   const multiselect = tableTypeMap[type].multiselect
-  const middleCell = tableTypeMap[type].middleCell
+  const cells = tableTypeMap[type].tableCells
   const productPath = tableTypeMap[type].productPath
+  const additionalInfo = tableTypeMap[type].additionalInfo
 
   return (
     <Container>
       <Row h="center">
         <Col>
           {actions && multiselect && (
-            <Toolbar type={type} numSelected={numSelected} />
+            <Toolbar
+              numRows={numRows}
+              type={type}
+              selectedItems={selected}
+              setStatusMessage={setStatusMessage}
+            />
           )}
           <Paper variant="outlined" elevation={0}>
             <TableContainer>
@@ -77,7 +94,10 @@ const CustomTable = (props) => {
                       <TableCell padding="checkbox">
                         <Checkbox
                           color="primary"
-                          checked={products.length === selected.length}
+                          checked={
+                            products.length &&
+                            products.length === selected.length
+                          }
                           indeterminate={
                             products.length > selected.length &&
                             selected.length > 0
@@ -86,9 +106,9 @@ const CustomTable = (props) => {
                         />
                       </TableCell>
                     )}
-                    <TableCell align="center">Assigned</TableCell>
-                    <TableCell align="center">{middleCell}</TableCell>
-                    <TableCell align="center">Category</TableCell>
+                    {cells.map((cell) => (
+                      <TableCell align="center">{cell}</TableCell>
+                    ))}
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -105,29 +125,44 @@ const CustomTable = (props) => {
                           />
                         </TableCell>
                       )}
-                      <TableCell
-                        align="center"
-                        onClick={() =>
-                          row.asignedUser &&
-                          history.push(`${ROUTES_PATHS.MEMBERS_ALL}/{memberId}`)
-                        }>
-                        {row.assign}
+                      <TableCell align="center">
+                        {row.firstName || 'None'}
                       </TableCell>
                       <TableCell
                         align="center"
                         onClick={() =>
                           history.push(`${productPath}/${row.id}`)
                         }>
-                        {row.name}
+                        <Box className={classes.newLine}>{row.name}</Box>
                       </TableCell>
-                      <TableCell
-                        align="center"
-                        onClick={() =>
-                          row.category &&
-                          history.push(ROUTES_PATHS.CATEGORIES_ALL)
-                        }>
-                        {row.category}
-                      </TableCell>
+                      {additionalInfo ? (
+                        <>
+                          <TableCell align="center">
+                            <MeasureSimpleView
+                              productNumber={row.quantity}
+                              text={row.measures}
+                            />
+                          </TableCell>
+                          <TableCell>
+                            <Box
+                              display="flex"
+                              alignItems="center"
+                              justifyContent="center">
+                              {row.price || 'None'}
+                              {row.price && <CurrencySimpleView />}
+                            </Box>
+                          </TableCell>
+                        </>
+                      ) : (
+                        <TableCell
+                          align="center"
+                          onClick={() =>
+                            row.category &&
+                            history.push(ROUTES_PATHS.CATEGORIES_ALL)
+                          }>
+                          {row.category || 'None'}
+                        </TableCell>
+                      )}
                     </TableRow>
                   ))}
                 </TableBody>
@@ -140,10 +175,10 @@ const CustomTable = (props) => {
   )
 }
 CustomTable.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   products: PropTypes.array.isRequired,
-  actions: PropTypes.bool,
-  numSelected: PropTypes.number
+  setStatusMessage: PropTypes.func,
+  actions: PropTypes.bool
 }
 export default CustomTable
