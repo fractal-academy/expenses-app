@@ -7,7 +7,7 @@ import { getCollectionRef } from 'app/services/Firestore'
 import { useDocumentData } from 'react-firebase-hooks/firestore'
 import { ProductAdvancedView } from 'domains/Product/components/views'
 
-const CartShow = (props) => {
+const CartShow = () => {
   const { id } = useParams()
 
   const [value, loading] = useDocumentData(
@@ -22,10 +22,11 @@ const CartShow = (props) => {
   const handleClose = () => {
     setStatusMessage({ open: false, message: '', type: '' })
   }
+  if (loading) {
+    return <Spinner />
+  }
 
-  return loading ? (
-    <Spinner />
-  ) : (
+  return (
     <>
       <ProductAdvancedView
         id={id}

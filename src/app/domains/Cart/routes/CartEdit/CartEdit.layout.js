@@ -27,9 +27,6 @@ const CartEdit = (props) => {
     }
     value && fetchData()
   }, [value])
-  if (loading) {
-    return <Spinner />
-  }
 
   const onEditProduct = async (data) => {
     try {
@@ -51,7 +48,7 @@ const CartEdit = (props) => {
     }
   }
 
-  if (!dataForDefaultValue) {
+  if (loading || !dataForDefaultValue) {
     return <Spinner />
   }
   const onCancel = () => history.goBack()

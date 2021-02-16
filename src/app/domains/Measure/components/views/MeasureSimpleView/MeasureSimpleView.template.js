@@ -24,5 +24,9 @@ MeasureSimpleView.propTypes = {
   textProps: PropTypes.object,
   productNumber: PropTypes.number
 }
+MeasureSimpleView.defaultProps = {
+  text: 'None',
+  productNumber: ''
+}
 
 export default MeasureSimpleView

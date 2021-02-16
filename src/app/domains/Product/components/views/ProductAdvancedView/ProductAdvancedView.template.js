@@ -68,6 +68,7 @@ const ProductAdvancedView = (props) => {
   // [HELPER_FUNCTIONS]
   const handleDelete = () => {
     try {
+      setDeleteLoading(true)
       deleteData(productCollection, id).then(() => history.goBack())
       setStatusMessage({
         open: true,
@@ -77,6 +78,7 @@ const ProductAdvancedView = (props) => {
     } catch (error) {
       setStatusMessage({ open: true, message: error, type: 'error' })
     }
+    setDeleteLoading(false)
   }
   const handleMoveProduct = () => {
     try {
