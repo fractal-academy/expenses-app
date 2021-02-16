@@ -138,11 +138,11 @@ const CartTable = (props) => {
         message: 'Products were successfully deleted.',
         type: 'success'
       })
-      setConfirm(false)
-      setDeleteLoading(false)
     } catch (error) {
       setStatusMessage({ open: true, message: error, type: 'error' })
     }
+    setConfirm(false)
+    setDeleteLoading(false)
   }
 
   //TEMPLATE
