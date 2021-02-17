@@ -93,11 +93,9 @@ const ProductAdvancedView = (props) => {
     //required fields
     const fields = ['name', 'price', 'quantity']
     for (let field of fields) {
-      data.hasOwnProperty(field)
-        ? data[field]
-          ? (status = status && true)
-          : (status = false)
-        : (status = false)
+      /*   if required field isn`t empty status will be true  */
+
+      status = !!(data[field] && status)
     }
     return !status
   }
@@ -130,7 +128,8 @@ const ProductAdvancedView = (props) => {
       })
       /*
         delete current product from collection card */
-      await deleteData(COLLECTIONS.CART, id).then(() => history.goBack())
+      await deleteData(COLLECTIONS.CART, id)
+      history.goBack()
     } catch (error) {
       setStatusMessage({ open: true, message: error, type: 'error' })
     }
