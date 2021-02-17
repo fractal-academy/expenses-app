@@ -4,48 +4,69 @@ import {
   firestore,
   setData,
   addData,
+  getData,
   getTimestamp
 } from 'app/services/Firestore'
 import { useHistory, useParams } from 'react-router-dom'
-import { useCollection } from 'react-firebase-hooks/firestore'
+import { useDocumentData } from 'react-firebase-hooks/firestore'
 import { ProductAdvancedForm } from 'domains/Product/components/forms/ProductAdvancedForm'
+import React, { useEffect, useState } from 'react'
 
 const CartEdit = (props) => {
   const history = useHistory()
   const { id } = useParams()
-  const [value, loading] = useCollection(
+  const [value] = useDocumentData(
     firestore.collection(COLLECTIONS.CART).doc(id)
   )
-  if (loading) {
-    return <Spinner />
-  }
-  console.log(value.data(), loading)
+  const [loading, setLoading] = useState(true)
+  const [dataForDefaultValue, setDataForDefaultValue] = useState()
+  useEffect(() => {
+    const fetchData = async () => {
+      const dataUsers =
+        value.assign && (await getData(COLLECTIONS.USERS, value.assign))
+      const data = value
+      if (dataUsers) {
+        data.assign = { ...dataUsers, id: value.assign }
+      }
+      setDataForDefaultValue(data)
+      setLoading(false)
+    }
+    value && fetchData()
+  }, [value])
 
   const onEditProduct = async (data) => {
-    console.log('data', data)
-    await setData(COLLECTIONS.CART, id, {
-      assign: data.assign.firstName,
-      category: data.category,
-      dateBuy: data.dateBuy,
-      description: data.description,
-      id: id,
-      price: data.price,
-      measures: data.measures,
-      name: data.name,
-      quantity: data.quantity
-    })
-    addData(COLLECTIONS.NOTIFICATIONS, {
-      date: getTimestamp().now(),
-      text: `You were assigned to buy '${data.name}' in Cart`,
-      userId: [data.assign.id]
-    })
+    try {
+      await setData(COLLECTIONS.CART, id, {
+        id: id,
+        name: data.name,
+        description: data.description,
+        firstName: data?.assign?.firstName || '',
+        assign: data?.assign?.id || '',
+        category: data.category,
+        price: data.price,
+        quantity: data.quantity,
+        measures: data?.measures || '',
+        dateBuy: getTimestamp().fromDate(new Date(data.dateBuy))
+      })
+      addData(COLLECTIONS.NOTIFICATIONS, {
+        date: getTimestamp().now(),
+        text: `You were assigned to buy '${data.name}' in Cart`,
+        userId: [data.assign.id]
+      })
+      history.goBack()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
-  const onSubmitButton = () => history.goBack()
+  if (loading || !dataForDefaultValue) {
+    return <Spinner />
+  }
   const onCancel = () => history.goBack()
 
   return (
     <ProductAdvancedForm
+      formData={dataForDefaultValue}
       show={[
         'name',
         'description',
@@ -57,9 +78,8 @@ const CartEdit = (props) => {
         'measures',
         'dateBuy'
       ]}
-      formData={{ ...value.data(), id }}
       onSubmit={onEditProduct}
-      buttonProps={{ onClickSubmit: onSubmitButton, onClickCancel: onCancel }}
+      buttonProps={{ onClickCancel: onCancel }}
     />
   )
 }

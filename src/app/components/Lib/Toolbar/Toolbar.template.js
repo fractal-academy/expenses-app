@@ -2,28 +2,52 @@ import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
 import { ROUTES_PATHS } from 'app/constants'
 import { useHistory } from 'react-router-dom'
-import { Container, Row, Col } from '@qonsoll/react-design'
+import { Confirmation } from 'components/Lib'
+import { Container, Row, Col, Box } from '@qonsoll/react-design'
 import {
   Toolbar,
   Typography,
   IconButton,
   BottomNavigation,
   BottomNavigationAction
-} from '@material-ui/core/'
-
-import { Check, Delete, Receipt, ShoppingCart } from '@material-ui/icons/'
+} from '@material-ui/core'
+import {
+  Check,
+  Delete,
+  ReceiptRounded,
+  StarBorderRounded
+} from '@material-ui/icons'
 
 const toolbarItems = [
-  { path: ROUTES_PATHS.CART_ALL, icon: <ShoppingCart />, label: 'Cart' },
-  { path: ROUTES_PATHS.WISHES_ALL, icon: <Receipt />, label: 'Wishes' }
+  { path: ROUTES_PATHS.CART_ALL, icon: <ReceiptRounded />, label: 'To buy' },
+  {
+    path: ROUTES_PATHS.WISHES_ALL,
+    icon: <StarBorderRounded />,
+    label: 'Wishes'
+  }
 ]
 
 const CustomToolbar = (props) => {
+  const {
+    numRows,
+    selectedItems,
+    handleDelete,
+    handleMove,
+    onCheckClick,
+    confirm,
+    setConfirm,
+    deleteLoading,
+    setStatusMessage,
+    WrapperForCheck = Box
+  } = props
+
+  // [ADDITIONAL_HOOKS]
   const history = useHistory()
+
+  // [COMPONENT_STATE_HOOKS]
   const [value, setValue] = useState()
 
-  const info = `${props.numSelected} selected`
-
+  // [HELPER_FUNCTIONS]
   const onMenuChange = (event, newPage) => setValue(newPage)
   useEffect(() => {
     setValue(
@@ -31,12 +55,15 @@ const CustomToolbar = (props) => {
     )
   }, [history])
 
+  // [COMPUTED_PROPERTIES]
+  let numSelected = selectedItems.length
+  const info = `${numSelected} selected`
   return (
     <Container>
       <Row>
         <Col pr={0}>
           <Toolbar disableGutters>
-            {props.numSelected > 0 ? (
+            {numRows > 0 && numSelected > 0 ? (
               <Container>
                 <Row h="right" v="center">
                   <Col pl={2}>
@@ -44,11 +71,26 @@ const CustomToolbar = (props) => {
                   </Col>
                   <Col cw="auto">
                     <IconButton color="primary">
-                      <Check />
+                      <WrapperForCheck
+                        setStatusMessage={setStatusMessage}
+                        onClick={() => onCheckClick(selectedItems)}
+                        onSubmitFunction={(data) =>
+                          handleMove(data, selectedItems)
+                        }>
+                        <Check />
+                      </WrapperForCheck>
                     </IconButton>
-                    <IconButton color="primary">
-                      <Delete />
-                    </IconButton>
+                    <Confirmation
+                      action="Delete"
+                      text={'Do you want to delete this products?'}
+                      open={confirm}
+                      setOpen={setConfirm}
+                      loading={deleteLoading}
+                      onConfirm={() => handleDelete(selectedItems)}>
+                      <IconButton color="primary">
+                        <Delete />
+                      </IconButton>
+                    </Confirmation>
                   </Col>
                 </Row>
               </Container>
@@ -80,6 +122,8 @@ const CustomToolbar = (props) => {
   )
 }
 CustomToolbar.propTypes = {
-  numSelected: PropTypes.number.isRequired
+  type: PropTypes.string,
+  numRows: PropTypes.number,
+  selectedItems: PropTypes.array
 }
 export default CustomToolbar

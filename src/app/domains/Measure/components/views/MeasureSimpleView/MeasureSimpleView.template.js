@@ -1,21 +1,32 @@
 import PropTypes from 'prop-types'
-import { Box, Typography } from '@material-ui/core'
 import { Container, Row, Col } from '@qonsoll/react-design'
+import Typography from '@material-ui/core/Typography'
+
+/**
+ * @info MeasureSimpleView (26 Jan 2021) // CREATION DATE
+ *
+ * @since 17 Feb 2021 ( v.0.0.6 ) // LAST-EDIT DATE
+ *
+ * @return {ReactComponent}
+ */
 
 const MeasureSimpleView = (props) => {
-  const { textProps, text, productNumber } = props
+  // [INTERFACES]
+  const { text, productNumber, ...textProps } = props
 
+  const pluralize = require('pluralize')
+
+  const measureName =
+    (productNumber > 1 && text.length > 2 && pluralize.plural(text)) || text
+
+  // [TEMPLATE]
   return (
     <Container>
-      <Row h="between" mb={2}>
-        <Col cw="auto">
-          <Typography>Quantity</Typography>
-        </Col>
+      <Row noGutters h="center">
         <Col display="flex" cw="auto">
-          <Box mr={0.5}>
-            <Typography {...textProps}>{productNumber}</Typography>
-          </Box>
-          <Typography>{text}</Typography>
+          <Typography {...textProps}>
+            {productNumber} {measureName}
+          </Typography>
         </Col>
       </Row>
     </Container>
@@ -24,8 +35,11 @@ const MeasureSimpleView = (props) => {
 
 MeasureSimpleView.propTypes = {
   text: PropTypes.string,
-  textProps: PropTypes.object,
   productNumber: PropTypes.number
+}
+MeasureSimpleView.defaultProps = {
+  text: 'None',
+  productNumber: ''
 }
 
 export default MeasureSimpleView

@@ -7,6 +7,7 @@ import { useStyles } from './WalletAdvancedView.styles'
 import { MoreHorizOutlined, Edit, Delete } from '@material-ui/icons'
 import { DropdownItem, Dropdown } from 'app/components/Lib/Dropdown'
 import { useState } from 'react'
+import { useMessageDispatch, types } from 'app/context/MessageContext'
 import { COLLECTIONS } from 'app/constants'
 import { deleteData } from 'app/services/Firestore'
 import PropTypes from 'prop-types'
@@ -20,8 +21,7 @@ const WalletAdvancedView = (props) => {
     nameWallet,
     balance,
     idCurrency,
-    privateWallet,
-    setStatusMessage
+    privateWallet
   } = props
 
   // STATE
@@ -30,6 +30,7 @@ const WalletAdvancedView = (props) => {
 
   //CUSTOM HOOKS
   const classes = useStyles()
+  const messageDispatch = useMessageDispatch()
 
   // HELPER FUNCTIONS
   const formattedAvailableBalance = formatCurrency(balance)
@@ -37,13 +38,15 @@ const WalletAdvancedView = (props) => {
     setDeleteLoading(true)
     try {
       await deleteData(COLLECTIONS.WALLETS, idWallet)
-      setStatusMessage({
-        open: true,
-        message: 'Wallet successfully deleted',
-        type: 'success'
+      messageDispatch({
+        type: types.OPEN_SUCCESS_MESSAGE,
+        payload: 'Wallet successfully deleted'
       })
     } catch (error) {
-      setStatusMessage({ open: true, message: error, type: 'error' })
+      messageDispatch({
+        type: types.OPEN_ERROR_MESSAGE,
+        payload: error
+      })
     }
     setDeleteLoading(false)
   }
@@ -59,8 +62,7 @@ const WalletAdvancedView = (props) => {
         idMember={idMember}
         balance={balance}
         idCurrency={idCurrency}
-        privateWallet={privateWallet}
-        setStatusMessage={setStatusMessage}>
+        privateWallet={privateWallet}>
         <DropdownItem>
           <Box mr={2}>
             <Edit />
@@ -126,7 +128,12 @@ const WalletAdvancedView = (props) => {
 
                   <Row>
                     <Col>
-                      <Typography variant="caption" color={'textSecondary'}>
+                      <Typography
+                        variant="caption"
+                        color={'textSecondary'}
+                        className={
+                          formattedAvailableBalance < 0 && classes.red
+                        }>
                         Balance
                       </Typography>
                     </Col>
@@ -134,10 +141,17 @@ const WalletAdvancedView = (props) => {
                   <Row>
                     <Col>
                       <Box display="flex">
-                        <Typography variant="body1">
+                        <Typography
+                          variant="body1"
+                          className={
+                            formattedAvailableBalance < 0 && classes.red
+                          }>
                           {formattedAvailableBalance}
                         </Typography>
                         <CurrencySimpleView
+                          className={
+                            formattedAvailableBalance < 0 && classes.red
+                          }
                           variant="body1"
                           value={idCurrency}
                         />

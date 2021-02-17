@@ -6,7 +6,16 @@ import { setData, addData } from 'app/services/Firestore'
 import PropTypes from 'prop-types'
 import { COLLECTIONS } from 'app/constants'
 import { useSession } from 'app/context/SessionContext/hooks'
+import { useMessageDispatch, types } from 'app/context/MessageContext'
 import md5 from 'md5'
+
+/**
+ * @info WalletCombined (03 Feb 2020) // CREATION DATE
+ *
+ * @since 17 Feb 2021 ( v.0.1.0 ) // LAST-EDIT DATE
+ *
+ * @return {ReactComponent}
+ */
 
 const WalletCombined = (props) => {
   // INTERFACE
@@ -19,8 +28,7 @@ const WalletCombined = (props) => {
     privateWallet,
     title,
     typeModalEdit,
-    children,
-    setStatusMessage
+    children
   } = props
   // STATE
   const [open, setOpen] = useState(children && !children)
@@ -28,6 +36,7 @@ const WalletCombined = (props) => {
 
   // CUSTOM HOOKS
   const session = useSession()
+  const messageDispatch = useMessageDispatch()
   const data = {
     idWallet,
     nameWallet,
@@ -74,15 +83,17 @@ const WalletCombined = (props) => {
             })
           )
 
-      setStatusMessage({
-        open: true,
-        message: typeModalEdit
+      messageDispatch({
+        type: types.OPEN_SUCCESS_MESSAGE,
+        payload: typeModalEdit
           ? 'Wallet successfully edited'
-          : 'Wallet successfully added',
-        type: 'success'
+          : 'Wallet successfully added'
       })
     } catch (error) {
-      setStatusMessage({ open: true, message: error, type: 'error' })
+      messageDispatch({
+        type: types.OPEN_ERROR_MESSAGE,
+        payload: error
+      })
     }
     typeModalEdit ? form.reset(data) : form.reset({})
     setLoading(false)

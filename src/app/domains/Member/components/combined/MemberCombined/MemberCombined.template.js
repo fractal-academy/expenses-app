@@ -1,18 +1,27 @@
 import { useState } from 'react'
-import { Snackbar } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
-import { Alert } from '@material-ui/lab'
 import { MemberAdvancedForm } from 'domains/Member/components/forms'
 import { Modal, FabButton } from 'app/components/Lib'
+import { firebase } from 'app/services/Firebase'
 import { setData, getData } from 'app/services/Firestore'
-import { callFunction, func } from 'app/services/Functions'
 import { COLLECTIONS } from 'app/constants'
 import md5 from 'md5'
+import { useMessageDispatch, types } from 'app/context/MessageContext'
+
+/**
+ * @info MemberCombined (21 Jan 2020) // CREATION DATE
+ *
+ * @since 17 Feb 2021 ( v.0.1.0 ) // LAST-EDIT DATE
+ *
+ * @return {ReactComponent}
+ */
 
 const MemberCombined = () => {
+  // [ADDITIONAL_HOOKS]
+  const messageDispatch = useMessageDispatch()
+
+  // [COMPONENT_STATE_HOOKS]
   const [open, setOpen] = useState(false)
-  const [openSnackbarSuccess, setOpenSnackbarSuccess] = useState(false)
-  const [openSnackbarError, setOpenSnackbarError] = useState(false)
   const [loading, setLoading] = useState(false)
   const form = useForm({
     defaultValues: {
@@ -20,6 +29,7 @@ const MemberCombined = () => {
     }
   })
 
+  // [HELPER_FUNCTIONS]
   const onSubmit = async (data) => {
     const { email, role } = data
 
@@ -30,7 +40,10 @@ const MemberCombined = () => {
         setLoading(false)
         setOpen(false)
         //TODO refactor: error message to const
-        return setOpenSnackbarError('User already exist.')
+        return messageDispatch({
+          type: types.OPEN_ERROR_MESSAGE,
+          payload: 'User already exist.'
+        })
       }
     } catch (e) {}
 
@@ -41,12 +54,21 @@ const MemberCombined = () => {
         role,
         isPending: true
       })
-      const sendInvitation = callFunction(func.SEND_INVITATION)
-      await sendInvitation({ email })
-      setOpenSnackbarSuccess(true)
+      const func = firebase
+        .functions()
+        .httpsCallable('sendMail', { timeout: 0 })
+      await func({ email })
+      messageDispatch({
+        type: types.OPEN_SUCCESS_MESSAGE,
+        payload: 'Invitation successfully sent.'
+      })
     } catch (error) {
       console.log(error)
-      setOpenSnackbarError('Something went wrong.')
+
+      messageDispatch({
+        type: types.OPEN_ERROR_MESSAGE,
+        payload: 'Something went wrong.'
+      })
     }
     setLoading(false)
     setOpen(false)
@@ -57,32 +79,13 @@ const MemberCombined = () => {
   }
 
   const handleClose = () => {
-    setOpenSnackbarSuccess(false)
-    setOpenSnackbarError(false)
     setOpen(false)
   }
+
+  // [TEMPLATE]
   return (
     <>
       <FabButton onClick={handleClickOpen} />
-      <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        open={openSnackbarSuccess}
-        autoHideDuration={1500}
-        onClose={handleClose}>
-        <Alert variant="filled" severity="success">
-          Invitation successfully sent.
-        </Alert>
-      </Snackbar>
-      <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        open={!!openSnackbarError}
-        autoHideDuration={1500}
-        onClose={handleClose}>
-        <Alert variant="filled" severity="error">
-          {openSnackbarError}
-        </Alert>
-      </Snackbar>
-
       <Modal
         open={open}
         title="Add a user"

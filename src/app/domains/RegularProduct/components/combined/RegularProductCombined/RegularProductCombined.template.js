@@ -3,22 +3,38 @@ import { useForm } from 'react-hook-form'
 import { useState } from 'react'
 import { RegularProductAdvancedForm } from 'app/domains/RegularProduct/components/forms'
 import { COLLECTIONS } from 'app/constants'
-import { addData } from 'app/services/Firestore'
+import { firestore, setData, getTimestamp } from 'app/services/Firestore'
 import PropTypes from 'prop-types'
 
 const RegularProductCombined = (props) => {
   const { title, typeModalEdit } = props
 
   const [open, setOpen] = useState(false)
+  const [loading, setLoading] = useState(false)
   const form = useForm({})
 
-  const onAddRegularProduct = (data) => {
-    addData(COLLECTIONS.REGULAR_PRODUCTS, {
-      name: data.productName,
-      category: data.categoryName,
-      assign: data.assigneeName.firstName,
-      reminderDate: new Date(data.reminderDate).getTime()
-    }).then(() => setOpen(false))
+  const onAddRegularProduct = async (data) => {
+    try {
+      setLoading(true)
+      const id = firestore.collection(COLLECTIONS.REGULAR_PRODUCTS).doc().id
+      await setData(COLLECTIONS.REGULAR_PRODUCTS, id, {
+        id: id,
+        name: data.nameProduct,
+        description: '',
+        price: '',
+        quantity: '',
+        measures: '',
+        category: data.category,
+        firstName: data?.assign?.firstName || '',
+        assign: data?.assign?.id || '',
+        remind: getTimestamp().fromDate(new Date(data.reminderDate))
+      })
+      form.reset({})
+    } catch (error) {
+      console.log(error)
+    }
+    setLoading(false)
+    setOpen(false)
   }
   const submitForm = () => form.submit()
 
@@ -45,7 +61,8 @@ const RegularProductCombined = (props) => {
           text: typeModalEdit ? 'Save' : 'Submit',
           variant: 'contained',
           color: 'primary',
-          onClick: submitForm
+          onClick: submitForm,
+          loading
         }}
         buttonCancelProps={{
           text: 'Cancel',
