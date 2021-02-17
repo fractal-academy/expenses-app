@@ -74,8 +74,8 @@ const ProductAdvancedView = (props) => {
   const history = useHistory()
   const user = useSession()
   const messageDispatch = useMessageDispatch()
-  const reminderDate = moment(props.reminderDate).format('MMM Do')
-  const purchasedDate = moment(data?.dateBuy).format('MMM Do')
+  const reminderDate = moment(data?.remind?.toDate()).format('MMM Do')
+  const purchasedDate = moment(data?.dateBuy?.toDate()).format('MMM Do')
   const classes = useStyles()
 
   // [COMPONENT_STATE_HOOKS]
