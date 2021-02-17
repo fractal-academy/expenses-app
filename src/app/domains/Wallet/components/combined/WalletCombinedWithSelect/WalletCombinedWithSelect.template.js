@@ -10,7 +10,14 @@ import { COLLECTIONS } from 'app/constants'
 
 const WalletCombinedWithSelect = (props) => {
   // INTERFACE
-  const { title, typeModalEdit, children, onSubmitFunction, onClick } = props
+  const {
+    title,
+    typeModalEdit,
+    children,
+    onSubmitFunction,
+    onClick,
+    setStatusMessage
+  } = props
 
   // STATE
   const [selectData, setSelectData] = useState({})

@@ -6,8 +6,13 @@ import { ROUTES_PATHS } from 'app/constants'
 import { useHistory } from 'react-router-dom'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import { Typography, IconButton } from '@material-ui/core'
-import { Container, Row, Col } from '@qonsoll/react-design'
-import { deleteData, setData } from 'app/services/Firestore'
+import { Container, Row, Col, Box } from '@qonsoll/react-design'
+import {
+  deleteData,
+  setData,
+  getData,
+  getTimestamp
+} from 'app/services/Firestore'
 import { useSession } from 'app/context/SessionContext'
 import { useMessageDispatch, types } from 'app/context/MessageContext'
 import { Dropdown, DropdownItem, Confirmation } from 'app/components/Lib'
@@ -15,46 +20,56 @@ import { MeasureSimpleView } from 'domains/Measure/components/views'
 import { CategorySimpleView } from 'domains/Category/components/views'
 import { CurrencySimpleView } from 'domains/Currency/components/views'
 import { CommentListWithAdd } from 'app/domains/Comment/components/combined/list'
-
-const productTypeMap = {
-  cart: {
-    item: 'Buy',
-    path: ROUTES_PATHS.CART_ALL,
-    editRoute: (id) => `${ROUTES_PATHS.CART_ALL}/${id}/edit`,
-    actionCollection: 'purchases',
-    collection: 'cart',
-    displayElements: true
-  },
-  wish: {
-    item: 'Approve',
-    path: ROUTES_PATHS.WISHES_ALL,
-    editRoute: (id) => `${ROUTES_PATHS.WISHES_ALL}/${id}/edit`,
-    actionCollection: 'cart',
-    collection: 'wishes',
-    displayElements: true
-  },
-
-  product: {
-    item: 'Get QR',
-    path: ROUTES_PATHS.REGULAR_PRODUCTS_ALL,
-    editRoute: (id) => `${ROUTES_PATHS.REGULAR_PRODUCTS_ALL}/${id}/edit`,
-    actionCollection: '',
-    collection: 'regularProducts',
-    displayElements: true
-  },
-
-  purchase: {
-    item: '',
-    path: ROUTES_PATHS.PURCHASE_ALL,
-    editRoute: (id) => `${ROUTES_PATHS.PURCHASE_ALL}/${id}/edit`,
-    actionCollection: '',
-    collection: 'purchases',
-    displayElements: false
-  }
-}
+import { WalletCombinedWithSelect } from 'app/domains/Wallet/components/combined'
+import { COLLECTIONS } from 'app/constants'
 
 const ProductAdvancedView = (props) => {
+  const productTypeMap = {
+    cart: {
+      item: 'Buy',
+      path: ROUTES_PATHS.CART_ALL,
+      editRoute: (id) => `${ROUTES_PATHS.CART_ALL}/${id}/edit`,
+      actionCollection: 'purchases',
+      collection: 'cart',
+      displayElements: true,
+      wrapperForItem: WalletCombinedWithSelect,
+      functionForItem: handleMoveProductToPurchase,
+      prevFunctionForItem: onCheckClick
+    },
+    wish: {
+      item: 'Approve',
+      path: ROUTES_PATHS.WISHES_ALL,
+      editRoute: (id) => `${ROUTES_PATHS.WISHES_ALL}/${id}/edit`,
+      actionCollection: 'cart',
+      collection: 'wishes',
+      displayElements: true,
+      wrapperForItem: Box,
+      functionForItem: handleMoveProductToCart
+    },
+
+    product: {
+      item: 'Get QR',
+      path: ROUTES_PATHS.REGULAR_PRODUCTS_ALL,
+      editRoute: (id) => `${ROUTES_PATHS.REGULAR_PRODUCTS_ALL}/${id}/edit`,
+      actionCollection: '',
+      collection: 'regularProducts',
+      displayElements: true,
+      wrapperForItem: Box
+    },
+
+    purchase: {
+      item: '',
+      path: ROUTES_PATHS.PURCHASE_ALL,
+      editRoute: (id) => `${ROUTES_PATHS.PURCHASE_ALL}/${id}/edit`,
+      actionCollection: '',
+      collection: 'purchases',
+      displayElements: false,
+      wrapperForItem: Box
+    }
+  }
+
   const { type, data, id, dropdownItem } = props
+
   // [ADDITIONAL_HOOKS]
   const history = useHistory()
   const user = useSession()
@@ -70,8 +85,8 @@ const ProductAdvancedView = (props) => {
   // [HELPER_FUNCTIONS]
   const handleDelete = async () => {
     try {
+      setDeleteLoading(true)
       await deleteData(productCollection, id)
-
       history.goBack()
       messageDispatch({
         type: types.OPEN_SUCCESS_MESSAGE,
@@ -86,11 +101,61 @@ const ProductAdvancedView = (props) => {
 
     setDeleteLoading(false)
   }
-  const handleMoveProduct = async () => {
+
+  function onCheckClick() {
+    let status = true
+    //required fields
+    const fields = ['name', 'price', 'quantity']
+    for (let field of fields) {
+      /*   if required field isn`t empty status will be true  */
+
+      status = !!(data[field] && status)
+    }
+    return !status
+  }
+
+  async function handleMoveProductToPurchase(wallet) {
+    try {
+      /*
+      get data about current product */
+      const product = await getData(COLLECTIONS.CART, id)
+      /*
+       set product to collection purchase  with additional fields (info about user)*/
+      await setData(COLLECTIONS.PURCHASES, id, {
+        ...product,
+        assign: userName,
+        avatarURL: user.avatarURL,
+        wallet: wallet.nameWallet,
+        privateWallet: wallet.privateWallet,
+        dateBuy: data.dateBuy ? data.dateBuy : getTimestamp().now()
+      })
+
+      /*
+        set new balance to wallet*/
+      await setData(COLLECTIONS.WALLETS, wallet.id, {
+        balance: wallet.balance - product.price * product.quantity
+      })
+      messageDispatch({
+        type: types.OPEN_SUCCESS_MESSAGE,
+        payload: 'Product was bought'
+      })
+      /*
+        delete current product from collection card */
+      await deleteData(COLLECTIONS.CART, id)
+      history.goBack()
+    } catch (error) {
+      messageDispatch({
+        type: types.OPEN_ERROR_MESSAGE,
+        payload: error
+      })
+    }
+    return true
+  }
+
+  async function handleMoveProductToCart() {
     try {
       await setData(actionCollection, id, data)
-      await handleDelete()
-
+      handleDelete()
       messageDispatch({
         type: types.OPEN_SUCCESS_MESSAGE,
         payload: `Product was successfully moved to ${actionCollection}`
@@ -109,15 +174,25 @@ const ProductAdvancedView = (props) => {
   const displayElements = productTypeMap[type].displayElements
   const productCollection = productTypeMap[type].collection
   const actionCollection = productTypeMap[type].actionCollection
+  const userName = `${user.firstName} ${user.surname}`
+  const handleMoveProduct = productTypeMap[type].functionForItem
+  const WrapperForItem = productTypeMap[type].wrapperForItem
+  const prevFunctionForItem = productTypeMap[type].prevFunctionForItem
 
   const DropdownList = (
     <Container>
       {user.role !== 'user' && typeof firstElement !== 'string' ? (
         firstElement && firstElement
       ) : (
-        <DropdownItem onClick={handleMoveProduct} divider>
-          <Typography>{firstElement}</Typography>
-        </DropdownItem>
+        <WrapperForItem
+          onSubmitFunction={handleMoveProduct}
+          onClick={
+            prevFunctionForItem ? prevFunctionForItem : handleMoveProduct
+          }>
+          <DropdownItem divider>
+            <Typography>{firstElement}</Typography>
+          </DropdownItem>
+        </WrapperForItem>
       )}
 
       <DropdownItem onClick={() => history.push(editPages)} divider>
@@ -234,9 +309,7 @@ ProductAdvancedView.propTypes = {
   measure: PropTypes.string,
   purchasedDate: PropTypes.number,
   categoryBalance: PropTypes.number,
-  reminderDate: PropTypes.number,
-  assignedUser: PropTypes.string,
-  type: PropTypes.oneOf(Object.keys(productTypeMap)).isRequired
+  reminderDate: PropTypes.number
 }
 
 export default ProductAdvancedView

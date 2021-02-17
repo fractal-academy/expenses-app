@@ -53,22 +53,9 @@ const CartTable = (props) => {
         let status = true
 
         //lop for required fields
-        fields.forEach((item) => {
-          /*
-          keys are keys in product object*/
-          Object.keys(doc).includes(item)
-            ? /*
-            if required field is in product*/
-              doc[item]
-              ? /*
-              if required field isn`t empty  */
-                (status = status && true)
-              : /*
-                if required field is empty  */
-                (status = false)
-            : /*
-              if required field isn`t in product*/
-              (status = false)
+        fields.forEach((field) => {
+          status = !!(doc[field] && status)
+          /*   if required field isn`t empty status will be true  */
         })
         status && count-- //if everyone field is no empty
       }
@@ -97,6 +84,7 @@ const CartTable = (props) => {
           assign: userName,
           avatarURL: session.avatarURL,
           wallet: data.nameWallet,
+          privateWallet: data.privateWallet,
           dateBuy: data.dateBuy ? data.dateBuy : getTimestamp().now()
         })
         /*
