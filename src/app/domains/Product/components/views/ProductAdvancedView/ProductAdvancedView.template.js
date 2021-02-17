@@ -14,12 +14,13 @@ import {
   getTimestamp
 } from 'app/services/Firestore'
 import { useSession } from 'app/context/SessionContext'
+import { useMessageDispatch, types } from 'app/context/MessageContext'
 import { Dropdown, DropdownItem, Confirmation } from 'app/components/Lib'
 import { MeasureSimpleView } from 'domains/Measure/components/views'
 import { CategorySimpleView } from 'domains/Category/components/views'
 import { CurrencySimpleView } from 'domains/Currency/components/views'
 import { CommentListWithAdd } from 'app/domains/Comment/components/combined/list'
-import { WalletCombinedWithSelect } from 'app/domains/Wallet/components/combined/'
+import { WalletCombinedWithSelect } from 'app/domains/Wallet/components/combined'
 import { COLLECTIONS } from 'app/constants'
 
 const ProductAdvancedView = (props) => {
@@ -70,9 +71,10 @@ const ProductAdvancedView = (props) => {
   const { type, data, id, setStatusMessage, dropdownItem } = props
 
   // [ADDITIONAL_HOOKS]
-  const history = useHistory()
   const user = useSession()
   const classes = useStyles()
+  const history = useHistory()
+  const messageDispatch = useMessageDispatch()
 
   // [COMPONENT_STATE_HOOKS]
   const [confirm, setConfirm] = useState(false)
@@ -84,13 +86,15 @@ const ProductAdvancedView = (props) => {
       setDeleteLoading(true)
       await deleteData(productCollection, id)
       history.goBack()
-      setStatusMessage({
-        open: true,
-        message: 'Product was successfully deleted.',
-        type: 'success'
+      messageDispatch({
+        type: types.OPEN_SUCCESS_MESSAGE,
+        payload: 'Products were successfully deleted.'
       })
     } catch (error) {
-      setStatusMessage({ open: true, message: error, type: 'error' })
+      messageDispatch({
+        type: types.OPEN_ERROR_MESSAGE,
+        payload: error
+      })
     }
     setDeleteLoading(false)
   }
@@ -128,17 +132,19 @@ const ProductAdvancedView = (props) => {
       await setData(COLLECTIONS.WALLETS, wallet.id, {
         balance: wallet.balance - product.price * product.quantity
       })
-      setStatusMessage({
-        open: true,
-        message: `Product was bought`,
-        type: 'success'
+      messageDispatch({
+        type: types.OPEN_SUCCESS_MESSAGE,
+        payload: `Product was bought`
       })
       /*
         delete current product from collection card */
       await deleteData(COLLECTIONS.CART, id)
       history.goBack()
     } catch (error) {
-      setStatusMessage({ open: true, message: error, type: 'error' })
+      messageDispatch({
+        type: types.OPEN_ERROR_MESSAGE,
+        payload: error
+      })
     }
     return true
   }
@@ -146,14 +152,17 @@ const ProductAdvancedView = (props) => {
   async function handleMoveProductToCart() {
     try {
       await setData(actionCollection, id, data)
-      handleDelete()
-      setStatusMessage({
-        open: true,
-        message: `Product was successfully moved to ${actionCollection}`,
-        type: 'success'
+      await handleDelete()
+
+      messageDispatch({
+        type: types.OPEN_SUCCESS_MESSAGE,
+        payload: `Product was successfully moved to ${actionCollection}`
       })
     } catch (error) {
-      setStatusMessage({ open: true, message: error, type: 'error' })
+      messageDispatch({
+        type: types.OPEN_ERROR_MESSAGE,
+        payload: error
+      })
     }
   }
 

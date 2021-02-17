@@ -51,7 +51,6 @@ const CustomTable = (props) => {
     type,
     products,
     handleDelete,
-    setStatusMessage,
     WrapperForCheck,
     onCheckClick,
     handleMove,
@@ -94,7 +93,6 @@ const CustomTable = (props) => {
             <Toolbar
               numRows={numRows}
               selectedItems={selected}
-              setStatusMessage={setStatusMessage}
               handleDelete={handleDelete}
               onCheckClick={onCheckClick}
               WrapperForCheck={WrapperForCheck}
@@ -160,6 +158,7 @@ const CustomTable = (props) => {
                             <MeasureSimpleView
                               productNumber={row.quantity}
                               text={row.measures?.measure}
+                              variant="body2"
                             />
                           </TableCell>
                           <TableCell>
@@ -201,7 +200,6 @@ const CustomTable = (props) => {
 CustomTable.propTypes = {
   type: PropTypes.string.isRequired,
   products: PropTypes.array.isRequired,
-  setStatusMessage: PropTypes.func,
   actions: PropTypes.bool
 }
 export default CustomTable

@@ -1,39 +1,27 @@
-import { useState } from 'react'
 import { COLLECTIONS } from 'app/constants'
-import { Message } from 'app/components/Lib/Message'
 import { WishTable } from 'app/domains/Wish/components/table'
 import { ProductCombinedForm } from 'domains/Product/components/combined/ProductCombinedForm'
 import { useSession } from 'app/context/SessionContext'
-const WishAll = (props) => {
-  const session = useSession()
-  const [statusMessage, setStatusMessage] = useState({
-    open: false,
-    message: '',
-    type: ''
-  })
-  const handleClose = () => {
-    setStatusMessage({ open: false, message: '', type: '' })
-  }
 
+/**
+ * @info WishAll (18 Jan 2020) // CREATION DATE
+ *
+ * @since 17 Feb 2021 ( v.0.0.5 ) // LAST-EDIT DATE
+ *
+ * @return {ReactComponent}
+ */
+
+const WishAll = () => {
+  // [ADDITIONAL_HOOKS]
+  const session = useSession()
+
+  // [TEMPLATE]
   return (
     <>
-      <WishTable
-        setStatusMessage={setStatusMessage}
-        actions={session.role === 'admin'}
-      />
+      <WishTable actions={session.role === 'admin'} />
       <ProductCombinedForm
         title="Create Product"
         collectionName={COLLECTIONS.WISHES}
-      />
-      <Message
-        open={statusMessage.open}
-        message={statusMessage.message}
-        vertical="top"
-        horizontal="center"
-        autoHideDuration={1500}
-        variant="filled"
-        severity={statusMessage.type}
-        onClose={handleClose}
       />
     </>
   )

@@ -1,7 +1,12 @@
 import { ProductAdvancedForm } from 'domains/Product/components/forms/ProductAdvancedForm'
 import { useHistory, useParams } from 'react-router-dom'
 import { useDocumentData } from 'react-firebase-hooks/firestore'
-import { firestore, getData, setData } from 'app/services'
+import {
+  firestore,
+  getData,
+  setData,
+  getTimestamp
+} from 'app/services/Firestore'
 import { COLLECTIONS } from 'app/constants'
 import { Spinner } from 'app/components/Lib'
 import React, { useEffect, useState } from 'react'
@@ -19,9 +24,12 @@ const RegularProductEdit = (props) => {
     const fetchData = async () => {
       const dataUsers =
         value.assign && (await getData(COLLECTIONS.USERS, value.assign))
-      const data = value
+      const data = { ...value, remind: value.remind.toDate().getTime() }
       if (dataUsers) {
-        data.assign = { ...dataUsers, id: value.assign }
+        data.assign = {
+          ...dataUsers,
+          id: value.assign
+        }
       }
       setDataForDefaultValue(data)
       setLoading(false)
@@ -40,7 +48,7 @@ const RegularProductEdit = (props) => {
         price: data.price,
         quantity: data.quantity,
         measures: data?.measures || '',
-        remind: data.remind
+        remind: getTimestamp().fromDate(new Date(data.remind))
       })
       history.goBack()
     } catch (error) {

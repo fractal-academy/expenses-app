@@ -1,13 +1,13 @@
 import { useState } from 'react'
-import PropTypes from 'prop-types'
-import { Table, Spinner } from 'app/components/Lib'
-import { COLLECTIONS } from 'app/constants'
-import { firestore, deleteData, getData, setData } from 'app/services/Firestore'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
+import { Table, Spinner } from 'app/components/Lib'
+import { useMessageDispatch, types } from 'app/context/MessageContext'
+import { firestore, deleteData, getData, setData } from 'app/services/Firestore'
+import { COLLECTIONS } from 'app/constants'
 
 const WishTable = (props) => {
   // INTERFACE
-  const { setStatusMessage, actions } = props
+  const { actions } = props
 
   // STATE
   const [confirm, setConfirm] = useState(false)
@@ -17,7 +17,7 @@ const WishTable = (props) => {
   const [data, loading] = useCollectionData(
     firestore.collection(COLLECTIONS.WISHES)
   )
-
+  const messageDispatch = useMessageDispatch()
   // HELPER FUNCTIONS
   const handleMove = async (selectedItems) => {
     for (let item of selectedItems) {
@@ -31,34 +31,36 @@ const WishTable = (props) => {
         /*
         delete product from wish*/
         await deleteData(COLLECTIONS.WISHES, item)
-        setStatusMessage({
-          open: true,
-          message: 'Products were moved',
-          type: 'success'
+        messageDispatch({
+          type: types.OPEN_SUCCESS_MESSAGE,
+          payload: 'Products were moved'
         })
       } catch (error) {
-        /* 
+        /*
         if we have error, we will see a message about unsuccessful operation*/
-        setStatusMessage({
-          open: true,
-          message: error,
-          type: 'error'
+        messageDispatch({
+          type: types.OPEN_ERROR_MESSAGE,
+          payload: 'error'
         })
       }
     }
   }
-  const handleDelete = (selectedItems) => {
+  const handleDelete = async (selectedItems) => {
+    setDeleteLoading(true)
     try {
-      setDeleteLoading(true)
-      selectedItems.map((item) => deleteData(COLLECTIONS.WISHES, item))
+      for (let item of selectedItems) {
+        await deleteData(COLLECTIONS.WISHES, item)
+      }
 
-      setStatusMessage({
-        open: true,
-        message: 'Products were successfully deleted.',
-        type: 'success'
+      messageDispatch({
+        type: types.OPEN_SUCCESS_MESSAGE,
+        payload: 'Products were successfully deleted.'
       })
     } catch (error) {
-      setStatusMessage({ open: true, message: error, type: 'error' })
+      messageDispatch({
+        type: types.OPEN_ERROR_MESSAGE,
+        payload: error
+      })
     }
     setConfirm(false)
     setDeleteLoading(false)
@@ -74,7 +76,6 @@ const WishTable = (props) => {
       products={data}
       actions={actions}
       handleDelete={handleDelete}
-      setStatusMessage={setStatusMessage}
       confirm={confirm}
       deleteLoading={deleteLoading}
       setConfirm={setConfirm}
@@ -85,8 +86,6 @@ const WishTable = (props) => {
   )
 }
 
-WishTable.propTypes = {
-  setStatusMessage: PropTypes.func
-}
+WishTable.propTypes = {}
 
 export default WishTable
