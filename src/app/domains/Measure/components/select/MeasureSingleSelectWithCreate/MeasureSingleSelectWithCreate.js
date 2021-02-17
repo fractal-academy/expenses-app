@@ -12,7 +12,7 @@ const MeasureSingleSelectWithCreate = (props) => {
           <MeasureSingleSelect fullWidth {...props} />
         </Col>
         <Col cw="auto">
-          <MeasureModalWithForm title="New measure">
+          <MeasureModalWithForm title="Measure">
             <IconButton
               color="primary"
               aria-label="upload picture"

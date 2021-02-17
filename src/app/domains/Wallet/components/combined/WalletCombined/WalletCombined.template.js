@@ -63,10 +63,16 @@ const WalletCombined = (props) => {
             ...data,
             idCurrency: 'UAH'
           })
-        : await addData(COLLECTIONS.WALLETS, {
+        : addData(COLLECTIONS.WALLETS, {
             ...data,
             idCurrency: 'UAH'
-          })
+          }).then((doc) =>
+            setData(COLLECTIONS.WALLETS, doc.id, {
+              ...data,
+              idCurrency: 'UAH',
+              id: doc.id
+            })
+          )
 
       setStatusMessage({
         open: true,

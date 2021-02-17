@@ -8,7 +8,6 @@ import {
 import { MemberSingleSelect } from 'app/domains/Member/components/select'
 import { CategorySelectWithCreate } from 'app/domains/Category/components/select'
 import { MeasureSingleSelectWithCreate } from 'app/domains/Measure/components/select'
-import { CurrencySingleSelect } from 'domains/Currency/components/select'
 
 const config = [
   {
@@ -30,27 +29,13 @@ const config = [
     placeholder: 'Enter description'
   },
   {
-    inlineLayout: [
-      {
-        type: 'number',
-        label: 'Price',
-        name: 'price',
-        placeholder: 'Enter price',
-        rules: {
-          required: 'Enter price'
-        }
-      },
-      {
-        name: 'Currency',
-        colProps: { cw: 'auto', style: { flex: 0 } },
-        Component: CurrencySingleSelect
-      }
-    ]
-  },
-  {
-    label: 'Measures',
-    name: 'measures',
-    Component: MeasureSingleSelectWithCreate
+    type: 'number',
+    label: 'Price',
+    name: 'price',
+    placeholder: 'Enter price',
+    rules: {
+      required: 'Enter price'
+    }
   },
   {
     label: 'Assign',
@@ -60,12 +45,15 @@ const config = [
   {
     label: 'Category',
     name: 'category',
-    Component: CategorySelectWithCreate
+    Component: CategorySelectWithCreate,
+    rules: {
+      required: 'select category, motherfucker'
+    }
   },
   {
     type: 'date',
     label: 'remind',
-    name: 'Remind'
+    name: 'remind'
   },
   {
     type: 'date',
@@ -73,10 +61,20 @@ const config = [
     name: 'dateBuy'
   },
   {
-    type: 'number',
-    label: 'Quantity',
-    name: 'quantity',
-    placeholder: 'Enter quantity'
+    inlineLayout: [
+      {
+        type: 'number',
+        label: 'Quantity',
+        name: 'quantity',
+        placeholder: 'Enter quantity'
+      },
+      {
+        label: 'Measures',
+        name: 'measures',
+        Component: MeasureSingleSelectWithCreate,
+        colProps: { v: 'center' }
+      }
+    ]
   }
 ]
 
@@ -90,7 +88,6 @@ const ProductAdvancedForm = (props) => {
     buttonProps,
     formProps
   } = props
-  console.log(formData)
   return (
     <Form
       form={form}
@@ -112,5 +109,7 @@ ProductAdvancedForm.propTypes = {
   buttonProps: PropTypes.object,
   formProps: PropTypes.object
 }
-
+ProductAdvancedForm.defaultProps = {
+  remind: ''
+}
 export default ProductAdvancedForm

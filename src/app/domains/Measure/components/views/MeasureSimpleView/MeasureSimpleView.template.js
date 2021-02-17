@@ -1,21 +1,17 @@
 import PropTypes from 'prop-types'
-import { Box, Typography } from '@material-ui/core'
 import { Container, Row, Col } from '@qonsoll/react-design'
 
 const MeasureSimpleView = (props) => {
-  const { textProps, text, productNumber } = props
+  const { text, productNumber } = props
+
+  const measureName =
+    (productNumber > 1 && text.length > 2 && `${text}s`) || text
 
   return (
     <Container>
-      <Row h="between" mb={2}>
-        <Col cw="auto">
-          <Typography>Quantity</Typography>
-        </Col>
+      <Row noGutters h="center">
         <Col display="flex" cw="auto">
-          <Box mr={0.5}>
-            <Typography {...textProps}>{productNumber}</Typography>
-          </Box>
-          <Typography>{text}</Typography>
+          {productNumber} {measureName}
         </Col>
       </Row>
     </Container>
@@ -24,8 +20,11 @@ const MeasureSimpleView = (props) => {
 
 MeasureSimpleView.propTypes = {
   text: PropTypes.string,
-  textProps: PropTypes.object,
   productNumber: PropTypes.number
+}
+MeasureSimpleView.defaultProps = {
+  text: 'None',
+  productNumber: ''
 }
 
 export default MeasureSimpleView

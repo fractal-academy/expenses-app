@@ -5,12 +5,13 @@ import {
   FormGenerator,
   FormButtons
 } from 'mui-form-generator-fractal-band-2'
+import { MeasureSingleSelect } from 'app/domains/Measure/components/select'
 
 const config = [
   {
     type: 'text',
     label: 'Measure',
-    name: 'Measure',
+    name: 'measure',
     placeholder: 'Enter measure',
     rules: {
       required: 'Enter measure',
@@ -18,6 +19,11 @@ const config = [
         value: 'word'
       }
     }
+  },
+  {
+    label: 'Measure select',
+    name: 'measureSelect',
+    Component: MeasureSingleSelect
   }
 ]
 
@@ -53,5 +59,7 @@ MeasureSimpleForm.propTypes = {
   buttonProps: PropTypes.object,
   formProps: PropTypes.object
 }
-
+MeasureSimpleForm.defaultops = {
+  measure: ''
+}
 export default MeasureSimpleForm

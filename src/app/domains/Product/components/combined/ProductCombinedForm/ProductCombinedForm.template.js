@@ -1,32 +1,60 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { Row } from '@qonsoll/react-design'
 import { FabButton, Modal } from 'app/components/Lib'
 import { Switch, Typography } from '@material-ui/core'
 import { firestore, setData } from 'app/services/Firestore'
 import { useForm } from 'mui-form-generator-fractal-band-2'
+import { useSession } from 'app/context/SessionContext/hooks'
 import { ProductSimpleForm } from 'app/domains/Product/components/forms/ProductSimpleForm'
 import { RegularProductSimpleForm } from 'app/domains/RegularProduct/components/forms/RegularProductSimpleForm'
 
 const ProductCombinedForm = (props) => {
   const { title, collectionName } = props
 
+  const session = useSession()
+
   const [open, setOpen] = useState(false)
   const [switchState, setSwitchState] = useState(true)
+  const [loading, setLoading] = useState(false)
 
   const form = useForm()
-
-  const onAddProduct = (data) => {
-    const id = firestore.collection(collectionName).doc().id
-    setData(collectionName, id, {
-      id: id,
-      name: data.nameProduct,
-      description: data.description
-    }).then(() => setOpen(false))
+  const onAddProduct = async (data) => {
+    try {
+      setLoading(true)
+      const id = firestore.collection(collectionName).doc().id
+      await setData(collectionName, id, {
+        id: id,
+        name: data.nameProduct,
+        description: data.description,
+        creator: session.id
+      })
+      form.reset({})
+    } catch (error) {
+      console.log(error)
+    }
+    setLoading(false)
+    setSwitchState(true)
+    setOpen(false)
+  }
+  const onAddRegularProduct = async (data) => {
+    try {
+      setLoading(true)
+      const id = firestore.collection(collectionName).doc().id
+      await setData(collectionName, id, {
+        id: id,
+        name: data.productSelect,
+        description: data.description
+      })
+      form.reset({})
+    } catch (error) {
+      console.log(error)
+    }
+    setLoading(false)
+    setSwitchState(true)
+    setOpen(false)
   }
 
   const submitForm = () => form.submit()
-
-  const onSubmit = () => setOpen(false)
 
   const handleClickOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
@@ -46,7 +74,8 @@ const ProductCombinedForm = (props) => {
           text: 'Submit',
           variant: 'contained',
           color: 'primary',
-          onClick: submitForm
+          onClick: submitForm,
+          loading
         }}
         buttonCancelProps={{
           text: 'Cancel',
@@ -66,7 +95,11 @@ const ProductCombinedForm = (props) => {
                 Add wish
               </Typography>
             </Row>
-            <ProductSimpleForm form={form} onSubmit={onAddProduct} />
+            <ProductSimpleForm
+              form={form}
+              onSubmit={onAddProduct}
+              buttonProps={{ visible: false }}
+            />
           </>
         ) : (
           <>
@@ -75,7 +108,11 @@ const ProductCombinedForm = (props) => {
                 Add regular product
               </Typography>
             </Row>
-            <RegularProductSimpleForm form={form} onSubmit={onSubmit} />
+            <RegularProductSimpleForm
+              form={form}
+              onSubmit={onAddRegularProduct}
+              buttonProps={{ visible: false }}
+            />
           </>
         )}
       </Modal>
