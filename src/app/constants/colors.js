@@ -25,7 +25,7 @@ const COLOR = {
   BLUE: {
     name: 'Blue',
     // color: 'rgba(25, 64, 240, 0.25)'
-    color: 'rgb(16,101,205)'
+    color: '#1065CD'
   }
 }
 

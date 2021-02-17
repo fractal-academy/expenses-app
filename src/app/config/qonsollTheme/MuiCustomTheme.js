@@ -1,7 +1,7 @@
 import { createMuiTheme } from '@material-ui/core'
 import Colors from './core/colors'
 import BorderRadiuses from './core/borderRadiuses.js'
-import { fontFamilies, fontWeights } from './core'
+import { fontFamilies, fontSizes, fontWeights } from './core'
 
 const MuiCustomTheme = createMuiTheme({
   palette: {
@@ -91,63 +91,78 @@ const MuiCustomTheme = createMuiTheme({
     h1: {
       fontFamily: fontFamilies.fontFamily.helvetica,
       fontWeight: fontWeights.fontWeight.light,
-      fontSize: '6rem',
+      fontSize: fontSizes.h1,
       lineHeight: 1.167,
       letterSpacing: '-0.01562em'
     },
     h2: {
       fontFamily: fontFamilies.fontFamily.helvetica,
-      fontWeight: 300,
-      fontSize: '3.75rem',
+      fontWeight: fontWeights.fontWeight.light,
+      fontSize: fontSizes.h2,
       lineHeight: 1.2,
       letterSpacing: '-0.00833em',
       color: Colors.text.primary
     },
     h3: {
+      fontFamily: fontFamilies.fontFamily.helvetica,
+      fontWeight: fontWeights.fontWeight.regular,
+      fontSize: fontSizes.h3,
+      lineHeight: 1.167,
+      letterSpacing: '0em',
       color: Colors.text.primary
     },
     h4: {
+      fontFamily: fontFamilies.fontFamily.helvetica,
+      fontWeight: fontWeights.fontWeight.regular,
+      fontSize: fontSizes.h4,
+      lineHeight: 1.235,
+      letterSpacing: '0.00735em',
       color: Colors.text.primary
     },
     h5: {
       fontFamily: fontFamilies.fontFamily.helvetica,
       fontWeight: fontWeights.fontWeight.regular,
-      fontSize: '1.5rem',
+      fontSize: fontSizes.h5,
       lineHeight: 1.334,
       letterSpacing: '0em',
       color: Colors.text.primary
     },
     h6: {
+      fontFamily: fontFamilies.fontFamily.helvetica,
+      fontWeight: fontWeights.fontWeight.medium,
+      fontSize: fontSizes.h6,
+      lineHeight: 1.6,
+      letterSpacing: '0.0075em',
       color: Colors.text.primary
     },
     subtitle1: {
       fontFamily: fontFamilies.fontFamily.helvetica,
       fontWeight: 400,
-      fontSize: '1rem',
+      fontSize: fontSizes.subtitle1,
       lineHeight: 1.75,
       letterSpacing: '0.00938em',
       color: Colors.text.primary
     },
-    // subtitle2: {
-    //   fontFamily: fontFamilies.fontFamily.helvetica,
-    //   fontWeight: 500,
-    //   fontSize: '0.875rem',
-    //   lineHeight: 1.57,
-    //   letterSpacing: '0.00714em',
-    //   color: 'red'
-    // },
+    subtitle2: {
+      fontFamily: fontFamilies.fontFamily.helvetica,
+      fontWeight: fontWeights.fontWeight.medium,
+      fontSize: fontSizes.subtitle2,
+      lineHeight: 1.57,
+      letterSpacing: '0.00714em',
+      color: Colors.text.primary
+    },
     body1: {
       fontFamily: fontFamilies.fontFamily.helvetica,
-      fontWeight: 400,
-      fontSize: '1rem',
+      fontWeight: fontWeights.fontWeight.regular,
+      fontSize: fontSizes.body1,
       lineHeight: '1.5rem',
       letterSpacing: 0,
       color: Colors.text.primary
     },
     body2: {
       fontFamily: fontFamilies.fontFamily.helvetica,
-      fontWeight: 400,
-      fontSize: '0.875rem',
+      fontWeight: fontWeights.fontWeight.regular,
+      fontSize: fontSizes.body2,
       lineHeight: '1.75rem',
       letterSpacing: 0,
       color: Colors.text.primary
@@ -155,15 +170,10 @@ const MuiCustomTheme = createMuiTheme({
     button: {
       fontFamily: fontFamilies.fontFamily.helvetica,
       fontWeight: fontWeights.fontWeight.regular,
-      fontSize: '0.875rem',
+      fontSize: fontSizes.button,
       lineHeight: 1.43,
       letterSpacing: '0.01071em',
       color: Colors.text.primary
-    },
-    input: {
-      placeholder: {
-        color: Colors.text.primary
-      }
     },
     caption: {
       fontFamily: fontFamilies.fontFamily.helvetica,

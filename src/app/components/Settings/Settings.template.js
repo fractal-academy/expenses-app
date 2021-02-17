@@ -12,41 +12,38 @@ import { useHistory } from 'react-router-dom'
 import { ROUTES_PATHS } from 'app/constants'
 import MuiCustomTheme from '../../config/qonsollTheme/MuiCustomTheme'
 import Colors from '../../config/qonsollTheme/core/colors'
+import COLOR from '../../constants/colors'
 
 const SETTINGS_MENU = [
   {
     title: 'Members',
     path: ROUTES_PATHS.MEMBERS_ALL,
-    icon: (
-      <Group
-        style={{ color: MuiCustomTheme.palette.primaryAlternative['1'] }}
-      />
-    )
+    icon: <Group style={{ color: COLOR.YELLOW.color }} />
   },
   {
     title: 'Categories',
     path: ROUTES_PATHS.CATEGORIES_ALL,
-    icon: <AccountBalanceWallet />
+    icon: <AccountBalanceWallet style={{ color: COLOR.GREEN.color }} />
   },
   {
     title: 'Logs',
     path: ROUTES_PATHS.LOGS_ALL,
-    icon: <Assignment />
+    icon: <Assignment style={{ color: COLOR.LAVENDER.color }} />
   },
   {
     title: 'Regular products',
     path: ROUTES_PATHS.REGULAR_PRODUCTS_ALL,
-    icon: <ViewList />
+    icon: <ViewList style={{ color: COLOR.BLUE.color }} />
   },
   {
     title: 'Purchases',
     path: ROUTES_PATHS.PURCHASE_ALL,
-    icon: <Receipt />
+    icon: <Receipt style={{ color: COLOR.RED.color }} />
   },
   {
     title: 'Wallets',
     path: ROUTES_PATHS.WALLETS_ALL,
-    icon: <CreditCard />
+    icon: <CreditCard style={{ color: COLOR.GREEN.color }} />
   }
 ]
 
