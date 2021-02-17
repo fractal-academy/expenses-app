@@ -7,22 +7,39 @@ import { useCollectionData } from 'react-firebase-hooks/firestore'
 import { useEffect, useState } from 'react'
 import _ from 'lodash'
 
+/**
+ * @info MeasureSingleSelect (25 Jan 2021) // CREATION DATE
+ *
+ * @since 16 Feb 2021 ( v.0.0.6 ) // LAST-EDIT DATE
+ *
+ * @return {ReactComponent}
+ */
+
 const MeasureSingleSelect = (props) => {
+  // [INTERFACES]
   const { value, ...rest } = props
-  const [measures] = useCollectionData(getCollectionRef(COLLECTIONS.MEASURES), {
+
+  // [ADDITIONAL_HOOKS]
+  const [data] = useCollectionData(getCollectionRef(COLLECTIONS.MEASURES), {
     idField: 'id'
   })
-  const [meas, setMeas] = useState()
+
+  // [COMPONENT_STATE_HOOKS]
+  const [measure, setMeasure] = useState()
+
+  // [USE_EFFECTS]
   useEffect(() => {
-    if (measures && props.value) {
-      const uniq = _.uniqBy([props.value, ...measures], 'measure')
-      setMeas(uniq)
+    if (data && value) {
+      const uniq = _.uniqBy([value, ...data], 'measure')
+      setMeasure(uniq)
     }
-  }, [measures])
+  }, [data])
+
+  // [TEMPLATE]
   return (
-    <Select data={meas || measures} value={value} {...rest}>
-      {(item) => (
-        <MenuItem value={item} key={item}>
+    <Select data={measure || data} value={value || ''} {...rest}>
+      {(item, index) => (
+        <MenuItem value={item} key={item.id || index}>
           {item.measure}
         </MenuItem>
       )}
@@ -31,7 +48,10 @@ const MeasureSingleSelect = (props) => {
 }
 
 MeasureSingleSelect.propTypes = {
-  currentMeasure: PropTypes.string.isRequired
+  value: PropTypes.oneOfType([
+    PropTypes.shape({ measure: PropTypes.string, id: PropTypes.string }),
+    PropTypes.any
+  ])
 }
 
 export default MeasureSingleSelect

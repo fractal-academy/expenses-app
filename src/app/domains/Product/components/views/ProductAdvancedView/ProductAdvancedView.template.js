@@ -67,6 +67,10 @@ const ProductAdvancedView = (props) => {
     }
   }
 
+
+const ProductAdvancedView = (props) => {
+  
+  // [INTERFACES]
   const { type, data, id, setStatusMessage, dropdownItem } = props
 
   // [ADDITIONAL_HOOKS]
@@ -204,6 +208,7 @@ const ProductAdvancedView = (props) => {
     </Container>
   )
 
+  // [TEMPLATE]
   return (
     <Container>
       <Row h="center">
@@ -234,12 +239,10 @@ const ProductAdvancedView = (props) => {
               <Typography>Quantity</Typography>
             </Col>
             <Col cw="auto">
-              <Typography>
-                <MeasureSimpleView
-                  productNumber={data?.quantity}
-                  text={data?.measures?.measure}
-                />
-              </Typography>
+              <MeasureSimpleView
+                productNumber={data?.quantity}
+                text={data?.measures?.measure}
+              />
             </Col>
           </Row>
           <CategorySimpleView nameCategory={data?.category} />
