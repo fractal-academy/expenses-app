@@ -1,15 +1,12 @@
 import { COLLECTIONS } from 'app/constants'
 import { Spinner } from 'app/components/Lib'
-<<<<<<< HEAD
 import {
   firestore,
   setData,
   addData,
+  getData,
   getTimestamp
 } from 'app/services/Firestore'
-=======
-import { firestore, getData, setData } from 'app/services'
->>>>>>> DEMO_3
 import { useHistory, useParams } from 'react-router-dom'
 import { useDocumentData } from 'react-firebase-hooks/firestore'
 import { ProductAdvancedForm } from 'domains/Product/components/forms/ProductAdvancedForm'

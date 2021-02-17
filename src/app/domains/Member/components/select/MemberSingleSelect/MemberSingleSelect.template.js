@@ -16,18 +16,6 @@ import _ from 'lodash'
  */
 
 const MemberSingleSelect = (props) => {
-<<<<<<< HEAD
-  const [value] = useCollection(
-    getCollectionRef(COLLECTIONS.USERS).where('isPending', '!=', true)
-  )
-  const members = useMemo(
-    () =>
-      value &&
-      value.docs.map((member) => {
-        return { ...member.data(), id: member.id }
-      }),
-    [value]
-=======
   // [INTERFACES]
   const { value, ...rest } = props
 
@@ -37,7 +25,6 @@ const MemberSingleSelect = (props) => {
       .where('isPending', '==', false)
       .where('role', '==', 'admin'),
     { idField: 'id' }
->>>>>>> DEMO_3
   )
 
   // [COMPONENT_STATE_HOOKS]
