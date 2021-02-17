@@ -22,7 +22,7 @@ const NotificationSimpleView = () => {
   // [TEMPLATE]
   return (
     <IconButton onClick={() => history.push(ROUTES_PATHS.NOTIFICATIONS_ALL)}>
-      <Badge badgeContent={notification?.length} max={99} color="secondary">
+      <Badge badgeContent={notification?.length} max={99} color="error">
         <Notifications className={classes.root} />
       </Badge>
     </IconButton>

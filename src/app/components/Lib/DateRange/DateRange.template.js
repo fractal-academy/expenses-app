@@ -7,12 +7,10 @@ import * as locales from 'react-date-range/dist/locale'
 import { Row, Container, Col } from '@qonsoll/react-design'
 import { useStatisticContext } from 'app/context/StatisticsContext'
 import moment from 'moment'
-import { useStyles } from './DateRange.style'
 
 const DateRange = (props) => {
   const { startDate, endDate } = props
   const { state, setState } = useStatisticContext()
-  const classes = useStyles()
 
   const [date, setDate] = useState({
     ...state.date,
@@ -22,8 +20,9 @@ const DateRange = (props) => {
   return (
     <Container>
       <Row h="center">
-        <Col className={classes.rng}>
+        <Col>
           <Range
+            style={{ color: 'red' }}
             locale={locales.enGB}
             editableDateInputs={true}
             onChange={(item) => {

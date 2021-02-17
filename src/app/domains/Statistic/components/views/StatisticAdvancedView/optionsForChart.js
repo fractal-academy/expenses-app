@@ -39,10 +39,6 @@ const optionsForChart = {
   dataLabels: {
     formatter: function (val, opts) {
       return opts.w.globals.series[opts.seriesIndex]
-    },
-    style: {
-      fontSize: '14px',
-      color: 'red'
     }
   }
 }

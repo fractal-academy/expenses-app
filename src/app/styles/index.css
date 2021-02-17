@@ -56,9 +56,9 @@ select-selected {
 }
 
 .MuiSelect-icon {
-    color: white !important;
+    color: #dbdbdd !important;
 }
 
 .MuiSelect-root.MuiSelect-select.MuiSelect-selectMenu.MuiInputBase-input.MuiInput-input.MuiInputBase-inputMarginDense.MuiInput-inputMarginDense {
-    color: white;
+    color: #dbdbdd;;
 }

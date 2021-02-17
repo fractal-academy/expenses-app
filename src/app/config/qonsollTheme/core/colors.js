@@ -7,15 +7,15 @@ const Colors = {
     lighten: { 1: '#ff9f4f', 2: '#ffb77b', 3: '#ffcfa6', 4: '#ffe7d2' },
     darken: { 1: '#293193', 2: '#24266c', 3: '#1e1c48', 4: '#151226' }
   },
-  primaryAlternative: {
-    c1: '#ee786c',
-    c2: '#20bfa9',
-    c3: '#c37fbc',
-    c4: '#ffecce'
-  },
+  // primaryAlternative: {
+  //   c1: '#ee786c',
+  //   c2: '#20bfa9',
+  //   c3: '#c37fbc',
+  //   c4: '#ffecce'
+  // },
   secondary: {
     light: '#ff4081',
-    main: '#f50057',
+    main: '#20bfa9',
     dark: '#c51162',
     contrastText: '#ffffff'
   },
@@ -34,10 +34,6 @@ const Colors = {
     12: '#5e5e5e',
     13: '#515151',
     14: '#434343'
-    // 15: '#363636',
-    // 16: '#282828',
-    // 17: '#1b1b1b',
-    // 18: '#0d0d0d'
   },
   info: {
     main: '#1890ff',
