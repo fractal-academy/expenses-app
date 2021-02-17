@@ -10,7 +10,6 @@ const CollapseWallet = (props) => {
   const { dataFromDB } = props
   const { state } = useStatisticContext()
   const dataList = filterDataForStatisticsWallet(state.date, dataFromDB)
-  console.log(dataList)
 
   return (
     <>

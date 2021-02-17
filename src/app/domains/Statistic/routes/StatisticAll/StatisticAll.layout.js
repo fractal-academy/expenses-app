@@ -18,7 +18,6 @@ const StatisticAll = (props) => {
     return <Spinner />
   }
   return (
-    //Switch to firebase data as it'll be ready :)
     <>
       {data && (
         <StatisticProvider>

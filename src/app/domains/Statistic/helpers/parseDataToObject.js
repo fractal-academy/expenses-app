@@ -23,7 +23,7 @@ const parseDataToObject = (data, arrWitUniqueValues, rangeStart, rangeEnd) => {
     res[nameMember].wallets = wallet
     res[nameMember].spent = +spent
   })
-  console.log('res', res)
+
   return res
 }
 export default parseDataToObject
