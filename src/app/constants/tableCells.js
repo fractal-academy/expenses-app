@@ -4,6 +4,6 @@ const WISHES_CELLS = ['Assigned', 'Wish', 'Category']
 
 const REGULAR_PRODUCT_CELLS = ['Assigned', 'Product', 'Category']
 
-const PURCHASES_CELLS = ['Assigned', 'Product', 'Quantity', 'Price']
+const PURCHASES_CELLS = ['Who bought', 'Product', 'Quantity', 'Price']
 
 export { CART_CELLS, WISHES_CELLS, REGULAR_PRODUCT_CELLS, PURCHASES_CELLS }

@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Fragment } from 'react'
 import { ROUTES_PATHS } from 'app/constants'
 import { useHistory } from 'react-router-dom'
 import { Confirmation } from 'components/Lib'
-import { Container, Row, Col } from '@qonsoll/react-design'
+import { Container, Row, Col, Box } from '@qonsoll/react-design'
 import {
   Toolbar,
   Typography,
@@ -28,15 +28,24 @@ const toolbarItems = [
 ]
 
 const CustomToolbar = (props) => {
-  const { numRows, selectedItems, handleDelete } = props
+  const {
+    numRows,
+    selectedItems,
+    handleDelete,
+    handleMove,
+    onCheckClick,
+    confirm,
+    setConfirm,
+    deleteLoading,
+    setStatusMessage,
+    WrapperForCheck = Box
+  } = props
 
   // [ADDITIONAL_HOOKS]
   const history = useHistory()
 
   // [COMPONENT_STATE_HOOKS]
   const [value, setValue] = useState()
-  const [confirm, setConfirm] = useState(false)
-  const [deleteLoading, setDeleteLoading] = useState(false)
 
   // [HELPER_FUNCTIONS]
   const onMenuChange = (event, newPage) => setValue(newPage)
@@ -63,7 +72,14 @@ const CustomToolbar = (props) => {
                   </Col>
                   <Col cw="auto">
                     <IconButton color="primary">
-                      <Check onClick={console.log()} />
+                      <WrapperForCheck
+                        setStatusMessage={setStatusMessage}
+                        onClick={() => onCheckClick(selectedItems)}
+                        onSubmitFunction={(data) =>
+                          handleMove(data, selectedItems)
+                        }>
+                        <Check />
+                      </WrapperForCheck>
                     </IconButton>
                     <Confirmation
                       action="Delete"
