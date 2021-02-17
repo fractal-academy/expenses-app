@@ -46,7 +46,7 @@ const CartEdit = (props) => {
         price: data.price,
         quantity: data.quantity,
         measures: data?.measures || '',
-        dateBuy: data.dateBuy
+        dateBuy: getTimestamp().fromDate(new Date(data.dateBuy))
       })
       addData(COLLECTIONS.NOTIFICATIONS, {
         date: getTimestamp().now(),

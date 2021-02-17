@@ -12,19 +12,21 @@ import Typography from '@material-ui/core/Typography'
 
 const MeasureSimpleView = (props) => {
   // [INTERFACES]
-  const { text, productNumber } = props
+  const { text, productNumber, ...textProps } = props
 
-  // [COMPUTED_PROPERTIES]
+  const pluralize = require('pluralize')
+
   const measureName =
-    (productNumber > 1 && text.length > 2 && `${text}s`) || text
-  const quantity = `${productNumber} ${measureName}`
+    (productNumber > 1 && text.length > 2 && pluralize.plural(text)) || text
 
   // [TEMPLATE]
   return (
     <Container>
       <Row noGutters h="center">
         <Col display="flex" cw="auto">
-          <Typography>{quantity}</Typography>
+          <Typography {...textProps}>
+            {productNumber} {measureName}
+          </Typography>
         </Col>
       </Row>
     </Container>
