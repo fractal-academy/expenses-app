@@ -3,7 +3,7 @@ import { Spinner } from 'app/components/Lib'
 import {
   firestore,
   setData,
-  addData
+  addData,
   getData,
   getTimestamp
 } from 'app/services/Firestore'
