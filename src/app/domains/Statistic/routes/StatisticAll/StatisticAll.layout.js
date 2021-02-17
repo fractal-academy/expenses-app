@@ -2,8 +2,8 @@ import { StatisticAdvancedView } from 'domains/Statistic/components/views'
 import { FiltersWithCollapse } from 'domains/Statistic/components/FiltersWithCollapse'
 import { CollapseWallet } from 'domains/Statistic/components/CollapseWallet'
 import { StatisticProvider } from 'app/context/StatisticsContext'
-import { Typography } from '@material-ui/core'
-import { Row, Container, Col } from '@qonsoll/react-design'
+import { Typography, Switch } from '@material-ui/core'
+import { Row, Container, Col, Box } from '@qonsoll/react-design'
 import { COLLECTIONS } from 'app/constants'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 import { Spinner } from 'app/components/Lib'
@@ -16,22 +16,28 @@ const StatisticAll = (props) => {
     firestore.collection(COLLECTIONS.PURCHASES)
   )
 
+  const [checked, setChecked] = useState(false)
   const [data, setData] = useState([])
 
   useEffect(() => {
-    const newVal = value?.map(async (item) => {
-      const res = await convertToDollars(item)
-      return res
-    })
-    newVal &&
-      Promise.allSettled(newVal)
-        .then((results) => {
-          return results.map((result) => result.value)
-        })
-        .then((res) => {
-          setData(res)
-        })
-  }, [value])
+    checked
+      ? (() => {
+          const newVal = value?.map(async (item) => {
+            const res = await convertToDollars(item)
+            return res
+          })
+          newVal &&
+            Promise.allSettled(newVal)
+              .then((results) => {
+                return results.map((result) => result.value)
+              })
+              .then((res) => {
+                setData(res)
+                console.log(res)
+              })
+        })()
+      : setData(value)
+  }, [value, checked])
 
   if (loading) {
     return <Spinner />
@@ -51,6 +57,20 @@ const StatisticAll = (props) => {
             </Row>
           </Container>
           <StatisticAdvancedView dataFromDB={data} />
+          <Row>
+            <Col />
+            <Col cw="auto">
+              <Box display="flex">
+                <Typography>UAH</Typography>
+                <Switch
+                  checked={checked}
+                  onChange={() => setChecked(!checked)}
+                  name="currencySwitch"
+                />
+                <Typography>USD</Typography>
+              </Box>
+            </Col>
+          </Row>
           <Container my={3}>
             <Row v="center" h="center" noGutters>
               <Col>
