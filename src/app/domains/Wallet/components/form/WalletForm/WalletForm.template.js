@@ -40,7 +40,8 @@ const config = [
       {
         label: 'Currency',
         name: 'idCurrency',
-        Component: CurrencySimpleView
+        Component: CurrencySimpleView,
+        colProps: { cw: 'auto' }
       },
       {
         label: 'Wallet',
