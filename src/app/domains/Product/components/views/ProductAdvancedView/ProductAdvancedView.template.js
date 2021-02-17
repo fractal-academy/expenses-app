@@ -104,7 +104,7 @@ const ProductAdvancedView = (props) => {
   function onCheckClick() {
     let status = true
     //required fields
-    const fields = ['name', 'price', 'quantity']
+    const fields = ['name', 'price']
     for (let field of fields) {
       /*   if required field isn`t empty status will be true  */
 
@@ -132,7 +132,7 @@ const ProductAdvancedView = (props) => {
       /*
         set new balance to wallet*/
       await setData(COLLECTIONS.WALLETS, wallet.id, {
-        balance: wallet.balance - product.price * product.quantity
+        balance: wallet.balance - product.price
       })
       messageDispatch({
         type: types.OPEN_SUCCESS_MESSAGE,
