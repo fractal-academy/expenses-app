@@ -159,7 +159,7 @@ const CustomTable = (props) => {
                           <TableCell align="center">
                             <MeasureSimpleView
                               productNumber={row.quantity}
-                              text={row.measures.measure}
+                              text={row.measures?.measure}
                             />
                           </TableCell>
                           <TableCell>
