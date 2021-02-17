@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import PropTypes from 'prop-types'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 import { Table, Spinner } from 'app/components/Lib'
 import { useMessageDispatch, types } from 'app/context/MessageContext'
@@ -87,8 +86,6 @@ const WishTable = (props) => {
   )
 }
 
-WishTable.propTypes = {
-  setStatusMessage: PropTypes.func
-}
+WishTable.propTypes = {}
 
 export default WishTable

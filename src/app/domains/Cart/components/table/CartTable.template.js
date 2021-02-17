@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import PropTypes from 'prop-types'
 import { Table, Spinner } from 'app/components/Lib'
 import { COLLECTIONS } from 'app/constants'
 import {
@@ -177,8 +176,6 @@ const CartTable = (props) => {
   )
 }
 
-CartTable.propTypes = {
-  setStatusMessage: PropTypes.func
-}
+CartTable.propTypes = {}
 
 export default CartTable

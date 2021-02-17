@@ -193,7 +193,6 @@ const CustomTable = (props) => {
 CustomTable.propTypes = {
   type: PropTypes.string.isRequired,
   products: PropTypes.array.isRequired,
-  setStatusMessage: PropTypes.func,
   actions: PropTypes.bool
 }
 export default CustomTable

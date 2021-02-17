@@ -4,7 +4,7 @@ import { Typography } from '@material-ui/core'
 
 const WalletList = (props) => {
   //INTERFACE
-  const { dataForListWallets, setStatusMessage, ...rest } = props
+  const { dataForListWallets } = props
   const { publicWallets, myWallets } = dataForListWallets
 
   //TEMPLATE
@@ -27,7 +27,6 @@ const WalletList = (props) => {
                   nameWallet={doc.data().nameWallet}
                   balance={doc.data().balance}
                   idCurrency={doc.data().idCurrency}
-                  setStatusMessage={setStatusMessage}
                 />
               ))}
             </Col>
@@ -61,7 +60,6 @@ const WalletList = (props) => {
                   idMember={doc.data().idMember}
                   balance={doc.data().balance}
                   idCurrency={doc.data().idCurrency}
-                  setStatusMessage={setStatusMessage}
                 />
               ))}
             </Col>

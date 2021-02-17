@@ -9,6 +9,7 @@ import { Typography, IconButton } from '@material-ui/core'
 import { Container, Row, Col } from '@qonsoll/react-design'
 import { deleteData, setData } from 'app/services/Firestore'
 import { useSession } from 'app/context/SessionContext'
+import { useMessageDispatch, types } from 'app/context/MessageContext'
 import { Dropdown, DropdownItem, Confirmation } from 'app/components/Lib'
 import { MeasureSimpleView } from 'domains/Measure/components/views'
 import { CategorySimpleView } from 'domains/Category/components/views'
@@ -53,10 +54,11 @@ const productTypeMap = {
 }
 
 const ProductAdvancedView = (props) => {
-  const { type, data, id, setStatusMessage, dropdownItem } = props
+  const { type, data, id, dropdownItem } = props
   // [ADDITIONAL_HOOKS]
   const history = useHistory()
   const user = useSession()
+  const messageDispatch = useMessageDispatch()
   const reminderDate = moment(props.reminderDate).format('MMM Do')
   const purchasedDate = moment(data?.dateBuy).format('MMM Do')
   const classes = useStyles()
@@ -66,30 +68,38 @@ const ProductAdvancedView = (props) => {
   const [deleteLoading, setDeleteLoading] = useState(false)
 
   // [HELPER_FUNCTIONS]
-  const handleDelete = () => {
+  const handleDelete = async () => {
     try {
-      setDeleteLoading(true)
-      deleteData(productCollection, id).then(() => history.goBack())
-      setStatusMessage({
-        open: true,
-        message: 'Product was successfully deleted.',
-        type: 'success'
+      await deleteData(productCollection, id)
+
+      history.goBack()
+      messageDispatch({
+        type: types.OPEN_SUCCESS_MESSAGE,
+        payload: 'Products were successfully deleted.'
       })
     } catch (error) {
-      setStatusMessage({ open: true, message: error, type: 'error' })
+      messageDispatch({
+        type: types.OPEN_ERROR_MESSAGE,
+        payload: error
+      })
     }
+
     setDeleteLoading(false)
   }
-  const handleMoveProduct = () => {
+  const handleMoveProduct = async () => {
     try {
-      setData(actionCollection, id, data).then(() => handleDelete())
-      setStatusMessage({
-        open: true,
-        message: `Product was successfully moved to ${actionCollection}`,
-        type: 'success'
+      await setData(actionCollection, id, data)
+      await handleDelete()
+
+      messageDispatch({
+        type: types.OPEN_SUCCESS_MESSAGE,
+        payload: `Product was successfully moved to ${actionCollection}`
       })
     } catch (error) {
-      setStatusMessage({ open: true, message: error, type: 'error' })
+      messageDispatch({
+        type: types.OPEN_ERROR_MESSAGE,
+        payload: error
+      })
     }
   }
 
