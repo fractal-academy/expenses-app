@@ -50,7 +50,7 @@ const ROUTES = {
   },
   REGULAR_PRODUCTS_ALL: {
     protect: ['admin'],
-    component: withLayout({ goBack: true, title: 'Products' })(
+    component: withLayout({ goBack: true, title: 'Regular products' })(
       RegularProductAll
     ),
     path: ROUTES_PATHS.REGULAR_PRODUCTS_ALL,

@@ -9,7 +9,9 @@ const Layout = (props) => {
   return (
     <>
       <Header goBack={goBack} title={title} />
-      <Container className={classes.fitContent}>{children}</Container>
+      <Container className={classes.fitContent} pl={1} pr={1}>
+        {children}
+      </Container>
       <Navbar />
     </>
   )

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Fragment } from 'react'
 import { ROUTES_PATHS } from 'app/constants'
 import { useHistory } from 'react-router-dom'
 import { Confirmation } from 'components/Lib'
@@ -16,7 +16,8 @@ import {
   Delete,
   ReceiptRounded,
   StarBorderRounded
-} from '@material-ui/icons'
+} from '@material-ui/icons/'
+import { useStyles } from './Toolbar.styles'
 
 const toolbarItems = [
   { path: ROUTES_PATHS.CART_ALL, icon: <ReceiptRounded />, label: 'To buy' },
@@ -54,6 +55,8 @@ const CustomToolbar = (props) => {
       toolbarItems.findIndex((item) => item.path === history.location.pathname)
     )
   }, [history])
+  // [INTERFACE]
+  const classes = useStyles(props)
 
   // [COMPUTED_PROPERTIES]
   let numSelected = selectedItems.length
@@ -99,6 +102,7 @@ const CustomToolbar = (props) => {
                 <Row h="center">
                   <Col cw="auto">
                     <BottomNavigation
+                      className={classes.bgc}
                       value={value}
                       onChange={onMenuChange}
                       showLabels>
