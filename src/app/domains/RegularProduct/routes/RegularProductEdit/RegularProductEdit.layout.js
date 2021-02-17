@@ -10,6 +10,7 @@ import {
 import { COLLECTIONS } from 'app/constants'
 import { Spinner } from 'app/components/Lib'
 import React, { useEffect, useState } from 'react'
+import { useMessageDispatch, types } from 'app/context/MessageContext'
 
 const RegularProductEdit = () => {
   const history = useHistory()
@@ -19,6 +20,7 @@ const RegularProductEdit = () => {
   )
   const [loading, setLoading] = useState(true)
   const [dataForDefaultValue, setDataForDefaultValue] = useState()
+  const messageDispatch = useMessageDispatch()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,6 +51,10 @@ const RegularProductEdit = () => {
         quantity: data.quantity,
         measures: data?.measures || '',
         remind: data.remind || null
+      })
+      messageDispatch({
+        type: types.OPEN_SUCCESS_MESSAGE,
+        payload: 'Products were successfully edited.'
       })
       history.goBack()
     } catch (error) {

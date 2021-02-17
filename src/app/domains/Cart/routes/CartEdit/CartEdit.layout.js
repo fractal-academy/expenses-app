@@ -2,10 +2,10 @@ import { COLLECTIONS } from 'app/constants'
 import { Spinner } from 'app/components/Lib'
 import {
   firestore,
-  getData,
   setData,
-  getTimestamp,
   addData
+  getData,
+  getTimestamp
 } from 'app/services/Firestore'
 import { useHistory, useParams } from 'react-router-dom'
 import { useDocumentData } from 'react-firebase-hooks/firestore'

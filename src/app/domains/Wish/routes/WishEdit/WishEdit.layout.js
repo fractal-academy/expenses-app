@@ -1,6 +1,13 @@
 import { COLLECTIONS } from 'app/constants'
 import { Spinner } from 'app/components/Lib'
-import { firestore, setData, getData } from 'app/services/Firestore'
+
+import {
+  firestore,
+  setData,
+  addData,
+  getData,
+  getTimestamp
+} from 'app/services/Firestore'
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { useHistory, useParams } from 'react-router-dom'
@@ -37,6 +44,11 @@ const WishEdit = (props) => {
         price: data.price,
         quantity: data.quantity,
         measures: data?.measures || ''
+      })
+      addData(COLLECTIONS.NOTIFICATIONS, {
+        date: getTimestamp().now(),
+        text: `You were assigned to buy '${data.name}' in Wishes list`,
+        userId: [data.assign.id]
       })
     } catch (error) {
       console.log(error)
