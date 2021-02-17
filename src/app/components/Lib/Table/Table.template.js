@@ -51,7 +51,6 @@ const CustomTable = (props) => {
     type,
     products,
     handleDelete,
-    setStatusMessage,
     WrapperForCheck,
     onCheckClick,
     handleMove,
@@ -93,7 +92,6 @@ const CustomTable = (props) => {
             <Toolbar
               numRows={numRows}
               selectedItems={selected}
-              setStatusMessage={setStatusMessage}
               handleDelete={handleDelete}
               onCheckClick={onCheckClick}
               WrapperForCheck={WrapperForCheck}

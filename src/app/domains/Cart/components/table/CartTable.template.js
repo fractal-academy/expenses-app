@@ -12,16 +12,18 @@ import {
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 import { WalletCombinedWithSelect } from 'app/domains/Wallet/components/combined/WalletCombinedWithSelect'
 import { useSession } from 'app/context/SessionContext/hooks'
+import { useMessageDispatch, types } from 'app/context/MessageContext'
 
 const CartTable = (props) => {
   // INTERFACE
-  const { setStatusMessage, actions } = props
+  const { actions } = props
 
   // CUSTOM HOOKS
   const [data, loading] = useCollectionData(
     firestore.collection(COLLECTIONS.CART)
   )
   const session = useSession()
+  const messageDispatch = useMessageDispatch()
   const [deleteLoading, setDeleteLoading] = useState(false)
 
   // STATE
@@ -109,37 +111,40 @@ const CartTable = (props) => {
         await setData(COLLECTIONS.WALLETS, data.id, {
           balance: data.balance - sum
         })
-        /* 
+        /*
         a message about successful operation*/
-        setStatusMessage({
-          open: true,
-          message: 'Products were bought',
-          type: 'success'
+        messageDispatch({
+          type: types.OPEN_SUCCESS_MESSAGE,
+          payload: 'Products were bought'
         })
       } catch (error) {
-        /* 
+        /*
         if we have error, we will see a message about unsuccessful operation*/
-        setStatusMessage({
-          open: true,
-          message: error,
-          type: 'error'
+        messageDispatch({
+          type: types.OPEN_ERROR_MESSAGE,
+          payload: error
         })
       }
     })
   }
 
-  const handleDelete = (selectedItems) => {
+  const handleDelete = async (selectedItems) => {
     try {
       setDeleteLoading(true)
-      selectedItems.map((item) => deleteData(COLLECTIONS.CART, item))
 
-      setStatusMessage({
-        open: true,
-        message: 'Products were successfully deleted.',
-        type: 'success'
+      for (let item of selectedItems) {
+        await deleteData(COLLECTIONS.CART, item)
+      }
+
+      messageDispatch({
+        type: types.OPEN_SUCCESS_MESSAGE,
+        payload: 'Products were successfully deleted.'
       })
     } catch (error) {
-      setStatusMessage({ open: true, message: error, type: 'error' })
+      messageDispatch({
+        type: types.OPEN_ERROR_MESSAGE,
+        payload: error
+      })
     }
     setConfirm(false)
     setDeleteLoading(false)
@@ -155,7 +160,6 @@ const CartTable = (props) => {
       products={data}
       actions={actions}
       handleDelete={handleDelete}
-      setStatusMessage={setStatusMessage}
       confirm={confirm}
       setConfirm={setConfirm}
       deleteLoading={deleteLoading}
@@ -163,7 +167,7 @@ const CartTable = (props) => {
           component for select wallet*/
       WrapperForCheck={WalletCombinedWithSelect}
       /*
-          function for checking. every product have filled fields or not. 
+          function for checking. every product have filled fields or not.
           if once field has an empty field, you will not see WrapperForCheck */
       onCheckClick={onCheckClick}
       /*
