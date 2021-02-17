@@ -17,15 +17,14 @@ const MeasureSimpleView = (props) => {
   // [COMPUTED_PROPERTIES]
   const measureName =
     (productNumber > 1 && text.length > 2 && `${text}s`) || text
+  const quantity = `${productNumber} ${measureName}`
 
   // [TEMPLATE]
   return (
     <Container>
       <Row noGutters h="center">
         <Col display="flex" cw="auto">
-          <Typography>
-            {productNumber} {measureName}
-          </Typography>
+          <Typography>{quantity}</Typography>
         </Col>
       </Row>
     </Container>
