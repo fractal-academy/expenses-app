@@ -8,12 +8,30 @@ import { COLLECTIONS } from 'app/constants'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 import { Spinner } from 'app/components/Lib'
 import { firestore } from 'app/services'
+import { useEffect, useState } from 'react'
+import convertToDollars from '../../helpers/convertToDolars'
 
 const StatisticAll = (props) => {
-  const [data, loading] = useCollectionData(
+  const [value, loading] = useCollectionData(
     firestore.collection(COLLECTIONS.PURCHASES)
   )
-  console.log(data)
+
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    const newVal = value?.map(async (item) => {
+      const res = await convertToDollars(item)
+      return res
+    })
+    newVal &&
+      Promise.allSettled(newVal)
+        .then((results) => {
+          return results.map((result) => result.value)
+        })
+        .then((res) => {
+          setData(res)
+        })
+  }, [value])
 
   if (loading) {
     return <Spinner />

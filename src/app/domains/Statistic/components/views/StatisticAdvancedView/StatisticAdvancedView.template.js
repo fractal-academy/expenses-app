@@ -16,7 +16,7 @@ const StatisticAdvancedView = (props) => {
   const [config, setConfig] = useState(optionsForChart)
   useEffect(() => {
     setConfig({ ...optionsForChart, labels: resArrCategory })
-  }, [state])
+  }, [state, dataFromDB])
 
   return resArrCategory.length > 0 ? (
     <Chart options={config} series={productSum} type="donut" />
