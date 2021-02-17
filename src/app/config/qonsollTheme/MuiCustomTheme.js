@@ -1,15 +1,13 @@
 import { createMuiTheme } from '@material-ui/core'
-// import QonsollTheme from 'app/config/QonsollTheme'
 import Colors from './core/colors'
 import BorderRadiuses from './core/borderRadiuses.js'
-import fontSizes from './core/fontSizes'
 import { fontFamilies, fontWeights } from './core'
 
 const MuiCustomTheme = createMuiTheme({
   palette: {
     common: {
-      black: '',
-      white: ''
+      black: '#000000',
+      white: '#ffffff'
     },
     primary: {
       light: Colors.primary.lighten[3],
@@ -19,33 +17,46 @@ const MuiCustomTheme = createMuiTheme({
     },
     // secondary: {
     //   light: '',
-    //   main: '',
+    //   main: Colors.secondary.main,
     //   dark: '',
     //   contrastText: ''
     // },
     background: {
-      // paper: Colors.grey[1],
-      // main: Colors.grey[2]
+      paper: '#2c2c34'
+      // default: Colors.grey[2]
     },
-
-    // secondary: {
-    // light: colors.,
-    //
-    // main:,
-    // dark:
-    // contrastText:
-    // #fff
-    // }
-    // error: {
-    // light:,
-    // main:,
-    // dark:,
-    // contrastText:,
-    // },
+    grey: {
+      50: Colors.grey[1],
+      100: Colors.grey[2],
+      200: Colors.grey[3],
+      300: Colors.grey[4],
+      400: Colors.grey[5],
+      500: Colors.grey[6],
+      600: Colors.grey[7],
+      700: Colors.grey[8],
+      800: Colors.grey[9],
+      900: Colors.grey[10],
+      A100: Colors.grey[11],
+      A200: Colors.grey[12],
+      A400: Colors.grey[13],
+      A700: Colors.grey[14]
+    },
+    secondary: {
+      light: Colors.secondary.light,
+      main: Colors.secondary.main,
+      dark: Colors.secondary.dark,
+      contrastText: Colors.secondary.contrastText
+    },
+    error: {
+      light: '#e57373',
+      main: '#f44336',
+      dark: 'd32f2f',
+      contrastText: '#ffffff'
+    },
     warning: {
-      light: Colors.warning.lighten[3],
+      light: Colors.warning.light,
       main: Colors.warning.main,
-      dark: Colors.warning.darken[3],
+      dark: Colors.warning.dark,
       contrastText: Colors.warning.contrastText
     },
     info: {
@@ -54,48 +65,17 @@ const MuiCustomTheme = createMuiTheme({
       dark: Colors.info.darken[3],
       contrastText: Colors.info.accent
     },
-    //     success: Object
-    // light:
-    // #81c784
-    // main:
-    // #4caf50
-    // dark:
-    // #388e3c
-    // contrastText:
-    //     rgba(0, 0, 0, 0.87)
-    // grey: Object
-    // 50: colors.grey[1],
-    // 100:colors.grey[2],
-    // #f5f5f5
-    // 200:
-    // #eeeeee
-    // 300:
-    // #e0e0e0
-    // 400:
-    // #bdbdbd
-    // 500:
-    // #9e9e9e
-    // 600:
-    // #757575
-    // 700:
-    // #616161
-    // 800:
-    // #424242
-    // 900:
-    // #212121
-    // A100:
-    // #d5d5d5
-    // A200:
-    // #aaaaaa
-    // A400:
-    // #303030
-    // A700:
-    // #616161
     text: {
       primary: Colors.text.primary,
-      secondary: Colors.text.secondary
-      // disabled: Colors.text.primary,
-      // hint: Colors.text.primary
+      secondary: Colors.text.secondary,
+      disabled: Colors.text.disabled,
+      hint: Colors.text.hint
+    },
+    primaryAlternative: {
+      c1: '#ee786c',
+      c2: '#20bfa9',
+      c3: '#c37fbc',
+      c4: '#ffecce'
     }
   },
   shape: {
@@ -107,6 +87,7 @@ const MuiCustomTheme = createMuiTheme({
     fontWeightRegular: fontWeights.fontWeight.regular,
     fontWeightMedium: fontWeights.fontWeight.medium,
     fontWeightBold: fontWeights.fontWeight.bold,
+
     h1: {
       fontFamily: fontFamilies.fontFamily.helvetica,
       fontWeight: fontWeights.fontWeight.light,
@@ -114,47 +95,83 @@ const MuiCustomTheme = createMuiTheme({
       lineHeight: 1.167,
       letterSpacing: '-0.01562em'
     },
-    // h2: {},
-    // h3: {},
-    // h4: {},
+    h2: {
+      fontFamily: fontFamilies.fontFamily.helvetica,
+      fontWeight: 300,
+      fontSize: '3.75rem',
+      lineHeight: 1.2,
+      letterSpacing: '-0.00833em',
+      color: Colors.text.primary
+    },
+    h3: {
+      color: Colors.text.primary
+    },
+    h4: {
+      color: Colors.text.primary
+    },
     h5: {
       fontFamily: fontFamilies.fontFamily.helvetica,
       fontWeight: fontWeights.fontWeight.regular,
       fontSize: '1.5rem',
       lineHeight: 1.334,
-      letterSpacing: '0em'
+      letterSpacing: '0em',
+      color: Colors.text.primary
     },
-    // h6: {},
-    // subtitle1: {},
-    // subtitle2: {},
+    h6: {
+      color: Colors.text.primary
+    },
+    subtitle1: {
+      fontFamily: fontFamilies.fontFamily.helvetica,
+      fontWeight: 400,
+      fontSize: '1rem',
+      lineHeight: 1.75,
+      letterSpacing: '0.00938em',
+      color: Colors.text.primary
+    },
+    // subtitle2: {
+    //   fontFamily: fontFamilies.fontFamily.helvetica,
+    //   fontWeight: 500,
+    //   fontSize: '0.875rem',
+    //   lineHeight: 1.57,
+    //   letterSpacing: '0.00714em',
+    //   color: 'red'
+    // },
     body1: {
       fontFamily: fontFamilies.fontFamily.helvetica,
       fontWeight: 400,
       fontSize: '1rem',
       lineHeight: '1.5rem',
-      letterSpacing: 0
+      letterSpacing: 0,
+      color: Colors.text.primary
     },
-    // ,
     body2: {
       fontFamily: fontFamilies.fontFamily.helvetica,
       fontWeight: 400,
       fontSize: '0.875rem',
       lineHeight: '1.75rem',
-      letterSpacing: 0
+      letterSpacing: 0,
+      color: Colors.text.primary
     },
     button: {
       fontFamily: fontFamilies.fontFamily.helvetica,
       fontWeight: fontWeights.fontWeight.regular,
       fontSize: '0.875rem',
       lineHeight: 1.43,
-      letterSpacing: '0.01071em'
+      letterSpacing: '0.01071em',
+      color: Colors.text.primary
+    },
+    input: {
+      placeholder: {
+        color: Colors.text.primary
+      }
     },
     caption: {
       fontFamily: fontFamilies.fontFamily.helvetica,
       fontWeight: fontWeights.fontWeight.regular,
       fontSize: '0.75rem',
       lineHeight: 1.66,
-      letterSpacing: '0.03333em'
+      letterSpacing: '0.03333em',
+      color: Colors.text.primary
     },
     overline: {
       fontFamily: fontFamilies.fontFamily.helvetica,
@@ -162,7 +179,8 @@ const MuiCustomTheme = createMuiTheme({
       fontSize: '0.75rem',
       lineHeight: 2.66,
       letterSpacing: '0.08333em',
-      textTransform: 'uppercase'
+      textTransform: 'uppercase',
+      color: Colors.text.primary
     }
   }
 })

@@ -1,12 +1,15 @@
+import MuiCustomTheme from '../../../../../config/qonsollTheme/MuiCustomTheme'
+
 const optionsForChart = {
   chart: {
     id: 'basic-bar',
     animations: {
       speed: 200
-    }
+    },
+    foreColor: MuiCustomTheme.palette.text.primary
   },
   legend: {
-    fontSize: 15,
+    fontSize: 16,
     markers: {
       radius: 4,
       width: 22
@@ -26,7 +29,7 @@ const optionsForChart = {
           total: {
             show: true,
             fontWeight: 600,
-            color: '#373d3f'
+            color: MuiCustomTheme.palette.text.primary
           }
         }
       }
@@ -36,6 +39,10 @@ const optionsForChart = {
   dataLabels: {
     formatter: function (val, opts) {
       return opts.w.globals.series[opts.seriesIndex]
+    },
+    style: {
+      fontSize: '14px',
+      color: 'red'
     }
   }
 }

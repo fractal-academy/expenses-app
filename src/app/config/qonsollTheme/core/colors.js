@@ -1,11 +1,23 @@
 const Colors = {
   primary: {
-    main: '#3a7e49',
-    contrastText: '#ffffff',
+    main: '#feb95a',
+    contrastText: '#000000',
     light: '#dbd5f2',
     dark: '#1e1c48',
-    lighten: { 1: '#655fca', 2: '#9085d8', 3: '#b6ace5', 4: '#dbd5f2' },
+    lighten: { 1: '#ff9f4f', 2: '#ffb77b', 3: '#ffcfa6', 4: '#ffe7d2' },
     darken: { 1: '#293193', 2: '#24266c', 3: '#1e1c48', 4: '#151226' }
+  },
+  primaryAlternative: {
+    c1: '#ee786c',
+    c2: '#20bfa9',
+    c3: '#c37fbc',
+    c4: '#ffecce'
+  },
+  secondary: {
+    light: '#ff4081',
+    main: '#f50057',
+    dark: '#c51162',
+    contrastText: '#ffffff'
   },
   grey: {
     1: '#f2f2f2',
@@ -21,11 +33,11 @@ const Colors = {
     11: '#6b6b6b',
     12: '#5e5e5e',
     13: '#515151',
-    14: '#434343',
-    15: '#363636',
-    16: '#282828',
-    17: '#1b1b1b',
-    18: '#0d0d0d'
+    14: '#434343'
+    // 15: '#363636',
+    // 16: '#282828',
+    // 17: '#1b1b1b',
+    // 18: '#0d0d0d'
   },
   info: {
     main: '#1890ff',
@@ -84,32 +96,32 @@ const Colors = {
     }
   },
   warning: {
-    main: '#faad14',
-    contrastText: '#1461FA',
-    light: '#fff6e9',
-    dark: '#312410',
-    lighten: {
-      1: '#fdb538',
-      2: '#ffbd52',
-      3: '#ffc569',
-      4: '#ffcd7f',
-      5: '#ffd594',
-      6: '#ffdda9',
-      7: '#ffe6bf',
-      8: '#ffeed4',
-      9: '#fff6e9'
-    },
-    darken: {
-      1: '#de9a17',
-      2: '#c38819',
-      3: '#a97619',
-      4: '#8f6419',
-      5: '#765318',
-      6: '#5e4316',
-      7: '#473313',
-      8: '#312410',
-      9: '#1d1609'
-    }
+    light: '#ffb74d',
+    main: '#ff9800',
+    dark: '#f57c00',
+    contrastText: '#ffffff'
+  },
+  lighten: {
+    1: '#fdb538',
+    2: '#ffbd52',
+    3: '#ffc569',
+    4: '#ffcd7f',
+    5: '#ffd594',
+    6: '#ffdda9',
+    7: '#ffe6bf',
+    8: '#ffeed4',
+    9: '#fff6e9'
+  },
+  darken: {
+    1: '#de9a17',
+    2: '#c38819',
+    3: '#a97619',
+    4: '#8f6419',
+    5: '#765318',
+    6: '#5e4316',
+    7: '#473313',
+    8: '#312410',
+    9: '#1d1609'
   },
   error: {
     main: '#f5222d',
@@ -140,11 +152,16 @@ const Colors = {
     }
   },
   text: {
-    primary: '#4a4a4a',
-    secondary: '#4a4a4a',
+    primary: '#dbdbdd',
+    secondary: '#989696',
     disabled: '#dddada',
-    hint: 'none'
+    hint: '#989696'
+  },
+  background: {
+    paper: '#2c2c34'
+    // default: Colors.grey[2]
   }
+  // divider: ''
 }
 
 export default Colors

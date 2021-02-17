@@ -50,7 +50,11 @@ const Navbar = (props) => {
 
   return (
     <AppBar className={classes.root} component="nav">
-      <BottomNavigation value={value} onChange={onMenuChange} showLabels>
+      <BottomNavigation
+        value={value}
+        onChange={onMenuChange}
+        className={classes.bottomNav}
+        showLabels>
         {MENU_ITEMS.map(
           (menuItem) =>
             !menuItem.hide.includes(user.role) && (

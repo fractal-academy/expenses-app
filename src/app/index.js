@@ -26,26 +26,26 @@ const App = () => {
     return <Spinner />
   }
   return (
-      <QonsollThemeProvider theme={QonsollTheme}>
-          <MuiThemeProvider theme={MuiCustomTheme}>
-      <NotificationProvider>
-        <Switch>
-          {ROUTES_VALUE.map((route) => {
-            if (route.protect) {
-              return <PrivateRoute {...route} key={route.path} />
-            }
-            return <Route key={route.path} {...route} />
-          })}
-          <Redirect
-            to={
-              (session && START_PAGE[session?.role?.toUpperCase()]) ||
-              ROUTES_PATHS.LOGIN
-            }
-          />
-        </Switch>
-      </NotificationProvider>
-          </MuiThemeProvider>
-      </QonsollThemeProvider>
+    <QonsollThemeProvider theme={QonsollTheme}>
+      <MuiThemeProvider theme={MuiCustomTheme}>
+        <NotificationProvider>
+          <Switch>
+            {ROUTES_VALUE.map((route) => {
+              if (route.protect) {
+                return <PrivateRoute {...route} key={route.path} />
+              }
+              return <Route key={route.path} {...route} />
+            })}
+            <Redirect
+              to={
+                (session && START_PAGE[session?.role?.toUpperCase()]) ||
+                ROUTES_PATHS.LOGIN
+              }
+            />
+          </Switch>
+        </NotificationProvider>
+      </MuiThemeProvider>
+    </QonsollThemeProvider>
   )
 }
 
