@@ -1,12 +1,12 @@
 import moment from 'moment'
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
 import PropTypes from 'prop-types'
 import { useStyles } from './ProductAdvancedView.styles'
 import { ROUTES_PATHS } from 'app/constants'
 import { useHistory } from 'react-router-dom'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import { Typography, IconButton } from '@material-ui/core'
-import { Container, Row, Col } from '@qonsoll/react-design'
+import { Container, Row, Col, Box } from '@qonsoll/react-design'
 import {
   deleteData,
   setData,
@@ -22,44 +22,51 @@ import { CommentListWithAdd } from 'app/domains/Comment/components/combined/list
 import { WalletCombinedWithSelect } from 'app/domains/Wallet/components/combined/'
 import { COLLECTIONS } from 'app/constants'
 
-const productTypeMap = {
-  cart: {
-    item: 'Buy',
-    path: ROUTES_PATHS.CART_ALL,
-    editRoute: (id) => `${ROUTES_PATHS.CART_ALL}/${id}/edit`,
-    actionCollection: 'purchases',
-    collection: 'cart',
-    displayElements: true
-  },
-  wish: {
-    item: 'Approve',
-    path: ROUTES_PATHS.WISHES_ALL,
-    editRoute: (id) => `${ROUTES_PATHS.WISHES_ALL}/${id}/edit`,
-    actionCollection: 'cart',
-    collection: 'wishes',
-    displayElements: true
-  },
-
-  product: {
-    item: 'Get QR',
-    path: ROUTES_PATHS.REGULAR_PRODUCTS_ALL,
-    editRoute: (id) => `${ROUTES_PATHS.REGULAR_PRODUCTS_ALL}/${id}/edit`,
-    actionCollection: '',
-    collection: 'regularProducts',
-    displayElements: true
-  },
-
-  purchase: {
-    item: '',
-    path: ROUTES_PATHS.PURCHASE_ALL,
-    editRoute: (id) => `${ROUTES_PATHS.PURCHASE_ALL}/${id}/edit`,
-    actionCollection: '',
-    collection: 'purchases',
-    displayElements: false
-  }
-}
-
 const ProductAdvancedView = (props) => {
+  const productTypeMap = {
+    cart: {
+      item: 'Buy',
+      path: ROUTES_PATHS.CART_ALL,
+      editRoute: (id) => `${ROUTES_PATHS.CART_ALL}/${id}/edit`,
+      actionCollection: 'purchases',
+      collection: 'cart',
+      displayElements: true,
+      wrapperForItem: WalletCombinedWithSelect,
+      functionForItem: handleMoveProductToPurchase,
+      prevFunctionForItem: onCheckClick
+    },
+    wish: {
+      item: 'Approve',
+      path: ROUTES_PATHS.WISHES_ALL,
+      editRoute: (id) => `${ROUTES_PATHS.WISHES_ALL}/${id}/edit`,
+      actionCollection: 'cart',
+      collection: 'wishes',
+      displayElements: true,
+      wrapperForItem: Box,
+      functionForItem: handleMoveProductToCart
+    },
+
+    product: {
+      item: 'Get QR',
+      path: ROUTES_PATHS.REGULAR_PRODUCTS_ALL,
+      editRoute: (id) => `${ROUTES_PATHS.REGULAR_PRODUCTS_ALL}/${id}/edit`,
+      actionCollection: '',
+      collection: 'regularProducts',
+      displayElements: true,
+      wrapperForItem: Fragment
+    },
+
+    purchase: {
+      item: '',
+      path: ROUTES_PATHS.PURCHASE_ALL,
+      editRoute: (id) => `${ROUTES_PATHS.PURCHASE_ALL}/${id}/edit`,
+      actionCollection: '',
+      collection: 'purchases',
+      displayElements: false,
+      wrapperForItem: Fragment
+    }
+  }
+
   const { type, data, id, setStatusMessage, dropdownItem } = props
   // [ADDITIONAL_HOOKS]
   const history = useHistory()
@@ -73,10 +80,11 @@ const ProductAdvancedView = (props) => {
   const [deleteLoading, setDeleteLoading] = useState(false)
 
   // [HELPER_FUNCTIONS]
-  const handleDelete = () => {
+  const handleDelete = async () => {
     try {
       setDeleteLoading(true)
-      deleteData(productCollection, id).then(() => history.goBack())
+      await deleteData(productCollection, id)
+      history.goBack()
       setStatusMessage({
         open: true,
         message: 'Product was successfully deleted.',
@@ -88,7 +96,7 @@ const ProductAdvancedView = (props) => {
     setDeleteLoading(false)
   }
 
-  const onCheckClick = () => {
+  function onCheckClick() {
     let status = true
     //required fields
     const fields = ['name', 'price', 'quantity']
@@ -100,7 +108,7 @@ const ProductAdvancedView = (props) => {
     return !status
   }
 
-  const handleMoveProduct = async (wallet) => {
+  async function handleMoveProductToPurchase(wallet) {
     try {
       /*
       get data about current product */
@@ -123,7 +131,7 @@ const ProductAdvancedView = (props) => {
       })
       setStatusMessage({
         open: true,
-        message: `Product was successfully moved to ${actionCollection}`,
+        message: `Product was bought`,
         type: 'success'
       })
       /*
@@ -135,6 +143,19 @@ const ProductAdvancedView = (props) => {
     }
     return true
   }
+  async function handleMoveProductToCart() {
+    try {
+      await setData(actionCollection, id, data)
+      handleDelete()
+      setStatusMessage({
+        open: true,
+        message: `Product was successfully moved to ${actionCollection}`,
+        type: 'success'
+      })
+    } catch (error) {
+      setStatusMessage({ open: true, message: error, type: 'error' })
+    }
+  }
 
   // [COMPUTED_PROPERTIES]
   const firstElement = dropdownItem || productTypeMap[type].item
@@ -143,20 +164,25 @@ const ProductAdvancedView = (props) => {
   const productCollection = productTypeMap[type].collection
   const actionCollection = productTypeMap[type].actionCollection
   const userName = `${user.firstName} ${user.surname}`
+  const handleMoveProduct = productTypeMap[type].functionForItem
+  const WrapperForItem = productTypeMap[type].wrapperForItem
+  const prevFunctionForItem = productTypeMap[type].prevFunctionForItem
 
   const DropdownList = (
     <Container>
       {user.role !== 'user' && typeof firstElement !== 'string' ? (
         firstElement && firstElement
       ) : (
-        <WalletCombinedWithSelect
+        <WrapperForItem
           setStatusMessage={setStatusMessage}
           onSubmitFunction={handleMoveProduct}
-          onClick={onCheckClick}>
+          onClick={
+            prevFunctionForItem ? prevFunctionForItem : handleMoveProduct
+          }>
           <DropdownItem divider>
             <Typography>{firstElement}</Typography>
           </DropdownItem>
-        </WalletCombinedWithSelect>
+        </WrapperForItem>
       )}
 
       <DropdownItem onClick={() => history.push(editPages)} divider>
@@ -274,8 +300,8 @@ ProductAdvancedView.propTypes = {
   purchasedDate: PropTypes.number,
   categoryBalance: PropTypes.number,
   reminderDate: PropTypes.number,
-  assignedUser: PropTypes.string,
-  type: PropTypes.oneOf(Object.keys(productTypeMap)).isRequired
+  assignedUser: PropTypes.string
+  //type: PropTypes.oneOf(Object.keys(productTypeMap)).isRequired
 }
 
 export default ProductAdvancedView
