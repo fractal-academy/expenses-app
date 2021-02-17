@@ -18,7 +18,7 @@ import {
   useSession
 } from 'app/context/SessionContext'
 import { START_PAGE } from 'app/constants/role'
-import firebase from 'app/services/Firebase'
+import { callFunction, func } from 'app/services/Functions'
 /**
  *
  * @param {firebase.User} user
@@ -73,10 +73,8 @@ const useAuthListener = () => {
 
   // [HELPER_FUNCTIONS]
   const rejectLogin = useCallback(async (email, uid) => {
-    const func = firebase
-      .functions()
-      .httpsCallable('deleteUser', { timeout: 0 })
-    await func({ email, uid })
+    const deleteUser = callFunction(func.DELETE_USER)
+    await deleteUser({ email, uid })
     setLoading(false)
     sessionStorage.removeItem('reject')
   }, [])
