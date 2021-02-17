@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import { Modal, FabButton } from 'app/components/Lib'
 import { WalletForm } from 'domains/Wallet/components/form/WalletForm'
 import { useForm } from 'react-hook-form'
-import { Message } from 'app/components/Lib/Message'
 import { getCollectionRef } from 'app/services/Firestore'
 import { useSession } from 'app/context/SessionContext/hooks'
+import { useMessageDispatch, types } from 'app/context/MessageContext'
 import { COLLECTIONS } from 'app/constants'
 
 const WalletCombinedWithSelect = (props) => {
@@ -16,14 +16,10 @@ const WalletCombinedWithSelect = (props) => {
   const [selectData, setSelectData] = useState({})
   const [open, setOpen] = useState(children && !children)
   const [loading, setLoading] = useState(false)
-  const [statusMessage, setStatusMessage] = useState({
-    open: false,
-    message: '',
-    type: ''
-  })
 
   // CUSTOM HOOKS
   const session = useSession()
+  const messageDispatch = useMessageDispatch()
   const form = useForm({})
   const formSubmit = () => form.submit()
 
@@ -34,10 +30,10 @@ const WalletCombinedWithSelect = (props) => {
     setLoading(false)
     setOpen(false)
   }
-  let data = {}
 
   useEffect(() => {
     const fetchData = async () => {
+      let data = {}
       /*
       get wallets where you are owner, or Senseteq is owner*/
       let result = await getCollectionRef(COLLECTIONS.WALLETS)
@@ -58,7 +54,6 @@ const WalletCombinedWithSelect = (props) => {
   }
 
   const handleClose = () => {
-    setStatusMessage({ open: false, message: '', type: '' })
     setOpen(false)
   }
   const onClickPrev = async () => {
@@ -67,10 +62,9 @@ const WalletCombinedWithSelect = (props) => {
     //if result === 0, modal window will be opened
 
     if (result) {
-      setStatusMessage({
-        open: true,
-        message: 'Fill all fields',
-        type: 'error'
+      messageDispatch({
+        type: types.OPEN_ERROR_MESSAGE,
+        payload: 'Fill all fields'
       })
     } else {
       setOpen(true)
@@ -84,16 +78,6 @@ const WalletCombinedWithSelect = (props) => {
         React.cloneElement(children, {
           onClick: (onClick && onClickPrev) || handleClickOpen
         })) || <FabButton onClick={handleClickOpen} />}
-      <Message
-        open={statusMessage.open}
-        message={statusMessage.message}
-        vertical="top"
-        horizontal="center"
-        autoHideDuration={1500}
-        variant="filled"
-        severity={statusMessage.type}
-        onClose={handleClose}
-      />
 
       <Modal
         open={open}
