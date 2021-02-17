@@ -13,6 +13,7 @@ const StatisticAll = (props) => {
   const [data, loading] = useCollectionData(
     firestore.collection(COLLECTIONS.PURCHASES)
   )
+  console.log(data)
 
   if (loading) {
     return <Spinner />
@@ -25,7 +26,6 @@ const StatisticAll = (props) => {
           <Container pb={4}>
             <Row v="center" h="center" noGutters>
               <Col>
-                {/*<img src={require('./svg/kiwi.svg')} />*/}
                 <Typography align="center" variant="h5">
                   Category statistic
                 </Typography>
