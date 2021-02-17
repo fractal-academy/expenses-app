@@ -8,11 +8,11 @@ import optionsForChart from 'app/domains/Statistic/components/views/StatisticAdv
 const StatisticAdvancedView = (props) => {
   const { dataFromDB } = props
   const { state } = useStatisticContext()
-
   const [resArrCategory, productSum] = filterDataForChart(
     state.date,
     dataFromDB
   )
+
   const [config, setConfig] = useState(optionsForChart)
   useEffect(() => {
     setConfig({ ...optionsForChart, labels: resArrCategory })
