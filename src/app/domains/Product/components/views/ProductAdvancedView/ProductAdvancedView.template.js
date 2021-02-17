@@ -67,9 +67,6 @@ const ProductAdvancedView = (props) => {
     }
   }
 
-
-const ProductAdvancedView = (props) => {
-  
   // [INTERFACES]
   const { type, data, id, setStatusMessage, dropdownItem } = props
 
