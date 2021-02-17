@@ -7,17 +7,26 @@ import optionsForChart from 'app/domains/Statistic/components/views/StatisticAdv
 
 const StatisticAdvancedView = (props) => {
   const { dataFromDB } = props
-  const { state } = useStatisticContext()
-
+  const { state, setState } = useStatisticContext()
   const [resArrCategory, productSum] = filterDataForChart(
     state.date,
     dataFromDB
   )
+
   const [config, setConfig] = useState(optionsForChart)
   useEffect(() => {
     setConfig({ ...optionsForChart, labels: resArrCategory })
-  }, [state])
-  return <Chart options={config} series={productSum} type="donut" />
+  }, [state, dataFromDB])
+
+  return resArrCategory.length > 0 ? (
+    <Chart options={config} series={productSum} type="donut" />
+  ) : (
+    <img
+      src="/noData.svg"
+      alt="no data"
+      style={{ width: '100%', height: '220px' }}
+    />
+  )
 }
 
 StatisticAdvancedView.propTypes = {

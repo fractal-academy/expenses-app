@@ -4,12 +4,13 @@ const parseDataToArray = (data, arrWitUniqueValues, rangeStart, rangeEnd) => {
   arrWitUniqueValues.map((nameCategory) => {
     const res = []
     data.map((item) => {
+      let dateBuy = item.dateBuy.toDate().getTime()
       if (
         item.category === nameCategory &&
-        rangeStart <= item.dateBuy &&
-        item.dateBuy <= rangeEnd
+        rangeStart <= dateBuy &&
+        dateBuy <= rangeEnd
       ) {
-        res.push(item.price) //arr values single category
+        res.push(+item.price) //arr values single category
       }
     })
 
