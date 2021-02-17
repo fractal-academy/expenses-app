@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 import { saveAs } from 'file-saver'
 import IconButton from '@material-ui/core/IconButton'
-import { Box } from '@qonsoll/react-design'
+import { Col, Container, Row } from '@qonsoll/react-design'
 import GetAppIcon from '@material-ui/icons/GetApp'
 import { Modal } from 'components/Lib'
 import { QRSimpleView, URLSimpleView } from 'qr-module/components/view'
@@ -12,7 +12,7 @@ import { ROUTES_PATHS } from 'app/constants'
 /**
  * @info QRCombinedModal (14 Feb 2021) // CREATION DATE
  *
- * @since 15 Feb 2021 ( v.0.0.1 ) // LAST-EDIT DATE
+ * @since 16 Feb 2021 ( v.0.0.2 ) // LAST-EDIT DATE
  *
  * @return {ReactComponent}
  */
@@ -21,6 +21,7 @@ const QRCombinedModal = (props) => {
   // [INTERFACES]
   const { children } = props
 
+  // [ADDITIONAL_HOOKS]
   const { id } = useParams()
 
   // [COMPONENT_STATE_HOOKS]
@@ -41,13 +42,21 @@ const QRCombinedModal = (props) => {
 
   // Action buttons template
   const actions = (
-    <Box display="flex" justifyContent="center" width="100%">
-      <Print ref={qrRef} />
-      <URLSimpleView url={url} />
-      <IconButton onClick={saveToFile}>
-        <GetAppIcon />
-      </IconButton>
-    </Box>
+    <Container>
+      <Row h="center">
+        <Col cw="auto">
+          <Print ref={qrRef} />
+        </Col>
+        <Col cw="auto">
+          <URLSimpleView url={url} />
+        </Col>
+        <Col cw="auto">
+          <IconButton onClick={saveToFile}>
+            <GetAppIcon />
+          </IconButton>
+        </Col>
+      </Row>
+    </Container>
   )
 
   // [TEMPLATE]

@@ -3,9 +3,7 @@ import { useCollectionData } from 'react-firebase-hooks/firestore'
 import { firestore } from 'app/services/Firestore'
 import { COLLECTIONS } from 'app/constants'
 
-const RegularProductsTable = (props) => {
-  const { setStatusMessage } = props
-
+const RegularProductsTable = () => {
   const [data, loading] = useCollectionData(
     firestore.collection(COLLECTIONS.REGULAR_PRODUCTS)
   )
@@ -13,9 +11,7 @@ const RegularProductsTable = (props) => {
   if (loading) {
     return <Spinner />
   }
-  return (
-    <Table type="regular" products={data} setStatusMessage={setStatusMessage} />
-  )
+  return <Table type="regular" products={data} />
 }
 
 export default RegularProductsTable

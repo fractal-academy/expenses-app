@@ -1,14 +1,14 @@
 import { useState } from 'react'
 import PropTypes from 'prop-types'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
-import { Tooltip, Typography, IconButton, Button } from '@material-ui/core'
+import { Tooltip, Typography, IconButton } from '@material-ui/core'
 import { CheckCircleOutline, FileCopy } from '@material-ui/icons'
 import { Box } from '@qonsoll/react-design'
 
 /**
  * @info UrlSimpleView (14 Feb 2021) // CREATION DATE
  *
- * @since 15 Feb 2021 ( v.0.0.1 ) // LAST-EDIT DATE
+ * @since 16 Feb 2021 ( v.0.0.2 ) // LAST-EDIT DATE
  *
  * @return {ReactComponent}
  */
@@ -38,11 +38,11 @@ const UrlSimpleView = (props) => {
   return (
     <Tooltip title={title} open={tooltip} onClose={handleTooltipClose}>
       <CopyToClipboard text={url} onCopy={handleTooltipOpen}>
-        <Button>
+        <Box>
           <IconButton component="span">
             <FileCopy />
           </IconButton>
-        </Button>
+        </Box>
       </CopyToClipboard>
     </Tooltip>
   )

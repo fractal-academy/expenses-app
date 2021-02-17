@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { useState } from 'react'
 import { RegularProductAdvancedForm } from 'app/domains/RegularProduct/components/forms'
 import { COLLECTIONS } from 'app/constants'
-import { firestore, setData } from 'app/services/Firestore'
+import { firestore, setData, getTimestamp } from 'app/services/Firestore'
 import PropTypes from 'prop-types'
 
 const RegularProductCombined = (props) => {
@@ -23,7 +23,7 @@ const RegularProductCombined = (props) => {
         category: data.category,
         firstName: data?.assign?.firstName || '',
         assign: data?.assign?.id || '',
-        remind: new Date(data.reminderDate).getTime()
+        remind: getTimestamp().fromDate(new Date(data.reminderDate))
       })
       form.reset({})
     } catch (error) {
