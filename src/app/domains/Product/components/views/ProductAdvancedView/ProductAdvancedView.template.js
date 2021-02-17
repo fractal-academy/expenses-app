@@ -68,6 +68,7 @@ const ProductAdvancedView = (props) => {
   }
 
   const { type, data, id, setStatusMessage, dropdownItem } = props
+
   // [ADDITIONAL_HOOKS]
   const history = useHistory()
   const user = useSession()
@@ -143,6 +144,7 @@ const ProductAdvancedView = (props) => {
     }
     return true
   }
+
   async function handleMoveProductToCart() {
     try {
       await setData(actionCollection, id, data)
@@ -299,9 +301,7 @@ ProductAdvancedView.propTypes = {
   measure: PropTypes.string,
   purchasedDate: PropTypes.number,
   categoryBalance: PropTypes.number,
-  reminderDate: PropTypes.number,
-  assignedUser: PropTypes.string
-  //type: PropTypes.oneOf(Object.keys(productTypeMap)).isRequired
+  reminderDate: PropTypes.number
 }
 
 export default ProductAdvancedView
