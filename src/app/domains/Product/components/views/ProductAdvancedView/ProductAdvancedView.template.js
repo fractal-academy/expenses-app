@@ -11,6 +11,7 @@ import {
   deleteData,
   setData,
   getData,
+  addData,
   getTimestamp
 } from 'app/services/Firestore'
 import { useSession } from 'app/context/SessionContext'
