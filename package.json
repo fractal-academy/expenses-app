@@ -27,6 +27,7 @@
     "moment": "^2.29.1",
     "mui-form-generator-fractal-band-2": "^1.0.39",
     "node-sass": "^4.14.1",
+    "pluralize": "^8.0.0",
     "prop-types": "^15.7.2",
     "qrcode.react": "^1.0.1",
     "react": "^17.0.1",

@@ -51,7 +51,6 @@ const CustomTable = (props) => {
     type,
     products,
     handleDelete,
-    setStatusMessage,
     WrapperForCheck,
     onCheckClick,
     handleMove,
@@ -94,7 +93,6 @@ const CustomTable = (props) => {
             <Toolbar
               numRows={numRows}
               selectedItems={selected}
-              setStatusMessage={setStatusMessage}
               handleDelete={handleDelete}
               onCheckClick={onCheckClick}
               WrapperForCheck={WrapperForCheck}
@@ -145,7 +143,7 @@ const CustomTable = (props) => {
                         </TableCell>
                       )}
                       <TableCell align="center">
-                        {row.firstName || 'None'}
+                        {purchaseAssign ? row.assign : row.firstName || 'None'}
                       </TableCell>
                       <TableCell
                         align="center"
@@ -159,7 +157,8 @@ const CustomTable = (props) => {
                           <TableCell align="center">
                             <MeasureSimpleView
                               productNumber={row.quantity}
-                              text={row.measures}
+                              text={row.measures?.measure}
+                              variant="body2"
                             />
                           </TableCell>
                           <TableCell>
@@ -168,7 +167,12 @@ const CustomTable = (props) => {
                               alignItems="center"
                               justifyContent="center">
                               {row.price || 'None'}
-                              {row.price && <CurrencySimpleView />}
+                              {row.price && (
+                                <CurrencySimpleView
+                                  variant="body2"
+                                  value="UAH"
+                                />
+                              )}
                             </Box>
                           </TableCell>
                         </>
@@ -196,7 +200,6 @@ const CustomTable = (props) => {
 CustomTable.propTypes = {
   type: PropTypes.string.isRequired,
   products: PropTypes.array.isRequired,
-  setStatusMessage: PropTypes.func,
   actions: PropTypes.bool
 }
 export default CustomTable
