@@ -32,16 +32,13 @@ const CartTable = (props) => {
   const userName = `${session.firstName} ${session.surname}`
 
   // HELPER FUNCTIONS
-  const costCalculation = (price, quantity) => {
-    return price * quantity
-  }
   const onCheckClick = async (selectedItems) => {
     const checking = async () => {
       //number of selected products
       let count = selectedItems.length
 
       //required fields
-      const fields = ['name', 'price', 'quantity']
+      const fields = ['name', 'price']
 
       //item of product
       for (let item of selectedItems) {
@@ -92,7 +89,7 @@ const CartTable = (props) => {
         await deleteData(COLLECTIONS.CART, item)
         /*
         calculate sum for product*/
-        sum += costCalculation(product.price, product.quantity)
+        sum += product.price
         /*
         set new balance to wallet*/
         await setData(COLLECTIONS.WALLETS, data.id, {
