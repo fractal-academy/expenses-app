@@ -1,119 +1,227 @@
 import moment from 'moment'
+import { useState } from 'react'
 import PropTypes from 'prop-types'
+import { useStyles } from './ProductAdvancedView.styles'
+import { ROUTES_PATHS } from 'app/constants'
 import { useHistory } from 'react-router-dom'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import { Typography, IconButton } from '@material-ui/core'
-import { Container, Row, Col } from '@qonsoll/react-design'
+import { Container, Row, Col, Box } from '@qonsoll/react-design'
 import {
   deleteData,
   setData,
-  getTimestamp,
-  addData
+  getData,
+  addData,
+  getTimestamp
 } from 'app/services/Firestore'
 import { useSession } from 'app/context/SessionContext'
-import { ProgressBar, Dropdown, DropdownItem } from 'components/Lib'
+import { useMessageDispatch, types } from 'app/context/MessageContext'
+import { Dropdown, DropdownItem, Confirmation } from 'app/components/Lib'
 import { MeasureSimpleView } from 'domains/Measure/components/views'
-import { CommentListWithAdd } from 'domains/Comment/components/combined/list'
 import { CategorySimpleView } from 'domains/Category/components/views'
 import { CurrencySimpleView } from 'domains/Currency/components/views'
-import { COLLECTIONS, ROUTES_PATHS } from 'app/constants'
-
-const productTypeMap = {
-  cart: {
-    item: 'Buy',
-    path: ROUTES_PATHS.CART_ALL,
-    editRoute: (id) => `${ROUTES_PATHS.CART_ALL}/${id}/edit`,
-    actionCollection: 'purchases',
-    collection: 'cart',
-    displayElements: true
-  },
-  wish: {
-    item: 'Approve',
-    path: ROUTES_PATHS.WISHES_ALL,
-    editRoute: (id) => `${ROUTES_PATHS.WISHES_ALL}/${id}/edit`,
-    actionCollection: 'cart',
-    collection: 'wishes',
-    displayElements: true
-  },
-
-  product: {
-    item: 'Get QR',
-    path: ROUTES_PATHS.REGULAR_PRODUCTS_ALL,
-    editRoute: (id) => `${ROUTES_PATHS.REGULAR_PRODUCTS_ALL}/${id}/edit`,
-    actionCollection: '',
-    collection: 'regularProduct',
-    displayElements: true
-  },
-
-  purchase: {
-    item: '',
-    path: ROUTES_PATHS.PURCHASE_ALL,
-    editRoute: '',
-    actionCollection: '',
-    collection: 'purchases',
-    displayElements: false
-  }
-}
+import { CommentListWithAdd } from 'app/domains/Comment/components/combined/list'
+import { WalletCombinedWithSelect } from 'app/domains/Wallet/components/combined'
+import { COLLECTIONS } from 'app/constants'
 
 const ProductAdvancedView = (props) => {
-  const { type, data, id } = props
+  const productTypeMap = {
+    cart: {
+      item: 'Buy',
+      path: ROUTES_PATHS.CART_ALL,
+      editRoute: (id) => `${ROUTES_PATHS.CART_ALL}/${id}/edit`,
+      actionCollection: 'purchases',
+      collection: 'cart',
+      displayElements: true,
+      wrapperForItem: WalletCombinedWithSelect,
+      functionForItem: handleMoveProductToPurchase,
+      prevFunctionForItem: onCheckClick
+    },
+    wish: {
+      item: 'Approve',
+      path: ROUTES_PATHS.WISHES_ALL,
+      editRoute: (id) => `${ROUTES_PATHS.WISHES_ALL}/${id}/edit`,
+      actionCollection: 'cart',
+      collection: 'wishes',
+      displayElements: true,
+      wrapperForItem: Box,
+      functionForItem: handleMoveProductToCart
+    },
 
+    product: {
+      item: 'Get QR',
+      path: ROUTES_PATHS.REGULAR_PRODUCTS_ALL,
+      editRoute: (id) => `${ROUTES_PATHS.REGULAR_PRODUCTS_ALL}/${id}/edit`,
+      actionCollection: '',
+      collection: 'regularProducts',
+      displayElements: true,
+      wrapperForItem: Box
+    },
+
+    purchase: {
+      item: '',
+      path: ROUTES_PATHS.PURCHASE_ALL,
+      editRoute: (id) => `${ROUTES_PATHS.PURCHASE_ALL}/${id}/edit`,
+      actionCollection: '',
+      collection: 'purchases',
+      displayElements: false,
+      wrapperForItem: Box
+    }
+  }
+
+  const { type, data, id, setStatusMessage, dropdownItem } = props
+
+  // [ADDITIONAL_HOOKS]
   const history = useHistory()
   const user = useSession()
-  const reminderDate = moment(props.reminderDate).format('MMM Do')
-  const purchasedDate = moment(data?.dateBuy).format('MMM Do')
+  const messageDispatch = useMessageDispatch()
+  const reminderDate = moment(data?.remind?.toDate()).format('MMM Do')
+  const purchasedDate = moment(data?.dateBuy?.toDate()).format('MMM Do')
+  const classes = useStyles()
 
-  const handleDelete = () => {
-    deleteData(productCollection, id).then(() => history.goBack())
+  // [COMPONENT_STATE_HOOKS]
+  const [confirm, setConfirm] = useState(false)
+  const [deleteLoading, setDeleteLoading] = useState(false)
+
+  // [HELPER_FUNCTIONS]
+  const handleDelete = async () => {
+    try {
+      setDeleteLoading(true)
+      await deleteData(productCollection, id)
+      history.goBack()
+      messageDispatch({
+        type: types.OPEN_SUCCESS_MESSAGE,
+        payload: 'Products were successfully deleted.'
+      })
+    } catch (error) {
+      messageDispatch({
+        type: types.OPEN_ERROR_MESSAGE,
+        payload: error
+      })
+    }
+    setDeleteLoading(false)
   }
-  const handleMoveProduct = () => {
-    setData(actionCollection, id, data)
-      .then(() => handleDelete())
-      .then(() => history.push(ROUTES_PATHS.CART_ALL))
-      .then(
-        actionCollection === COLLECTIONS.CART &&
-          addData(COLLECTIONS.NOTIFICATIONS, {
-            date: getTimestamp().now(),
-            text: `Your wish '${data.name}' was approved`,
-            userId: [data.creator]
-          })
-      )
+
+  function onCheckClick() {
+    let status = true
+    //required fields
+    const fields = ['name', 'price', 'quantity']
+    for (let field of fields) {
+      /*   if required field isn`t empty status will be true  */
+
+      status = !!(data[field] && status)
+    }
+    return !status
   }
-  const firstElement = productTypeMap[type].item
+
+  async function handleMoveProductToPurchase(wallet) {
+    try {
+      /*
+      get data about current product */
+      const product = await getData(COLLECTIONS.CART, id)
+      /*
+       set product to collection purchase  with additional fields (info about user)*/
+      await setData(COLLECTIONS.PURCHASES, id, {
+        ...product,
+        assign: userName,
+        avatarURL: user.avatarURL,
+        wallet: wallet.nameWallet,
+        privateWallet: wallet.privateWallet,
+        dateBuy: data.dateBuy ? data.dateBuy : getTimestamp().now()
+      })
+
+      /*
+        set new balance to wallet*/
+      await setData(COLLECTIONS.WALLETS, wallet.id, {
+        balance: wallet.balance - product.price * product.quantity
+      })
+      messageDispatch({
+        type: types.OPEN_SUCCESS_MESSAGE,
+        payload: `Product was bought`
+      })
+      /*
+        delete current product from collection card */
+      await deleteData(COLLECTIONS.CART, id)
+      history.goBack()
+    } catch (error) {
+      messageDispatch({
+        type: types.OPEN_ERROR_MESSAGE,
+        payload: error
+      })
+    }
+    return true
+  }
+
+  async function handleMoveProductToCart() {
+    try {
+      await setData(actionCollection, id, data)
+      await handleDelete()
+
+      messageDispatch({
+        type: types.OPEN_SUCCESS_MESSAGE,
+        payload: `Product was successfully moved to ${actionCollection}`
+      })
+    } catch (error) {
+      messageDispatch({
+        type: types.OPEN_ERROR_MESSAGE,
+        payload: error
+      })
+    }
+  }
+
+  // [COMPUTED_PROPERTIES]
+  const firstElement = dropdownItem || productTypeMap[type].item
   const editPages = productTypeMap[type].editRoute(id)
   const displayElements = productTypeMap[type].displayElements
   const productCollection = productTypeMap[type].collection
   const actionCollection = productTypeMap[type].actionCollection
+  const userName = `${user.firstName} ${user.surname}`
+  const handleMoveProduct = productTypeMap[type].functionForItem
+  const WrapperForItem = productTypeMap[type].wrapperForItem
+  const prevFunctionForItem = productTypeMap[type].prevFunctionForItem
 
   const DropdownList = (
     <Container>
-      {user.role !== 'user' && (
-        <DropdownItem onClick={handleMoveProduct} divider>
-          <Typography>{firstElement}</Typography>
-        </DropdownItem>
+      {user.role !== 'user' && typeof firstElement !== 'string' ? (
+        firstElement && firstElement
+      ) : (
+        <WrapperForItem
+          setStatusMessage={setStatusMessage}
+          onSubmitFunction={handleMoveProduct}
+          onClick={
+            prevFunctionForItem ? prevFunctionForItem : handleMoveProduct
+          }>
+          <DropdownItem divider>
+            <Typography>{firstElement}</Typography>
+          </DropdownItem>
+        </WrapperForItem>
       )}
 
       <DropdownItem onClick={() => history.push(editPages)} divider>
         <Typography>Edit</Typography>
       </DropdownItem>
-      <DropdownItem onClick={handleDelete} danger>
-        <Typography>Delete</Typography>
-      </DropdownItem>
+      <Confirmation
+        action="Delete"
+        text={'Do you want to delete product?'}
+        open={confirm}
+        setOpen={setConfirm}
+        loading={deleteLoading}
+        onConfirm={handleDelete}>
+        <DropdownItem onClick={handleDelete} danger>
+          <Typography>Delete</Typography>
+        </DropdownItem>
+      </Confirmation>
     </Container>
   )
+
   return (
     <Container>
       <Row h="center">
         <Col>
-          <Row h="between" display="flex" mb={2}>
-            <Col cw="8">
+          <Row h="between" display="flex" ml={2} mb={2}>
+            <Col cw="8" className={classes.limitWidth}>
               <Typography variant="h5">{data?.name || 'No name'}</Typography>
             </Col>
-            {/*{displayElements &&
-              (data?.assign?.id === user.id || user.role === 'admin') &&
-              instead
-              displayElements &&
-              */}
             {displayElements && (
               <Col cw="auto">
                 <Dropdown overlay={DropdownList}>
@@ -131,10 +239,19 @@ const ProductAdvancedView = (props) => {
               </Typography>
             </Col>
           </Row>
-          <MeasureSimpleView
-            productNumber={data?.quantity}
-            text={data?.measure}
-          />
+          <Row h="between" v="center" mb={2}>
+            <Col cw="auto">
+              <Typography>Quantity</Typography>
+            </Col>
+            <Col cw="auto">
+              <Typography>
+                <MeasureSimpleView
+                  productNumber={data?.quantity}
+                  text={data?.measures?.measure}
+                />
+              </Typography>
+            </Col>
+          </Row>
           <CategorySimpleView nameCategory={data?.category} />
           {data?.price && (
             <Row display="flex" h="between" v="center" mb={2}>
@@ -154,22 +271,16 @@ const ProductAdvancedView = (props) => {
               <Typography>Assigned user</Typography>
             </Col>
             <Col cw="auto">
-              <Typography>{data?.assign || 'None'}</Typography>
+              <Typography>{data?.firstName || 'None'}</Typography>
             </Col>
           </Row>
           {type === 'cart' ? (
             <Row h="between" mb={4}>
               <Col cw="auto">
-                <Typography>Purchased</Typography>
+                <Typography>Purchased date</Typography>
               </Col>
               <Col cw="auto">
                 <Typography>{purchasedDate || 'None'}</Typography>
-              </Col>
-            </Row>
-          ) : type === 'wish' ? (
-            <Row mb={4}>
-              <Col>
-                <ProgressBar value={props.categoryBalance} />
               </Col>
             </Row>
           ) : type === 'product' ? (
@@ -181,7 +292,9 @@ const ProductAdvancedView = (props) => {
                 <Typography>{reminderDate || 'None'}</Typography>
               </Col>
             </Row>
-          ) : null}
+          ) : (
+            <></>
+          )}
           {displayElements && <CommentListWithAdd />}
         </Col>
       </Row>
@@ -198,9 +311,7 @@ ProductAdvancedView.propTypes = {
   measure: PropTypes.string,
   purchasedDate: PropTypes.number,
   categoryBalance: PropTypes.number,
-  reminderDate: PropTypes.number,
-  assignedUser: PropTypes.string,
-  type: PropTypes.oneOf(Object.keys(productTypeMap)).isRequired
+  reminderDate: PropTypes.number
 }
 
 export default ProductAdvancedView

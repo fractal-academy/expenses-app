@@ -3,9 +3,8 @@ import MenuItem from '@material-ui/core/MenuItem'
 import { COLLECTIONS } from 'app/constants'
 import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react'
-import { getCollectionRef, getData } from 'app/services/Firestore'
+import { getData } from 'app/services/Firestore'
 
-//const testData = ['Office', 'Kitchen', 'Food', 'Other']
 const CategorySingleSelect = (props) => {
   const [currentCategory, setCurrentCategory] = useState('')
   const [categories, setCategories] = useState([])
