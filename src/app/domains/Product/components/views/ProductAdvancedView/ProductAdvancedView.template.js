@@ -1,5 +1,5 @@
 import moment from 'moment'
-import { Fragment, useState } from 'react'
+import { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useStyles } from './ProductAdvancedView.styles'
 import { ROUTES_PATHS } from 'app/constants'
@@ -53,7 +53,7 @@ const ProductAdvancedView = (props) => {
       actionCollection: '',
       collection: 'regularProducts',
       displayElements: true,
-      wrapperForItem: Fragment
+      wrapperForItem: Box
     },
 
     purchase: {
@@ -63,7 +63,7 @@ const ProductAdvancedView = (props) => {
       actionCollection: '',
       collection: 'purchases',
       displayElements: false,
-      wrapperForItem: Fragment
+      wrapperForItem: Box
     }
   }
 
