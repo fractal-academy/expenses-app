@@ -71,12 +71,10 @@ const ProductAdvancedView = (props) => {
   const { type, data, id, setStatusMessage, dropdownItem } = props
 
   // [ADDITIONAL_HOOKS]
-  const history = useHistory()
   const user = useSession()
-  const messageDispatch = useMessageDispatch()
-  const reminderDate = moment(data?.remind?.toDate()).format('MMM Do')
-  const purchasedDate = moment(data?.dateBuy?.toDate()).format('MMM Do')
   const classes = useStyles()
+  const history = useHistory()
+  const messageDispatch = useMessageDispatch()
 
   // [COMPONENT_STATE_HOOKS]
   const [confirm, setConfirm] = useState(false)
@@ -126,7 +124,7 @@ const ProductAdvancedView = (props) => {
         avatarURL: user.avatarURL,
         wallet: wallet.nameWallet,
         privateWallet: wallet.privateWallet,
-        dateBuy: data.dateBuy ? data.dateBuy : getTimestamp().now()
+        dateBuy: data.dateBuy || getTimestamp().now()
       })
 
       /*
@@ -179,6 +177,9 @@ const ProductAdvancedView = (props) => {
   const WrapperForItem = productTypeMap[type].wrapperForItem
   const prevFunctionForItem = productTypeMap[type].prevFunctionForItem
 
+  const reminderDate = moment(data?.reminderDate).format('MMM Do')
+  const purchasedDate = moment(data?.dateBuy).format('MMM Do')
+
   const DropdownList = (
     <Container>
       {user.role !== 'user' && typeof firstElement !== 'string' ? (
@@ -206,7 +207,7 @@ const ProductAdvancedView = (props) => {
         setOpen={setConfirm}
         loading={deleteLoading}
         onConfirm={handleDelete}>
-        <DropdownItem onClick={handleDelete} danger>
+        <DropdownItem danger>
           <Typography>Delete</Typography>
         </DropdownItem>
       </Confirmation>
@@ -259,9 +260,7 @@ const ProductAdvancedView = (props) => {
               </Col>
               <Col display="flex" cw="auto">
                 <Typography>{data?.price}</Typography>
-                <Typography>
-                  {data?.currency && <CurrencySimpleView />}
-                </Typography>
+                <CurrencySimpleView value="UAH" />
               </Col>
             </Row>
           )}
@@ -273,7 +272,7 @@ const ProductAdvancedView = (props) => {
               <Typography>{data?.firstName || 'None'}</Typography>
             </Col>
           </Row>
-          {type === 'cart' ? (
+          {type === 'purchase' ? (
             <Row h="between" mb={4}>
               <Col cw="auto">
                 <Typography>Purchased date</Typography>

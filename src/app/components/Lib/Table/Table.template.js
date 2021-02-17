@@ -158,6 +158,7 @@ const CustomTable = (props) => {
                             <MeasureSimpleView
                               productNumber={row.quantity}
                               text={row.measures?.measure}
+                              variant="body2"
                             />
                           </TableCell>
                           <TableCell>
@@ -166,7 +167,12 @@ const CustomTable = (props) => {
                               alignItems="center"
                               justifyContent="center">
                               {row.price || 'None'}
-                              {row.price && <CurrencySimpleView />}
+                              {row.price && (
+                                <CurrencySimpleView
+                                  variant="body2"
+                                  value="UAH"
+                                />
+                              )}
                             </Box>
                           </TableCell>
                         </>

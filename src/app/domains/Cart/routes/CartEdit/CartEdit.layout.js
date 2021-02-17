@@ -1,6 +1,11 @@
 import { COLLECTIONS } from 'app/constants'
 import { Spinner } from 'app/components/Lib'
-import { firestore, getData, setData } from 'app/services'
+import {
+  firestore,
+  getData,
+  setData,
+  getTimestamp
+} from 'app/services/Firestore'
 import { useHistory, useParams } from 'react-router-dom'
 import { useDocumentData } from 'react-firebase-hooks/firestore'
 import { ProductAdvancedForm } from 'domains/Product/components/forms/ProductAdvancedForm'
@@ -40,7 +45,7 @@ const CartEdit = (props) => {
         price: data.price,
         quantity: data.quantity,
         measures: data?.measures || '',
-        dateBuy: data.dateBuy
+        dateBuy: getTimestamp().fromDate(new Date(data.dateBuy))
       })
       history.goBack()
     } catch (error) {
