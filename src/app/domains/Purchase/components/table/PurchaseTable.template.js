@@ -13,7 +13,7 @@ const PurchaseTable = () => {
   if (loading) {
     return <Spinner />
   }
-  return <Table type="purchase" products={purchase} />
+  return <Table type="purchase" products={purchase} purchaseAssign />
 }
 
 export default PurchaseTable

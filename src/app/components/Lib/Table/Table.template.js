@@ -55,6 +55,7 @@ const CustomTable = (props) => {
     WrapperForCheck,
     onCheckClick,
     handleMove,
+    purchaseAssign,
     confirm,
     setConfirm,
     deleteLoading,
@@ -144,7 +145,7 @@ const CustomTable = (props) => {
                         </TableCell>
                       )}
                       <TableCell align="center">
-                        {row.firstName || 'None'}
+                        {purchaseAssign ? row.assign : row.firstName || 'None'}
                       </TableCell>
                       <TableCell
                         align="center"
@@ -158,7 +159,7 @@ const CustomTable = (props) => {
                           <TableCell align="center">
                             <MeasureSimpleView
                               productNumber={row.quantity}
-                              text={row.measures}
+                              text={row.measures?.measure}
                             />
                           </TableCell>
                           <TableCell>

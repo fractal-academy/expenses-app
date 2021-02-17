@@ -7,5 +7,8 @@ export const useStyles = makeStyles({
   },
   bold: {
     fontWeight: 600
+  },
+  red: {
+    color: '	#ff4d4d'
   }
 })

@@ -126,7 +126,12 @@ const WalletAdvancedView = (props) => {
 
                   <Row>
                     <Col>
-                      <Typography variant="caption" color={'textSecondary'}>
+                      <Typography
+                        variant="caption"
+                        color={'textSecondary'}
+                        className={
+                          formattedAvailableBalance < 0 && classes.red
+                        }>
                         Balance
                       </Typography>
                     </Col>
@@ -134,10 +139,17 @@ const WalletAdvancedView = (props) => {
                   <Row>
                     <Col>
                       <Box display="flex">
-                        <Typography variant="body1">
+                        <Typography
+                          variant="body1"
+                          className={
+                            formattedAvailableBalance < 0 && classes.red
+                          }>
                           {formattedAvailableBalance}
                         </Typography>
                         <CurrencySimpleView
+                          className={
+                            formattedAvailableBalance < 0 && classes.red
+                          }
                           variant="body1"
                           value={idCurrency}
                         />

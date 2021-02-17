@@ -37,6 +37,7 @@ const CustomToolbar = (props) => {
     confirm,
     setConfirm,
     deleteLoading,
+    setStatusMessage,
     WrapperForCheck = Box
   } = props
 
@@ -72,6 +73,7 @@ const CustomToolbar = (props) => {
                   <Col cw="auto">
                     <IconButton color="primary">
                       <WrapperForCheck
+                        setStatusMessage={setStatusMessage}
                         onClick={() => onCheckClick(selectedItems)}
                         onSubmitFunction={(data) =>
                           handleMove(data, selectedItems)

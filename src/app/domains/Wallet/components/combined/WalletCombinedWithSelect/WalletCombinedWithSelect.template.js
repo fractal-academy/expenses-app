@@ -3,24 +3,25 @@ import PropTypes from 'prop-types'
 import { Modal, FabButton } from 'app/components/Lib'
 import { WalletForm } from 'domains/Wallet/components/form/WalletForm'
 import { useForm } from 'react-hook-form'
-import { Message } from 'app/components/Lib/Message'
 import { getCollectionRef } from 'app/services/Firestore'
 import { useSession } from 'app/context/SessionContext/hooks'
 import { COLLECTIONS } from 'app/constants'
 
 const WalletCombinedWithSelect = (props) => {
   // INTERFACE
-  const { title, typeModalEdit, children, onSubmitFunction, onClick } = props
+  const {
+    title,
+    typeModalEdit,
+    children,
+    onSubmitFunction,
+    onClick,
+    setStatusMessage
+  } = props
 
   // STATE
   const [selectData, setSelectData] = useState({})
   const [open, setOpen] = useState(children && !children)
   const [loading, setLoading] = useState(false)
-  const [statusMessage, setStatusMessage] = useState({
-    open: false,
-    message: '',
-    type: ''
-  })
 
   // CUSTOM HOOKS
   const session = useSession()
@@ -84,16 +85,6 @@ const WalletCombinedWithSelect = (props) => {
         React.cloneElement(children, {
           onClick: (onClick && onClickPrev) || handleClickOpen
         })) || <FabButton onClick={handleClickOpen} />}
-      <Message
-        open={statusMessage.open}
-        message={statusMessage.message}
-        vertical="top"
-        horizontal="center"
-        autoHideDuration={1500}
-        variant="filled"
-        severity={statusMessage.type}
-        onClose={handleClose}
-      />
 
       <Modal
         open={open}
