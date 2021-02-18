@@ -9,7 +9,7 @@ import { ProductSimpleForm } from 'app/domains/Product/components/forms/ProductS
 import { RegularProductSimpleForm } from 'app/domains/RegularProduct/components/forms/RegularProductSimpleForm'
 
 const ProductCombinedForm = (props) => {
-  const { title, collectionName } = props
+  const { title, collectionName, specificProductToAdd } = props
 
   const session = useSession()
 
@@ -57,7 +57,10 @@ const ProductCombinedForm = (props) => {
   const submitForm = () => form.submit()
 
   const handleClickOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
+  const handleClose = () => {
+    setOpen(false)
+    setSwitchState(true)
+  }
 
   return (
     <>
@@ -92,7 +95,7 @@ const ProductCombinedForm = (props) => {
           <>
             <Row h="center">
               <Typography variant="h5" align="center">
-                Add wish
+                {specificProductToAdd}
               </Typography>
             </Row>
             <ProductSimpleForm
@@ -119,5 +122,7 @@ const ProductCombinedForm = (props) => {
     </>
   )
 }
-
+ProductCombinedForm.defaultProps = {
+  specificProductToAdd: 'Add product'
+}
 export default ProductCombinedForm

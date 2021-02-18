@@ -2,8 +2,9 @@ import { COLLECTIONS } from 'app/constants'
 import { Spinner } from 'app/components/Lib'
 import {
   firestore,
-  getData,
   setData,
+  addData,
+  getData,
   getTimestamp
 } from 'app/services/Firestore'
 import { useHistory, useParams } from 'react-router-dom'
@@ -48,6 +49,11 @@ const CartEdit = (props) => {
         dateBuy:
           getTimestamp().fromDate(new Date(data.dateBuy)) ||
           getTimestamp().now()
+      })
+      addData(COLLECTIONS.NOTIFICATIONS, {
+        date: getTimestamp().now(),
+        text: `You were assigned to buy '${data.name}' in Cart`,
+        userId: [data.assign.id]
       })
       history.goBack()
     } catch (error) {

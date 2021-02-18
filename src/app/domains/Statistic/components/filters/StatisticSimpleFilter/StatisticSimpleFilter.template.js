@@ -31,7 +31,7 @@ const StatisticSimpleFilter = (props) => {
     })
   }
   return (
-    <Paper square>
+    <Paper square elevation={0}>
       <Tabs
         value={value}
         indicatorColor="primary"

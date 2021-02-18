@@ -1,11 +1,18 @@
+import { COLLECTIONS } from 'app/constants'
+import { Spinner } from 'app/components/Lib'
+
+import {
+  firestore,
+  setData,
+  addData,
+  getData,
+  getTimestamp
+} from 'app/services/Firestore'
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { useHistory, useParams } from 'react-router-dom'
 import { useDocumentData } from 'react-firebase-hooks/firestore'
-import { firestore, getData, setData } from 'app/services'
-import { Spinner } from 'app/components/Lib'
 import { ProductAdvancedForm } from 'domains/Product/components/forms/ProductAdvancedForm'
-import { COLLECTIONS } from 'app/constants'
 
 const WishEdit = (props) => {
   // [INTERFACES]
@@ -37,6 +44,11 @@ const WishEdit = (props) => {
         price: data.price,
         quantity: data.quantity,
         measures: data?.measures || ''
+      })
+      addData(COLLECTIONS.NOTIFICATIONS, {
+        date: getTimestamp().now(),
+        text: `You were assigned to buy '${data.name}' in Wishes list`,
+        userId: [data.assign.id]
       })
     } catch (error) {
       console.log(error)

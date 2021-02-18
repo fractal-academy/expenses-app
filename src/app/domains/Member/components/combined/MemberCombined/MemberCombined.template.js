@@ -2,11 +2,11 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { MemberAdvancedForm } from 'domains/Member/components/forms'
 import { Modal, FabButton } from 'app/components/Lib'
+import { firebase } from 'app/services/Firebase'
 import { setData, getData } from 'app/services/Firestore'
-import firebase from 'app/services/Firebase'
-import { useMessageDispatch, types } from 'app/context/MessageContext'
 import { COLLECTIONS } from 'app/constants'
 import md5 from 'md5'
+import { useMessageDispatch, types } from 'app/context/MessageContext'
 
 /**
  * @info MemberCombined (21 Jan 2020) // CREATION DATE

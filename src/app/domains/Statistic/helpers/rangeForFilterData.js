@@ -1,8 +1,7 @@
-import moment from 'moment'
-
 const rangeForFilterData = (startDate, endDate) => {
-  const rangeStart = moment(startDate).format('X')
-  const rangeEnd = moment(endDate).format('X')
+  const rangeStart = startDate.getTime()
+  const rangeEnd = endDate.getTime()
+
   return [rangeStart, rangeEnd]
 }
 export default rangeForFilterData

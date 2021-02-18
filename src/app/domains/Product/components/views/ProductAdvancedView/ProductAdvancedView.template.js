@@ -102,7 +102,7 @@ const ProductAdvancedView = (props) => {
   function onCheckClick() {
     let status = true
     //required fields
-    const fields = ['name', 'price', 'quantity']
+    const fields = ['name', 'price']
     for (let field of fields) {
       /*   if required field isn`t empty status will be true  */
 
@@ -118,7 +118,6 @@ const ProductAdvancedView = (props) => {
 
     return category
   }
-
   async function handleMoveProductToPurchase(wallet) {
     try {
       /*
@@ -138,7 +137,7 @@ const ProductAdvancedView = (props) => {
       /*
         set new balance to wallet*/
       await setData(COLLECTIONS.WALLETS, wallet.id, {
-        balance: wallet.balance - product.price * product.quantity
+        balance: wallet.balance - product.price
       })
       /*
         set spended money to category spendings*/
@@ -192,10 +191,12 @@ const ProductAdvancedView = (props) => {
   const WrapperForItem = productTypeMap[type].wrapperForItem
   const prevFunctionForItem = productTypeMap[type].prevFunctionForItem
 
+  console.log(data)
+
   const reminderDate =
-    data.remind && moment(data?.remind.toDate()).format('Do MMM')
+    data?.remind && moment(data?.remind.toDate()).format('Do MMM')
   const purchasedDate =
-    data.dateBuy && moment(data?.dateBuy.toDate()).format('Do MMM YYYY')
+    data?.dateBuy && moment(data?.dateBuy.toDate()).format('Do MMM YYYY')
 
   const DropdownList = (
     <Container>
@@ -208,15 +209,18 @@ const ProductAdvancedView = (props) => {
           onClick={
             prevFunctionForItem ? prevFunctionForItem : handleMoveProduct
           }>
-          <DropdownItem divider>
-            <Typography>{firstElement}</Typography>
-          </DropdownItem>
+          {user.role === 'admin' && (
+            <DropdownItem divider>
+              <Typography>{firstElement}</Typography>
+            </DropdownItem>
+          )}
         </WrapperForItem>
       )}
-
-      <DropdownItem onClick={() => history.push(editPages)} divider>
-        <Typography>Edit</Typography>
-      </DropdownItem>
+      {user.id === data?.creator && user.role === 'admin' && (
+        <DropdownItem onClick={() => history.push(editPages)} divider>
+          <Typography>Edit</Typography>
+        </DropdownItem>
+      )}
       <Confirmation
         action="Delete"
         text={'Do you want to delete product?'}
