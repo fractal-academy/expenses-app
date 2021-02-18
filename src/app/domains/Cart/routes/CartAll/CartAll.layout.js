@@ -19,6 +19,7 @@ const CartAll = (props) => {
       <CartTable setStatusMessage={setStatusMessage} />
       <ProductCombinedForm
         title="Create Product"
+        specificProductToAdd="Add product"
         collectionName={COLLECTIONS.CART}
       />
       <Message

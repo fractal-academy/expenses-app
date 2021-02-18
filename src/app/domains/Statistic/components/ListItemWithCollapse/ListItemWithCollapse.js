@@ -2,6 +2,7 @@ import { useState } from 'react'
 import {
   Collapse,
   Divider,
+  IconButton,
   List,
   ListItem,
   ListItemText
@@ -10,9 +11,10 @@ import { Box, Col, Row } from '@qonsoll/react-design'
 import { CurrencySimpleView } from 'domains/Currency/components/views'
 import { ExpandLess, ExpandMore } from '@material-ui/icons'
 import { MemberWallets } from 'app/domains/Statistic/components/MemberWallets'
+import { MemberSimpleView } from 'domains/Member/components/views'
 
 const ListItemWithCollapse = (props) => {
-  const { memberName, spent, memberWallet } = props
+  const { memberName, spent, memberWallet, avatarURL, typeCurrency } = props
   const [open, setOpen] = useState(false)
 
   const handleClick = () => {
@@ -22,6 +24,9 @@ const ListItemWithCollapse = (props) => {
     <>
       <ListItem button onClick={handleClick}>
         <Row width="100%">
+          <Col cw="auto">
+            <MemberSimpleView avatarURL={avatarURL} />
+          </Col>
           <Col>
             <ListItemText primary={memberName} />
           </Col>
@@ -31,7 +36,7 @@ const ListItemWithCollapse = (props) => {
                 <Box display="flex">
                   <ListItemText primary={spent} />
                   <ListItemText>
-                    <CurrencySimpleView />
+                    <CurrencySimpleView value={typeCurrency ? 'UAH' : 'USD'} />
                   </ListItemText>
                 </Box>
               </Col>
@@ -47,6 +52,7 @@ const ListItemWithCollapse = (props) => {
               key={item.name.toString()}
               walletName={item.name}
               spentCurrentWallet={item.spentWallet}
+              typeCurrency={typeCurrency}
             />
           ))}
         </List>

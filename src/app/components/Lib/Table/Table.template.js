@@ -124,7 +124,9 @@ const CustomTable = (props) => {
                       </TableCell>
                     )}
                     {cells.map((cell) => (
-                      <TableCell align="center">{cell}</TableCell>
+                      <TableCell key={cell} align="center">
+                        {cell}
+                      </TableCell>
                     ))}
                   </TableRow>
                 </TableHead>
@@ -162,10 +164,7 @@ const CustomTable = (props) => {
                             />
                           </TableCell>
                           <TableCell>
-                            <Box
-                              display="flex"
-                              alignItems="center"
-                              justifyContent="center">
+                            <Box display="flex" justifyContent="center">
                               {row.price || 'None'}
                               {row.price && (
                                 <CurrencySimpleView

@@ -8,6 +8,7 @@ const parseDataToObject = (data, arrWitUniqueValues, rangeStart, rangeEnd) => {
   arrWitUniqueValues.forEach((nameMember) => {
     const wallet = {}
     let spent = 0
+    let avatarURL = ''
     data.forEach((item) => {
       let dateBuy = item.dateBuy.toDate().getTime()
       if (
@@ -18,12 +19,13 @@ const parseDataToObject = (data, arrWitUniqueValues, rangeStart, rangeEnd) => {
         wallet[item.wallet] = wallet[item.wallet] || 0
         wallet[item.wallet] += +item.price
         spent += +item.price
+        avatarURL = item.avatarURL
       }
     })
     res[nameMember].wallets = wallet
     res[nameMember].spent = +spent
+    res[nameMember].avatarURL = avatarURL
   })
-
   return res
 }
 export default parseDataToObject

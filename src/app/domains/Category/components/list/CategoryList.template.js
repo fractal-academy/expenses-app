@@ -26,7 +26,6 @@ const CategoryList = (props) => {
     return () => {}
   }, [value])
 
-  console.log(data)
   // TEMPLATE
   return (
     <>

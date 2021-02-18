@@ -62,5 +62,9 @@ select-selected {
     color: #dbdbdd;
 }
 hr.MuiDivider-root{
-    background-color:'white' !important
+    background-color:'#dbdbdd' !important
+}
+
+.MuiCollapse-container.MuiCollapse-entered{
+    background-color:#2c2c34 !important
 }

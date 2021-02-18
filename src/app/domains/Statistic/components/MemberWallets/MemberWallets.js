@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography'
 import MuiCustomTheme from '../../../../config/qonsollTheme/MuiCustomTheme'
 
 const MemberWallets = (props) => {
-  const { walletName, spentCurrentWallet } = props
+  const { walletName, spentCurrentWallet, typeCurrency } = props
   return (
     <>
       <ListItem>
@@ -42,6 +42,7 @@ const MemberWallets = (props) => {
                     fontSize: 15,
                     color: MuiCustomTheme.palette.text.secondary
                   }}
+                  value={typeCurrency ? 'UAH' : 'USD'}
                 />
               </ListItemText>
             </Box>

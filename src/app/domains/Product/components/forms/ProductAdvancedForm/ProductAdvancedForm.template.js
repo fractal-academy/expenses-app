@@ -41,14 +41,17 @@ const config = [
   {
     label: 'Assign',
     name: 'assign',
-    Component: MemberSingleSelect
+    Component: MemberSingleSelect,
+    rules: {
+      required: 'select assigned'
+    }
   },
   {
     label: 'Category',
     name: 'category',
     Component: CategorySelectWithCreate,
     rules: {
-      required: 'select category, motherfucker'
+      required: 'select category'
     }
   },
   {
@@ -59,7 +62,10 @@ const config = [
   {
     type: 'date',
     label: 'Date',
-    name: 'dateBuy'
+    name: 'dateBuy',
+    rules: {
+      required: 'select date buy'
+    }
   },
   {
     inlineLayout: [
