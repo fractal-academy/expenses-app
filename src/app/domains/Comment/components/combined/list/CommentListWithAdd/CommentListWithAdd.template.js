@@ -13,7 +13,7 @@ import { CommentSimpleForm } from 'domains/Comment/components/forms'
 import { CommentList } from 'domains/Comment/components/list'
 import { Spinner } from 'components/Lib'
 import { COLLECTIONS } from 'app/constants'
-import { useLogger } from 'app/utils'
+import { useLogger } from 'app/hooks'
 
 /**
  * @info CommentListWithAdd (14 Feb 2021) // CREATION DATE

@@ -8,7 +8,7 @@ import { useSession } from 'app/context/SessionContext'
 import { MemberAdvancedForm } from 'domains/Member/components/forms'
 import { Spinner } from 'app/components/Lib'
 import { COLLECTIONS } from 'app/constants'
-import { useLogger } from 'app/utils'
+import { useLogger } from 'app/hooks'
 
 /**
  * @info MemberEdit (18 Jan 2021) // CREATION DATE

@@ -9,7 +9,7 @@ import { firestore, setData } from 'app/services'
 import { COLLECTIONS } from 'app/constants'
 import { Row } from '@qonsoll/react-design'
 import { deleteData } from 'app/services/Firestore'
-import { useLogger } from 'app/utils'
+import { useLogger } from 'app/hooks'
 
 const MeasureModalWithForm = (props) => {
   // [INTERFACES]

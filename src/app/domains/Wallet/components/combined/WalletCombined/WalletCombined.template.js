@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import { COLLECTIONS } from 'app/constants'
 import { useSession } from 'app/context/SessionContext/hooks'
 import { useMessageDispatch, types } from 'app/context/MessageContext'
-import { useLogger } from 'app/utils'
+import { useLogger } from 'app/hooks'
 import md5 from 'md5'
 
 /**

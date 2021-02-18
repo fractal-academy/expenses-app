@@ -11,7 +11,7 @@ import { COLLECTIONS } from 'app/constants'
 import { Spinner } from 'app/components/Lib'
 import React, { useEffect, useState } from 'react'
 import { useMessageDispatch, types } from 'app/context/MessageContext'
-import { useLogger } from 'app/utils'
+import { useLogger } from 'app/hooks'
 
 const RegularProductEdit = () => {
   const history = useHistory()

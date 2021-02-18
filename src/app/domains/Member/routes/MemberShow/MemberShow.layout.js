@@ -10,7 +10,7 @@ import { MemberAdvancedView } from 'domains/Member/components/views'
 import { Confirmation, DropdownItem, Spinner } from 'app/components/Lib'
 import { COLLECTIONS, ROUTES_PATHS } from 'app/constants'
 import { useStyles } from './MemberShow.styles'
-import { useLogger } from 'app/utils'
+import { useLogger } from 'app/hooks'
 
 /**
  * @info MemberShow (18 Jan 2021) // CREATION DATE

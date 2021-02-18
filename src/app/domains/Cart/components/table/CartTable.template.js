@@ -12,7 +12,7 @@ import { useCollectionData } from 'react-firebase-hooks/firestore'
 import { WalletCombinedWithSelect } from 'app/domains/Wallet/components/combined/WalletCombinedWithSelect'
 import { useSession } from 'app/context/SessionContext/hooks'
 import { useMessageDispatch, types } from 'app/context/MessageContext'
-import { useLogger } from 'app/utils'
+import { useLogger } from 'app/hooks'
 
 const CartTable = (props) => {
   // INTERFACE

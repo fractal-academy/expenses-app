@@ -7,7 +7,7 @@ import { CategoryForm } from 'domains/Category/components/form'
 import PropTypes from 'prop-types'
 import { addData, setData } from 'app/services/Firestore'
 import { COLLECTIONS } from 'app/constants'
-import { useLogger } from 'app/utils'
+import { useLogger } from 'app/hooks'
 
 const CategoryCombined = (props) => {
   // INTERFACE

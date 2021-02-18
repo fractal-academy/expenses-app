@@ -22,7 +22,7 @@ import { CategorySimpleView } from 'domains/Category/components/views'
 import { CurrencySimpleView } from 'domains/Currency/components/views'
 import { CommentListWithAdd } from 'app/domains/Comment/components/combined/list'
 import { WalletCombinedWithSelect } from 'app/domains/Wallet/components/combined'
-import { useLogger } from 'app/utils'
+import { useLogger } from 'app/hooks'
 
 const ProductAdvancedView = (props) => {
   const productTypeMap = {

@@ -7,7 +7,7 @@ import { setData, getData } from 'app/services/Firestore'
 import { COLLECTIONS } from 'app/constants'
 import md5 from 'md5'
 import { useMessageDispatch, types } from 'app/context/MessageContext'
-import { useLogger } from 'app/utils'
+import { useLogger } from 'app/hooks'
 
 /**
  * @info MemberCombined (21 Jan 2020) // CREATION DATE

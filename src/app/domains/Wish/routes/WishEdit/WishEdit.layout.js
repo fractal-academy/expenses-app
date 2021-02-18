@@ -13,7 +13,7 @@ import PropTypes from 'prop-types'
 import { useHistory, useParams } from 'react-router-dom'
 import { useDocumentData } from 'react-firebase-hooks/firestore'
 import { ProductAdvancedForm } from 'domains/Product/components/forms/ProductAdvancedForm'
-import { useLogger } from 'app/utils'
+import { useLogger } from 'app/hooks'
 
 const WishEdit = (props) => {
   // [INTERFACES]

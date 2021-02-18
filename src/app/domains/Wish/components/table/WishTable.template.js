@@ -4,7 +4,7 @@ import { Table, Spinner } from 'app/components/Lib'
 import { useMessageDispatch, types } from 'app/context/MessageContext'
 import { firestore, deleteData, getData, setData } from 'app/services/Firestore'
 import { COLLECTIONS } from 'app/constants'
-import { useLogger } from 'app/utils'
+import { useLogger } from 'app/hooks'
 
 const WishTable = (props) => {
   // INTERFACE

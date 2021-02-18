@@ -5,7 +5,7 @@ import { RegularProductAdvancedForm } from 'app/domains/RegularProduct/component
 import { COLLECTIONS } from 'app/constants'
 import { firestore, setData, getTimestamp } from 'app/services/Firestore'
 import PropTypes from 'prop-types'
-import { useLogger } from 'app/utils'
+import { useLogger } from 'app/hooks'
 
 const RegularProductCombined = (props) => {
   const { title, typeModalEdit } = props

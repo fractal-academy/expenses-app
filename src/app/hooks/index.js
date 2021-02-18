@@ -1,3 +1,4 @@
 import useAuthListener from './useAuthListener'
+import useLogger from './useLogger'
 
-export { useAuthListener }
+export { useAuthListener, useLogger }

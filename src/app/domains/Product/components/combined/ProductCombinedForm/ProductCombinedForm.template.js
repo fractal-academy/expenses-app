@@ -7,7 +7,7 @@ import { useForm } from 'mui-form-generator-fractal-band-2'
 import { useSession } from 'app/context/SessionContext/hooks'
 import { ProductSimpleForm } from 'app/domains/Product/components/forms/ProductSimpleForm'
 import { RegularProductSimpleForm } from 'app/domains/RegularProduct/components/forms/RegularProductSimpleForm'
-import { useLogger } from 'app/utils'
+import { useLogger } from 'app/hooks'
 
 const ProductCombinedForm = (props) => {
   // [INTERFACES]

@@ -12,7 +12,7 @@ import { COLLECTIONS } from 'app/constants'
 import { deleteData } from 'app/services/Firestore'
 import PropTypes from 'prop-types'
 import formatCurrency from 'format-currency'
-import { useLogger } from 'app/utils'
+import { useLogger } from 'app/hooks'
 
 const WalletAdvancedView = (props) => {
   // INTERFACE
