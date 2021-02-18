@@ -62,7 +62,10 @@ const config = [
   {
     type: 'date',
     label: 'Date',
-    name: 'dateBuy'
+    name: 'dateBuy',
+    rules: {
+      required: 'select date buy'
+    }
   },
   {
     inlineLayout: [

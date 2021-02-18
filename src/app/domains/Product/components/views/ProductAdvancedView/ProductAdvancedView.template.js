@@ -221,11 +221,9 @@ const ProductAdvancedView = (props) => {
           )}
         </WrapperForItem>
       )}
-      {user.id === data?.creator && user.role === 'admin' && (
-        <DropdownItem onClick={() => history.push(editPages)} divider>
-          <Typography>Edit</Typography>
-        </DropdownItem>
-      )}
+      <DropdownItem onClick={() => history.push(editPages)} divider>
+        <Typography>Edit</Typography>
+      </DropdownItem>
       <Confirmation
         action="Delete"
         text={'Do you want to delete product?'}
