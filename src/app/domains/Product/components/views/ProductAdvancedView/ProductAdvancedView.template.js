@@ -2,7 +2,7 @@ import moment from 'moment'
 import { useState } from 'react'
 import PropTypes from 'prop-types'
 import { useStyles } from './ProductAdvancedView.styles'
-import { ROUTES_PATHS } from 'app/constants'
+import { ROUTES_PATHS, COLLECTIONS } from 'app/constants'
 import { useHistory } from 'react-router-dom'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import { Typography, IconButton } from '@material-ui/core'
@@ -11,8 +11,8 @@ import {
   deleteData,
   setData,
   getData,
-  addData,
-  getTimestamp
+  getTimestamp,
+  getCollectionRef
 } from 'app/services/Firestore'
 import { useSession } from 'app/context/SessionContext'
 import { useMessageDispatch, types } from 'app/context/MessageContext'
@@ -22,7 +22,6 @@ import { CategorySimpleView } from 'domains/Category/components/views'
 import { CurrencySimpleView } from 'domains/Currency/components/views'
 import { CommentListWithAdd } from 'app/domains/Comment/components/combined/list'
 import { WalletCombinedWithSelect } from 'app/domains/Wallet/components/combined'
-import { COLLECTIONS } from 'app/constants'
 
 const ProductAdvancedView = (props) => {
   const productTypeMap = {
@@ -112,6 +111,20 @@ const ProductAdvancedView = (props) => {
     return !status
   }
 
+  const getProductCategory = async () => {
+    try {
+      const category = await getCollectionRef(COLLECTIONS.CATEGORIES)
+        .where('nameCategory', '==', data.category)
+        .get()
+
+      return category
+    } catch (error) {
+      messageDispatch({
+        type: types.OPEN_ERROR_MESSAGE,
+        payload: error
+      })
+    }
+  }
   async function handleMoveProductToPurchase(wallet) {
     try {
       /*
@@ -133,6 +146,13 @@ const ProductAdvancedView = (props) => {
       await setData(COLLECTIONS.WALLETS, wallet.id, {
         balance: wallet.balance - product.price
       })
+      /*
+        set spended money to category spendings*/
+      const category = await getProductCategory()
+      await setData(COLLECTIONS.CATEGORIES, category.docs[0].id, {
+        spent: category.docs[0].data().spent + parseInt(data.price)
+      })
+
       messageDispatch({
         type: types.OPEN_SUCCESS_MESSAGE,
         payload: `Product was bought`
@@ -178,8 +198,10 @@ const ProductAdvancedView = (props) => {
   const WrapperForItem = productTypeMap[type].wrapperForItem
   const prevFunctionForItem = productTypeMap[type].prevFunctionForItem
 
-  const reminderDate = moment(data?.reminderDate).format('MMM Do')
-  const purchasedDate = moment(data?.dateBuy).format('MMM Do')
+  const reminderDate =
+    data?.remind && moment(data?.remind.toDate()).format('Do MMM')
+  const purchasedDate =
+    data?.dateBuy && moment(data?.dateBuy.toDate()).format('Do MMM YYYY')
 
   const DropdownList = (
     <Container>
@@ -192,15 +214,18 @@ const ProductAdvancedView = (props) => {
           onClick={
             prevFunctionForItem ? prevFunctionForItem : handleMoveProduct
           }>
-          <DropdownItem divider>
-            <Typography>{firstElement}</Typography>
-          </DropdownItem>
+          {user.role === 'admin' && (
+            <DropdownItem divider>
+              <Typography>{firstElement}</Typography>
+            </DropdownItem>
+          )}
         </WrapperForItem>
       )}
-
-      <DropdownItem onClick={() => history.push(editPages)} divider>
-        <Typography>Edit</Typography>
-      </DropdownItem>
+      {user.id === data?.creator && user.role === 'admin' && (
+        <DropdownItem onClick={() => history.push(editPages)} divider>
+          <Typography>Edit</Typography>
+        </DropdownItem>
+      )}
       <Confirmation
         action="Delete"
         text={'Do you want to delete product?'}

@@ -17,7 +17,7 @@ const MeasureSimpleView = (props) => {
   const pluralize = require('pluralize')
 
   const measureName =
-    (productNumber > 1 && text.length > 2 && pluralize.plural(text)) || text
+    (productNumber > 1 && text?.length > 2 && pluralize.plural(text)) || text
 
   // [TEMPLATE]
   return (
@@ -25,7 +25,7 @@ const MeasureSimpleView = (props) => {
       <Row noGutters h="center">
         <Col display="flex" cw="auto">
           <Typography {...textProps}>
-            {productNumber} {measureName}
+            {productNumber || 'None'} {productNumber && measureName}
           </Typography>
         </Col>
       </Row>
@@ -36,10 +36,6 @@ const MeasureSimpleView = (props) => {
 MeasureSimpleView.propTypes = {
   text: PropTypes.string,
   productNumber: PropTypes.number
-}
-MeasureSimpleView.defaultProps = {
-  text: 'None',
-  productNumber: ''
 }
 
 export default MeasureSimpleView

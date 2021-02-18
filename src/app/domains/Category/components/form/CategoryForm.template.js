@@ -6,7 +6,7 @@ import {
   FormButtons
 } from 'mui-form-generator-fractal-band-2'
 import { ColorSingleSelect } from 'app/domains/Color/components/select'
-import { CurrencySingleSelect } from 'app/domains/Currency/components/select'
+import { CurrencySimpleView } from 'app/domains/Currency/components/views'
 import { CURRENCIES } from 'app/constants'
 import { COLOR_VALUE } from 'app/constants/colors'
 
@@ -21,10 +21,22 @@ const CONFIG = [
     Component: ColorSingleSelect
   },
   {
-    label: 'Currency',
-    name: 'currency',
-    defaultValue: CURRENCY_VALUES[0],
-    Component: CurrencySingleSelect
+    inlineLayout: [
+      {
+        type: 'number',
+        label: 'Budget',
+        name: 'budgetLimit',
+        placeholder: 'Enter budget limit',
+        rules: {
+          required: 'Enter budget limit'
+        }
+      },
+      {
+        label: 'Currency',
+        name: 'currency',
+        Component: CurrencySimpleView
+      }
+    ]
   },
   {
     type: 'text',
@@ -36,15 +48,6 @@ const CONFIG = [
       pattern: {
         value: 'word'
       }
-    }
-  },
-  {
-    type: 'number',
-    label: 'Budget',
-    name: 'budgetLimit',
-    placeholder: 'Enter budget limit',
-    rules: {
-      required: 'Enter budget limit'
     }
   }
 ]

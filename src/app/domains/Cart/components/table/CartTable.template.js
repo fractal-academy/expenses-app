@@ -21,6 +21,7 @@ const CartTable = (props) => {
   const [data, loading] = useCollectionData(
     firestore.collection(COLLECTIONS.CART)
   )
+
   const session = useSession()
   const messageDispatch = useMessageDispatch()
   const [deleteLoading, setDeleteLoading] = useState(false)
@@ -74,6 +75,7 @@ const CartTable = (props) => {
         /*
         get info about product in card      */
         const product = await getData(COLLECTIONS.CART, item)
+
         /*
         set data to collection purchases with additional fields (info about user)*/
         await setData(COLLECTIONS.PURCHASES, item, {
@@ -134,7 +136,7 @@ const CartTable = (props) => {
     setDeleteLoading(false)
   }
 
-  //TEMPLATE
+  // TEMPLATE
   if (loading) {
     return <Spinner />
   }

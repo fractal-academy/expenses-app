@@ -10,7 +10,7 @@ import { COLLECTIONS } from 'app/constants'
 
 const CategoryCombined = (props) => {
   // INTERFACE
-  const { title, typeModalEdit, children, categoryId } = props
+  const { title, typeModalEdit, children, categoryId, showName = true } = props
 
   // STATE
   const [open, setOpen] = useState(!!children && !children)
@@ -25,7 +25,6 @@ const CategoryCombined = (props) => {
     addData(COLLECTIONS.CATEGORIES, {
       nameCategory: data.nameCategory,
       colorCategory: data.color,
-      currency: data.currency.cc,
       spent: 0,
       budget: Number(data.budgetLimit)
     }).then(() => setOpen(false))
@@ -33,10 +32,7 @@ const CategoryCombined = (props) => {
 
   const onEditCategory = (data) => {
     setData(COLLECTIONS.CATEGORIES, categoryId, {
-      nameCategory: data.nameCategory,
       colorCategory: data.color,
-      currency: data.currency.cc,
-      spent: 0,
       budget: Number(data.budgetLimit)
     }).then(() => setOpen(false))
   }
@@ -101,7 +97,12 @@ const CategoryCombined = (props) => {
         }}>
         <CategoryForm
           form={form}
-          show={['nameCategory', 'budgetLimit', 'color', 'currency']}
+          show={[
+            showName && 'nameCategory',
+            'budgetLimit',
+            'currency',
+            'color'
+          ]}
           onSubmit={typeModalEdit ? onEditCategory : onAddCategory}
           buttonProps={{ visible: false }}
         />

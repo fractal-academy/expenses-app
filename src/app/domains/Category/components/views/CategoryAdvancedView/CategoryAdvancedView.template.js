@@ -31,6 +31,7 @@ const CategoryAdvancedView = (props) => {
     <div>
       <CategoryCombined
         title="Edit category"
+        showName={false}
         onClick={() => console.log(id)}
         typeModalEdit
         categoryId={id}>
@@ -45,7 +46,6 @@ const CategoryAdvancedView = (props) => {
         danger
         onClick={() => {
           deleteData('categories', id)
-          console.log('DELETE')
         }}>
         <Box mr={2}>
           <Delete />
@@ -155,18 +155,10 @@ const CategoryAdvancedView = (props) => {
 CategoryAdvancedView.propTypes = {
   nameCategory: PropTypes.string.isRequired,
   colorCategory: PropTypes.string.isRequired,
-  currency: PropTypes.string.isRequired,
+  currency: PropTypes.string,
   spent: PropTypes.number.isRequired,
   budget: PropTypes.number.isRequired,
-  valueForProgressBar: PropTypes.number.isRequired
+  valueForProgressBar: PropTypes.number
 }
-CategoryAdvancedView.defaultProps = {
-  nameCategory: 'Other',
-  colorCategory: 'orange',
-  availableBalance: '2500',
-  spent: '7500',
-  budget: '10000',
-  currency: 'USD',
-  valueForProgressBar: 50
-}
+
 export default CategoryAdvancedView
