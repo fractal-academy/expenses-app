@@ -9,7 +9,8 @@ const optionsForChart = {
     foreColor: MuiCustomTheme.palette.text.primary
   },
   legend: {
-    fontSize: 16,
+    fontSize: MuiCustomTheme.typography.body2,
+    fontWeight: MuiCustomTheme.typography.fontWeightLight,
     markers: {
       radius: 4,
       width: 22
@@ -28,7 +29,7 @@ const optionsForChart = {
           show: true,
           total: {
             show: true,
-            fontWeight: 600,
+            fontWeight: MuiCustomTheme.typography.fontWeightBold,
             color: MuiCustomTheme.palette.text.primary
           }
         }

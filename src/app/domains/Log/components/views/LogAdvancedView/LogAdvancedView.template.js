@@ -1,8 +1,8 @@
-import { Row, Col, Box } from '@qonsoll/react-design'
+import { Row, Col, Box, Container } from '@qonsoll/react-design'
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
-import { Typography, Avatar, Divider } from '@material-ui/core'
+import { Typography, Avatar, Divider, Paper } from '@material-ui/core'
 import moment from 'moment'
 import { useState } from 'react'
 import PropTypes from 'prop-types'
@@ -18,48 +18,50 @@ const LogAdvancedView = (props) => {
 
   const [detailed, setDetailed] = useState(false)
   return (
-    <>
-      <Box p={2}>
-        <Row v="center" h="between">
-          <Col>
-            <Row v="center">
-              <Col cw="auto">
-                <Avatar alt="User" src={userAvatar}>
-                  {/** Change this block to UserSimpleView when it will be ready */}
-                  <AccountCircleIcon />
-                </Avatar>
-              </Col>
-              <Col>
-                <Typography>{action}</Typography>
-              </Col>
-            </Row>
-          </Col>
-          <Col cw="auto" onClick={() => setDetailed(!detailed)}>
-            <Box>
-              {detailed ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-            </Box>
-          </Col>
-        </Row>
-        {detailed && (
-          <Row>
+    <Container mb={2} pl={2} pr={2}>
+      <Paper>
+        <Box p={2}>
+          <Row v="center" h="between">
             <Col>
-              <Row h="center">
-                <Typography>
-                  {moment(actionDateTime).format('H:mm, DD.MM.YYYY')}
-                </Typography>
-              </Row>
-              <Row h="center">
-                <Typography>{userMail}</Typography>
-              </Row>
-              <Row h="center">
-                <Typography>{actionDescription}</Typography>
+              <Row v="center">
+                <Col cw="auto">
+                  <Avatar alt="User" src={userAvatar}>
+                    {/** Change this block to UserSimpleView when it will be ready */}
+                    <AccountCircleIcon />
+                  </Avatar>
+                </Col>
+                <Col>
+                  <Typography>{action}</Typography>
+                </Col>
               </Row>
             </Col>
+            <Col cw="auto" onClick={() => setDetailed(!detailed)}>
+              <Box>
+                {detailed ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+              </Box>
+            </Col>
           </Row>
-        )}
-      </Box>
-      <Divider />
-    </>
+          {detailed && (
+            <Row>
+              <Col>
+                <Row h="center">
+                  <Typography>
+                    {moment(actionDateTime).format('H:mm, DD.MM.YYYY')}
+                  </Typography>
+                </Row>
+                <Row h="center">
+                  <Typography>{userMail}</Typography>
+                </Row>
+                <Row h="center">
+                  <Typography>{actionDescription}</Typography>
+                </Row>
+              </Col>
+            </Row>
+          )}
+        </Box>
+        <Divider />
+      </Paper>
+    </Container>
   )
 }
 

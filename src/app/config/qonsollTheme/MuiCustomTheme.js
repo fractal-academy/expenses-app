@@ -71,6 +71,7 @@ const MuiCustomTheme = createMuiTheme({
       disabled: Colors.text.disabled,
       hint: Colors.text.hint
     },
+    // divider: Colors.divider,
     primaryAlternative: {
       c1: '#ee786c',
       c2: '#20bfa9',

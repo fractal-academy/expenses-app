@@ -10,8 +10,6 @@ import {
 import { Container, Row, Col } from '@qonsoll/react-design'
 import { useHistory } from 'react-router-dom'
 import { ROUTES_PATHS } from 'app/constants'
-import MuiCustomTheme from '../../config/qonsollTheme/MuiCustomTheme'
-import Colors from '../../config/qonsollTheme/core/colors'
 import COLOR from '../../constants/colors'
 
 const SETTINGS_MENU = [

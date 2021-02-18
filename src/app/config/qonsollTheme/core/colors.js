@@ -157,7 +157,7 @@ const Colors = {
     paper: '#2c2c34'
     // default: Colors.grey[2]
   }
-  // divider: ''
+  //   divider: '#989696'
 }
 
 export default Colors
