@@ -23,7 +23,7 @@ const WalletSingleSelect = (props) => {
           <WalletSimpleViewWithCurrency
             nameWallet={item.nameWallet}
             balance={item.balance}
-            currency={item.currency}
+            currency={item.idCurrency}
           />
         </MenuItem>
       )}
