@@ -51,19 +51,23 @@ const Navbar = (props) => {
   return (
     <AppBar className={classes.root} component="nav">
       {user.role !== 'user' && (
-          <BottomNavigation className={classes.bottomNav} value={value} onChange={onMenuChange} showLabels>
-            {MENU_ITEMS.map(
-                (menuItem) =>
-                    !menuItem.hide.includes(user.role) && (
-                        <BottomNavigationAction
-                            label={menuItem.label(user.role)}
-                            icon={menuItem.icon(user.role)}
-                            key={menuItem.label()}
-                            onClick={() => history.push(menuItem.path(user.role))}
-                        />
-                    )
-            )}
-          </BottomNavigation>
+        <BottomNavigation
+          className={classes.bottomNav}
+          value={value}
+          onChange={onMenuChange}
+          showLabels>
+          {MENU_ITEMS.map(
+            (menuItem) =>
+              !menuItem.hide.includes(user.role) && (
+                <BottomNavigationAction
+                  label={menuItem.label(user.role)}
+                  icon={menuItem.icon(user.role)}
+                  key={menuItem.label()}
+                  onClick={() => history.push(menuItem.path(user.role))}
+                />
+              )
+          )}
+        </BottomNavigation>
       )}
     </AppBar>
   )
