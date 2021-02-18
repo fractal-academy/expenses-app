@@ -8,7 +8,7 @@ import filterDataForStatisticsWallet from 'app/domains/Statistic/helpers/filterD
 import totalSpentPublicWallet from 'domains/Statistic/helpers/totalSpentPublicWallet'
 
 const CollapseWallet = (props) => {
-  const { dataFromDB } = props
+  const { dataFromDB, typeCurrency } = props
   const { state } = useStatisticContext()
   const dataList = filterDataForStatisticsWallet(state.date, dataFromDB)
   const totalPublicWallet = totalSpentPublicWallet(dataFromDB)
@@ -22,6 +22,7 @@ const CollapseWallet = (props) => {
             spent={item.spent}
             memberWallet={item.wallets}
             avatarURL={item.avatarURL}
+            typeCurrency={typeCurrency}
           />
         ))}
         {!!dataList.length > 0 && (
@@ -32,7 +33,7 @@ const CollapseWallet = (props) => {
                 <ListItemText primary="Public wallets: &nbsp;" />
                 <ListItemText primary={totalPublicWallet} />
                 <ListItemText>
-                  <CurrencySimpleView />
+                  <CurrencySimpleView value={typeCurrency ? 'UAH' : 'USD'} />
                 </ListItemText>
               </Box>
             </Col>

@@ -15,7 +15,6 @@ const StatisticAll = (props) => {
   const [value, loading] = useCollectionData(
     firestore.collection(COLLECTIONS.PURCHASES)
   )
-
   const [checked, setChecked] = useState(false)
   const [data, setData] = useState([])
 
@@ -63,7 +62,10 @@ const StatisticAll = (props) => {
                 <Typography>UAH</Typography>
                 <Switch
                   checked={checked}
-                  onChange={() => setChecked(!checked)}
+                  onChange={() => {
+                    setChecked(!checked)
+                    // setState({ switchUSD: !checked })
+                  }}
                   name="currencySwitch"
                 />
                 <Typography>USD</Typography>
@@ -79,7 +81,7 @@ const StatisticAll = (props) => {
               </Col>
             </Row>
           </Container>
-          <CollapseWallet dataFromDB={data} />
+          <CollapseWallet dataFromDB={data} typeCurrency={!checked} />
         </StatisticProvider>
       )}
     </>

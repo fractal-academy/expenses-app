@@ -14,7 +14,7 @@ import { MemberWallets } from 'app/domains/Statistic/components/MemberWallets'
 import { MemberSimpleView } from 'domains/Member/components/views'
 
 const ListItemWithCollapse = (props) => {
-  const { memberName, spent, memberWallet, avatarURL } = props
+  const { memberName, spent, memberWallet, avatarURL, typeCurrency } = props
   const [open, setOpen] = useState(false)
 
   const handleClick = () => {
@@ -36,7 +36,7 @@ const ListItemWithCollapse = (props) => {
                 <Box display="flex">
                   <ListItemText primary={spent} />
                   <ListItemText>
-                    <CurrencySimpleView />
+                    <CurrencySimpleView value={typeCurrency ? 'UAH' : 'USD'} />
                   </ListItemText>
                 </Box>
               </Col>
