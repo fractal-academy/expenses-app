@@ -9,7 +9,7 @@ import { useCollectionData } from 'react-firebase-hooks/firestore'
 import { Spinner } from 'app/components/Lib'
 import { firestore } from 'app/services'
 import { useEffect, useState } from 'react'
-import convertToDollars from '../../helpers/convertToDolars'
+import convertToDollars from 'app/domains/Statistic/helpers/convertToDolars'
 
 const StatisticAll = (props) => {
   const [value, loading] = useCollectionData(
@@ -33,7 +33,6 @@ const StatisticAll = (props) => {
               })
               .then((res) => {
                 setData(res)
-                console.log(res)
               })
         })()
       : setData(value)

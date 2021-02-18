@@ -21,6 +21,7 @@ const CollapseWallet = (props) => {
             memberName={item.name}
             spent={item.spent}
             memberWallet={item.wallets}
+            avatarURL={item.avatarURL}
           />
         ))}
         {!!dataList.length > 0 && (
