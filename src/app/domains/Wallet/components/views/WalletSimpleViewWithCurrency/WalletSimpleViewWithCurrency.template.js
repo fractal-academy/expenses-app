@@ -6,7 +6,7 @@ import formatCurrency from 'format-currency'
 
 const WalletSimpleViewWithCurrency = (props) => {
   // INTERFACE
-  const { nameWallet, balance, idCurrency } = props
+  const { nameWallet, balance, currency } = props
 
   // COMPUTED PROPERTIES
   const formattedBalance = formatCurrency(balance)
@@ -28,7 +28,7 @@ const WalletSimpleViewWithCurrency = (props) => {
 
             <Col cw="auto">
               <Typography variant="caption">{formattedBalance}</Typography>
-              <CurrencySimpleView variant="caption" value={idCurrency} />
+              <CurrencySimpleView variant="caption" value={currency} />
             </Col>
           </Row>
         </Col>
@@ -40,7 +40,7 @@ const WalletSimpleViewWithCurrency = (props) => {
 WalletSimpleViewWithCurrency.propTypes = {
   nameWallet: PropTypes.string,
   balance: PropTypes.number,
-  idCurrency: PropTypes.string
+  currency: PropTypes.string
 }
 
 export default WalletSimpleViewWithCurrency
