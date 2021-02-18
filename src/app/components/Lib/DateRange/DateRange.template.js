@@ -17,8 +17,8 @@ const DateRange = (props) => {
   })
   useEffect(() => setDate((prev) => ({ ...prev, ...state.date })), [state.date])
   return (
-    <Container>
-      <Row h="center">
+    <Container width="100%">
+      <Row h="center" noGutters>
         <Col>
           <Range
             locale={locales.enGB}

@@ -40,7 +40,7 @@ const WalletSimpleViewWithCurrency = (props) => {
 WalletSimpleViewWithCurrency.propTypes = {
   nameWallet: PropTypes.string,
   balance: PropTypes.number,
-  idCurrency: PropTypes.string
+  currency: PropTypes.string
 }
 
 export default WalletSimpleViewWithCurrency

@@ -66,5 +66,6 @@ hr.MuiDivider-root{
 }
 
 .MuiCollapse-container.MuiCollapse-entered{
-    background-color:#2c2c34 !important
+    background-color:#2c2c34 !important;
+    margin: 0 auto;
 }
