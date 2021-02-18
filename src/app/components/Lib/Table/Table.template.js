@@ -124,7 +124,9 @@ const CustomTable = (props) => {
                       </TableCell>
                     )}
                     {cells.map((cell) => (
-                      <TableCell align="center">{cell}</TableCell>
+                      <TableCell key={cell} align="center">
+                        {cell}
+                      </TableCell>
                     ))}
                   </TableRow>
                 </TableHead>

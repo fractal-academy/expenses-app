@@ -52,6 +52,7 @@ const ListItemWithCollapse = (props) => {
               key={item.name.toString()}
               walletName={item.name}
               spentCurrentWallet={item.spentWallet}
+              typeCurrency={typeCurrency}
             />
           ))}
         </List>

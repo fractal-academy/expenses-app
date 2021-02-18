@@ -3,7 +3,7 @@ import { Box, Col, Row } from '@qonsoll/react-design'
 import { CurrencySimpleView } from 'domains/Currency/components/views'
 
 const MemberWallets = (props) => {
-  const { walletName, spentCurrentWallet } = props
+  const { walletName, spentCurrentWallet, typeCurrency } = props
   return (
     <>
       <ListItem>
@@ -15,7 +15,7 @@ const MemberWallets = (props) => {
             <Box display="flex">
               <ListItemText primary={spentCurrentWallet} />
               <ListItemText>
-                <CurrencySimpleView />
+                <CurrencySimpleView value={typeCurrency ? 'UAH' : 'USD'} />
               </ListItemText>
             </Box>
           </Col>
