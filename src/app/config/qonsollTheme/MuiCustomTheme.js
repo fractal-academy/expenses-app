@@ -15,12 +15,6 @@ const MuiCustomTheme = createMuiTheme({
       dark: Colors.primary.darken[3],
       contrastText: Colors.primary.accent
     },
-    // secondary: {
-    //   light: '',
-    //   main: Colors.secondary.main,
-    //   dark: '',
-    //   contrastText: ''
-    // },
     background: {
       paper: '#2c2c34'
       // default: Colors.grey[2]
@@ -70,14 +64,14 @@ const MuiCustomTheme = createMuiTheme({
       secondary: Colors.text.secondary,
       disabled: Colors.text.disabled,
       hint: Colors.text.hint
-    },
-    // divider: Colors.divider,
-    primaryAlternative: {
-      c1: '#ee786c',
-      c2: '#20bfa9',
-      c3: '#c37fbc',
-      c4: '#ffecce'
     }
+    // divider: Colors.divider,
+    // primaryAlternative: {
+    //   c1: '#ee786c',
+    //   c2: '#20bfa9',
+    //   c3: '#c37fbc',
+    //   c4: '#ffecce'
+    // }
   },
   shape: {
     borderRadius: BorderRadiuses.shape.borderRadius

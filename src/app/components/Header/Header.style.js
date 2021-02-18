@@ -7,6 +7,8 @@ export const useStyles = makeStyles((theme) => ({
     //There should be background color from colors CONST (will be able after CONST merge)
     // backgroundColor: 'white',
     position: 'sticky',
+    // top: 'auto',
+    // bottom: '0',
     marginBottom: theme.spacing(2),
     boxShadow: 'none',
     background: MuiCustomTheme.palette.background.paper
