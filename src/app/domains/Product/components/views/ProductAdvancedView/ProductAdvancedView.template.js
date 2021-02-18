@@ -111,12 +111,19 @@ const ProductAdvancedView = (props) => {
     return !status
   }
 
-  async function getProductCategory() {
-    const category = await getCollectionRef(COLLECTIONS.CATEGORIES)
-      .where('nameCategory', '==', data.category)
-      .get()
+  const getProductCategory = async () => {
+    try {
+      const category = await getCollectionRef(COLLECTIONS.CATEGORIES)
+        .where('nameCategory', '==', data.category)
+        .get()
 
-    return category
+      return category
+    } catch (error) {
+      messageDispatch({
+        type: types.OPEN_ERROR_MESSAGE,
+        payload: error
+      })
+    }
   }
   async function handleMoveProductToPurchase(wallet) {
     try {
@@ -190,8 +197,6 @@ const ProductAdvancedView = (props) => {
   const handleMoveProduct = productTypeMap[type].functionForItem
   const WrapperForItem = productTypeMap[type].wrapperForItem
   const prevFunctionForItem = productTypeMap[type].prevFunctionForItem
-
-  console.log(data)
 
   const reminderDate =
     data?.remind && moment(data?.remind.toDate()).format('Do MMM')
