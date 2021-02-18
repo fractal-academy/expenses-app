@@ -162,10 +162,7 @@ const CustomTable = (props) => {
                             />
                           </TableCell>
                           <TableCell>
-                            <Box
-                              display="flex"
-                              alignItems="center"
-                              justifyContent="center">
+                            <Box display="flex" justifyContent="center">
                               {row.price || 'None'}
                               {row.price && (
                                 <CurrencySimpleView

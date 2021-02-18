@@ -7,7 +7,7 @@ import optionsForChart from 'app/domains/Statistic/components/views/StatisticAdv
 
 const StatisticAdvancedView = (props) => {
   const { dataFromDB } = props
-  const { state, setState } = useStatisticContext()
+  const { state } = useStatisticContext()
   const [resArrCategory, productSum] = filterDataForChart(
     state.date,
     dataFromDB

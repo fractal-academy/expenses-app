@@ -9,13 +9,12 @@ import { useCollectionData } from 'react-firebase-hooks/firestore'
 import { Spinner } from 'app/components/Lib'
 import { firestore } from 'app/services'
 import { useEffect, useState } from 'react'
-import convertToDollars from '../../helpers/convertToDolars'
+import convertToDollars from 'app/domains/Statistic/helpers/convertToDolars'
 
 const StatisticAll = (props) => {
   const [value, loading] = useCollectionData(
     firestore.collection(COLLECTIONS.PURCHASES)
   )
-
   const [checked, setChecked] = useState(false)
   const [data, setData] = useState([])
 
@@ -33,7 +32,6 @@ const StatisticAll = (props) => {
               })
               .then((res) => {
                 setData(res)
-                console.log(res)
               })
         })()
       : setData(value)
@@ -64,7 +62,9 @@ const StatisticAll = (props) => {
                 <Typography>UAH</Typography>
                 <Switch
                   checked={checked}
-                  onChange={() => setChecked(!checked)}
+                  onChange={() => {
+                    setChecked(!checked)
+                  }}
                   name="currencySwitch"
                 />
                 <Typography>USD</Typography>
@@ -80,7 +80,7 @@ const StatisticAll = (props) => {
               </Col>
             </Row>
           </Container>
-          <CollapseWallet dataFromDB={data} />
+          <CollapseWallet dataFromDB={data} typeCurrency={!checked} />
         </StatisticProvider>
       )}
     </>

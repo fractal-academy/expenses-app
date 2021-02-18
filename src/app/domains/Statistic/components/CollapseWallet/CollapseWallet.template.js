@@ -8,35 +8,41 @@ import filterDataForStatisticsWallet from 'app/domains/Statistic/helpers/filterD
 import totalSpentPublicWallet from 'domains/Statistic/helpers/totalSpentPublicWallet'
 
 const CollapseWallet = (props) => {
-  const { dataFromDB } = props
+  const { dataFromDB, typeCurrency } = props
   const { state } = useStatisticContext()
+
   const dataList = filterDataForStatisticsWallet(state.date, dataFromDB)
-  const totalPublicWallet = totalSpentPublicWallet(dataFromDB)
+  const totalPublicWallet = totalSpentPublicWallet(state.date, dataFromDB)
   return (
-    <>
-      <List component="nav" aria-labelledby="nested-list-subheader">
-        {dataList.map((item) => (
-          <ListItemWithCollapse
-            key={item.name.toString()}
-            memberName={item.name}
-            spent={item.spent}
-            memberWallet={item.wallets}
-          />
-        ))}
-        <Row>
-          <Col />
-          <Col cw="auto">
-            <Box display="flex">
-              <ListItemText primary="Public wallets: &nbsp;" />
-              <ListItemText primary={totalPublicWallet} />
-              <ListItemText>
-                <CurrencySimpleView />
-              </ListItemText>
-            </Box>
-          </Col>
-        </Row>
-      </List>
-    </>
+    !!dataList.length > 0 && (
+      <>
+        <List component="nav" aria-labelledby="nested-list-subheader">
+          {dataList.map((item) => (
+            <ListItemWithCollapse
+              key={item.name.toString()}
+              memberName={item.name}
+              spent={item.spent}
+              memberWallet={item.wallets}
+              avatarURL={item.avatarURL}
+              typeCurrency={typeCurrency}
+            />
+          ))}
+
+          <Row>
+            <Col />
+            <Col cw="auto">
+              <Box display="flex">
+                <ListItemText primary="Public wallets: &nbsp;" />
+                <ListItemText primary={totalPublicWallet} />
+                <ListItemText>
+                  <CurrencySimpleView value={typeCurrency ? 'UAH' : 'USD'} />
+                </ListItemText>
+              </Box>
+            </Col>
+          </Row>
+        </List>
+      </>
+    )
   )
 }
 CollapseWallet.propTypes = {
