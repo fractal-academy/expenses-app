@@ -64,7 +64,6 @@ const StatisticAll = (props) => {
                   checked={checked}
                   onChange={() => {
                     setChecked(!checked)
-                    // setState({ switchUSD: !checked })
                   }}
                   name="currencySwitch"
                 />

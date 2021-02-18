@@ -1,7 +1,15 @@
-const totalSpentPublicWallet = (data) => {
+import rangeForFilterData from 'domains/Statistic/helpers/rangeForFilterData'
+
+const totalSpentPublicWallet = (range, data) => {
   const totalSpentArr = []
+  const [rangeStart, rangeEnd] = rangeForFilterData(
+    range.startDate,
+    range.endDate
+  )
   data?.map((item) => {
-    if (!item.privateWallet) totalSpentArr.push(+item.price)
+    let dateBuy = item.dateBuy.toDate().getTime()
+    if (rangeStart <= dateBuy && dateBuy <= rangeEnd && !item.privateWallet)
+      totalSpentArr.push(+item.price)
   })
   const totalSpentPublicWallet = totalSpentArr.reduce((a, b) => a + b, 0)
   return totalSpentPublicWallet

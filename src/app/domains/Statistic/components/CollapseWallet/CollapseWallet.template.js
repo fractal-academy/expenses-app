@@ -10,22 +10,24 @@ import totalSpentPublicWallet from 'domains/Statistic/helpers/totalSpentPublicWa
 const CollapseWallet = (props) => {
   const { dataFromDB, typeCurrency } = props
   const { state } = useStatisticContext()
+
   const dataList = filterDataForStatisticsWallet(state.date, dataFromDB)
-  const totalPublicWallet = totalSpentPublicWallet(dataFromDB)
+  const totalPublicWallet = totalSpentPublicWallet(state.date, dataFromDB)
   return (
-    <>
-      <List component="nav" aria-labelledby="nested-list-subheader">
-        {dataList.map((item) => (
-          <ListItemWithCollapse
-            key={item.name.toString()}
-            memberName={item.name}
-            spent={item.spent}
-            memberWallet={item.wallets}
-            avatarURL={item.avatarURL}
-            typeCurrency={typeCurrency}
-          />
-        ))}
-        {!!dataList.length > 0 && (
+    !!dataList.length > 0 && (
+      <>
+        <List component="nav" aria-labelledby="nested-list-subheader">
+          {dataList.map((item) => (
+            <ListItemWithCollapse
+              key={item.name.toString()}
+              memberName={item.name}
+              spent={item.spent}
+              memberWallet={item.wallets}
+              avatarURL={item.avatarURL}
+              typeCurrency={typeCurrency}
+            />
+          ))}
+
           <Row>
             <Col />
             <Col cw="auto">
@@ -38,9 +40,9 @@ const CollapseWallet = (props) => {
               </Box>
             </Col>
           </Row>
-        )}
-      </List>
-    </>
+        </List>
+      </>
+    )
   )
 }
 CollapseWallet.propTypes = {
