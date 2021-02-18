@@ -21,6 +21,7 @@ const WishAll = () => {
       <WishTable actions={session.role === 'admin'} />
       <ProductCombinedForm
         title="Create Product"
+        specificProductToAdd="Add wish"
         collectionName={COLLECTIONS.WISHES}
       />
     </>

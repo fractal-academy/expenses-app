@@ -12,7 +12,7 @@ const CollapseWallet = (props) => {
   const { state } = useStatisticContext()
   const dataList = filterDataForStatisticsWallet(state.date, dataFromDB)
   const totalPublicWallet = totalSpentPublicWallet(dataFromDB)
-  return (
+  return dataList.length > 0 ? (
     <>
       <List component="nav" aria-labelledby="nested-list-subheader">
         {dataList.map((item) => (
@@ -37,6 +37,12 @@ const CollapseWallet = (props) => {
         </Row>
       </List>
     </>
+  ) : (
+    <img
+      src="/noData.svg"
+      alt="no data"
+      style={{ width: '100%', height: '100px' }}
+    />
   )
 }
 CollapseWallet.propTypes = {
