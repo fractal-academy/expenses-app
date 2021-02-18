@@ -52,7 +52,7 @@ select-selected {
 }
 
 .MuiButtonBase-root.MuiIconButton-root>.MuiIconButton-label>.MuiSvgIcon-root{
-    color: #dbdbdd;
+    color: #feb95a;
 }
 
 .MuiSelect-icon {
@@ -60,5 +60,8 @@ select-selected {
 }
 
 .MuiSelect-root.MuiSelect-select.MuiSelect-selectMenu.MuiInputBase-input.MuiInput-input.MuiInputBase-inputMarginDense.MuiInput-inputMarginDense {
-    color: #dbdbdd;;
+    color: #dbdbdd;
+}
+hr.MuiDivider-root{
+    background-color:'white' !important
 }

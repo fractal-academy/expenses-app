@@ -22,7 +22,6 @@ const DateRange = (props) => {
       <Row h="center">
         <Col>
           <Range
-            style={{ color: 'red' }}
             locale={locales.enGB}
             editableDateInputs={true}
             onChange={(item) => {
