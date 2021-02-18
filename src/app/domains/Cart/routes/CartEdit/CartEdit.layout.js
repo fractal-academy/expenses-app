@@ -45,7 +45,9 @@ const CartEdit = (props) => {
         price: data.price,
         quantity: data.quantity,
         measures: data?.measures || '',
-        dateBuy: getTimestamp().fromDate(new Date(data.dateBuy))
+        dateBuy:
+          getTimestamp().fromDate(new Date(data.dateBuy)) ||
+          getTimestamp().now()
       })
       history.goBack()
     } catch (error) {
