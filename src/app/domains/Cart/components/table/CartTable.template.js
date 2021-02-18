@@ -12,6 +12,7 @@ import { useCollectionData } from 'react-firebase-hooks/firestore'
 import { WalletCombinedWithSelect } from 'app/domains/Wallet/components/combined/WalletCombinedWithSelect'
 import { useSession } from 'app/context/SessionContext/hooks'
 import { useMessageDispatch, types } from 'app/context/MessageContext'
+import { useLogger } from 'app/utils'
 
 const CartTable = (props) => {
   // INTERFACE
@@ -24,10 +25,17 @@ const CartTable = (props) => {
 
   const session = useSession()
   const messageDispatch = useMessageDispatch()
-  const [deleteLoading, setDeleteLoading] = useState(false)
-
+  const onMoveProductToPurchaseLogger = useLogger(
+    'Move',
+    'One or more products were bought'
+  )
+  const onDeleteProductInCartLogger = useLogger(
+    'Delete',
+    'One or more products were deleted from the Cart table'
+  )
   // STATE
   const [confirm, setConfirm] = useState(false)
+  const [deleteLoading, setDeleteLoading] = useState(false)
 
   // COMPUTED PROPERTIES
   const userName = `${session.firstName} ${session.surname}`
@@ -65,56 +73,58 @@ const CartTable = (props) => {
     return count
   }
 
-  const handleMove = async (data, selectedItems) => {
-    /*
+  const handleMove = onMoveProductToPurchaseLogger(
+    async (data, selectedItems) => {
+      /*
       sum which will be minus from wallet`s balance     */
-    let sum = 0
+      let sum = 0
 
-    selectedItems.map(async (item) => {
-      try {
-        /*
+      selectedItems.map(async (item) => {
+        try {
+          /*
         get info about product in card      */
-        const product = await getData(COLLECTIONS.CART, item)
+          const product = await getData(COLLECTIONS.CART, item)
 
-        /*
+          /*
         set data to collection purchases with additional fields (info about user)*/
-        await setData(COLLECTIONS.PURCHASES, item, {
-          ...product,
-          assign: userName,
-          avatarURL: session.avatarURL,
-          wallet: data.nameWallet,
-          privateWallet: data.privateWallet,
-          dateBuy: data.dateBuy ? data.dateBuy : getTimestamp().now()
-        })
-        /*
+          await setData(COLLECTIONS.PURCHASES, item, {
+            ...product,
+            assign: userName,
+            avatarURL: session.avatarURL,
+            wallet: data.nameWallet,
+            privateWallet: data.privateWallet,
+            dateBuy: data.dateBuy ? data.dateBuy : getTimestamp().now()
+          })
+          /*
         delete current product from collection card */
-        await deleteData(COLLECTIONS.CART, item)
-        /*
+          await deleteData(COLLECTIONS.CART, item)
+          /*
         calculate sum for product*/
-        sum += product.price
-        /*
+          sum += product.price
+          /*
         set new balance to wallet*/
-        await setData(COLLECTIONS.WALLETS, data.id, {
-          balance: data.balance - sum
-        })
-        /*
+          await setData(COLLECTIONS.WALLETS, data.id, {
+            balance: data.balance - sum
+          })
+          /*
         a message about successful operation*/
-        messageDispatch({
-          type: types.OPEN_SUCCESS_MESSAGE,
-          payload: 'Products were bought'
-        })
-      } catch (error) {
-        /*
+          messageDispatch({
+            type: types.OPEN_SUCCESS_MESSAGE,
+            payload: 'Products were bought'
+          })
+        } catch (error) {
+          /*
         if we have error, we will see a message about unsuccessful operation*/
-        messageDispatch({
-          type: types.OPEN_ERROR_MESSAGE,
-          payload: error
-        })
-      }
-    })
-  }
+          messageDispatch({
+            type: types.OPEN_ERROR_MESSAGE,
+            payload: error
+          })
+        }
+      })
+    }
+  )
 
-  const handleDelete = async (selectedItems) => {
+  const handleDelete = onDeleteProductInCartLogger(async (selectedItems) => {
     try {
       setDeleteLoading(true)
 
@@ -134,7 +144,7 @@ const CartTable = (props) => {
     }
     setConfirm(false)
     setDeleteLoading(false)
-  }
+  })
 
   // TEMPLATE
   if (loading) {

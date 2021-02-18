@@ -7,6 +7,7 @@ import PropTypes from 'prop-types'
 import { COLLECTIONS } from 'app/constants'
 import { useSession } from 'app/context/SessionContext/hooks'
 import { useMessageDispatch, types } from 'app/context/MessageContext'
+import { useLogger } from 'app/utils'
 import md5 from 'md5'
 
 /**
@@ -18,7 +19,7 @@ import md5 from 'md5'
  */
 
 const WalletCombined = (props) => {
-  // INTERFACE
+  // [INTERFACE]
   const {
     idWallet,
     nameWallet,
@@ -30,13 +31,12 @@ const WalletCombined = (props) => {
     typeModalEdit,
     children
   } = props
-  // STATE
+
+  // [STATE]
   const [open, setOpen] = useState(children && !children)
   const [loading, setLoading] = useState(false)
 
-  // CUSTOM HOOKS
-  const session = useSession()
-  const messageDispatch = useMessageDispatch()
+  // [COMPUTED_PROPERTIES]
   const data = {
     idWallet,
     nameWallet,
@@ -46,16 +46,26 @@ const WalletCombined = (props) => {
     idMember
   }
 
+  // [CUSTOM_HOOKS]
+  const session = useSession()
+  const messageDispatch = useMessageDispatch()
   const form = useForm({
     defaultValues: (data && data) || {}
   })
-
+  const onSubmitLogger = useLogger(
+    `${typeModalEdit ? 'Edit' : 'Add'}`,
+    `${
+      typeModalEdit
+        ? 'One of wallets successfully edited'
+        : 'New wallet successfully added'
+    }`
+  )
   // HELPER FUNCTIONS
   const handleClose = () => {
     setOpen(false)
   }
 
-  const onSubmit = async (data) => {
+  const onSubmit = onSubmitLogger(async (data) => {
     //it needs refactor
     data.privateWallet
       ? (data.idMember = md5(session.email))
@@ -98,7 +108,7 @@ const WalletCombined = (props) => {
     typeModalEdit ? form.reset(data) : form.reset({})
     setLoading(false)
     setOpen(false)
-  }
+  })
 
   const formSubmit = () => form.submit()
 

@@ -4,6 +4,7 @@ import { Table, Spinner } from 'app/components/Lib'
 import { useMessageDispatch, types } from 'app/context/MessageContext'
 import { firestore, deleteData, getData, setData } from 'app/services/Firestore'
 import { COLLECTIONS } from 'app/constants'
+import { useLogger } from 'app/utils'
 
 const WishTable = (props) => {
   // INTERFACE
@@ -18,8 +19,17 @@ const WishTable = (props) => {
     firestore.collection(COLLECTIONS.WISHES)
   )
   const messageDispatch = useMessageDispatch()
+  const onMoveProductToCartLogger = useLogger(
+    'Move',
+    'One or more products were approved'
+  )
+  const onDeleteProductLogger = useLogger(
+    'Delete',
+    'One or more products were deleted from Wish table'
+  )
+
   // HELPER FUNCTIONS
-  const handleMove = async (selectedItems) => {
+  const handleMove = onMoveProductToCartLogger(async (selectedItems) => {
     for (let item of selectedItems) {
       try {
         /*
@@ -44,8 +54,8 @@ const WishTable = (props) => {
         })
       }
     }
-  }
-  const handleDelete = async (selectedItems) => {
+  })
+  const handleDelete = onDeleteProductLogger(async (selectedItems) => {
     setDeleteLoading(true)
     try {
       for (let item of selectedItems) {
@@ -64,7 +74,7 @@ const WishTable = (props) => {
     }
     setConfirm(false)
     setDeleteLoading(false)
-  }
+  })
 
   //TEMPLATE
   if (loading) {

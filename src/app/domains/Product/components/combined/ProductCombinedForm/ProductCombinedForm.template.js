@@ -7,18 +7,33 @@ import { useForm } from 'mui-form-generator-fractal-band-2'
 import { useSession } from 'app/context/SessionContext/hooks'
 import { ProductSimpleForm } from 'app/domains/Product/components/forms/ProductSimpleForm'
 import { RegularProductSimpleForm } from 'app/domains/RegularProduct/components/forms/RegularProductSimpleForm'
+import { useLogger } from 'app/utils'
 
 const ProductCombinedForm = (props) => {
+  // [INTERFACES]
   const { title, collectionName, specificProductToAdd } = props
 
-  const session = useSession()
-
+  // [STATE]
   const [open, setOpen] = useState(false)
   const [switchState, setSwitchState] = useState(true)
   const [loading, setLoading] = useState(false)
 
+  // [ADITIONAL_HOOKS]
+  const user = useSession()
   const form = useForm()
-  const onAddProduct = async (data) => {
+
+  // [CUSTOM_HOOKS]
+  const onAddProductLogger = useLogger(
+    'Create',
+    'New product was added to wish table'
+  )
+  const onAddRegularProductLogger = useLogger(
+    'Add',
+    'Regular product was added to wish table'
+  )
+
+  // [HELPER_FUNCTIONS]
+  const onAddProduct = onAddProductLogger(async (data) => {
     try {
       setLoading(true)
       const id = firestore.collection(collectionName).doc().id
@@ -26,7 +41,7 @@ const ProductCombinedForm = (props) => {
         id: id,
         name: data.nameProduct,
         description: data.description,
-        creator: session.id
+        creator: user.id
       })
       form.reset({})
     } catch (error) {
@@ -35,8 +50,8 @@ const ProductCombinedForm = (props) => {
     setLoading(false)
     setSwitchState(true)
     setOpen(false)
-  }
-  const onAddRegularProduct = async (data) => {
+  })
+  const onAddRegularProduct = onAddRegularProductLogger(async (data) => {
     try {
       setLoading(true)
       const id = firestore.collection(collectionName).doc().id
@@ -52,16 +67,15 @@ const ProductCombinedForm = (props) => {
     setLoading(false)
     setSwitchState(true)
     setOpen(false)
-  }
-
+  })
   const submitForm = () => form.submit()
-
   const handleClickOpen = () => setOpen(true)
   const handleClose = () => {
     setOpen(false)
     setSwitchState(true)
   }
 
+  //TEMPLATE
   return (
     <>
       <FabButton onClick={handleClickOpen} />

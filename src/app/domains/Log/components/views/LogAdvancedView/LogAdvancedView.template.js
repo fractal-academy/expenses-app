@@ -16,6 +16,8 @@ const LogAdvancedView = (props) => {
     actionDescription
   } = props
 
+  const formatedDate = actionDateTime.toDate()
+
   const [detailed, setDetailed] = useState(false)
   return (
     <>
@@ -45,7 +47,7 @@ const LogAdvancedView = (props) => {
             <Col>
               <Row h="center">
                 <Typography>
-                  {moment(actionDateTime).format('H:mm, DD.MM.YYYY')}
+                  {moment(formatedDate).format('H:mm, DD.MM.YYYY')}
                 </Typography>
               </Row>
               <Row h="center">

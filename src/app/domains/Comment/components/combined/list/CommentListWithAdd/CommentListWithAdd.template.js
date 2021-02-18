@@ -13,6 +13,7 @@ import { CommentSimpleForm } from 'domains/Comment/components/forms'
 import { CommentList } from 'domains/Comment/components/list'
 import { Spinner } from 'components/Lib'
 import { COLLECTIONS } from 'app/constants'
+import { useLogger } from 'app/utils'
 
 /**
  * @info CommentListWithAdd (14 Feb 2021) // CREATION DATE
@@ -23,6 +24,9 @@ import { COLLECTIONS } from 'app/constants'
  */
 
 const CommentListWithAdd = () => {
+  // STATE
+  const [comments, setComments] = useState()
+
   // [ADDITIONAL_HOOKS]
   const { id } = useParams()
   const session = useSession()
@@ -32,13 +36,13 @@ const CommentListWithAdd = () => {
       .orderBy('date', 'desc'),
     { idField: 'id' }
   )
-
-  // [COMPONENT_STATE_HOOKS]
   const inputRef = useRef()
-  const [comments, setComments] = useState()
+
+  //CUSTOM HOOKS
+  const addCommentLogger = useLogger('Add', 'New  comment was added')
 
   // [HELPER_FUNCTIONS]
-  const addComment = (e) => {
+  const addComment = addCommentLogger((e) => {
     e.preventDefault()
     if (inputRef.current.value) {
       addData(COLLECTIONS.COMMENTS, {
@@ -49,7 +53,7 @@ const CommentListWithAdd = () => {
       })
       inputRef.current.value = ''
     }
-  }
+  })
 
   // [USE_EFFECTS]
   useEffect(() => {

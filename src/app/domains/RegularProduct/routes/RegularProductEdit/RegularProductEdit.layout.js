@@ -11,6 +11,7 @@ import { COLLECTIONS } from 'app/constants'
 import { Spinner } from 'app/components/Lib'
 import React, { useEffect, useState } from 'react'
 import { useMessageDispatch, types } from 'app/context/MessageContext'
+import { useLogger } from 'app/utils'
 
 const RegularProductEdit = () => {
   const history = useHistory()
@@ -22,6 +23,13 @@ const RegularProductEdit = () => {
   const [dataForDefaultValue, setDataForDefaultValue] = useState()
   const messageDispatch = useMessageDispatch()
 
+  // [CUSTOM_HOOKS]
+  const onEditRegularProductLogger = useLogger(
+    'Edit',
+    'One of regular products was edited'
+  )
+
+  // [USE_EFFECTS]
   useEffect(() => {
     const fetchData = async () => {
       const dataUsers =
@@ -38,7 +46,8 @@ const RegularProductEdit = () => {
     }
     value && fetchData()
   }, [value])
-  const onEditProduct = async (data) => {
+
+  const onEditProduct = onEditRegularProductLogger(async (data) => {
     try {
       await setData(COLLECTIONS.REGULAR_PRODUCTS, id, {
         id: id,
@@ -60,7 +69,7 @@ const RegularProductEdit = () => {
     } catch (error) {
       console.log(error)
     }
-  }
+  })
   if (loading || !dataForDefaultValue) {
     return <Spinner />
   }

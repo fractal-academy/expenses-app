@@ -11,15 +11,26 @@ import { useHistory, useParams } from 'react-router-dom'
 import { useDocumentData } from 'react-firebase-hooks/firestore'
 import { ProductAdvancedForm } from 'domains/Product/components/forms/ProductAdvancedForm'
 import React, { useEffect, useState } from 'react'
+import { useLogger } from 'app/utils'
 
 const CartEdit = (props) => {
+  //STATE
+  const [loading, setLoading] = useState(true)
+  const [dataForDefaultValue, setDataForDefaultValue] = useState()
+  // [ADITIONAL HOOKS]
   const history = useHistory()
   const { id } = useParams()
   const [value] = useDocumentData(
     firestore.collection(COLLECTIONS.CART).doc(id)
   )
-  const [loading, setLoading] = useState(true)
-  const [dataForDefaultValue, setDataForDefaultValue] = useState()
+
+  //CUSTOM HOOKS
+  const onEditProductLogger = useLogger(
+    'Edit',
+    'One of the products was edited'
+  )
+
+  //USE EFFECTS
   useEffect(() => {
     const fetchData = async () => {
       const dataUsers =
@@ -34,7 +45,8 @@ const CartEdit = (props) => {
     value && fetchData()
   }, [value])
 
-  const onEditProduct = async (data) => {
+  //HELPER FUNCTIONS
+  const onEditProduct = onEditProductLogger(async (data) => {
     try {
       await setData(COLLECTIONS.CART, id, {
         id: id,
@@ -59,12 +71,13 @@ const CartEdit = (props) => {
     } catch (error) {
       console.log(error)
     }
-  }
+  })
+  const onCancel = () => history.goBack()
 
+  //TEMPLATE
   if (loading || !dataForDefaultValue) {
     return <Spinner />
   }
-  const onCancel = () => history.goBack()
 
   return (
     <ProductAdvancedForm

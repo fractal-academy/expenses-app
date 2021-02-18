@@ -1,13 +1,16 @@
 import { MenuItem } from '@material-ui/core'
 import { Select } from 'app/components/Lib'
 import { useStyles } from './ColorSingleSelect.styles'
-import { COLORS } from 'app/constants'
+import { COLOR_VALUE } from 'app/constants/colors'
 
 const ColorSingleSelect = (props) => {
-  const classes = useStyles()
+  // [INTERFACES]
   const { value, ...rest } = props
-  const { COLOR_VALUE } = COLORS
 
+  // [ADDITIONAL_HOOKS]
+  const classes = useStyles()
+
+  //TEMPLATE
   return (
     <Select
       className={classes.selectColor}

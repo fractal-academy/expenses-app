@@ -13,10 +13,16 @@ import PropTypes from 'prop-types'
 import { useHistory, useParams } from 'react-router-dom'
 import { useDocumentData } from 'react-firebase-hooks/firestore'
 import { ProductAdvancedForm } from 'domains/Product/components/forms/ProductAdvancedForm'
+import { useLogger } from 'app/utils'
 
 const WishEdit = (props) => {
   // [INTERFACES]
   const { buttonProps, collectionName, pushTo } = props
+
+  // [COMPONENT_STATE_HOOKS]
+  const [loading, setLoading] = useState(true)
+  const [editLoading, setEditLoading] = useState(false)
+  const [dataForDefaultValue, setDataForDefaultValue] = useState()
 
   // [ADDITIONAL_HOOKS]
   const history = useHistory()
@@ -25,13 +31,11 @@ const WishEdit = (props) => {
     firestore.collection(collectionName || COLLECTIONS.WISHES).doc(id)
   )
 
-  // [COMPONENT_STATE_HOOKS]
-  const [loading, setLoading] = useState(true)
-  const [editLoading, setEditLoading] = useState(false)
-  const [dataForDefaultValue, setDataForDefaultValue] = useState()
+  //[CUSTOM_HOOKS]
+  const onEditProductLogger = useLogger('Edit', 'One of products was edited')
 
   // [HELPER_FUNCTIONS]
-  const onEditProduct = async (data) => {
+  const onEditProduct = onEditProductLogger(async (data) => {
     setEditLoading(true)
     try {
       await setData(COLLECTIONS.WISHES, id, {
@@ -55,7 +59,7 @@ const WishEdit = (props) => {
     }
     setEditLoading(false)
     onCancel()
-  }
+  })
 
   const onCancel = () => {
     if (pushTo) {

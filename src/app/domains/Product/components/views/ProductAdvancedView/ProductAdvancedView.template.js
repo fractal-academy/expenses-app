@@ -22,6 +22,7 @@ import { CategorySimpleView } from 'domains/Category/components/views'
 import { CurrencySimpleView } from 'domains/Currency/components/views'
 import { CommentListWithAdd } from 'app/domains/Comment/components/combined/list'
 import { WalletCombinedWithSelect } from 'app/domains/Wallet/components/combined'
+import { useLogger } from 'app/utils'
 
 const ProductAdvancedView = (props) => {
   const productTypeMap = {
@@ -67,8 +68,12 @@ const ProductAdvancedView = (props) => {
       wrapperForItem: Box
     }
   }
-
+  // [INTERFACES]
   const { type, data, id, setStatusMessage, dropdownItem } = props
+
+  // [COMPONENT_STATE_HOOKS]
+  const [confirm, setConfirm] = useState(false)
+  const [deleteLoading, setDeleteLoading] = useState(false)
 
   // [ADDITIONAL_HOOKS]
   const user = useSession()
@@ -76,12 +81,21 @@ const ProductAdvancedView = (props) => {
   const history = useHistory()
   const messageDispatch = useMessageDispatch()
 
-  // [COMPONENT_STATE_HOOKS]
-  const [confirm, setConfirm] = useState(false)
-  const [deleteLoading, setDeleteLoading] = useState(false)
-
+  // [CUSTOM_HOOKS]
+  const onDeleteProductLogger = useLogger(
+    'Delete',
+    'One of products was deleted'
+  )
+  // const onMoveProductToPurchaseLogger = useLogger(
+  //   'Edit',
+  //   'One of products was moved to Purchase List'
+  // )
+  // const onMoveProductToCartLogger = useLogger(
+  //   'Edit',
+  //   'One of products was moved to Cart'
+  // )
   // [HELPER_FUNCTIONS]
-  const handleDelete = async () => {
+  const handleDelete = onDeleteProductLogger(async () => {
     try {
       setDeleteLoading(true)
       await deleteData(productCollection, id)
@@ -97,7 +111,7 @@ const ProductAdvancedView = (props) => {
       })
     }
     setDeleteLoading(false)
-  }
+  })
 
   function onCheckClick() {
     let status = true
@@ -142,7 +156,7 @@ const ProductAdvancedView = (props) => {
       })
 
       /*
-        set new balance to wallet*/
+       set new balance to wallet*/
       await setData(COLLECTIONS.WALLETS, wallet.id, {
         balance: wallet.balance - product.price
       })
@@ -203,6 +217,7 @@ const ProductAdvancedView = (props) => {
   const purchasedDate =
     data?.dateBuy && moment(data?.dateBuy.toDate()).format('Do MMM YYYY')
 
+  // [TEMPLATE]
   const DropdownList = (
     <Container>
       {user.role !== 'user' && typeof firstElement !== 'string' ? (

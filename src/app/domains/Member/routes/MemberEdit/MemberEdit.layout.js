@@ -8,6 +8,7 @@ import { useSession } from 'app/context/SessionContext'
 import { MemberAdvancedForm } from 'domains/Member/components/forms'
 import { Spinner } from 'app/components/Lib'
 import { COLLECTIONS } from 'app/constants'
+import { useLogger } from 'app/utils'
 
 /**
  * @info MemberEdit (18 Jan 2021) // CREATION DATE
@@ -30,6 +31,12 @@ const MemberEdit = () => {
     getCollectionRef(COLLECTIONS.USERS).doc(id)
   )
 
+  //[CUSTOM_HOOKS]
+  const onMemberEditLogger = useLogger(
+    'Edit',
+    `${userData?.firstName} ${userData?.surname} data has been edited`
+  )
+
   // [COMPONENT_STATE_HOOKS]
   const [hide, setHide] = useState()
   const [loading, setLoading] = useState(false)
@@ -37,7 +44,7 @@ const MemberEdit = () => {
   const [pageLoading, setPageLoading] = useState(true)
 
   // [HELPER_FUNCTIONS]
-  const onSubmit = async (data) => {
+  const onSubmit = onMemberEditLogger(async (data) => {
     setLoading(true)
     try {
       //delete avatar field if it undefined
@@ -50,7 +57,7 @@ const MemberEdit = () => {
     } catch (e) {
       console.log(e)
     }
-  }
+  })
   const onCancel = async (data) => {
     const { avatarURL } = data
     try {

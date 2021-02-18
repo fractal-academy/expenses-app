@@ -7,6 +7,7 @@ import { CategoryForm } from 'domains/Category/components/form'
 import PropTypes from 'prop-types'
 import { addData, setData } from 'app/services/Firestore'
 import { COLLECTIONS } from 'app/constants'
+import { useLogger } from 'app/utils'
 
 const CategoryCombined = (props) => {
   // INTERFACE
@@ -17,33 +18,35 @@ const CategoryCombined = (props) => {
   const [openSnackbarSuccess, setOpenSnackbarSuccess] = useState(false)
   const [openSnackbarError, setOpenSnackbarError] = useState(false)
 
-  // CUSTOM HOOKS
+  // [ADDITIONAL_HOOKS]
   const form = useForm({})
 
+  // CUSTOM HOOKS
+  const onAddCategoryLogger = useLogger('Add', 'New category was added')
+  const onEditCategoryLogger = useLogger('Edit', 'One of categories was edited')
+
   // HELPER FUNCTIONS
-  const onAddCategory = (data) => {
+  const onAddCategory = onAddCategoryLogger((data) => {
     addData(COLLECTIONS.CATEGORIES, {
       nameCategory: data.nameCategory,
       colorCategory: data.color,
       spent: 0,
       budget: Number(data.budgetLimit)
     }).then(() => setOpen(false))
-  }
+  })
 
-  const onEditCategory = (data) => {
+  const onEditCategory = onEditCategoryLogger((data) => {
     setData(COLLECTIONS.CATEGORIES, categoryId, {
       colorCategory: data.color,
       budget: Number(data.budgetLimit)
     }).then(() => setOpen(false))
-  }
-
+  })
   const submitForm = () => {
     form.submit()
   }
   const handleClickOpen = () => {
     setOpen(true)
   }
-
   const handleClose = () => {
     setOpenSnackbarSuccess(false)
     setOpenSnackbarError(false)

@@ -5,6 +5,7 @@ import { RegularProductAdvancedForm } from 'app/domains/RegularProduct/component
 import { COLLECTIONS } from 'app/constants'
 import { firestore, setData, getTimestamp } from 'app/services/Firestore'
 import PropTypes from 'prop-types'
+import { useLogger } from 'app/utils'
 
 const RegularProductCombined = (props) => {
   const { title, typeModalEdit } = props
@@ -12,8 +13,12 @@ const RegularProductCombined = (props) => {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const form = useForm({})
+  const onAddRegularProductLogger = useLogger(
+    'Add',
+    'New regular product was created'
+  )
 
-  const onAddRegularProduct = async (data) => {
+  const onAddRegularProduct = onAddRegularProductLogger(async (data) => {
     try {
       setLoading(true)
       const id = firestore.collection(COLLECTIONS.REGULAR_PRODUCTS).doc().id
@@ -37,7 +42,7 @@ const RegularProductCombined = (props) => {
     }
     setLoading(false)
     setOpen(false)
-  }
+  })
   const submitForm = () => form.submit()
 
   const handleClickOpen = () => {
