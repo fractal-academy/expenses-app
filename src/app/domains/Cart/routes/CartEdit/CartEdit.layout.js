@@ -30,7 +30,6 @@ const CartEdit = (props) => {
         dateBuy: value.dateBuy
           ? value.dateBuy.toDate().getTime()
           : new Date().getTime()
-        //getTimestamp().now().toDate().getTime()
       }
       if (dataUsers) {
         data.assign = { ...dataUsers, id: value.assign }
