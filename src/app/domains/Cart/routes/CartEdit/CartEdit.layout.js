@@ -20,13 +20,17 @@ const CartEdit = (props) => {
   )
   const [loading, setLoading] = useState(true)
   const [dataForDefaultValue, setDataForDefaultValue] = useState()
+
   useEffect(() => {
     const fetchData = async () => {
       const dataUsers =
         value.assign && (await getData(COLLECTIONS.USERS, value.assign))
       const data = {
         ...value,
-        dateBuy: value.dateBuy && value.dateBuy.toDate().getTime()
+        dateBuy: value.dateBuy
+          ? value.dateBuy.toDate().getTime()
+          : new Date().getTime()
+        //getTimestamp().now().toDate().getTime()
       }
       if (dataUsers) {
         data.assign = { ...dataUsers, id: value.assign }
@@ -34,6 +38,7 @@ const CartEdit = (props) => {
       setDataForDefaultValue(data)
       setLoading(false)
     }
+
     value && fetchData()
   }, [value])
 
@@ -68,7 +73,7 @@ const CartEdit = (props) => {
     return <Spinner />
   }
   const onCancel = () => history.goBack()
-
+  console.log('dataForDefaultValue', dataForDefaultValue)
   return (
     <ProductAdvancedForm
       formData={dataForDefaultValue}
