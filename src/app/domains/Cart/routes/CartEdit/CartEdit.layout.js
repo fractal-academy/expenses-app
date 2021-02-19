@@ -72,7 +72,6 @@ const CartEdit = (props) => {
     return <Spinner />
   }
   const onCancel = () => history.goBack()
-  console.log('dataForDefaultValue', dataForDefaultValue)
   return (
     <ProductAdvancedForm
       formData={dataForDefaultValue}
