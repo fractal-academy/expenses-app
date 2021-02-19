@@ -13,7 +13,7 @@ const MemberWallets = (props) => {
           </Col>
           <Col cw="auto">
             <Box display="flex">
-              <ListItemText primary={spentCurrentWallet} />
+              <ListItemText primary={spentCurrentWallet.toFixed(2)} />
               <ListItemText>
                 <CurrencySimpleView value={typeCurrency ? 'UAH' : 'USD'} />
               </ListItemText>

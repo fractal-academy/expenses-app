@@ -17,6 +17,7 @@ const StatisticAll = (props) => {
   )
   const [checked, setChecked] = useState(false)
   const [data, setData] = useState([])
+  const [load, setLoad] = useState(false)
 
   useEffect(() => {
     checked
@@ -58,7 +59,7 @@ const StatisticAll = (props) => {
           <Row>
             <Col />
             <Col cw="auto">
-              <Box display="flex">
+              <Box display="flex" alignItems="baseline">
                 <Typography>UAH</Typography>
                 <Switch
                   checked={checked}

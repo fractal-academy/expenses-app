@@ -18,7 +18,7 @@ const CollapseDateRangeTemplate = () => {
       aria-labelledby="nested-list-subheader"
       className={classes.root}>
       <ListItem button onClick={handleClick}>
-        <ListItemText primary="Filters" />
+        <ListItemText primary="Calendar" />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
