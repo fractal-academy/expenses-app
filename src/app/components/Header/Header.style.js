@@ -1,15 +1,11 @@
 import { makeStyles } from '@material-ui/core/styles'
 import MuiCustomTheme from '../../config/qonsollTheme/MuiCustomTheme'
-import Colors from '../../config/qonsollTheme/core/colors'
+// import Colors from '../../config/qonsollTheme/MuiCustomTheme
 
 export const useStyles = makeStyles((theme) => ({
   appBar: {
-    //There should be background color from colors CONST (will be able after CONST merge)
-    // backgroundColor: 'white',
     position: 'sticky',
-    // top: 'auto',
-    // bottom: '0',
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(1),
     boxShadow: 'none',
     background: MuiCustomTheme.palette.background.paper
   },
