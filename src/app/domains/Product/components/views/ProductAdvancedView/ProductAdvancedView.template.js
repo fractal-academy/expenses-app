@@ -25,6 +25,20 @@ import { WalletCombinedWithSelect } from 'app/domains/Wallet/components/combined
 import { useLogger } from 'app/hooks'
 
 const ProductAdvancedView = (props) => {
+  // [CUSTOM_HOOKS]
+  const onDeleteProductLogger = useLogger(
+    'Delete',
+    'One of products was deleted'
+  )
+  const onMoveProductToPurchaseLogger = useLogger(
+    'Move',
+    'One of products was moved to Purchase List'
+  )
+  const onMoveProductToCartLogger = useLogger(
+    'Move',
+    'One of products was moved to Cart'
+  )
+
   const productTypeMap = {
     cart: {
       item: 'Buy',
@@ -34,7 +48,9 @@ const ProductAdvancedView = (props) => {
       collection: 'cart',
       displayElements: true,
       wrapperForItem: WalletCombinedWithSelect,
-      functionForItem: handleMoveProductToPurchase,
+      functionForItem: onMoveProductToPurchaseLogger(
+        handleMoveProductToPurchase
+      ),
       prevFunctionForItem: onCheckClick
     },
     wish: {
@@ -45,7 +61,7 @@ const ProductAdvancedView = (props) => {
       collection: 'wishes',
       displayElements: true,
       wrapperForItem: Box,
-      functionForItem: handleMoveProductToCart
+      functionForItem: onMoveProductToCartLogger(handleMoveProductToCart)
     },
 
     product: {
@@ -81,21 +97,8 @@ const ProductAdvancedView = (props) => {
   const history = useHistory()
   const messageDispatch = useMessageDispatch()
 
-  // [CUSTOM_HOOKS]
-  const onDeleteProductLogger = useLogger(
-    'Delete',
-    'One of products was deleted'
-  )
-  // const onMoveProductToPurchaseLogger = useLogger(
-  //   'Edit',
-  //   'One of products was moved to Purchase List'
-  // )
-  // const onMoveProductToCartLogger = useLogger(
-  //   'Edit',
-  //   'One of products was moved to Cart'
-  // )
   // [HELPER_FUNCTIONS]
-  const handleDelete = onDeleteProductLogger(async () => {
+  const handleDelete = async () => {
     try {
       setDeleteLoading(true)
       await deleteData(productCollection, id)
@@ -111,7 +114,7 @@ const ProductAdvancedView = (props) => {
       })
     }
     setDeleteLoading(false)
-  })
+  }
 
   function onCheckClick() {
     let status = true
@@ -139,6 +142,7 @@ const ProductAdvancedView = (props) => {
       })
     }
   }
+
   async function handleMoveProductToPurchase(wallet) {
     try {
       /*
@@ -201,6 +205,7 @@ const ProductAdvancedView = (props) => {
     }
   }
 
+  const handleDeleteProduct = onDeleteProductLogger(handleDelete)
   // [COMPUTED_PROPERTIES]
   const firstElement = dropdownItem || productTypeMap[type].item
   const editPages = productTypeMap[type].editRoute(id)
@@ -226,9 +231,7 @@ const ProductAdvancedView = (props) => {
         <WrapperForItem
           setStatusMessage={setStatusMessage}
           onSubmitFunction={handleMoveProduct}
-          onClick={
-            prevFunctionForItem ? prevFunctionForItem : handleMoveProduct
-          }>
+          onClick={prevFunctionForItem || handleMoveProduct}>
           {user.role === 'admin' && (
             <DropdownItem divider>
               <Typography>{firstElement}</Typography>
@@ -245,7 +248,7 @@ const ProductAdvancedView = (props) => {
         open={confirm}
         setOpen={setConfirm}
         loading={deleteLoading}
-        onConfirm={handleDelete}>
+        onConfirm={handleDeleteProduct}>
         <DropdownItem danger>
           <Typography>Delete</Typography>
         </DropdownItem>
