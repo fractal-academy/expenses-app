@@ -42,10 +42,7 @@ const RegularProductEdit = () => {
     value && fetchData()
   }, [value])
 
-  console.log('value', value)
-
   const onEditProduct = async (data) => {
-    console.log('regular prod', data)
     try {
       await setData(COLLECTIONS.REGULAR_PRODUCTS, id, {
         id: id,
