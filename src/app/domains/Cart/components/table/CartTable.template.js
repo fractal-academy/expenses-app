@@ -91,12 +91,8 @@ const CartTable = (props) => {
         await deleteData(COLLECTIONS.CART, item)
         /*
         calculate sum for product*/
-        sum += product.price
-        /*
-        set new balance to wallet*/
-        await setData(COLLECTIONS.WALLETS, data.id, {
-          balance: data.balance - sum
-        })
+        sum = sum + +product.price
+
         /*
         a message about successful operation*/
         messageDispatch({
@@ -110,7 +106,11 @@ const CartTable = (props) => {
           type: types.OPEN_ERROR_MESSAGE,
           payload: error
         })
-      }
+      } /*
+        set new balance to wallet*/
+      await setData(COLLECTIONS.WALLETS, data.id, {
+        balance: +data.balance - sum
+      })
     })
   }
 
