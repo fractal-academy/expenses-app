@@ -101,7 +101,7 @@ const CartTable = (props) => {
           /*
         calculate sum for product*/
           sum += product.price
-        
+
           /*
         a message about successful operation*/
           messageDispatch({
@@ -111,17 +111,18 @@ const CartTable = (props) => {
         } catch (error) {
           /*
         if we have error, we will see a message about unsuccessful operation*/
-        messageDispatch({
-          type: types.OPEN_ERROR_MESSAGE,
-          payload: error
-        })
-      } /*
+          messageDispatch({
+            type: types.OPEN_ERROR_MESSAGE,
+            payload: error
+          })
+        } /*
         set new balance to wallet*/
-      await setData(COLLECTIONS.WALLETS, data.id, {
-        balance: +data.balance - sum
+        await setData(COLLECTIONS.WALLETS, data.id, {
+          balance: +data.balance - sum
+        })
       })
-    })
-  }
+    }
+  )
 
   const handleDelete = onDeleteProductInCartLogger(async (selectedItems) => {
     try {
