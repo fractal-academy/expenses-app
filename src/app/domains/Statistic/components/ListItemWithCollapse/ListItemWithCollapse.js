@@ -33,7 +33,7 @@ const ListItemWithCollapse = (props) => {
           <Col>
             <Row h="right">
               <Col cw="auto">
-                <Box display="flex" alignItems="right">
+                <Box display="flex">
                   <ListItemText primary={spent.toFixed(2)} />
                   <Box ml={2}>
                     <ListItemText>

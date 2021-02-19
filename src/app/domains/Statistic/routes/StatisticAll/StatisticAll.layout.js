@@ -17,7 +17,6 @@ const StatisticAll = (props) => {
   )
   const [checked, setChecked] = useState(false)
   const [data, setData] = useState([])
-  const [load, setLoad] = useState(false)
 
   useEffect(() => {
     checked
@@ -38,7 +37,7 @@ const StatisticAll = (props) => {
       : setData(value)
   }, [value, checked])
 
-  if (loading) {
+  if (loading && !load) {
     return <Spinner />
   }
   return (
