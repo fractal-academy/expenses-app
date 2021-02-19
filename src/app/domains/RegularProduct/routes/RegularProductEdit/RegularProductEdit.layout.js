@@ -26,7 +26,10 @@ const RegularProductEdit = () => {
     const fetchData = async () => {
       const dataUsers =
         value.assign && (await getData(COLLECTIONS.USERS, value.assign))
-      const data = { ...value, remind: value.remind.toDate().getTime() }
+      const data = {
+        ...value,
+        remind: value.remind && value.remind.toDate().getTime()
+      }
       if (dataUsers) {
         data.assign = {
           ...dataUsers,
@@ -38,7 +41,11 @@ const RegularProductEdit = () => {
     }
     value && fetchData()
   }, [value])
+
+  console.log('value', value)
+
   const onEditProduct = async (data) => {
+    console.log('regular prod', data)
     try {
       await setData(COLLECTIONS.REGULAR_PRODUCTS, id, {
         id: id,
@@ -50,7 +57,9 @@ const RegularProductEdit = () => {
         price: data.price,
         quantity: data.quantity,
         measures: data?.measures || '',
-        remind: data.remind || null
+        remind: data.remind
+          ? getTimestamp().fromDate(new Date(data.remind))
+          : null
       })
       messageDispatch({
         type: types.OPEN_SUCCESS_MESSAGE,
@@ -64,6 +73,7 @@ const RegularProductEdit = () => {
   if (loading || !dataForDefaultValue) {
     return <Spinner />
   }
+
   const onCancel = () => history.goBack()
   return (
     <ProductAdvancedForm
