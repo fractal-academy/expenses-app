@@ -37,7 +37,7 @@ const StatisticAll = (props) => {
       : setData(value)
   }, [value, checked])
 
-  if (loading && !load) {
+  if (loading) {
     return <Spinner />
   }
   return (
