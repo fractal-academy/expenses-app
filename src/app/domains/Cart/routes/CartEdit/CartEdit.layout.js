@@ -24,7 +24,10 @@ const CartEdit = (props) => {
     const fetchData = async () => {
       const dataUsers =
         value.assign && (await getData(COLLECTIONS.USERS, value.assign))
-      const data = value
+      const data = {
+        ...value,
+        dateBuy: value.dateBuy && value.dateBuy.toDate().getTime()
+      }
       if (dataUsers) {
         data.assign = { ...dataUsers, id: value.assign }
       }
@@ -46,9 +49,9 @@ const CartEdit = (props) => {
         price: data.price,
         quantity: data.quantity,
         measures: data?.measures || '',
-        dateBuy:
-          getTimestamp().fromDate(new Date(data.dateBuy)) ||
-          getTimestamp().now()
+        dateBuy: data.dateBuy
+          ? getTimestamp().fromDate(new Date(data.dateBuy))
+          : getTimestamp().fromDate(new Date())
       })
       addData(COLLECTIONS.NOTIFICATIONS, {
         date: getTimestamp().now(),
