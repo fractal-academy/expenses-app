@@ -6,12 +6,14 @@ import {
   getData,
   setData,
   firestore,
-  getTimestamp
+  getTimestamp,
+  getCollectionRef
 } from 'app/services/Firestore'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 import { WalletCombinedWithSelect } from 'app/domains/Wallet/components/combined/WalletCombinedWithSelect'
 import { useSession } from 'app/context/SessionContext/hooks'
 import { useMessageDispatch, types } from 'app/context/MessageContext'
+import { toNumber } from 'lodash'
 
 const CartTable = (props) => {
   // INTERFACE
@@ -65,6 +67,53 @@ const CartTable = (props) => {
     return count
   }
 
+  const updateCategories = async (selectedProducts) => {
+    const productsPromises = selectedProducts.map((productId) =>
+      getData(COLLECTIONS.CART, productId)
+    )
+    const products = await Promise.allSettled(
+      productsPromises
+    ).then((responce) => responce.map(({ value }) => value))
+
+    const categoriesPromises = products.map(async (product) => {
+      const snapshots = await getCollectionRef(COLLECTIONS.CATEGORIES)
+        .where('nameCategory', '==', product.category)
+        .get()
+
+      return !snapshots.empty
+        ? snapshots.docs.map((doc) => ({ id: doc.id, ...doc.data() }))[0]
+        : null
+    })
+
+    const categories = await Promise.allSettled(
+      categoriesPromises
+    ).then((responce) => responce.map(({ value }) => value))
+
+    let categoriesMap = Object.fromEntries(
+      categories.map((category) => [category.nameCategory, category])
+    )
+
+    products.forEach((product) => {
+      const previousPrice = categoriesMap[product.category].spent
+      const newPrice = previousPrice + toNumber(product.price)
+
+      categoriesMap = {
+        ...categoriesMap,
+        [product.category]: {
+          ...categoriesMap[product.category],
+          spent: newPrice
+        }
+      }
+    })
+
+    Object.keys(categoriesMap).forEach((key) => {
+      const categoryData = categoriesMap[key]
+      const { id, spent } = categoryData
+
+      setData(COLLECTIONS.CATEGORIES, id, { spent })
+    })
+  }
+
   const handleMove = async (data, selectedItems) => {
     /*
       sum which will be minus from wallet`s balance     */
@@ -76,8 +125,7 @@ const CartTable = (props) => {
         get info about product in card      */
         const product = await getData(COLLECTIONS.CART, item)
 
-        /*
-        set data to collection purchases with additional fields (info about user)*/
+        /*set data to collection purchases with additional fields (info about user)*/
         await setData(COLLECTIONS.PURCHASES, item, {
           ...product,
           assign: userName,
@@ -92,7 +140,6 @@ const CartTable = (props) => {
         /*
         calculate sum for product*/
         sum = sum + +product.price
-
         /*
         a message about successful operation*/
         messageDispatch({
@@ -112,6 +159,14 @@ const CartTable = (props) => {
         balance: +data.balance - sum
       })
     })
+    try {
+      updateCategories(selectedItems)
+    } catch (error) {
+      messageDispatch({
+        type: types.OPEN_ERROR_MESSAGE,
+        payload: error
+      })
+    }
   }
 
   const handleDelete = async (selectedItems) => {
