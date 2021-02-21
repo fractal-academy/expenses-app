@@ -2,6 +2,7 @@ import { createMuiTheme } from '@material-ui/core'
 import Colors from './core/colors'
 import BorderRadiuses from './core/borderRadiuses.js'
 import { fontFamilies, fontSizes, fontWeights } from './core'
+import { formConfigurator } from 'mui-form-generator-fractal-band-2'
 
 const MuiCustomTheme = createMuiTheme({
   palette: {
@@ -187,7 +188,31 @@ const MuiCustomTheme = createMuiTheme({
       textTransform: 'uppercase',
       color: Colors.text.primary
     }
+  },
+  overrides: {
+    MuiInput: {
+      root: {
+        color: Colors.text.primary
+      },
+      underline: {
+        '&:before': {
+          borderBottom: `1px solid ${Colors.text.primary}`
+        }
+      }
+    },
+    MuiIconButton: {
+      root: {
+        color: Colors.primary.main
+      }
+    },
+    MuiSelect: {
+      icon: {
+        color: Colors.text.primary
+      }
+    }
   }
 })
+
+formConfigurator.config({ theme: MuiCustomTheme })
 
 export default MuiCustomTheme
