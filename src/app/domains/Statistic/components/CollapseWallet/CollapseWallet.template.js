@@ -12,7 +12,10 @@ const CollapseWallet = (props) => {
   const { state } = useStatisticContext()
 
   const dataList = filterDataForStatisticsWallet(state.date, dataFromDB)
-  const totalPublicWallet = totalSpentPublicWallet(state.date, dataFromDB)
+  const [totalPublicWallet, totalPrivateWallet] = totalSpentPublicWallet(
+    state.date,
+    dataFromDB
+  )
   return (
     !!dataList.length > 0 && (
       <>
@@ -28,15 +31,27 @@ const CollapseWallet = (props) => {
             />
           ))}
 
-          <Row>
-            <Col />
+          <Row h="between">
+            <Col cw="auto">
+              <Box display="flex">
+                <ListItemText primary="Private wallets: &nbsp;" />
+                <ListItemText primary={totalPrivateWallet.toFixed(2)} />
+                <Box ml={1}>
+                  <ListItemText>
+                    <CurrencySimpleView value={typeCurrency ? 'UAH' : 'USD'} />
+                  </ListItemText>
+                </Box>
+              </Box>
+            </Col>
             <Col cw="auto">
               <Box display="flex">
                 <ListItemText primary="Public wallets: &nbsp;" />
                 <ListItemText primary={totalPublicWallet.toFixed(2)} />
-                <ListItemText>
-                  <CurrencySimpleView value={typeCurrency ? 'UAH' : 'USD'} />
-                </ListItemText>
+                <Box ml={1}>
+                  <ListItemText>
+                    <CurrencySimpleView value={typeCurrency ? 'UAH' : 'USD'} />
+                  </ListItemText>
+                </Box>
               </Box>
             </Col>
           </Row>

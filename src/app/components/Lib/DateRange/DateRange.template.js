@@ -5,10 +5,8 @@ import { DateRange as Range } from 'react-date-range'
 import * as locales from 'react-date-range/dist/locale'
 import { Row, Container, Col } from '@qonsoll/react-design'
 import { useStatisticContext } from 'app/context/StatisticsContext'
-import moment from 'moment'
 
-const DateRange = (props) => {
-  const { startDate, endDate } = props
+const DateRange = () => {
   const { state, setState } = useStatisticContext()
 
   const [date, setDate] = useState({
