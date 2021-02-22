@@ -12,7 +12,7 @@ import { useDocumentData } from 'react-firebase-hooks/firestore'
 import { ProductAdvancedForm } from 'domains/Product/components/forms/ProductAdvancedForm'
 import React, { useEffect, useState } from 'react'
 
-const CartEdit = (props) => {
+const CartEdit = () => {
   const history = useHistory()
   const { id } = useParams()
   const [value] = useDocumentData(
@@ -53,7 +53,8 @@ const CartEdit = (props) => {
       addData(COLLECTIONS.NOTIFICATIONS, {
         date: getTimestamp().now(),
         text: `You were assigned to buy '${data.name}' in Cart`,
-        userId: [data.assign.id]
+        userId: [data.assign.id],
+        viewed: { [data.assign.id]: false }
       })
       history.goBack()
     } catch (error) {

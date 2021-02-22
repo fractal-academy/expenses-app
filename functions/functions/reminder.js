@@ -5,7 +5,7 @@ const moment = require('moment')
 exports.reminder = functions.pubsub
   .schedule('0 5 * * *')
   .timeZone('Europe/Kiev')
-  .onRun(async (context) => {
+  .onRun(async () => {
     const products = await admin
       .firestore()
       .collection('regularProducts')
@@ -30,7 +30,12 @@ exports.reminder = functions.pubsub
       .collection('users')
       .where('role', '==', 'admin')
       .get()
-    const adminsIds = adminsInfo.docs.map((item) => item.id)
+    let admins = {}
+    admins.idsMap = adminsInfo.docs.map((item) => item.id)
+    admins.idsViewed = {}
+    adminsInfo.docs.forEach(
+      (item) => (admins.idsView = { ...admins.idsView, [item.id]: false })
+    )
 
     filteredProducts &&
       filteredProducts.forEach((item) => {
@@ -40,7 +45,8 @@ exports.reminder = functions.pubsub
           .add({
             date: admin.firestore.Timestamp.now(),
             text: `You should buy ${item.name} today!`,
-            userId: item.userId ? [item.userId] : adminsIds
+            userId: item.userId ? [item.userId] : admins.idsMap,
+            viewed: item.userId ? { [item.userId]: false } : admins.idsViewed
           })
       })
     return null
