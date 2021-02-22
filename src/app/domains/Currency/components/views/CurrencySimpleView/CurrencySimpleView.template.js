@@ -18,7 +18,7 @@ CurrencySimpleView.propTypes = {
 }
 CurrencySimpleView.defaultProps = {
   type: 'sign',
-  value: 'USD'
+  value: 'UAH'
 }
 
 export default CurrencySimpleView

@@ -32,6 +32,7 @@ const CustomToolbar = (props) => {
   const {
     numRows,
     selectedItems,
+    setSelected,
     handleDelete,
     handleMove,
     onCheckClick,
@@ -76,9 +77,9 @@ const CustomToolbar = (props) => {
                     <IconButton color="primary">
                       <WrapperForCheck
                         setStatusMessage={setStatusMessage}
-                        onClick={() => onCheckClick(selectedItems)}
+                        onClick={() => onCheckClick(selectedItems, setSelected)}
                         onSubmitFunction={(data) =>
-                          handleMove(data, selectedItems)
+                          handleMove(data, selectedItems, setSelected)
                         }>
                         <Check />
                       </WrapperForCheck>
@@ -89,7 +90,9 @@ const CustomToolbar = (props) => {
                       open={confirm}
                       setOpen={setConfirm}
                       loading={deleteLoading}
-                      onConfirm={() => handleDelete(selectedItems)}>
+                      onConfirm={() =>
+                        handleDelete(selectedItems, setSelected)
+                      }>
                       <IconButton color="primary">
                         <Delete />
                       </IconButton>
