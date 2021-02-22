@@ -31,13 +31,17 @@ const ListItemWithCollapse = (props) => {
             <ListItemText primary={memberName} />
           </Col>
           <Col>
-            <Row h="left">
+            <Row h="right">
               <Col cw="auto">
                 <Box display="flex">
-                  <ListItemText primary={spent} />
-                  <ListItemText>
-                    <CurrencySimpleView value={typeCurrency ? 'UAH' : 'USD'} />
-                  </ListItemText>
+                  <ListItemText primary={spent.toFixed(2)} />
+                  <Box ml={2}>
+                    <ListItemText>
+                      <CurrencySimpleView
+                        value={typeCurrency ? 'UAH' : 'USD'}
+                      />
+                    </ListItemText>
+                  </Box>
                 </Box>
               </Col>
             </Row>

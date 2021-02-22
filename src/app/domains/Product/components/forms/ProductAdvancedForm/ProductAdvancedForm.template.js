@@ -64,6 +64,7 @@ const config = [
     label: 'Date',
     props: { disableFuture: true },
     name: 'dateBuy',
+    props: { disableFuture: true },
     rules: {
       required: 'select date buy'
     }

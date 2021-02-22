@@ -5,15 +5,15 @@ import { Switch, Typography } from '@material-ui/core'
 import { firestore, setData } from 'app/services/Firestore'
 import { useForm } from 'mui-form-generator-fractal-band-2'
 import { useSession } from 'app/context/SessionContext/hooks'
-import { ProductSimpleForm } from 'app/domains/Product/components/forms/ProductSimpleForm'
-import { RegularProductSimpleForm } from 'app/domains/RegularProduct/components/forms/RegularProductSimpleForm'
 import { Logger } from 'app/utils'
+import { ProductSimpleForm } from 'domains/Product/components/forms'
+import { RegularProductSimpleForm } from 'domains/RegularProduct/components/forms'
 
 const ProductCombinedForm = (props) => {
   // [INTERFACES]
   const { title, collectionName, specificProductToAdd } = props
 
-  // [STATE]
+  // [COMPONENT_STATE_HOOKS]
   const [open, setOpen] = useState(false)
   const [switchState, setSwitchState] = useState(true)
   const [loading, setLoading] = useState(false)
@@ -52,8 +52,13 @@ const ProductCombinedForm = (props) => {
       const id = firestore.collection(collectionName).doc().id
       await setData(collectionName, id, {
         id: id,
-        name: data.productSelect,
-        description: data.description
+        name: data.productSelect.name,
+        category: data.category || data.productSelect.category,
+        description: data.description || data.productSelect.description,
+        assign: data.assign || data.productSelect.assign,
+        firstName: data.firstName || data.productSelect.firstName,
+        price: data.price || data.productSelect.price,
+        measure: data.measures || data.productSelect.measures
       })
       Logger(
         'Move regular product',
@@ -75,7 +80,7 @@ const ProductCombinedForm = (props) => {
     setSwitchState(true)
   }
 
-  //TEMPLATE
+  // [TEMPLATE]
   return (
     <>
       <FabButton onClick={handleClickOpen} />

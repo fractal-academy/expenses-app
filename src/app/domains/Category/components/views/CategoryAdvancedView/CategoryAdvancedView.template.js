@@ -92,7 +92,7 @@ const CategoryAdvancedView = (props) => {
                   {/*Row with divider*/}
                   <Row mb={3}>
                     <Col cw={12}>
-                      <Divider />
+                      <Divider className={classes.divColor} />
                     </Col>
                   </Row>
                   {/*Row with spent and left money*/}

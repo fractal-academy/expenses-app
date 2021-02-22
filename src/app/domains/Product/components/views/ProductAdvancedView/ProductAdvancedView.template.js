@@ -242,7 +242,7 @@ const ProductAdvancedView = (props) => {
         loading={deleteLoading}
         onConfirm={handleDelete}>
         <DropdownItem danger>
-          <Typography>Delete</Typography>
+          <Typography color="error">Delete</Typography>
         </DropdownItem>
       </Confirmation>
     </Container>

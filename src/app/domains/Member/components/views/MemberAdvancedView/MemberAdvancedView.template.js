@@ -36,7 +36,7 @@ const MemberAdvancedView = (props) => {
 
   // [TEMPLATE]
   return (
-    <Container>
+    <Container pl={2} pr={2}>
       <Row noGutters>
         <Col>
           <Row mb={!props.horizontal && '3'}>

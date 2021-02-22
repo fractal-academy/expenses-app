@@ -93,6 +93,7 @@ const CustomTable = (props) => {
             <Toolbar
               numRows={numRows}
               selectedItems={selected}
+              setSelected={setSelected}
               handleDelete={handleDelete}
               onCheckClick={onCheckClick}
               WrapperForCheck={WrapperForCheck}
@@ -102,95 +103,109 @@ const CustomTable = (props) => {
               deleteLoading={deleteLoading}
             />
           )}
-          <Paper variant="outlined" elevation={0}>
-            <TableContainer>
-              <Table aria-label="customized table">
-                <TableHead>
-                  <TableRow className={classes.root}>
-                    {actions && multiselect && (
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          color="primary"
-                          checked={
-                            products.length &&
-                            products.length === selected.length
-                          }
-                          indeterminate={
-                            products.length > selected.length &&
-                            selected.length > 0
-                          }
-                          onChange={(event) => selectAll(event.target.checked)}
-                        />
-                      </TableCell>
-                    )}
-                    {cells.map((cell) => (
-                      <TableCell key={cell} align="center">
-                        {cell}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {products.map((row) => (
-                    <TableRow key={row.id}>
+          {products.length > 0 ? (
+            <Paper variant="outlined" elevation={0}>
+              <TableContainer>
+                <Table aria-label="customized table">
+                  <TableHead>
+                    <TableRow className={classes.root}>
                       {actions && multiselect && (
                         <TableCell padding="checkbox">
                           <Checkbox
                             color="primary"
-                            checked={selected.includes(row.id)}
+                            checked={
+                              products.length &&
+                              products.length === selected.length
+                            }
+                            indeterminate={
+                              products.length > selected.length &&
+                              selected.length > 0
+                            }
                             onChange={(event) =>
-                              toggleSelect(row.id, event.target.checked)
+                              selectAll(event.target.checked)
                             }
                           />
                         </TableCell>
                       )}
-                      <TableCell align="center">
-                        {purchaseAssign ? row.assign : row.firstName || 'None'}
-                      </TableCell>
-                      <TableCell
-                        align="center"
-                        onClick={() =>
-                          history.push(`${productPath}/${row.id}`)
-                        }>
-                        <Box className={classes.newLine}>{row.name}</Box>
-                      </TableCell>
-                      {additionalInfo ? (
-                        <>
-                          <TableCell align="center">
-                            <MeasureSimpleView
-                              productNumber={row.quantity}
-                              text={row.measures?.measure}
-                              variant="body2"
+                      {cells.map((cell) => (
+                        <TableCell key={cell} align="center">
+                          {cell}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {products.map((row) => (
+                      <TableRow key={row.id}>
+                        {actions && multiselect && (
+                          <TableCell padding="checkbox">
+                            <Checkbox
+                              color="primary"
+                              checked={selected.includes(row.id)}
+                              onChange={(event) =>
+                                toggleSelect(row.id, event.target.checked)
+                              }
                             />
                           </TableCell>
-                          <TableCell>
-                            <Box display="flex" justifyContent="center">
-                              {row.price || 'None'}
-                              {row.price && (
-                                <CurrencySimpleView
-                                  variant="body2"
-                                  value="UAH"
-                                />
-                              )}
-                            </Box>
-                          </TableCell>
-                        </>
-                      ) : (
+                        )}
                         <TableCell
                           align="center"
                           onClick={() =>
-                            row.category &&
-                            history.push(ROUTES_PATHS.CATEGORIES_ALL)
+                            history.push(`${productPath}/${row.id}`)
                           }>
-                          {row.category || 'None'}
+                          <Box className={classes.newLine}>{row.name}</Box>
                         </TableCell>
-                      )}
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Paper>
+                        <TableCell align="center">
+                          {purchaseAssign
+                            ? row.assign
+                            : row.firstName || 'None'}
+                        </TableCell>
+                        {additionalInfo ? (
+                          <>
+                            <TableCell align="center">
+                              <MeasureSimpleView
+                                productNumber={row.quantity}
+                                text={row.measures?.measure}
+                                variant="body2"
+                              />
+                            </TableCell>
+                            <TableCell>
+                              <Box display="flex" justifyContent="center">
+                                {row.price || 'None'}
+                                {row.price && (
+                                  <CurrencySimpleView
+                                    variant="body2"
+                                    value="UAH"
+                                  />
+                                )}
+                              </Box>
+                            </TableCell>
+                          </>
+                        ) : (
+                          <TableCell
+                            align="center"
+                            onClick={() =>
+                              row.category &&
+                              history.push(ROUTES_PATHS.CATEGORIES_ALL)
+                            }>
+                            {row.category || 'None'}
+                          </TableCell>
+                        )}
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Paper>
+          ) : (
+            <Box mt={5}>
+              <img
+                src="/noData.svg"
+                alt="no data"
+                style={{ width: '100%', height: '150px' }}
+              />
+            </Box>
+          )}
         </Col>
       </Row>
     </Container>

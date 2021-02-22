@@ -8,7 +8,8 @@ const convertToDollars = async (item) => {
 
   if (response.ok) {
     const json = await response.json()
-    const newPrice = Math.round(item.price / json[0].rate)
+    const newPrice = item.price / json[0].rate
+
     return {
       ...item,
       price: newPrice

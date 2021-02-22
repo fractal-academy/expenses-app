@@ -46,7 +46,7 @@ const WishTable = (props) => {
   }
 
   // HELPER FUNCTIONS
-  const handleMove = async (selectedItems) => {
+  const handleMove = async (selectedItems, setSelected) => {
     for (let item of selectedItems) {
       try {
         /*
@@ -73,8 +73,9 @@ const WishTable = (props) => {
         })
       }
     }
+    setSelected([])
   }
-  const handleDelete = async (selectedItems) => {
+  const handleDelete = async (selectedItems, setSelected) => {
     setDeleteLoading(true)
     try {
       await WishLogger(selectedItems, 'Delete')
@@ -92,6 +93,7 @@ const WishTable = (props) => {
         payload: error
       })
     }
+    setSelected([])
     setConfirm(false)
     setDeleteLoading(false)
   }

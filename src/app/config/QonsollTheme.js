@@ -1,4 +1,5 @@
-const Theme = {
+const QonsollTheme = {
+  // space: [0, 2, 4],
   fontSizes: {
     h1: 'var(--h1-font-size)',
     h2: 'var(--h2-font-size)',
@@ -94,4 +95,5 @@ const Theme = {
   }
 }
 
-export default Theme
+export default QonsollTheme
+// export { QonsollTheme }

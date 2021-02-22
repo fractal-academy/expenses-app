@@ -71,6 +71,7 @@ const MeasureModalWithForm = (props) => {
     setOpenSnackbarSuccess(false)
     setOpenSnackbarError(false)
     setOpen(false)
+    setSwitchState(true)
   }
 
   // [TEMPLATE]

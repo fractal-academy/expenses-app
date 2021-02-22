@@ -10,22 +10,39 @@ import {
 import { Container, Row, Col } from '@qonsoll/react-design'
 import { useHistory } from 'react-router-dom'
 import { ROUTES_PATHS } from 'app/constants'
+import COLOR from '../../constants/colors'
 
 const SETTINGS_MENU = [
-  { title: 'Members', path: ROUTES_PATHS.MEMBERS_ALL, icon: <Group /> },
+  {
+    title: 'Members',
+    path: ROUTES_PATHS.MEMBERS_ALL,
+    icon: <Group style={{ color: COLOR.YELLOW.color }} />
+  },
   {
     title: 'Categories',
     path: ROUTES_PATHS.CATEGORIES_ALL,
-    icon: <AccountBalanceWallet />
+    icon: <AccountBalanceWallet style={{ color: COLOR.GREEN.color }} />
   },
-  { title: 'Logs', path: ROUTES_PATHS.LOGS_ALL, icon: <Assignment /> },
+  {
+    title: 'Logs',
+    path: ROUTES_PATHS.LOGS_ALL,
+    icon: <Assignment style={{ color: COLOR.LAVENDER.color }} />
+  },
   {
     title: 'Regular products',
     path: ROUTES_PATHS.REGULAR_PRODUCTS_ALL,
-    icon: <ViewList />
+    icon: <ViewList style={{ color: COLOR.BLUE.color }} />
   },
-  { title: 'Purchases', path: ROUTES_PATHS.PURCHASE_ALL, icon: <Receipt /> },
-  { title: 'Wallets', path: ROUTES_PATHS.WALLETS_ALL, icon: <CreditCard /> }
+  {
+    title: 'Purchases',
+    path: ROUTES_PATHS.PURCHASE_ALL,
+    icon: <Receipt style={{ color: COLOR.RED.color }} />
+  },
+  {
+    title: 'Wallets',
+    path: ROUTES_PATHS.WALLETS_ALL,
+    icon: <CreditCard style={{ color: COLOR.GREEN.color }} />
+  }
 ]
 
 const Settings = (props) => {
@@ -34,18 +51,16 @@ const Settings = (props) => {
     <List>
       {SETTINGS_MENU.map((menuItem) => {
         return (
-          <Container mb={3} key={menuItem.path}>
+          <Container mb={2} key={menuItem.path}>
             <Row>
               <Col>
                 <Paper onClick={() => history.push(menuItem.path)}>
                   <Row>
-                    <Col cw="auto" v="center" p="2">
+                    <Col cw="auto" v="center" p="3">
                       {menuItem.icon}
                     </Col>
                     <Col cw="auto" v="center">
-                      <Typography variant="subtitle1">
-                        {menuItem.title}
-                      </Typography>
+                      <Typography variant="body1">{menuItem.title}</Typography>
                     </Col>
                   </Row>
                 </Paper>

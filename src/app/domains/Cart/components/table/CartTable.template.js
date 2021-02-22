@@ -6,13 +6,18 @@ import {
   getData,
   setData,
   firestore,
-  getTimestamp
+  getTimestamp,
+  getCollectionRef
 } from 'app/services/Firestore'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 import { WalletCombinedWithSelect } from 'app/domains/Wallet/components/combined/WalletCombinedWithSelect'
 import { useSession } from 'app/context/SessionContext/hooks'
 import { useMessageDispatch, types } from 'app/context/MessageContext'
+<<<<<<< HEAD
 import { Logger } from 'app/utils'
+=======
+import { toNumber } from 'lodash'
+>>>>>>> DEMO_4
 
 const CartTable = (props) => {
   // INTERFACE
@@ -66,7 +71,52 @@ const CartTable = (props) => {
     return count
   }
 
-  const handleMove = async (data, selectedItems) => {
+  const updateCategories = async (selectedProducts) => {
+    const productsPromises = selectedProducts.map((productId) =>
+      getData(COLLECTIONS.CART, productId)
+    )
+    const productsData = await Promise.allSettled(productsPromises)
+    const products = productsData.map(({ value }) => value)
+
+    const categoriesPromises = products.map(async (product) => {
+      const snapshots = await getCollectionRef(COLLECTIONS.CATEGORIES)
+        .where('nameCategory', '==', product.category)
+        .get()
+
+      return !snapshots.empty
+        ? snapshots.docs.map((doc) => ({ id: doc.id, ...doc.data() }))[0]
+        : null
+    })
+
+    const categoriesData = await Promise.allSettled(categoriesPromises)
+    const categories = categoriesData.map(({ value }) => value)
+
+    let categoriesMap = Object.fromEntries(
+      categories.map((category) => [category.nameCategory, category])
+    )
+
+    products.forEach((product) => {
+      const previousPrice = categoriesMap[product.category].spent
+      const newPrice = previousPrice + toNumber(product.price)
+
+      categoriesMap = {
+        ...categoriesMap,
+        [product.category]: {
+          ...categoriesMap[product.category],
+          spent: newPrice
+        }
+      }
+    })
+
+    Object.keys(categoriesMap).forEach((key) => {
+      const categoryData = categoriesMap[key]
+      const { id, spent } = categoryData
+
+      setData(COLLECTIONS.CATEGORIES, id, { spent })
+    })
+  }
+
+  const handleMove = async (data, selectedItems, setSelected) => {
     /*
       sum which will be minus from wallet`s balance     */
     let sum = 0
@@ -81,9 +131,13 @@ const CartTable = (props) => {
         get info about product in card      */
         const product = await getData(COLLECTIONS.CART, item)
 
+<<<<<<< HEAD
         /*
         set data to collection purchases with additional fields (info about user)
         */
+=======
+        /*set data to collection purchases with additional fields (info about user)*/
+>>>>>>> DEMO_4
         await setData(COLLECTIONS.PURCHASES, item, {
           ...product,
           assign: userName,
@@ -98,12 +152,16 @@ const CartTable = (props) => {
         // await deleteData(COLLECTIONS.CART, item)
         /*
         calculate sum for product*/
+<<<<<<< HEAD
         promise.then((description, sum) => {
           description += product.name
           sum += product.price
           return { description, sum }
         })
 
+=======
+        sum = sum + +product.price
+>>>>>>> DEMO_4
         /*
         a message about successful operation*/
         messageDispatch({
@@ -123,6 +181,7 @@ const CartTable = (props) => {
         balance: +data.balance - sum
       })
     })
+<<<<<<< HEAD
     promise.then(({ description, sum }) => {
       description =
         description.join(', ') + selectedItems.length > 1
@@ -132,9 +191,20 @@ const CartTable = (props) => {
       console.log('sum', sum)
       sum > 0 && Logger('Purchase of products', description, session)
     })
+=======
+    try {
+      updateCategories(selectedItems)
+      setSelected([])
+    } catch (error) {
+      messageDispatch({
+        type: types.OPEN_ERROR_MESSAGE,
+        payload: error
+      })
+    }
+>>>>>>> DEMO_4
   }
 
-  const handleDelete = async (selectedItems) => {
+  const handleDelete = async (selectedItems, setSelected) => {
     try {
       setDeleteLoading(true)
 
@@ -153,6 +223,7 @@ const CartTable = (props) => {
         payload: error
       })
     }
+    setSelected([])
     setConfirm(false)
     setDeleteLoading(false)
   }
