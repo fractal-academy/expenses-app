@@ -9,6 +9,7 @@ const CurrencySingleSelect = (props) => {
   const { value, ...rest } = props
   return (
     <Select
+      entity="currencies"
       data={CURRENCY_VALUES}
       value={CURRENCY[value] || CURRENCY_VALUES[0]}
       {...rest}>

@@ -9,6 +9,7 @@ const RoleSingleSelect = (props) => {
   const { value, ...rest } = props
   return (
     <Select
+      entity="roles"
       data={ROLES}
       value={value || 'user'}
       className={classes.root}
