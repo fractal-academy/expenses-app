@@ -55,11 +55,11 @@ const MeasureModalWithForm = (props) => {
   const handleClickOpen = () => {
     setOpen(true)
   }
-
   const handleClose = () => {
     setOpenSnackbarSuccess(false)
     setOpenSnackbarError(false)
     setOpen(false)
+    setSwitchState(true)
   }
   return (
     <>

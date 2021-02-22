@@ -58,7 +58,7 @@ const StatisticAll = (props) => {
           <Row>
             <Col />
             <Col cw="auto">
-              <Box display="flex">
+              <Box display="flex" alignItems="baseline">
                 <Typography>UAH</Typography>
                 <Switch
                   checked={checked}
