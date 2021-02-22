@@ -25,10 +25,7 @@ const CartTable = (props) => {
 
   const session = useSession()
   const messageDispatch = useMessageDispatch()
-  // const onDeleteProductInCartLogger = useLogger(
-  //   'Delete',
-  //   'One or more products were deleted from the Cart table'
-  // )
+
   // STATE
   const [confirm, setConfirm] = useState(false)
   const [deleteLoading, setDeleteLoading] = useState(false)
@@ -73,17 +70,20 @@ const CartTable = (props) => {
     /*
       sum which will be minus from wallet`s balance     */
     let sum = 0
-    var description = []
+
+    var promise = new Promise((resolve) => {
+      var description = []
+      resolve(description, sum)
+    })
     await selectedItems.map(async (item) => {
       try {
         /*
         get info about product in card      */
         const product = await getData(COLLECTIONS.CART, item)
 
-        // console.log(description, typeof description)
-        // description.push(product.name)
         /*
-        set data to collection purchases with additional fields (info about user)*/
+        set data to collection purchases with additional fields (info about user)
+        */
         await setData(COLLECTIONS.PURCHASES, item, {
           ...product,
           assign: userName,
@@ -93,11 +93,16 @@ const CartTable = (props) => {
           dateBuy: data.dateBuy ? data.dateBuy : getTimestamp().now()
         })
         /*
-        delete current product from collection card */
-        await deleteData(COLLECTIONS.CART, item)
+        delete current product from collection card 
+        */
+        // await deleteData(COLLECTIONS.CART, item)
         /*
         calculate sum for product*/
-        sum += product.price
+        promise.then((description, sum) => {
+          description += product.name
+          sum += product.price
+          return { description, sum }
+        })
 
         /*
         a message about successful operation*/
@@ -118,13 +123,15 @@ const CartTable = (props) => {
         balance: +data.balance - sum
       })
     })
-    // description =
-    //   description.join() + selectedItems.length > 1
-    //     ? ' was bought'
-    //     : ' were bought'
-    // console.log(description)
-    // console.log(sum)
-    // sum > 0 && Logger('Purchase of products', description, session)
+    promise.then(({ description, sum }) => {
+      description =
+        description.join(', ') + selectedItems.length > 1
+          ? ' was bought'
+          : ' were bought'
+      console.log('after loop ', description)
+      console.log('sum', sum)
+      sum > 0 && Logger('Purchase of products', description, session)
+    })
   }
 
   const handleDelete = async (selectedItems) => {

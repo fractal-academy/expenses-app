@@ -4,7 +4,8 @@ import { Table, Spinner } from 'app/components/Lib'
 import { useMessageDispatch, types } from 'app/context/MessageContext'
 import { firestore, deleteData, getData, setData } from 'app/services/Firestore'
 import { COLLECTIONS } from 'app/constants'
-import { useLogger } from 'app/hooks'
+import { useSession } from 'app/context/SessionContext'
+import { Logger } from 'app/utils'
 
 const WishTable = (props) => {
   // INTERFACE
@@ -19,17 +20,33 @@ const WishTable = (props) => {
     firestore.collection(COLLECTIONS.WISHES)
   )
   const messageDispatch = useMessageDispatch()
-  const onMoveProductToCartLogger = useLogger(
-    'Move',
-    'One or more products were approved'
-  )
-  const onDeleteProductLogger = useLogger(
-    'Delete',
-    'One or more products were deleted from Wish table'
-  )
+  const user = useSession()
+  // const onDeleteProductLogger = useLogger(
+  //   'Delete',
+  //   'One or more products were deleted from Wish table'
+  // )
+  const WishLogger = async (selectedItems, type) => {
+    const prodPromises = selectedItems.map((prodId) =>
+      getData(COLLECTIONS.WISHES, prodId)
+    )
+    const productsData = await Promise.allSettled(prodPromises)
+    var prodNames = productsData.map(({ value }) => value.name)
+
+    prodNames = await prodNames.join(', ')
+    const description = `${prodNames}${
+      selectedItems.length > 1
+        ? ` were ${type}d ${
+            type === 'Delete' ? 'in wish table' : ''
+          }`.toLowerCase()
+        : ` was ${type}d ${
+            type === 'Delete' ? 'in wish table' : ''
+          }`.toLowerCase()
+    }`
+    Logger(`${type} products`, description, user)
+  }
 
   // HELPER FUNCTIONS
-  const handleMove = onMoveProductToCartLogger(async (selectedItems) => {
+  const handleMove = async (selectedItems) => {
     for (let item of selectedItems) {
       try {
         /*
@@ -38,6 +55,8 @@ const WishTable = (props) => {
         /*
         set product to cart*/
         await setData(COLLECTIONS.CART, item, product)
+
+        await WishLogger(selectedItems, 'Approve')
         /*
         delete product from wish*/
         await deleteData(COLLECTIONS.WISHES, item)
@@ -54,10 +73,11 @@ const WishTable = (props) => {
         })
       }
     }
-  })
-  const handleDelete = onDeleteProductLogger(async (selectedItems) => {
+  }
+  const handleDelete = async (selectedItems) => {
     setDeleteLoading(true)
     try {
+      await WishLogger(selectedItems, 'Delete')
       for (let item of selectedItems) {
         await deleteData(COLLECTIONS.WISHES, item)
       }
@@ -74,7 +94,7 @@ const WishTable = (props) => {
     }
     setConfirm(false)
     setDeleteLoading(false)
-  })
+  }
 
   //TEMPLATE
   if (loading) {

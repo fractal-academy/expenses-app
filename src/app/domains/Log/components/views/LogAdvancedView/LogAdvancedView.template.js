@@ -34,6 +34,11 @@ const LogAdvancedView = (props) => {
               <Col>
                 <Typography>{action}</Typography>
               </Col>
+              <Col cw="auto">
+                <Typography>
+                  {moment(formatedDate).format('H:mm, DD.MM.YYYY')}
+                </Typography>
+              </Col>
             </Row>
           </Col>
           <Col cw="auto" onClick={() => setDetailed(!detailed)}>
@@ -45,11 +50,6 @@ const LogAdvancedView = (props) => {
         {detailed && (
           <Row>
             <Col>
-              <Row h="center">
-                <Typography>
-                  {moment(formatedDate).format('H:mm, DD.MM.YYYY')}
-                </Typography>
-              </Row>
               <Row h="center">
                 <Typography>{userMail}</Typography>
               </Row>
