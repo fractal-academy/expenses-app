@@ -112,7 +112,7 @@ const CartTable = (props) => {
     })
   }
 
-  const handleMove = async (data, selectedItems) => {
+  const handleMove = async (data, selectedItems, setSelected) => {
     /*
       sum which will be minus from wallet`s balance     */
     let sum = 0
@@ -159,6 +159,7 @@ const CartTable = (props) => {
     })
     try {
       updateCategories(selectedItems)
+      setSelected([])
     } catch (error) {
       messageDispatch({
         type: types.OPEN_ERROR_MESSAGE,
@@ -167,7 +168,7 @@ const CartTable = (props) => {
     }
   }
 
-  const handleDelete = async (selectedItems) => {
+  const handleDelete = async (selectedItems, setSelected) => {
     try {
       setDeleteLoading(true)
 
@@ -185,6 +186,7 @@ const CartTable = (props) => {
         payload: error
       })
     }
+    setSelected([])
     setConfirm(false)
     setDeleteLoading(false)
   }
