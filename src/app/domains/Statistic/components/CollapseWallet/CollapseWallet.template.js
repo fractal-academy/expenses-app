@@ -33,7 +33,7 @@ const CollapseWallet = (props) => {
             <Col cw="auto">
               <Box display="flex">
                 <ListItemText primary="Public wallets: &nbsp;" />
-                <ListItemText primary={totalPublicWallet} />
+                <ListItemText primary={totalPublicWallet.toFixed(2)} />
                 <ListItemText>
                   <CurrencySimpleView value={typeCurrency ? 'UAH' : 'USD'} />
                 </ListItemText>

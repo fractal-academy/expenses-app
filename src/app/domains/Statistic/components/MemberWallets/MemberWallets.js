@@ -32,10 +32,11 @@ const MemberWallets = (props) => {
                       fontSize: 15,
                       color: MuiCustomTheme.palette.text.secondary
                     }}>
-                    {spentCurrentWallet}
+                    {spentCurrentWallet.toFixed(2)}
                   </Typography>
                 }
               />
+              <ListItemText primary={spentCurrentWallet.toFixed(2)} />
               <ListItemText>
                 <CurrencySimpleView
                   style={{
