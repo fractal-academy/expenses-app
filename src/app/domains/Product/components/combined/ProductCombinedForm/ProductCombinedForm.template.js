@@ -7,7 +7,7 @@ import { useForm } from 'mui-form-generator-fractal-band-2'
 import { useSession } from 'app/context/SessionContext/hooks'
 import { ProductSimpleForm } from 'app/domains/Product/components/forms/ProductSimpleForm'
 import { RegularProductSimpleForm } from 'app/domains/RegularProduct/components/forms/RegularProductSimpleForm'
-import { useLogger } from 'app/hooks'
+import { Logger } from 'app/utils'
 
 const ProductCombinedForm = (props) => {
   // [INTERFACES]
@@ -22,18 +22,8 @@ const ProductCombinedForm = (props) => {
   const user = useSession()
   const form = useForm()
 
-  // [CUSTOM_HOOKS]
-  const onAddProductLogger = useLogger(
-    'Create',
-    'New product was added to wish table'
-  )
-  const onAddRegularProductLogger = useLogger(
-    'Add',
-    'Regular product was added to wish table'
-  )
-
   // [HELPER_FUNCTIONS]
-  const onAddProduct = onAddProductLogger(async (data) => {
+  const onAddProduct = async (data) => {
     try {
       setLoading(true)
       const id = firestore.collection(collectionName).doc().id
@@ -43,6 +33,11 @@ const ProductCombinedForm = (props) => {
         description: data.description,
         creator: user.id
       })
+      Logger(
+        'New product',
+        `New product '${data.nameProduct}' was added to wish table`,
+        user
+      )
       form.reset({})
     } catch (error) {
       console.log(error)
@@ -50,8 +45,8 @@ const ProductCombinedForm = (props) => {
     setLoading(false)
     setSwitchState(true)
     setOpen(false)
-  })
-  const onAddRegularProduct = onAddRegularProductLogger(async (data) => {
+  }
+  const onAddRegularProduct = async (data) => {
     try {
       setLoading(true)
       const id = firestore.collection(collectionName).doc().id
@@ -60,6 +55,11 @@ const ProductCombinedForm = (props) => {
         name: data.productSelect,
         description: data.description
       })
+      Logger(
+        'Move regular product',
+        `Regular product '${data.productSelect}' was added to wish table`,
+        user
+      )
       form.reset({})
     } catch (error) {
       console.log(error)
@@ -67,7 +67,7 @@ const ProductCombinedForm = (props) => {
     setLoading(false)
     setSwitchState(true)
     setOpen(false)
-  })
+  }
   const submitForm = () => form.submit()
   const handleClickOpen = () => setOpen(true)
   const handleClose = () => {

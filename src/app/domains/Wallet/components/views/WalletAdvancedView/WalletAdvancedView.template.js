@@ -12,7 +12,8 @@ import { COLLECTIONS } from 'app/constants'
 import { deleteData } from 'app/services/Firestore'
 import PropTypes from 'prop-types'
 import formatCurrency from 'format-currency'
-import { useLogger } from 'app/hooks'
+import { Logger } from 'app/utils'
+import { useSession } from 'app/context/SessionContext/hooks'
 
 const WalletAdvancedView = (props) => {
   // INTERFACE
@@ -32,14 +33,15 @@ const WalletAdvancedView = (props) => {
   //CUSTOM HOOKS
   const classes = useStyles()
   const messageDispatch = useMessageDispatch()
-  const onDeleteWalletLogger = useLogger('Delete', 'One of wallets was deleted')
+  const user = useSession()
 
   // HELPER FUNCTIONS
   const formattedAvailableBalance = formatCurrency(balance)
-  const deleteWallet = onDeleteWalletLogger(async () => {
+  const deleteWallet = async () => {
     setDeleteLoading(true)
     try {
       await deleteData(COLLECTIONS.WALLETS, idWallet)
+      Logger('Delete wallet', `Wallet '${nameWallet}' was deleted`, user)
       messageDispatch({
         type: types.OPEN_SUCCESS_MESSAGE,
         payload: 'Wallet successfully deleted'
@@ -51,7 +53,7 @@ const WalletAdvancedView = (props) => {
       })
     }
     setDeleteLoading(false)
-  })
+  }
 
   //TEMPLATE
   const DropdownList = (

@@ -5,9 +5,11 @@ import { Alert } from '@material-ui/lab'
 import { Modal, FabButton } from 'app/components/Lib'
 import { CategoryForm } from 'domains/Category/components/form'
 import PropTypes from 'prop-types'
-import { addData, setData } from 'app/services/Firestore'
+import { addData, setData, getCollectionRef } from 'app/services/Firestore'
 import { COLLECTIONS } from 'app/constants'
-import { useLogger } from 'app/hooks'
+import { Logger } from 'app/utils'
+import { useSession } from 'app/context/SessionContext'
+import { useDocumentData } from 'react-firebase-hooks/firestore'
 
 const CategoryCombined = (props) => {
   // INTERFACE
@@ -20,27 +22,38 @@ const CategoryCombined = (props) => {
 
   // [ADDITIONAL_HOOKS]
   const form = useForm({})
-
-  // CUSTOM HOOKS
-  const onAddCategoryLogger = useLogger('Add', 'New category was added')
-  const onEditCategoryLogger = useLogger('Edit', 'One of categories was edited')
-
+  const user = useSession()
+  const [value] = useDocumentData(
+    getCollectionRef(COLLECTIONS.CATEGORIES).doc(categoryId)
+  )
   // HELPER FUNCTIONS
-  const onAddCategory = onAddCategoryLogger((data) => {
+  const onAddCategory = (data) => {
     addData(COLLECTIONS.CATEGORIES, {
       nameCategory: data.nameCategory,
       colorCategory: data.color,
       spent: 0,
       budget: Number(data.budgetLimit)
-    }).then(() => setOpen(false))
-  })
+    })
+      .then(() =>
+        Logger('New category', `Category ${data.nameCategory} was added`, user)
+      )
+      .then(() => setOpen(false))
+  }
 
-  const onEditCategory = onEditCategoryLogger((data) => {
+  const onEditCategory = (data) => {
     setData(COLLECTIONS.CATEGORIES, categoryId, {
       colorCategory: data.color,
       budget: Number(data.budgetLimit)
-    }).then(() => setOpen(false))
-  })
+    }).then(
+      () =>
+        Logger(
+          'Edit category',
+          `Category ${value?.nameCategory} was edited`,
+          user
+        ),
+      setOpen(false)
+    )
+  }
   const submitForm = () => {
     form.submit()
   }

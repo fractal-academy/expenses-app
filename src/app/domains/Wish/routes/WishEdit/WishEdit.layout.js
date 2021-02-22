@@ -13,7 +13,8 @@ import PropTypes from 'prop-types'
 import { useHistory, useParams } from 'react-router-dom'
 import { useDocumentData } from 'react-firebase-hooks/firestore'
 import { ProductAdvancedForm } from 'domains/Product/components/forms/ProductAdvancedForm'
-import { useLogger } from 'app/hooks'
+import { Logger } from 'app/utils'
+import { useSession } from 'app/context/SessionContext'
 
 const WishEdit = (props) => {
   // [INTERFACES]
@@ -30,14 +31,14 @@ const WishEdit = (props) => {
   const [value] = useDocumentData(
     firestore.collection(collectionName || COLLECTIONS.WISHES).doc(id)
   )
-
-  //[CUSTOM_HOOKS]
-  const onEditProductLogger = useLogger('Edit', 'One of products was edited')
+  const user = useSession()
 
   // [HELPER_FUNCTIONS]
-  const onEditProduct = onEditProductLogger(async (data) => {
+  const onEditProduct = async (data) => {
     setEditLoading(true)
     try {
+      var description = `Wish '${value?.name}' was edited.
+        ${value?.name === data.name ? '' : `Name changed on '${data.name}'`}`
       await setData(COLLECTIONS.WISHES, id, {
         id: id,
         name: data.name,
@@ -49,6 +50,7 @@ const WishEdit = (props) => {
         quantity: data.quantity,
         measures: data?.measures || ''
       })
+      Logger('Edit wish', description, user)
       addData(COLLECTIONS.NOTIFICATIONS, {
         date: getTimestamp().now(),
         text: `You were assigned to buy '${data.name}' in Wishes list`,
@@ -59,7 +61,7 @@ const WishEdit = (props) => {
     }
     setEditLoading(false)
     onCancel()
-  })
+  }
 
   const onCancel = () => {
     if (pushTo) {

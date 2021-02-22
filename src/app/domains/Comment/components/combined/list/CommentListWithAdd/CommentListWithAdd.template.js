@@ -1,7 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import { Box, Col, Container, Row } from '@qonsoll/react-design'
-import { useCollectionData } from 'react-firebase-hooks/firestore'
+import {
+  useCollectionData,
+  useDocumentData
+} from 'react-firebase-hooks/firestore'
 import {
   addData,
   getCollectionRef,
@@ -13,7 +16,7 @@ import { CommentSimpleForm } from 'domains/Comment/components/forms'
 import { CommentList } from 'domains/Comment/components/list'
 import { Spinner } from 'components/Lib'
 import { COLLECTIONS } from 'app/constants'
-import { useLogger } from 'app/hooks'
+import { Logger } from 'app/utils'
 
 /**
  * @info CommentListWithAdd (14 Feb 2021) // CREATION DATE
@@ -38,11 +41,28 @@ const CommentListWithAdd = () => {
   )
   const inputRef = useRef()
 
-  //CUSTOM HOOKS
-  const addCommentLogger = useLogger('Add', 'New  comment was added')
+  // [FOR_LOGGER]
+  const location = useLocation()
+  const prodCollection =
+    (location.pathname.includes(COLLECTIONS.CART) && COLLECTIONS.CART) ||
+    (location.pathname.includes(COLLECTIONS.WISHES) && COLLECTIONS.WISHES) ||
+    (location.pathname.includes('regular') && COLLECTIONS.REGULAR_PRODUCTS)
+  const [value] = useDocumentData(getCollectionRef(prodCollection).doc(id))
+
+  const description = `New comment for product '${value?.name}' was added on 
+  ${
+    prodCollection === COLLECTIONS.REGULAR_PRODUCTS
+      ? 'regular products'
+      : prodCollection
+  } page`
+  // const prodColl = [(COLLECTIONS.CART, COLLECTIONS.WISHES, 'regular')]
+  //   .map((coll) => {
+  //     if (location.pathname.includes(coll)) return coll
+  //   })
+  //   .join('')
 
   // [HELPER_FUNCTIONS]
-  const addComment = addCommentLogger((e) => {
+  const addComment = (e) => {
     e.preventDefault()
     if (inputRef.current.value) {
       addData(COLLECTIONS.COMMENTS, {
@@ -52,8 +72,9 @@ const CommentListWithAdd = () => {
         text: inputRef.current.value
       })
       inputRef.current.value = ''
+      Logger('Add new comment', description, session)
     }
-  })
+  }
 
   // [USE_EFFECTS]
   useEffect(() => {
