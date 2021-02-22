@@ -35,13 +35,19 @@ const CartEdit = (props) => {
     const fetchData = async () => {
       const dataUsers =
         value.assign && (await getData(COLLECTIONS.USERS, value.assign))
-      const data = value
+      const data = {
+        ...value,
+        dateBuy: value.dateBuy
+          ? value.dateBuy.toDate().getTime()
+          : new Date().getTime()
+      }
       if (dataUsers) {
         data.assign = { ...dataUsers, id: value.assign }
       }
       setDataForDefaultValue(data)
       setLoading(false)
     }
+
     value && fetchData()
   }, [value])
 
@@ -58,9 +64,9 @@ const CartEdit = (props) => {
         price: data.price,
         quantity: data.quantity,
         measures: data?.measures || '',
-        dateBuy:
-          getTimestamp().fromDate(new Date(data.dateBuy)) ||
-          getTimestamp().now()
+        dateBuy: data.dateBuy
+          ? getTimestamp().fromDate(new Date(data.dateBuy))
+          : getTimestamp().fromDate(new Date())
       })
       addData(COLLECTIONS.NOTIFICATIONS, {
         date: getTimestamp().now(),
@@ -78,7 +84,6 @@ const CartEdit = (props) => {
   if (loading || !dataForDefaultValue) {
     return <Spinner />
   }
-
   return (
     <ProductAdvancedForm
       formData={dataForDefaultValue}
