@@ -134,7 +134,7 @@ const CartTable = (props) => {
         })
         /*
         delete current product from collection card */
-        // await deleteData(COLLECTIONS.CART, item)
+        await deleteData(COLLECTIONS.CART, item).then()
         /*
         calculate sum for product*/
         sum = sum + +product.price
