@@ -10,7 +10,7 @@ import { COLLECTIONS } from 'app/constants'
 
 const WalletCombinedWithSelect = (props) => {
   // INTERFACE
-  const { title, typeModalEdit, children, onSubmitFunction, onClick } = props
+  const { typeModalEdit, children, onSubmitFunction, onClick } = props
 
   // STATE
   const [selectData, setSelectData] = useState({})
@@ -81,7 +81,7 @@ const WalletCombinedWithSelect = (props) => {
 
       <Modal
         open={open}
-        title={title}
+        title={'Select a wallet'}
         titleTypographyProps={{ variant: 'h5' }}
         dialogProps={{
           maxWidth: 'sm',
