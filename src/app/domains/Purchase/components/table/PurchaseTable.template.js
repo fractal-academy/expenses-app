@@ -1,12 +1,12 @@
-import { Spinner, Table } from 'app/components/Lib'
-import { firestore } from 'app/services/Firestore'
-import { useCollectionData } from 'react-firebase-hooks/firestore'
 import { COLLECTIONS } from 'app/constants'
+import { getCollectionRef } from 'app/services'
+import { Spinner, Table } from 'app/components/Lib'
+import { useCollectionData } from 'react-firebase-hooks/firestore'
 
 const PurchaseTable = () => {
   // CUSTOM HOOKS
   const [purchase, loading] = useCollectionData(
-    firestore.collection(COLLECTIONS.PURCHASES),
+    getCollectionRef(COLLECTIONS.PURCHASES).orderBy('dateBuy', 'desc'),
     { idField: 'id' }
   )
 
