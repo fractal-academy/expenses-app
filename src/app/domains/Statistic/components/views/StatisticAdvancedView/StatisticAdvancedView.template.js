@@ -24,7 +24,7 @@ const StatisticAdvancedView = (props) => {
     <img
       src="/noData.svg"
       alt="no data"
-      style={{ width: '100%', height: '220px' }}
+      style={{ width: '100%', height: '175px' }}
     />
   )
 }

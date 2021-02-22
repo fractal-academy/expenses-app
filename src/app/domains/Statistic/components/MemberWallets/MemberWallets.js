@@ -36,7 +36,6 @@ const MemberWallets = (props) => {
                   </Typography>
                 }
               />
-              <ListItemText primary={spentCurrentWallet.toFixed(2)} />
               <ListItemText>
                 <CurrencySimpleView
                   style={{
