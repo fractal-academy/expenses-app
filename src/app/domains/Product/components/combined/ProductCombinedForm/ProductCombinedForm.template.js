@@ -5,8 +5,8 @@ import { Switch, Typography } from '@material-ui/core'
 import { firestore, setData } from 'app/services/Firestore'
 import { useForm } from 'mui-form-generator-fractal-band-2'
 import { useSession } from 'app/context/SessionContext/hooks'
-import { ProductSimpleForm } from 'app/domains/Product/components/forms/ProductSimpleForm'
-import { RegularProductSimpleForm } from 'app/domains/RegularProduct/components/forms/RegularProductSimpleForm'
+import { ProductSimpleForm } from 'domains/Product/components/forms'
+import { RegularProductSimpleForm } from 'domains/RegularProduct/components/forms'
 
 const ProductCombinedForm = (props) => {
   // [INTERFACES]
@@ -52,7 +52,7 @@ const ProductCombinedForm = (props) => {
         assign: data.assign || data.productSelect.assign,
         firstName: data.firstName || data.productSelect.firstName,
         price: data.price || data.productSelect.price,
-        measure: data.measure || data.productSelect.measure
+        measure: data.measures || data.productSelect.measures
       })
       form.reset({})
     } catch (error) {

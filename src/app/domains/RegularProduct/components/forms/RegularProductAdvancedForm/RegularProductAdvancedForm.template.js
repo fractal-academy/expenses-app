@@ -25,6 +25,7 @@ const config = [
     label: 'Category',
     name: 'category',
     Component: CategorySingleSelect,
+    defaultValue: '',
     rules: {
       required: 'Select category'
     }
