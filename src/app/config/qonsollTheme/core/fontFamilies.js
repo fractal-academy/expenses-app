@@ -4,7 +4,8 @@ const fontFamilies = {
     helvetica: 'Helvetica',
     arial: 'Arial',
     sansSerif: 'sans-serif',
-    openSans: 'Open Sans'
+    openSans: 'Open Sans',
+    comicSansMs: 'Comic Sans MS'
   }
 }
 export default fontFamilies

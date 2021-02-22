@@ -1,6 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles'
 import MuiCustomTheme from '../../config/qonsollTheme/MuiCustomTheme'
-// import Colors from '../../config/qonsollTheme/MuiCustomTheme
 
 export const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -17,6 +16,6 @@ export const useStyles = makeStyles((theme) => ({
   divider: {
     height: theme.spacing(3),
     marginRight: theme.spacing(1.5),
-    backgroundColor: '#989696'
+    background: MuiCustomTheme.palette.text.secondary
   }
 }))

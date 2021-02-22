@@ -84,14 +84,12 @@ const MuiCustomTheme = createMuiTheme({
     fontWeightBold: fontWeights.fontWeight.bold,
 
     h1: {
-      fontFamily: fontFamilies.fontFamily.helvetica,
       fontWeight: fontWeights.fontWeight.light,
       fontSize: fontSizes.h1,
       lineHeight: 1.167,
       letterSpacing: '-0.01562em'
     },
     h2: {
-      fontFamily: fontFamilies.fontFamily.helvetica,
       fontWeight: fontWeights.fontWeight.light,
       fontSize: fontSizes.h2,
       lineHeight: 1.2,
@@ -99,7 +97,6 @@ const MuiCustomTheme = createMuiTheme({
       color: Colors.text.primary
     },
     h3: {
-      fontFamily: fontFamilies.fontFamily.helvetica,
       fontWeight: fontWeights.fontWeight.regular,
       fontSize: fontSizes.h3,
       lineHeight: 1.167,
@@ -107,7 +104,6 @@ const MuiCustomTheme = createMuiTheme({
       color: Colors.text.primary
     },
     h4: {
-      fontFamily: fontFamilies.fontFamily.helvetica,
       fontWeight: fontWeights.fontWeight.regular,
       fontSize: fontSizes.h4,
       lineHeight: 1.235,
@@ -115,7 +111,6 @@ const MuiCustomTheme = createMuiTheme({
       color: Colors.text.primary
     },
     h5: {
-      fontFamily: fontFamilies.fontFamily.helvetica,
       fontWeight: fontWeights.fontWeight.regular,
       fontSize: fontSizes.h5,
       lineHeight: 1.334,
@@ -123,7 +118,6 @@ const MuiCustomTheme = createMuiTheme({
       color: Colors.text.primary
     },
     h6: {
-      fontFamily: fontFamilies.fontFamily.helvetica,
       fontWeight: fontWeights.fontWeight.medium,
       fontSize: fontSizes.h6,
       lineHeight: 1.6,
@@ -131,7 +125,6 @@ const MuiCustomTheme = createMuiTheme({
       color: Colors.text.primary
     },
     subtitle1: {
-      fontFamily: fontFamilies.fontFamily.helvetica,
       fontWeight: 400,
       fontSize: fontSizes.subtitle1,
       lineHeight: 1.75,
@@ -139,7 +132,6 @@ const MuiCustomTheme = createMuiTheme({
       color: Colors.text.primary
     },
     subtitle2: {
-      fontFamily: fontFamilies.fontFamily.helvetica,
       fontWeight: fontWeights.fontWeight.medium,
       fontSize: fontSizes.subtitle2,
       lineHeight: 1.57,
@@ -147,7 +139,6 @@ const MuiCustomTheme = createMuiTheme({
       color: Colors.text.primary
     },
     body1: {
-      fontFamily: fontFamilies.fontFamily.helvetica,
       fontWeight: fontWeights.fontWeight.regular,
       fontSize: fontSizes.body1,
       lineHeight: '1.5rem',
@@ -155,7 +146,6 @@ const MuiCustomTheme = createMuiTheme({
       color: Colors.text.primary
     },
     body2: {
-      fontFamily: fontFamilies.fontFamily.helvetica,
       fontWeight: fontWeights.fontWeight.regular,
       fontSize: fontSizes.body2,
       lineHeight: '1.75rem',
@@ -163,7 +153,6 @@ const MuiCustomTheme = createMuiTheme({
       color: Colors.text.primary
     },
     button: {
-      fontFamily: fontFamilies.fontFamily.helvetica,
       fontWeight: fontWeights.fontWeight.regular,
       fontSize: fontSizes.button,
       lineHeight: 1.43,
@@ -171,7 +160,6 @@ const MuiCustomTheme = createMuiTheme({
       color: Colors.text.primary
     },
     caption: {
-      fontFamily: fontFamilies.fontFamily.helvetica,
       fontWeight: fontWeights.fontWeight.regular,
       fontSize: '0.75rem',
       lineHeight: 1.66,
@@ -179,7 +167,6 @@ const MuiCustomTheme = createMuiTheme({
       color: Colors.text.primary
     },
     overline: {
-      fontFamily: fontFamilies.fontFamily.helvetica,
       fontWeight: fontWeights.fontWeight.regular,
       fontSize: '0.75rem',
       lineHeight: 2.66,
@@ -187,6 +174,37 @@ const MuiCustomTheme = createMuiTheme({
       textTransform: 'uppercase',
       color: Colors.text.primary
     }
+  },
+  spacing: 8,
+  overrides: {
+    MuiFilledInput: {
+      root: {
+        backgroundColor: 'green'
+      }
+    },
+    MuiInputLabel: {
+      root: {
+        backgroundColor: 'white',
+        color: 'secondary'
+      }
+    },
+    MuiTextField: {
+      root: {}
+    },
+    MuiButton: {
+      root: {
+        // textTransform: 'none'
+        // padding: '20px'
+      },
+      fullWidth: {
+        maxWidth: '300px'
+      }
+    }
+    // MuiSvgIcon: {
+    //   root: {
+    //     color: 'red'
+    //   }
+    // }
   }
 })
 
