@@ -13,9 +13,13 @@ const parseDataToArray = (data, arrWitUniqueValues, rangeStart, rangeEnd) => {
         res.push(+item.price) //arr values single category
       }
     })
-
     productsSum.push(res.reduce((a, b) => a + b, 0)) //arr for chart
   })
-  return productsSum
+  const resArrData = []
+  productsSum.map((item) => {
+    let itemString = item.toFixed(2)
+    resArrData.push(+itemString)
+  })
+  return resArrData
 }
 export default parseDataToArray
