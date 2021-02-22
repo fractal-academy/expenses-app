@@ -71,9 +71,8 @@ const CartTable = (props) => {
     const productsPromises = selectedProducts.map((productId) =>
       getData(COLLECTIONS.CART, productId)
     )
-    const products = await Promise.allSettled(
-      productsPromises
-    ).then((responce) => responce.map(({ value }) => value))
+    const productsData = await Promise.allSettled(productsPromises)
+    const products = productsData.map(({ value }) => value)
 
     const categoriesPromises = products.map(async (product) => {
       const snapshots = await getCollectionRef(COLLECTIONS.CATEGORIES)
@@ -85,9 +84,8 @@ const CartTable = (props) => {
         : null
     })
 
-    const categories = await Promise.allSettled(
-      categoriesPromises
-    ).then((responce) => responce.map(({ value }) => value))
+    const categoriesData = await Promise.allSettled(categoriesPromises)
+    const categories = categoriesData.map(({ value }) => value)
 
     let categoriesMap = Object.fromEntries(
       categories.map((category) => [category.nameCategory, category])
@@ -136,7 +134,7 @@ const CartTable = (props) => {
         })
         /*
         delete current product from collection card */
-        await deleteData(COLLECTIONS.CART, item)
+        // await deleteData(COLLECTIONS.CART, item)
         /*
         calculate sum for product*/
         sum = sum + +product.price

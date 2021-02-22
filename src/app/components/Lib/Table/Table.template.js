@@ -147,17 +147,17 @@ const CustomTable = (props) => {
                             />
                           </TableCell>
                         )}
-                        <TableCell align="center">
-                          {purchaseAssign
-                            ? row.assign
-                            : row.firstName || 'None'}
-                        </TableCell>
                         <TableCell
                           align="center"
                           onClick={() =>
                             history.push(`${productPath}/${row.id}`)
                           }>
                           <Box className={classes.newLine}>{row.name}</Box>
+                        </TableCell>
+                        <TableCell align="center">
+                          {purchaseAssign
+                            ? row.assign
+                            : row.firstName || 'None'}
                         </TableCell>
                         {additionalInfo ? (
                           <>
