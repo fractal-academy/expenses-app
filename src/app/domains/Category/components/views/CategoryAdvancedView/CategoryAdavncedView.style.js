@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core'
+import MuiCustomTheme from '../../../../../config/qonsollTheme/MuiCustomTheme'
 
 export const useStyles = makeStyles({
   border: {
@@ -20,5 +21,8 @@ export const useStyles = makeStyles({
   },
   red: {
     color: '#eb3232'
+  },
+  divColor: {
+    backgroundColor: MuiCustomTheme.palette.text.secondary
   }
 })

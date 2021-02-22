@@ -7,5 +7,8 @@ export const useStyles = makeStyles({
     borderStyle: 'solid',
     borderBottomWidth: '2px',
     borderBottomColor: '#3f50b5'
+  },
+  bgc: {
+    background: '#171721'
   }
 })
