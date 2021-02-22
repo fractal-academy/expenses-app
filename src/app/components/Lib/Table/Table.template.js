@@ -93,6 +93,7 @@ const CustomTable = (props) => {
             <Toolbar
               numRows={numRows}
               selectedItems={selected}
+              setSelected={setSelected}
               handleDelete={handleDelete}
               onCheckClick={onCheckClick}
               WrapperForCheck={WrapperForCheck}
