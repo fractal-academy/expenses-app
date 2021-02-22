@@ -57,11 +57,6 @@ const LogAdvancedView = (props) => {
                 <Typography>{actionDescription}</Typography>
               </Row>
             </Col>
-            <Col cw="auto" onClick={() => setDetailed(!detailed)}>
-              <Box>
-                {detailed ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-              </Box>
-            </Col>
           </Row>
         )}
       </Box>

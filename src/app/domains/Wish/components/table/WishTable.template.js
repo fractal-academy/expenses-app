@@ -21,11 +21,9 @@ const WishTable = (props) => {
   )
   const messageDispatch = useMessageDispatch()
   const user = useSession()
-  // const onDeleteProductLogger = useLogger(
-  //   'Delete',
-  //   'One or more products were deleted from Wish table'
-  // )
+
   const WishLogger = async (selectedItems, type) => {
+    // [HELPER_FUNCTIONS]
     const prodPromises = selectedItems.map((prodId) =>
       getData(COLLECTIONS.WISHES, prodId)
     )
@@ -45,10 +43,10 @@ const WishTable = (props) => {
     Logger(`${type} products`, description, user)
   }
 
-  // HELPER FUNCTIONS
   const handleMove = async (selectedItems, setSelected) => {
-    for (let item of selectedItems) {
-      try {
+    try {
+      await WishLogger(selectedItems, 'Approve')
+      for (let item of selectedItems) {
         /*
         get data about  product from wish*/
         let product = await getData(COLLECTIONS.WISHES, item)
@@ -56,7 +54,6 @@ const WishTable = (props) => {
         set product to cart*/
         await setData(COLLECTIONS.CART, item, product)
 
-        await WishLogger(selectedItems, 'Approve')
         /*
         delete product from wish*/
         await deleteData(COLLECTIONS.WISHES, item)
@@ -64,14 +61,14 @@ const WishTable = (props) => {
           type: types.OPEN_SUCCESS_MESSAGE,
           payload: 'Products were moved'
         })
-      } catch (error) {
-        /*
-        if we have error, we will see a message about unsuccessful operation*/
-        messageDispatch({
-          type: types.OPEN_ERROR_MESSAGE,
-          payload: 'error'
-        })
       }
+    } catch (error) {
+      /*
+        if we have error, we will see a message about unsuccessful operation*/
+      messageDispatch({
+        type: types.OPEN_ERROR_MESSAGE,
+        payload: 'error'
+      })
     }
     setSelected([])
   }

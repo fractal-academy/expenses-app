@@ -67,6 +67,25 @@ const CartTable = (props) => {
     count - how many items with empty fields*/
     return count
   }
+  const CartLogger = async (selectedItems, type) => {
+    const prodPromises = selectedItems.map((prodId) =>
+      getData(COLLECTIONS.WISHES, prodId)
+    )
+    const productsData = await Promise.allSettled(prodPromises)
+    var prodNames = productsData.map(({ value }) => value.name)
+
+    prodNames = await prodNames.join(', ')
+    const description = `${prodNames}${
+      selectedItems.length > 1
+        ? ` were ${
+            type === 'Delete' ? `${type}d in cart table` : `${type}`
+          }`.toLowerCase()
+        : ` was ${
+            type === 'Delete' ? `${type}d in cart table` : `${type}`
+          }`.toLowerCase()
+    }`
+    Logger(`${type} products`, description, session)
+  }
 
   const updateCategories = async (selectedProducts) => {
     const productsPromises = selectedProducts.map((productId) =>
@@ -117,7 +136,7 @@ const CartTable = (props) => {
     /*
       sum which will be minus from wallet`s balance     */
     let sum = 0
-
+    await CartLogger(selectedItems, 'Bought')
     await selectedItems.map(async (item) => {
       try {
         /*
@@ -138,7 +157,7 @@ const CartTable = (props) => {
         /*
         delete current product from collection card 
         */
-        // await deleteData(COLLECTIONS.CART, item)
+        await deleteData(COLLECTIONS.CART, item)
         /*
         calculate sum for product*/
         sum = sum + +product.price
@@ -177,7 +196,7 @@ const CartTable = (props) => {
       setDeleteLoading(true)
 
       for (let item of selectedItems) {
-        console.log(item)
+        CartLogger(selectedItems, 'Delete')
         await deleteData(COLLECTIONS.CART, item)
       }
 
