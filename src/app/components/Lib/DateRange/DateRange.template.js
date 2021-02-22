@@ -6,6 +6,7 @@ import * as locales from 'react-date-range/dist/locale'
 import { Row, Container, Col } from '@qonsoll/react-design'
 import { useStatisticContext } from 'app/context/StatisticsContext'
 import moment from 'moment'
+import MuiCustomTheme from '../../../config/qonsollTheme/MuiCustomTheme'
 
 const DateRange = (props) => {
   const { startDate, endDate } = props
@@ -17,10 +18,11 @@ const DateRange = (props) => {
   })
   useEffect(() => setDate((prev) => ({ ...prev, ...state.date })), [state.date])
   return (
-    <Container width="100%">
+    <Container>
       <Row h="center" noGutters>
         <Col>
           <Range
+            // style={{ backgroundColor: MuiCustomTheme.palette.background.paper }}
             locale={locales.enGB}
             editableDateInputs={true}
             onChange={(item) => {
