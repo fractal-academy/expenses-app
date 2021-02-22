@@ -195,8 +195,8 @@ const CartTable = (props) => {
     try {
       setDeleteLoading(true)
 
+      CartLogger(selectedItems, 'Delete')
       for (let item of selectedItems) {
-        CartLogger(selectedItems, 'Delete')
         await deleteData(COLLECTIONS.CART, item)
       }
 
