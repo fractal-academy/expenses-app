@@ -77,7 +77,7 @@ const CustomToolbar = (props) => {
                     <IconButton color="primary">
                       <WrapperForCheck
                         setStatusMessage={setStatusMessage}
-                        onClick={() => onCheckClick(selectedItems)}
+                        onClick={() => onCheckClick(selectedItems, setSelected)}
                         onSubmitFunction={(data) =>
                           handleMove(data, selectedItems, setSelected)
                         }>

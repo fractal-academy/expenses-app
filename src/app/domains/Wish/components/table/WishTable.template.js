@@ -19,7 +19,7 @@ const WishTable = (props) => {
   )
   const messageDispatch = useMessageDispatch()
   // HELPER FUNCTIONS
-  const handleMove = async (selectedItems) => {
+  const handleMove = async (selectedItems, setSelected) => {
     for (let item of selectedItems) {
       try {
         /*
@@ -44,6 +44,7 @@ const WishTable = (props) => {
         })
       }
     }
+    setSelected([])
   }
   const handleDelete = async (selectedItems) => {
     setDeleteLoading(true)
