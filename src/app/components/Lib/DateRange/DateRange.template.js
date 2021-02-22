@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react'
 import 'react-date-range/dist/styles.css' // main css file
 import 'react-date-range/dist/theme/default.css' // theme css file
@@ -18,8 +17,8 @@ const DateRange = (props) => {
   })
   useEffect(() => setDate((prev) => ({ ...prev, ...state.date })), [state.date])
   return (
-    <Container>
-      <Row h="center">
+    <Container width="100%">
+      <Row h="center" noGutters>
         <Col>
           <Range
             locale={locales.enGB}

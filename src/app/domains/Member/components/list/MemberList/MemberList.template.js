@@ -1,5 +1,5 @@
 import { Fragment } from 'react'
-import { List, ListItem, Divider } from '@material-ui/core'
+import { List, ListItem, Divider, Paper } from '@material-ui/core'
 import { Row, Col } from '@qonsoll/react-design'
 import { MemberAdvancedView } from 'domains/Member/components/views'
 import { useHistory } from 'react-router-dom'
@@ -13,7 +13,7 @@ const MemberList = (props) => {
       <Col cw={12}>
         <List>
           {users.map((user) => (
-            <Fragment key={user.id}>
+            <Paper key={user.id} style={{ marginBottom: '8px' }}>
               <ListItem
                 onClick={() =>
                   history.push(`${ROUTES_PATHS.MEMBERS_ALL}/${user.id}`)
@@ -21,7 +21,7 @@ const MemberList = (props) => {
                 <MemberAdvancedView horizontal withName {...user} />
               </ListItem>
               <Divider />
-            </Fragment>
+            </Paper>
           ))}
         </List>
       </Col>

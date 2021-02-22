@@ -1,12 +1,16 @@
+import MuiCustomTheme from '../../../../../config/qonsollTheme/MuiCustomTheme'
+
 const optionsForChart = {
   chart: {
     id: 'basic-bar',
     animations: {
       speed: 200
-    }
+    },
+    foreColor: MuiCustomTheme.palette.text.primary
   },
   legend: {
-    fontSize: 15,
+    fontSize: MuiCustomTheme.typography.body2,
+    fontWeight: MuiCustomTheme.typography.fontWeightLight,
     markers: {
       radius: 4,
       width: 22
@@ -60,12 +64,12 @@ const optionsForChart = {
           },
           total: {
             show: true,
+            fontWeight: MuiCustomTheme.typography.fontWeightBold,
+            color: MuiCustomTheme.palette.text.primary,
             showAlways: true,
             label: 'Total',
             fontSize: '22px',
             fontFamily: 'Helvetica, Arial, sans-serif',
-            fontWeight: 600,
-            color: '#373d3f',
             formatter: function (w) {
               const tmpRes = w.globals.series.reduce((a, b) => {
                 return a + b

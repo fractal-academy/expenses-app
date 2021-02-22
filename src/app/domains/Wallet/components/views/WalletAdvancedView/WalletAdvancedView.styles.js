@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core'
+import MuiCustomTheme from '../../../../../config/qonsollTheme/MuiCustomTheme'
 
 export const useStyles = makeStyles({
   styledPaper: {
@@ -6,9 +7,7 @@ export const useStyles = makeStyles({
     overflow: 'hidden'
   },
   bold: {
-    fontWeight: 600
-  },
-  red: {
-    color: '	#ff4d4d'
+    fontWeight: 600,
+    color: '#ffffff'
   }
 })
