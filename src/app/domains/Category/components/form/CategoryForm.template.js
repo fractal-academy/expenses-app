@@ -7,11 +7,7 @@ import {
 } from 'mui-form-generator-fractal-band-2'
 import { ColorSingleSelect } from 'app/domains/Color/components/select'
 import { CurrencySimpleView } from 'app/domains/Currency/components/views'
-import { CURRENCIES } from 'app/constants'
 import { COLOR_VALUE } from 'app/constants/colors'
-
-// COMPONENT CONSTANTS
-const { CURRENCY_VALUES } = CURRENCIES
 
 const CONFIG = [
   {
@@ -34,7 +30,11 @@ const CONFIG = [
       {
         label: 'Currency',
         name: 'currency',
-        Component: CurrencySimpleView
+        Component: CurrencySimpleView,
+        props: {
+          value: 'UAH'
+        },
+        colProps: { cw: 'auto' }
       }
     ]
   },
