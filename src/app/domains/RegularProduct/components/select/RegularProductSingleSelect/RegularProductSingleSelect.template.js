@@ -26,7 +26,7 @@ const RegularProductSingleSelect = (props) => {
   useEffect(() => {
     const fetchCategories = async () => {
       const data = await getData(COLLECTIONS.REGULAR_PRODUCTS)
-      const dataArray = Object.values(data).map((item) => item.name)
+      const dataArray = Object.values(data).map((item) => item)
       setRegularProducts(dataArray)
       setCurrentRegularProduct(dataArray[0])
     }
@@ -38,7 +38,7 @@ const RegularProductSingleSelect = (props) => {
     <Select value={currentRegularProduct} data={regularProducts} {...rest}>
       {(item) => (
         <MenuItem value={item} key={item}>
-          {item}
+          {item.name}
         </MenuItem>
       )}
     </Select>
