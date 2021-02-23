@@ -9,7 +9,10 @@ import { addData, setData, getCollectionRef } from 'app/services/Firestore'
 import { COLLECTIONS } from 'app/constants'
 import { Logger } from 'app/utils'
 import { useSession } from 'app/context/SessionContext'
-import { useDocumentData } from 'react-firebase-hooks/firestore'
+import {
+  useCollectionData,
+  useDocumentData
+} from 'react-firebase-hooks/firestore'
 
 const CategoryCombined = (props) => {
   // INTERFACE
@@ -23,8 +26,12 @@ const CategoryCombined = (props) => {
   // [ADDITIONAL_HOOKS]
   const form = useForm({})
   const user = useSession()
-  const [value] = useDocumentData(
-    getCollectionRef(COLLECTIONS.CATEGORIES).doc(categoryId)
+  // [ADDITIONAL_HOOKS]
+  const [value, loading] = useCollectionData(
+    getCollectionRef(COLLECTIONS.CATEGORIES),
+    {
+      idField: 'id'
+    }
   )
   // HELPER FUNCTIONS
   const onAddCategory = (data) => {
