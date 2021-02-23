@@ -55,12 +55,7 @@ const CommentListWithAdd = () => {
       ? 'regular products'
       : prodCollection
   } page`
-  // const prodColl = [(COLLECTIONS.CART, COLLECTIONS.WISHES, 'regular')]
-  //   .map((coll) => {
-  //     if (location.pathname.includes(coll)) return coll
-  //   })
-  //   .join('')
-
+  
   // [HELPER_FUNCTIONS]
   const addComment = (e) => {
     e.preventDefault()
