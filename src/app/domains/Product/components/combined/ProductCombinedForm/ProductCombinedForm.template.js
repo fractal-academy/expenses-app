@@ -5,6 +5,7 @@ import { Switch, Typography } from '@material-ui/core'
 import { firestore, setData } from 'app/services/Firestore'
 import { useForm } from 'mui-form-generator-fractal-band-2'
 import { useSession } from 'app/context/SessionContext/hooks'
+import { Logger } from 'app/utils'
 import { ProductSimpleForm } from 'domains/Product/components/forms'
 import { RegularProductSimpleForm } from 'domains/RegularProduct/components/forms'
 
@@ -17,9 +18,9 @@ const ProductCombinedForm = (props) => {
   const [switchState, setSwitchState] = useState(true)
   const [loading, setLoading] = useState(false)
 
-  // [HOOKS]
+  // [ADITIONAL_HOOKS]
+  const user = useSession()
   const form = useForm()
-  const session = useSession()
 
   // [HELPER_FUNCTIONS]
   const onAddProduct = async (data) => {
@@ -30,8 +31,13 @@ const ProductCombinedForm = (props) => {
         id: id,
         name: data.nameProduct,
         description: data.description,
-        creator: session.id
+        creator: user.id
       })
+      Logger(
+        'New product',
+        `New product '${data.nameProduct}' was added to wish table`,
+        user
+      )
       form.reset({})
     } catch (error) {
       console.log(error)
@@ -54,6 +60,11 @@ const ProductCombinedForm = (props) => {
         price: data.price || data.productSelect.price,
         measure: data.measures || data.productSelect.measures
       })
+      Logger(
+        'Move regular product',
+        `Regular product '${data.productSelect}' was added to wish table`,
+        user
+      )
       form.reset({})
     } catch (error) {
       console.log(error)
@@ -62,9 +73,7 @@ const ProductCombinedForm = (props) => {
     setSwitchState(true)
     setOpen(false)
   }
-
   const submitForm = () => form.submit()
-
   const handleClickOpen = () => setOpen(true)
   const handleClose = () => {
     setOpen(false)

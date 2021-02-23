@@ -22,6 +22,7 @@ import { CategorySimpleView } from 'domains/Category/components/views'
 import { CurrencySimpleView } from 'domains/Currency/components/views'
 import { CommentListWithAdd } from 'app/domains/Comment/components/combined/list'
 import { WalletCombinedWithSelect } from 'app/domains/Wallet/components/combined'
+import { Logger } from 'app/utils'
 
 const ProductAdvancedView = (props) => {
   const productTypeMap = {
@@ -67,8 +68,12 @@ const ProductAdvancedView = (props) => {
       wrapperForItem: Box
     }
   }
-
+  // [INTERFACES]
   const { type, data, id, setStatusMessage, dropdownItem } = props
+
+  // [COMPONENT_STATE_HOOKS]
+  const [confirm, setConfirm] = useState(false)
+  const [deleteLoading, setDeleteLoading] = useState(false)
 
   // [ADDITIONAL_HOOKS]
   const user = useSession()
@@ -76,14 +81,11 @@ const ProductAdvancedView = (props) => {
   const history = useHistory()
   const messageDispatch = useMessageDispatch()
 
-  // [COMPONENT_STATE_HOOKS]
-  const [confirm, setConfirm] = useState(false)
-  const [deleteLoading, setDeleteLoading] = useState(false)
-
   // [HELPER_FUNCTIONS]
   const handleDelete = async () => {
     try {
       setDeleteLoading(true)
+      Logger('Delete product', `Product '${data.name}' was deleted`, user)
       await deleteData(productCollection, id)
       history.goBack()
       messageDispatch({
@@ -125,6 +127,7 @@ const ProductAdvancedView = (props) => {
       })
     }
   }
+
   async function handleMoveProductToPurchase(wallet) {
     try {
       /*
@@ -142,7 +145,7 @@ const ProductAdvancedView = (props) => {
       })
 
       /*
-        set new balance to wallet*/
+       set new balance to wallet*/
       await setData(COLLECTIONS.WALLETS, wallet.id, {
         balance: wallet.balance - product.price
       })
@@ -152,7 +155,11 @@ const ProductAdvancedView = (props) => {
       await setData(COLLECTIONS.CATEGORIES, category.docs[0].id, {
         spent: category.docs[0].data().spent + parseInt(data.price)
       })
-
+      Logger(
+        'Move product to the wishes',
+        `Product '${data.name}' was moved to the wishes table`,
+        user
+      )
       messageDispatch({
         type: types.OPEN_SUCCESS_MESSAGE,
         payload: `Product was bought`
@@ -174,7 +181,11 @@ const ProductAdvancedView = (props) => {
     try {
       await setData(actionCollection, id, data)
       await handleDelete()
-
+      Logger(
+        'Move product to the cart',
+        `Product '${data.name}' was moved to the cart table`,
+        user
+      )
       messageDispatch({
         type: types.OPEN_SUCCESS_MESSAGE,
         payload: `Product was successfully moved to ${actionCollection}`
@@ -203,6 +214,7 @@ const ProductAdvancedView = (props) => {
   const purchasedDate =
     data?.dateBuy && moment(data?.dateBuy.toDate()).format('Do MMM YYYY')
 
+  // [TEMPLATE]
   const DropdownList = (
     <Container>
       {user.role !== 'user' && typeof firstElement !== 'string' ? (
@@ -210,9 +222,7 @@ const ProductAdvancedView = (props) => {
       ) : (
         <WrapperForItem
           onSubmitFunction={handleMoveProduct}
-          onClick={
-            prevFunctionForItem ? prevFunctionForItem : handleMoveProduct
-          }>
+          onClick={prevFunctionForItem || handleMoveProduct}>
           {user.role === 'admin' && (
             <DropdownItem divider>
               <Typography>{firstElement}</Typography>

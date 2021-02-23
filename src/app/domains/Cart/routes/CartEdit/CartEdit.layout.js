@@ -11,16 +11,22 @@ import { useHistory, useParams } from 'react-router-dom'
 import { useDocumentData } from 'react-firebase-hooks/firestore'
 import { ProductAdvancedForm } from 'domains/Product/components/forms/ProductAdvancedForm'
 import React, { useEffect, useState } from 'react'
+import { Logger } from 'app/utils'
+import { useSession } from 'app/context/SessionContext'
 
-const CartEdit = () => {
+const CartEdit = (props) => {
+  //STATE
+  const [loading, setLoading] = useState(true)
+  const [dataForDefaultValue, setDataForDefaultValue] = useState()
+  // [ADITIONAL HOOKS]
   const history = useHistory()
+  const user = useSession()
   const { id } = useParams()
   const [value] = useDocumentData(
     firestore.collection(COLLECTIONS.CART).doc(id)
   )
-  const [loading, setLoading] = useState(true)
-  const [dataForDefaultValue, setDataForDefaultValue] = useState()
 
+  //USE EFFECTS
   useEffect(() => {
     const fetchData = async () => {
       const dataUsers =
@@ -41,8 +47,11 @@ const CartEdit = () => {
     value && fetchData()
   }, [value])
 
+  //HELPER FUNCTIONS
   const onEditProduct = async (data) => {
     try {
+      var description = `Product '${value?.name}' was edited in cart table.
+        ${value?.name !== data.name ? '' : `Name changed on '${data.name}'`}`
       await setData(COLLECTIONS.CART, id, {
         id: id,
         name: data.name,
@@ -63,16 +72,18 @@ const CartEdit = () => {
         userId: [data.assign.id],
         viewed: { [data.assign.id]: false }
       })
+      Logger(`'${value?.name}' was edited`, description, user)
       history.goBack()
     } catch (error) {
       console.log(error)
     }
   }
+  const onCancel = () => history.goBack()
 
+  //TEMPLATE
   if (loading || !dataForDefaultValue) {
     return <Spinner />
   }
-  const onCancel = () => history.goBack()
   return (
     <ProductAdvancedForm
       formData={dataForDefaultValue}

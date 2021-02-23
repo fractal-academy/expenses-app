@@ -9,21 +9,33 @@ import { firestore, setData } from 'app/services'
 import { COLLECTIONS } from 'app/constants'
 import { Row } from '@qonsoll/react-design'
 import { deleteData } from 'app/services/Firestore'
+import { useSession } from 'app/context/SessionContext'
+import { Logger } from 'app/utils'
 
 const MeasureModalWithForm = (props) => {
+  // [INTERFACES]
   const { title, children } = props
-
+  // [STATE]
   const [open, setOpen] = useState(children && !children)
   const [openSnackbarSuccess, setOpenSnackbarSuccess] = useState(false)
   const [openSnackbarError, setOpenSnackbarError] = useState(false)
   const [loading, setLoading] = useState(false)
   const [switchState, setSwitchState] = useState(true)
-  const form = useForm({})
 
+  // [CUSTOM_HOOKS]
+  const form = useForm({})
+  const user = useSession()
+
+  // [HELPER_FUNCTIONS]
   const onRemoveMeasure = async (data) => {
     try {
       const { measureSelect } = data
       setLoading(true)
+      Logger(
+        'Delete measure',
+        `Measure '${measureSelect.measure}' was deleted`,
+        user
+      )
       await deleteData(COLLECTIONS.MEASURES, measureSelect.id)
       form.reset({})
     } catch (error) {
@@ -41,6 +53,7 @@ const MeasureModalWithForm = (props) => {
         id: id,
         measure: data.measure
       })
+      Logger('Add new measure', `Measure '${data.measure}' was added`, user)
       form.reset()
     } catch (error) {
       console.log(error)
@@ -50,7 +63,6 @@ const MeasureModalWithForm = (props) => {
 
     setOpen(false)
   }
-
   const submitForm = () => form.submit()
   const handleClickOpen = () => {
     setOpen(true)
@@ -61,6 +73,8 @@ const MeasureModalWithForm = (props) => {
     setOpen(false)
     setSwitchState(true)
   }
+
+  // [TEMPLATE]
   return (
     <>
       {(children &&

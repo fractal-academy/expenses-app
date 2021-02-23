@@ -9,6 +9,8 @@ import { CategoryCombined } from 'domains/Category/components/combined/CategoryC
 import { DropdownItem, Dropdown } from 'app/components/Lib/Dropdown'
 import { deleteData } from 'app/services/Firestore'
 import formatCurrency from 'format-currency'
+import Logger from 'app'
+import { useSession } from 'app/context/SessionContext'
 
 const CategoryAdvancedView = (props) => {
   // INTERFACE
@@ -16,7 +18,12 @@ const CategoryAdvancedView = (props) => {
 
   // CUSTOM HOOKS
   const classes = useStyles()
+  const user = useSession()
 
+  const deleteCategory = () => {
+    Logger('Delete Category', `Category ${nameCategory} was deleted`, user)
+    deleteData('categories', id)
+  }
   // COMPUTED PROPERTIES
   const availableBalance = budget - spent
   const valueForProgressBar = 100 - (availableBalance * 100) / budget
@@ -42,11 +49,7 @@ const CategoryAdvancedView = (props) => {
           Edit
         </DropdownItem>
       </CategoryCombined>
-      <DropdownItem
-        danger
-        onClick={() => {
-          deleteData('categories', id)
-        }}>
+      <DropdownItem danger onClick={deleteCategory}>
         <Box mr={2}>
           <Delete />
         </Box>

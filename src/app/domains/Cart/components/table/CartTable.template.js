@@ -13,6 +13,7 @@ import { useCollectionData } from 'react-firebase-hooks/firestore'
 import { WalletCombinedWithSelect } from 'app/domains/Wallet/components/combined/WalletCombinedWithSelect'
 import { useSession } from 'app/context/SessionContext/hooks'
 import { useMessageDispatch, types } from 'app/context/MessageContext'
+import { Logger } from 'app/utils'
 import { toNumber } from 'lodash'
 
 const CartTable = (props) => {
@@ -26,10 +27,10 @@ const CartTable = (props) => {
 
   const session = useSession()
   const messageDispatch = useMessageDispatch()
-  const [deleteLoading, setDeleteLoading] = useState(false)
 
   // STATE
   const [confirm, setConfirm] = useState(false)
+  const [deleteLoading, setDeleteLoading] = useState(false)
 
   // COMPUTED PROPERTIES
   const userName = `${session.firstName} ${session.surname}`
@@ -65,6 +66,20 @@ const CartTable = (props) => {
     /*
     count - how many items with empty fields*/
     return count
+  }
+  const CartLogger = async (selectedItems, type) => {
+    const prodPromises = selectedItems.map((prodId) =>
+      getData(COLLECTIONS.WISHES, prodId)
+    )
+    const productsData = await Promise.allSettled(prodPromises)
+    var prodNames = productsData.map(({ value }) => value.name)
+
+    prodNames = await prodNames.join(', ')
+    const description = `${prodNames}${
+      selectedItems.length > 1 ? ' were' : ' was'
+    } ${type === 'Delete' ? `${type}d in cart table` : `${type}`}`.toLowerCase()
+
+    Logger(`${type} products`, description, session)
   }
 
   const updateCategories = async (selectedProducts) => {
@@ -116,14 +131,16 @@ const CartTable = (props) => {
     /*
       sum which will be minus from wallet`s balance     */
     let sum = 0
-
-    selectedItems.map(async (item) => {
+    await CartLogger(selectedItems, 'Bought')
+    await selectedItems.map(async (item) => {
       try {
         /*
         get info about product in card      */
         const product = await getData(COLLECTIONS.CART, item)
 
-        /*set data to collection purchases with additional fields (info about user)*/
+        /*
+        set data to collection purchases with additional fields (info about user)
+        */
         await setData(COLLECTIONS.PURCHASES, item, {
           ...product,
           assign: userName,
@@ -133,7 +150,8 @@ const CartTable = (props) => {
           dateBuy: data.dateBuy ? data.dateBuy : getTimestamp().now()
         })
         /*
-        delete current product from collection card */
+        delete current product from collection card 
+        */
         await deleteData(COLLECTIONS.CART, item)
         /*
         calculate sum for product*/
@@ -172,6 +190,7 @@ const CartTable = (props) => {
     try {
       setDeleteLoading(true)
 
+      CartLogger(selectedItems, 'Delete')
       for (let item of selectedItems) {
         await deleteData(COLLECTIONS.CART, item)
       }

@@ -5,8 +5,11 @@ import { Alert } from '@material-ui/lab'
 import { Modal, FabButton } from 'app/components/Lib'
 import { CategoryForm } from 'domains/Category/components/form'
 import PropTypes from 'prop-types'
-import { addData, setData } from 'app/services/Firestore'
+import { addData, setData, getCollectionRef } from 'app/services/Firestore'
 import { COLLECTIONS } from 'app/constants'
+import { Logger } from 'app/utils'
+import { useSession } from 'app/context/SessionContext'
+import { useDocumentData } from 'react-firebase-hooks/firestore'
 
 const CategoryCombined = (props) => {
   // INTERFACE
@@ -17,9 +20,12 @@ const CategoryCombined = (props) => {
   const [openSnackbarSuccess, setOpenSnackbarSuccess] = useState(false)
   const [openSnackbarError, setOpenSnackbarError] = useState(false)
 
-  // CUSTOM HOOKS
+  // [ADDITIONAL_HOOKS]
   const form = useForm({})
-
+  const user = useSession()
+  const [value] = useDocumentData(
+    getCollectionRef(COLLECTIONS.CATEGORIES).doc(categoryId)
+  )
   // HELPER FUNCTIONS
   const onAddCategory = (data) => {
     addData(COLLECTIONS.CATEGORIES, {
@@ -27,23 +33,33 @@ const CategoryCombined = (props) => {
       colorCategory: data.color,
       spent: 0,
       budget: Number(data.budgetLimit)
-    }).then(() => setOpen(false))
+    }).then(
+      () =>
+        Logger('New category', `Category ${data.nameCategory} was added`, user),
+      setOpen(false)
+    )
   }
 
   const onEditCategory = (data) => {
     setData(COLLECTIONS.CATEGORIES, categoryId, {
       colorCategory: data.color,
       budget: Number(data.budgetLimit)
-    }).then(() => setOpen(false))
+    }).then(
+      () =>
+        Logger(
+          'Edit category',
+          `Category ${value?.nameCategory} was edited`,
+          user
+        ),
+      setOpen(false)
+    )
   }
-
   const submitForm = () => {
     form.submit()
   }
   const handleClickOpen = () => {
     setOpen(true)
   }
-
   const handleClose = () => {
     setOpenSnackbarSuccess(false)
     setOpenSnackbarError(false)

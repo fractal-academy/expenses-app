@@ -5,6 +5,8 @@ import { RegularProductAdvancedForm } from 'app/domains/RegularProduct/component
 import { COLLECTIONS } from 'app/constants'
 import { firestore, setData, getTimestamp } from 'app/services/Firestore'
 import PropTypes from 'prop-types'
+import { Logger } from 'app/utils'
+import { useSession } from 'app/context/SessionContext/hooks'
 
 const RegularProductCombined = (props) => {
   const { title, typeModalEdit } = props
@@ -12,6 +14,7 @@ const RegularProductCombined = (props) => {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const form = useForm({})
+  const user = useSession()
 
   const onAddRegularProduct = async (data) => {
     try {
@@ -31,6 +34,11 @@ const RegularProductCombined = (props) => {
           ? getTimestamp().fromDate(new Date(data.reminderDate))
           : null
       })
+      Logger(
+        'New regular product',
+        `New regular product '${data.nameProduct}' was created`,
+        user
+      )
       form.reset({})
     } catch (error) {
       console.log(error)
