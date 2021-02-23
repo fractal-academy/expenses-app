@@ -5,7 +5,7 @@ const Spinner = (props) => {
   return (
     <Row height="100%" h="center" v="center">
       <Col cw="auto" display="flex" v="center">
-        <CircularProgress />
+        <CircularProgress color={'red'} />
       </Col>
     </Row>
   )
