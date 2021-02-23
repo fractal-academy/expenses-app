@@ -1,5 +1,5 @@
 import { Select } from 'app/components/Lib'
-import MenuItem from '@material-ui/core/MenuItem'
+import { MenuItem, Typography } from '@material-ui/core'
 import PropTypes from 'prop-types'
 import { WalletSimpleViewWithCurrency } from 'app/domains/Wallet/components/views'
 import { useStyles } from './WalletSingleSelect.styles'

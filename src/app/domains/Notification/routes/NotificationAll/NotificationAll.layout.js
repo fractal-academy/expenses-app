@@ -10,7 +10,7 @@ import md5 from 'md5'
 /**
  * @info NotificationAll (18 Jan 2020) // CREATION DATE
  *
- * @since 14 Feb 2021 ( v.0.0.3 ) // LAST-EDIT DATE
+ * @since 22 Feb 2021 ( v.0.0.4 ) // LAST-EDIT DATE
  *
  * @return {ReactComponent}
  */
@@ -31,7 +31,8 @@ const NotificationAll = () => {
           id: item.id,
           notificationText: item.text,
           notificationTime: item.date.toDate(),
-          userAvatar: snapshot.avatarURL
+          userAvatar: snapshot.avatarURL,
+          viewed: item.viewed && item.viewed[session.id]
         }))
         setData(res)
       })

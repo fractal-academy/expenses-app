@@ -52,6 +52,7 @@ const CustomTable = (props) => {
     products,
     handleDelete,
     WrapperForCheck,
+    titleForWrapperForCheck,
     onCheckClick,
     handleMove,
     purchaseAssign,
@@ -97,6 +98,7 @@ const CustomTable = (props) => {
               handleDelete={handleDelete}
               onCheckClick={onCheckClick}
               WrapperForCheck={WrapperForCheck}
+              titleForWrapperForCheck={titleForWrapperForCheck}
               handleMove={handleMove}
               confirm={confirm}
               setConfirm={setConfirm}

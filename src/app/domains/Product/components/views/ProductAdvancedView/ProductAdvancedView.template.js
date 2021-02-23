@@ -209,7 +209,6 @@ const ProductAdvancedView = (props) => {
         firstElement && firstElement
       ) : (
         <WrapperForItem
-          setStatusMessage={setStatusMessage}
           onSubmitFunction={handleMoveProduct}
           onClick={
             prevFunctionForItem ? prevFunctionForItem : handleMoveProduct
