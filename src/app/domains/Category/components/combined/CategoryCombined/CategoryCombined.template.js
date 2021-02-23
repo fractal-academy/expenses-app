@@ -9,10 +9,7 @@ import { addData, setData, getCollectionRef } from 'app/services/Firestore'
 import { COLLECTIONS } from 'app/constants'
 import { Logger } from 'app/utils'
 import { useSession } from 'app/context/SessionContext'
-import {
-  useCollectionData,
-  useDocumentData
-} from 'react-firebase-hooks/firestore'
+import { useCollectionData } from 'react-firebase-hooks/firestore'
 
 const CategoryCombined = (props) => {
   // INTERFACE
