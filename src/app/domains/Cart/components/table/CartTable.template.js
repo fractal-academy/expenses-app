@@ -137,7 +137,7 @@ const CartTable = (props) => {
         await deleteData(COLLECTIONS.CART, item)
         /*
         calculate sum for product*/
-        sum = sum + +product.price
+        sum = sum + Number(product.price)
         /*
         a message about successful operation*/
         messageDispatch({
@@ -154,7 +154,7 @@ const CartTable = (props) => {
       } /*
         set new balance to wallet*/
       await setData(COLLECTIONS.WALLETS, data.id, {
-        balance: +data.balance - sum
+        balance: Number(data.balance) - sum
       })
     })
     try {
@@ -207,6 +207,9 @@ const CartTable = (props) => {
       /*
           component for select wallet*/
       WrapperForCheck={WalletCombinedWithSelect}
+      /*
+          title for modal window with selecting wallet */
+      titleForWrapperForCheck={'Select a wallet'}
       /*
           function for checking. every product have filled fields or not.
           if once field has an empty field, you will not see WrapperForCheck */
