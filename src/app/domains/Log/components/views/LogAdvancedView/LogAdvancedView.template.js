@@ -1,7 +1,9 @@
 import { Row, Col, Box } from '@qonsoll/react-design'
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
-import AccountCircleIcon from '@material-ui/icons/AccountCircle'
+import {
+  KeyboardArrowDown,
+  KeyboardArrowUp,
+  AccountCircle
+} from '@material-ui/icons'
 import { Typography, Avatar, Paper } from '@material-ui/core'
 import moment from 'moment'
 import { useState } from 'react'
@@ -28,7 +30,7 @@ const LogAdvancedView = (props) => {
               <Col cw="auto">
                 <Avatar alt="User" src={userAvatar}>
                   {/** Change this block to UserSimpleView when it will be ready */}
-                  <AccountCircleIcon />
+                  <AccountCircle />
                 </Avatar>
               </Col>
               <Col>
@@ -42,9 +44,7 @@ const LogAdvancedView = (props) => {
             </Row>
           </Col>
           <Col cw="auto" onClick={() => setDetailed(!detailed)}>
-            <Box>
-              {detailed ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-            </Box>
+            <Box>{detailed ? <KeyboardArrowUp /> : <KeyboardArrowDown />}</Box>
           </Col>
         </Row>
         {detailed && (
