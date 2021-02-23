@@ -10,6 +10,7 @@ const ColorSingleSelect = (props) => {
 
   return (
     <Select
+      entity="colors"
       className={classes.selectColor}
       value={value || COLOR_VALUE[0].name}
       data={COLOR_VALUE}

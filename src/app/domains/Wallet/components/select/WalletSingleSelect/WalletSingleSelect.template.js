@@ -12,8 +12,9 @@ const WalletSingleSelect = (props) => {
   const classes = useStyles()
 
   // TEMPLATE
-  return Object.keys(data).length ? (
+  return (
     <Select
+      entity="wallets"
       data={Object.values(data)}
       className={classes.root}
       value={data[value]}
@@ -28,8 +29,6 @@ const WalletSingleSelect = (props) => {
         </MenuItem>
       )}
     </Select>
-  ) : (
-    <Typography>You don`t have any wallets</Typography>
   )
 }
 

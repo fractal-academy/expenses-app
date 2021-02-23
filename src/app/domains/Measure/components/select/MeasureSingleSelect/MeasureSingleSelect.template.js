@@ -20,9 +20,12 @@ const MeasureSingleSelect = (props) => {
   const { value, ...rest } = props
 
   // [ADDITIONAL_HOOKS]
-  const [data] = useCollectionData(getCollectionRef(COLLECTIONS.MEASURES), {
-    idField: 'id'
-  })
+  const [data, loading] = useCollectionData(
+    getCollectionRef(COLLECTIONS.MEASURES),
+    {
+      idField: 'id'
+    }
+  )
 
   // [COMPONENT_STATE_HOOKS]
   const [measure, setMeasure] = useState()
@@ -37,7 +40,12 @@ const MeasureSingleSelect = (props) => {
 
   // [TEMPLATE]
   return (
-    <Select data={measure || data} value={value || ''} {...rest}>
+    <Select
+      loading={loading}
+      entity="measures"
+      data={measure || data}
+      value={value || ''}
+      {...rest}>
       {(item, index) => (
         <MenuItem value={item} key={item.id || index}>
           {item.measure}
