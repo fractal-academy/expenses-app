@@ -69,7 +69,8 @@ const CartEdit = (props) => {
       addData(COLLECTIONS.NOTIFICATIONS, {
         date: getTimestamp().now(),
         text: `You were assigned to buy '${data.name}' in Cart`,
-        userId: [data.assign.id]
+        userId: [data.assign.id],
+        viewed: { [data.assign.id]: false }
       })
       Logger(`'${value?.name}' was edited`, description, user)
       history.goBack()

@@ -49,7 +49,8 @@ const config = [
         Component: WalletSingleSelect,
         rules: {
           required: 'Select wallet'
-        }
+        },
+        defaultValues: ''
       }
     ]
   }

@@ -101,11 +101,16 @@ const useAuthListener = () => {
     const res = await getCollectionRef(COLLECTIONS.USERS)
       .where('role', '==', 'admin')
       .get()
-    console.log('add new user')
+
+    let adminIds = {}
+
+    res.docs.forEach((item) => (adminIds = { ...adminIds, [item.id]: false }))
+
     await addData(COLLECTIONS.NOTIFICATIONS, {
       date: getTimestamp().now(),
       text: `User '${user.displayName}' accepted invitation to the app`,
-      userId: res.docs.map((item) => item.id)
+      userId: res.docs.map((item) => item.id),
+      viewed: adminIds
     })
   }
 

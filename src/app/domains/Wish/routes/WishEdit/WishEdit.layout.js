@@ -54,7 +54,8 @@ const WishEdit = (props) => {
       addData(COLLECTIONS.NOTIFICATIONS, {
         date: getTimestamp().now(),
         text: `You were assigned to buy '${data.name}' in Wishes list`,
-        userId: [data.assign.id]
+        userId: [data.assign.id],
+        viewed: { [data.assign.id]: false }
       })
     } catch (error) {
       console.log(error)

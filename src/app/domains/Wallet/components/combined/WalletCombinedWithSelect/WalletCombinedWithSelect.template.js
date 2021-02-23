@@ -100,7 +100,12 @@ const WalletCombinedWithSelect = (props) => {
           onClick: handleClose
         }}>
         <WalletForm
-          fieldProps={{ select: { data: selectData } }}
+          fieldProps={{
+            select: {
+              data: selectData,
+              value: Object.keys(selectData)[0]
+            }
+          }}
           form={form}
           show={['select']}
           onSubmit={onSubmit}
