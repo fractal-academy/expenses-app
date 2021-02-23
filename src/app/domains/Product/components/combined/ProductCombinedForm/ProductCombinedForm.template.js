@@ -58,7 +58,8 @@ const ProductCombinedForm = (props) => {
         assign: data.assign || data.productSelect.assign,
         firstName: data.firstName || data.productSelect.firstName,
         price: data.price || data.productSelect.price,
-        measure: data.measures || data.productSelect.measures
+        measures: data.measures || data.productSelect.measures,
+        quantity: data.quantity || data.productSelect.quantity
       })
       Logger(
         'Move regular product',
