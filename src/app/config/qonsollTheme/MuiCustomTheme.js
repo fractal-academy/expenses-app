@@ -1,7 +1,7 @@
 import { createMuiTheme } from '@material-ui/core'
 import Colors from './core/colors'
 import BorderRadiuses from './core/borderRadiuses.js'
-import { fontFamilies, fontSizes, fontWeights } from './core'
+import { fontFamilies, fontSizes, fontWeights, lineHeights } from './core'
 import { formConfigurator } from 'mui-form-generator-fractal-band-2'
 
 const MuiCustomTheme = createMuiTheme({
@@ -18,7 +18,6 @@ const MuiCustomTheme = createMuiTheme({
     },
     background: {
       paper: '#2c2c34'
-      // default: Colors.grey[2]
     },
     grey: {
       50: Colors.grey[1],
@@ -66,13 +65,6 @@ const MuiCustomTheme = createMuiTheme({
       disabled: Colors.text.disabled,
       hint: Colors.text.hint
     }
-    // divider: Colors.divider,
-    // primaryAlternative: {
-    //   c1: '#ee786c',
-    //   c2: '#20bfa9',
-    //   c3: '#c37fbc',
-    //   c4: '#ffecce'
-    // }
   },
   shape: {
     borderRadius: BorderRadiuses.shape.borderRadius
@@ -88,104 +80,90 @@ const MuiCustomTheme = createMuiTheme({
       fontFamily: fontFamilies.fontFamily.helvetica,
       fontWeight: fontWeights.fontWeight.light,
       fontSize: fontSizes.h1,
-      lineHeight: 1.167,
-      letterSpacing: '-0.01562em'
+      lineHeight: lineHeights.h1
     },
     h2: {
       fontFamily: fontFamilies.fontFamily.helvetica,
       fontWeight: fontWeights.fontWeight.light,
       fontSize: fontSizes.h2,
-      lineHeight: 1.2,
-      letterSpacing: '-0.00833em',
+      lineHeight: lineHeights.h2,
       color: Colors.text.primary
     },
     h3: {
       fontFamily: fontFamilies.fontFamily.helvetica,
       fontWeight: fontWeights.fontWeight.regular,
       fontSize: fontSizes.h3,
-      lineHeight: 1.167,
-      letterSpacing: '0em',
+      lineHeight: lineHeights.h3,
       color: Colors.text.primary
     },
     h4: {
       fontFamily: fontFamilies.fontFamily.helvetica,
       fontWeight: fontWeights.fontWeight.regular,
       fontSize: fontSizes.h4,
-      lineHeight: 1.235,
-      letterSpacing: '0.00735em',
+      lineHeight: lineHeights.h4,
       color: Colors.text.primary
     },
     h5: {
       fontFamily: fontFamilies.fontFamily.helvetica,
       fontWeight: fontWeights.fontWeight.regular,
       fontSize: fontSizes.h5,
-      lineHeight: 1.334,
-      letterSpacing: '0em',
+      lineHeight: lineHeights.h5,
       color: Colors.text.primary
     },
     h6: {
       fontFamily: fontFamilies.fontFamily.helvetica,
       fontWeight: fontWeights.fontWeight.medium,
       fontSize: fontSizes.h6,
-      lineHeight: 1.6,
-      letterSpacing: '0.0075em',
+      lineHeight: lineHeights.h6,
       color: Colors.text.primary
     },
     subtitle1: {
       fontFamily: fontFamilies.fontFamily.helvetica,
-      fontWeight: 400,
+      fontWeight: fontWeights.fontWeight.regular,
       fontSize: fontSizes.subtitle1,
-      lineHeight: 1.75,
-      letterSpacing: '0.00938em',
+      lineHeight: lineHeights.subtitle1,
       color: Colors.text.primary
     },
     subtitle2: {
       fontFamily: fontFamilies.fontFamily.helvetica,
       fontWeight: fontWeights.fontWeight.medium,
       fontSize: fontSizes.subtitle2,
-      lineHeight: 1.57,
-      letterSpacing: '0.00714em',
+      lineHeight: lineHeights.subtitle2,
       color: Colors.text.primary
     },
     body1: {
       fontFamily: fontFamilies.fontFamily.helvetica,
       fontWeight: fontWeights.fontWeight.regular,
       fontSize: fontSizes.body1,
-      lineHeight: '1.5rem',
-      letterSpacing: 0,
+      lineHeight: lineHeights.body1,
       color: Colors.text.primary
     },
     body2: {
       fontFamily: fontFamilies.fontFamily.helvetica,
       fontWeight: fontWeights.fontWeight.regular,
       fontSize: fontSizes.body2,
-      lineHeight: '1.75rem',
-      letterSpacing: 0,
+      lineHeight: lineHeights.body2,
       color: Colors.text.primary
     },
     button: {
       fontFamily: fontFamilies.fontFamily.helvetica,
       fontWeight: fontWeights.fontWeight.regular,
       fontSize: fontSizes.button,
-      lineHeight: 1.43,
-      letterSpacing: '0.01071em',
+      lineHeight: lineHeights.button,
       color: Colors.text.primary
     },
     caption: {
       fontFamily: fontFamilies.fontFamily.helvetica,
       fontWeight: fontWeights.fontWeight.regular,
-      fontSize: '0.75rem',
-      lineHeight: 1.66,
-      letterSpacing: '0.03333em',
+      fontSize: fontSizes.caption,
+      lineHeight: lineHeights.caption,
       color: Colors.text.primary
     },
     overline: {
       fontFamily: fontFamilies.fontFamily.helvetica,
       fontWeight: fontWeights.fontWeight.regular,
-      fontSize: '0.75rem',
-      lineHeight: 2.66,
-      letterSpacing: '0.08333em',
-      textTransform: 'uppercase',
+      fontSize: fontSizes.overlay,
+      lineHeight: lineHeights.overline,
       color: Colors.text.primary
     }
   },
@@ -209,6 +187,9 @@ const MuiCustomTheme = createMuiTheme({
       icon: {
         color: Colors.text.primary
       }
+    },
+    '& .MuiSwitch-track': {
+      background: 'pink'
     }
   }
 })
