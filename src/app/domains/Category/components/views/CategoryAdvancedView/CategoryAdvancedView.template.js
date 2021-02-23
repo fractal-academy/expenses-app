@@ -9,6 +9,7 @@ import { CategoryCombined } from 'domains/Category/components/combined/CategoryC
 import { DropdownItem, Dropdown } from 'app/components/Lib/Dropdown'
 import { deleteData } from 'app/services/Firestore'
 import formatCurrency from 'format-currency'
+import COLOR from 'app/constants/colors'
 
 const CategoryAdvancedView = (props) => {
   // INTERFACE
@@ -54,7 +55,7 @@ const CategoryAdvancedView = (props) => {
       </DropdownItem>
     </div>
   )
-
+  console.log(COLOR)
   // TEMPLATE
   return (
     <>
@@ -62,7 +63,10 @@ const CategoryAdvancedView = (props) => {
         <Row>
           <Col>
             <Paper>
-              <Box className={classes.border} background={colorCategory} />
+              <Box
+                className={classes.border}
+                background={COLOR[colorCategory.toUpperCase()].color}
+              />
               {/* Row colorBox */}
               <Row height="100%" pr="0.25rem" pl="0rem">
                 <Col p={2}>

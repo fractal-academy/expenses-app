@@ -79,10 +79,10 @@ const optionsForChart = {
     }
   },
   colors: [
-    COLOR.GREEN.color,
-    COLOR.LAVENDER.color,
-    COLOR.YELLOW.color,
-    COLOR.RED.color,
+    COLOR.AQUAMARINE.color,
+    COLOR.PEACH.color,
+    COLOR.CORAL.color,
+    COLOR.SALMON.color,
     COLOR.BLUE.color
   ],
   labels: [],

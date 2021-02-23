@@ -5,7 +5,6 @@ export const useStyles = makeStyles((theme) => ({
   root: {
     top: 'auto',
     bottom: 0,
-    marginTop: theme.spacing(1),
     position: 'sticky',
     boxShadow: 'none'
   },
