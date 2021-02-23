@@ -10,6 +10,7 @@ import { COLLECTIONS } from 'app/constants'
 import { Logger } from 'app/utils'
 import { useSession } from 'app/context/SessionContext'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
+import { useMessageDispatch, types } from 'app/context/MessageContext'
 
 const CategoryCombined = (props) => {
   // INTERFACE
@@ -23,40 +24,62 @@ const CategoryCombined = (props) => {
   // [ADDITIONAL_HOOKS]
   const form = useForm({})
   const user = useSession()
+  const messageDispatch = useMessageDispatch()
   // [ADDITIONAL_HOOKS]
-  const [value, loading] = useCollectionData(
-    getCollectionRef(COLLECTIONS.CATEGORIES),
-    {
-      idField: 'id'
-    }
-  )
+  const [value] = useCollectionData(getCollectionRef(COLLECTIONS.CATEGORIES), {
+    idField: 'id'
+  })
+
   // HELPER FUNCTIONS
   const onAddCategory = (data) => {
-    addData(COLLECTIONS.CATEGORIES, {
-      nameCategory: data.nameCategory,
-      colorCategory: data.color,
-      spent: 0,
-      budget: Number(data.budgetLimit)
-    }).then(
-      () =>
-        Logger('New category', `Category ${data.nameCategory} was added`, user),
-      setOpen(false)
-    )
+    try {
+      value.map((item) => {
+        if (item.nameCategory === data.nameCategory) {
+          throw new Error('This name is already exist')
+        }
+      })
+      addData(COLLECTIONS.CATEGORIES, {
+        nameCategory: data.nameCategory,
+        colorCategory: data.color,
+        spent: 0,
+        budget: Number(data.budgetLimit)
+      }).then(
+        () =>
+          Logger(
+            'New category',
+            `Category ${data.nameCategory} was added`,
+            user
+          ),
+        setOpen(false)
+      )
+    } catch (error) {
+      messageDispatch({
+        type: types.OPEN_ERROR_MESSAGE,
+        payload: `This name is already exist`
+      })
+    }
   }
 
   const onEditCategory = (data) => {
-    setData(COLLECTIONS.CATEGORIES, categoryId, {
-      colorCategory: data.color,
-      budget: Number(data.budgetLimit)
-    }).then(
-      () =>
-        Logger(
-          'Edit category',
-          `Category ${value?.nameCategory} was edited`,
-          user
-        ),
-      setOpen(false)
-    )
+    try {
+      setData(COLLECTIONS.CATEGORIES, categoryId, {
+        colorCategory: data.color,
+        budget: Number(data.budgetLimit)
+      }).then(
+        () =>
+          Logger(
+            'Edit category',
+            `Category ${value?.nameCategory} was edited`,
+            user
+          ),
+        setOpen(false)
+      )
+    } catch (error) {
+      messageDispatch({
+        type: types.OPEN_ERROR_MESSAGE,
+        payload: `You can not edit category`
+      })
+    }
   }
   const submitForm = () => {
     form.submit()
