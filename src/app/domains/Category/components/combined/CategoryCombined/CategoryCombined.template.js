@@ -33,11 +33,11 @@ const CategoryCombined = (props) => {
       colorCategory: data.color,
       spent: 0,
       budget: Number(data.budgetLimit)
-    })
-      .then(() =>
-        Logger('New category', `Category ${data.nameCategory} was added`, user)
-      )
-      .then(() => setOpen(false))
+    }).then(
+      () =>
+        Logger('New category', `Category ${data.nameCategory} was added`, user),
+      setOpen(false)
+    )
   }
 
   const onEditCategory = (data) => {

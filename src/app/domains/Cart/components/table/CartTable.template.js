@@ -76,14 +76,9 @@ const CartTable = (props) => {
 
     prodNames = await prodNames.join(', ')
     const description = `${prodNames}${
-      selectedItems.length > 1
-        ? ` were ${
-            type === 'Delete' ? `${type}d in cart table` : `${type}`
-          }`.toLowerCase()
-        : ` was ${
-            type === 'Delete' ? `${type}d in cart table` : `${type}`
-          }`.toLowerCase()
-    }`
+      selectedItems.length > 1 ? ' were' : ' was'
+    } ${type === 'Delete' ? `${type}d in cart table` : `${type}`}`.toLowerCase()
+
     Logger(`${type} products`, description, session)
   }
 

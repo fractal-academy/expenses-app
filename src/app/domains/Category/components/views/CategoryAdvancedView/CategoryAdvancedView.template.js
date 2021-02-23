@@ -21,8 +21,8 @@ const CategoryAdvancedView = (props) => {
   const user = useSession()
 
   const deleteCategory = () => {
-    deleteData('categories', id)
     Logger('Delete Category', `Category ${nameCategory} was deleted`, user)
+    deleteData('categories', id)
     console.log('DELETE')
   }
   // COMPUTED PROPERTIES
