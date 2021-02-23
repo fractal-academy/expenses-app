@@ -148,14 +148,15 @@ const ProductAdvancedView = (props) => {
       await setData(COLLECTIONS.WALLETS, wallet.id, {
         balance: wallet.balance - product.price
       })
-      /*
-        set spended money to category spendings*/
+      /*set spended money to category spendings*/
+      let categoryIs = false
       const category = await getProductCategory()
       if (category.docs.length === 0) {
         await setData(COLLECTIONS.PURCHASES, id, {
           ...product,
           category: 'Other'
         })
+        categoryIs = true
       } else {
         await setData(COLLECTIONS.CATEGORIES, category.docs[0].id, {
           spent: category.docs[0].data().spent + parseInt(data.price)
@@ -171,6 +172,11 @@ const ProductAdvancedView = (props) => {
         type: types.OPEN_SUCCESS_MESSAGE,
         payload: `Product was bought`
       })
+      if (categoryIs)
+        messageDispatch({
+          type: types.OPEN_WARNING_MESSAGE,
+          payload: `Category was changed to other`
+        })
       /*
         delete current product from collection card */
       await deleteData(COLLECTIONS.CART, id)
