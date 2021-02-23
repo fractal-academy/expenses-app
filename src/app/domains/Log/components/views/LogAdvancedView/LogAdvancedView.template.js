@@ -2,7 +2,7 @@ import { Row, Col, Box } from '@qonsoll/react-design'
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
-import { Typography, Avatar, Divider } from '@material-ui/core'
+import { Typography, Avatar, Paper } from '@material-ui/core'
 import moment from 'moment'
 import { useState } from 'react'
 import PropTypes from 'prop-types'
@@ -20,7 +20,7 @@ const LogAdvancedView = (props) => {
 
   const [detailed, setDetailed] = useState(false)
   return (
-    <>
+    <Paper>
       <Box p={2}>
         <Row v="center" h="between">
           <Col>
@@ -60,8 +60,7 @@ const LogAdvancedView = (props) => {
           </Row>
         )}
       </Box>
-      <Divider />
-    </>
+    </Paper>
   )
 }
 

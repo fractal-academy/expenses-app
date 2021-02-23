@@ -27,7 +27,6 @@ const CartTable = (props) => {
 
   const session = useSession()
   const messageDispatch = useMessageDispatch()
-
   // STATE
   const [confirm, setConfirm] = useState(false)
   const [deleteLoading, setDeleteLoading] = useState(false)
@@ -192,6 +191,7 @@ const CartTable = (props) => {
 
       CartLogger(selectedItems, 'Delete')
       for (let item of selectedItems) {
+        console.log(item)
         await deleteData(COLLECTIONS.CART, item)
       }
 

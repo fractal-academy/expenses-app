@@ -1,5 +1,6 @@
 import List from '@material-ui/core/List'
 import { LogAdvancedView } from '../../views/LogAdvancedView'
+import { Row } from '@qonsoll/react-design'
 
 const LogList = (props) => {
   // INTERFACES
@@ -9,14 +10,16 @@ const LogList = (props) => {
   return (
     <List>
       {logs.map((item, index) => (
-        <LogAdvancedView
-          key={index}
-          action={item.action}
-          userAvatar={item.userAvatar}
-          actionDateTime={item.dateTime}
-          userMail={item.userMail}
-          actionDescription={item.description}
-        />
+        <Row mb={1}>
+          <LogAdvancedView
+            key={index}
+            action={item.action}
+            userAvatar={item.userAvatar}
+            actionDateTime={item.dateTime}
+            userMail={item.userMail}
+            actionDescription={item.description}
+          />
+        </Row>
       ))}
     </List>
   )

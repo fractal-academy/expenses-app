@@ -63,7 +63,7 @@ const ProductCombinedForm = (props) => {
       })
       Logger(
         'Move regular product',
-        `Regular product '${data.productSelect}' was added to wish table`,
+        `Regular product '${data.productSelect.name}' was added to wish table`,
         user
       )
       form.reset({})
