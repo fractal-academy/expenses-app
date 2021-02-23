@@ -9,7 +9,7 @@ import { CategoryCombined } from 'domains/Category/components/combined/CategoryC
 import { DropdownItem, Dropdown } from 'app/components/Lib/Dropdown'
 import { deleteData } from 'app/services/Firestore'
 import formatCurrency from 'format-currency'
-import Logger from 'app'
+import { Logger } from 'app/utils'
 import { useSession } from 'app/context/SessionContext'
 
 const CategoryAdvancedView = (props) => {
