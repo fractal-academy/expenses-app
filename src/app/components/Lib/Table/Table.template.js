@@ -106,7 +106,7 @@ const CustomTable = (props) => {
             />
           )}
           {products.length > 0 ? (
-            <Paper variant="outlined" elevation={0}>
+            <Paper variant="outlined" square elevation={0}>
               <TableContainer>
                 <Table aria-label="customized table">
                   <TableHead>
@@ -204,7 +204,7 @@ const CustomTable = (props) => {
               <img
                 src="/noData.svg"
                 alt="no data"
-                style={{ width: '100%', height: '150px' }}
+                style={{ width: '100%', height: '220px' }}
               />
             </Box>
           )}
