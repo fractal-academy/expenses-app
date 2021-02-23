@@ -3,37 +3,27 @@ import MenuItem from '@material-ui/core/MenuItem'
 import { COLLECTIONS } from 'app/constants'
 import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react'
-import { getData } from 'app/services/Firestore'
+import { getCollectionRef } from 'app/services/Firestore'
+import { useCollectionData } from 'react-firebase-hooks/firestore'
 
 const CategorySingleSelect = (props) => {
-  const [currentCategory, setCurrentCategory] = useState('')
+  // STATE
   const [categories, setCategories] = useState([])
-  const [loading, setLoading] = useState(false)
 
+  // ADDITIONAL_HOOKS
+  const [data, loading] = useCollectionData(
+    getCollectionRef(COLLECTIONS.CATEGORIES)
+  )
   useEffect(() => {
-    const fetchCategories = async () => {
-      setLoading(true)
-      let data
-      try {
-        data = await getData(COLLECTIONS.CATEGORIES)
-      } catch (e) {
-        data = {}
-      }
-      const dataArray = Object.values(data).map((item) => item.nameCategory)
-      setCategories(dataArray)
-      setCurrentCategory(dataArray[0])
-      setLoading(false)
-    }
-    fetchCategories()
-  }, [])
+    const dataArray = data
+      ? Object.values(data).map((item) => item.nameCategory)
+      : {}
+    setCategories(dataArray)
+  }, [data])
 
+  //TEMPLATE
   return (
-    <Select
-      loading={loading}
-      entity="categories"
-      data={categories}
-      value={currentCategory}
-      {...props}>
+    <Select loading={loading} entity="categories" data={categories} {...props}>
       {(item) => (
         <MenuItem value={item} key={item}>
           {item}
