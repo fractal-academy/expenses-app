@@ -55,7 +55,7 @@ const CommentListWithAdd = () => {
       ? 'regular products'
       : prodCollection
   } page`
-  
+
   // [HELPER_FUNCTIONS]
   const addComment = (e) => {
     e.preventDefault()

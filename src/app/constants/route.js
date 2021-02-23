@@ -13,6 +13,7 @@ import { CategoryAll } from 'domains/Category/routes'
 import { LogAll } from 'domains/Log/routes'
 import { WishAll, WishEdit, WishShow } from 'domains/Wish/routes'
 import { CartAll, CartEdit, CartShow } from 'domains/Cart/routes'
+import { PersonalCartAll } from 'domains/PersonalCart/routes'
 import { StatisticAll } from 'domains/Statistic/routes'
 import { RejectLogin } from 'app/components'
 import { Settings } from 'app/components/Settings'
@@ -87,6 +88,12 @@ const ROUTES = {
     protect: ['admin'],
     component: withLayout()(CartAll),
     path: ROUTES_PATHS.CART_ALL,
+    exact: true
+  },
+  PERSONAL_CART_ALL: {
+    protect: ['admin'],
+    component: withLayout()(PersonalCartAll),
+    path: ROUTES_PATHS.PERSONAL_CART_ALL,
     exact: true
   },
   STATISTICS_ALL: {
