@@ -23,7 +23,7 @@ const WishEdit = (props) => {
   // [COMPONENT_STATE_HOOKS]
   const [loading, setLoading] = useState(true)
   const [editLoading, setEditLoading] = useState(false)
-  const [dataForDefaultValue, setDataForDefaultValue] = useState()
+  const [dataForAssign, setDataForAssign] = useState()
 
   // [ADDITIONAL_HOOKS]
   const history = useHistory()
@@ -81,20 +81,23 @@ const WishEdit = (props) => {
       if (dataUsers) {
         data.assign = { ...dataUsers, id: value.assign }
       }
-      setDataForDefaultValue(data)
+      setDataForAssign(data)
       setLoading(false)
     }
     value && fetchData()
   }, [value])
 
-  if (loading || !dataForDefaultValue) {
+  // setDataForMeasure(value.measures)
+  console.log(value)
+
+  if (loading || !dataForAssign) {
     return <Spinner />
   }
 
   // [TEMPLATE]
   return (
     <ProductAdvancedForm
-      formData={dataForDefaultValue}
+      formData={dataForAssign}
       show={[
         'name',
         'description',
