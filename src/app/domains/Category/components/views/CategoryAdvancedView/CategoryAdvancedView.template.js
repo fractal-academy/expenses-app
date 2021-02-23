@@ -23,7 +23,6 @@ const CategoryAdvancedView = (props) => {
   const deleteCategory = () => {
     Logger('Delete Category', `Category ${nameCategory} was deleted`, user)
     deleteData('categories', id)
-    console.log('DELETE')
   }
   // COMPUTED PROPERTIES
   const availableBalance = budget - spent
