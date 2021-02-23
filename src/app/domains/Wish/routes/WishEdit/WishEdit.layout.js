@@ -87,9 +87,6 @@ const WishEdit = (props) => {
     value && fetchData()
   }, [value])
 
-  // setDataForMeasure(value.measures)
-  console.log(value)
-
   if (loading || !dataForAssign) {
     return <Spinner />
   }
