@@ -95,7 +95,7 @@ const ProductAdvancedView = (props) => {
     } catch (error) {
       messageDispatch({
         type: types.OPEN_ERROR_MESSAGE,
-        payload: error
+        payload: 'You cant delete'
       })
     }
     setDeleteLoading(false)
@@ -118,12 +118,11 @@ const ProductAdvancedView = (props) => {
       const category = await getCollectionRef(COLLECTIONS.CATEGORIES)
         .where('nameCategory', '==', data.category)
         .get()
-
       return category
     } catch (error) {
       messageDispatch({
         type: types.OPEN_ERROR_MESSAGE,
-        payload: error
+        payload: 'You cant get category'
       })
     }
   }
@@ -152,9 +151,17 @@ const ProductAdvancedView = (props) => {
       /*
         set spended money to category spendings*/
       const category = await getProductCategory()
-      await setData(COLLECTIONS.CATEGORIES, category.docs[0].id, {
-        spent: category.docs[0].data().spent + parseInt(data.price)
-      })
+      if (category.docs.length === 0) {
+        await setData(COLLECTIONS.PURCHASES, id, {
+          ...product,
+          category: 'Other'
+        })
+      } else {
+        await setData(COLLECTIONS.CATEGORIES, category.docs[0].id, {
+          spent: category.docs[0].data().spent + parseInt(data.price)
+        })
+      }
+
       Logger(
         'Move product to the wishes',
         `Product '${data.name}' was moved to the wishes table`,
@@ -171,7 +178,7 @@ const ProductAdvancedView = (props) => {
     } catch (error) {
       messageDispatch({
         type: types.OPEN_ERROR_MESSAGE,
-        payload: error
+        payload: 'You cant buy, because current category was removed'
       })
     }
     return true
@@ -193,7 +200,7 @@ const ProductAdvancedView = (props) => {
     } catch (error) {
       messageDispatch({
         type: types.OPEN_ERROR_MESSAGE,
-        payload: error
+        payload: 'Product can not move to cart'
       })
     }
   }
