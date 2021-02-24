@@ -18,7 +18,7 @@ const LogAdvancedView = (props) => {
 
   const [detailed, setDetailed] = useState(false)
   return (
-    <Container>
+    <Container mb={2}>
       <Paper>
         <Box p={2}>
           <Row v="center">
@@ -44,13 +44,17 @@ const LogAdvancedView = (props) => {
               <Col>
                 <Row h="right">
                   <Col cw="auto">
-                    <Typography variant="body2">{userMail}</Typography>
+                    <Typography variant="caption" color="textSecondary">
+                      {userMail}
+                    </Typography>
                   </Col>
                 </Row>
                 <Row h="center">
                   <Col>
                     <Box pl={4}>
-                      <Typography>{actionDescription}</Typography>
+                      <Typography variant="body1">
+                        {actionDescription}
+                      </Typography>
                     </Box>
                   </Col>
                 </Row>

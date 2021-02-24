@@ -46,7 +46,13 @@ const ListItemWithCollapse = (props) => {
               </Col>
             </Row>
           </Col>
-          <Col cw="auto"> {open ? <ExpandLess /> : <ExpandMore />}</Col>
+          <Col cw="auto">
+            {open ? (
+              <ExpandLess color={'primary'} />
+            ) : (
+              <ExpandMore color={'primary'} />
+            )}
+          </Col>
         </Row>
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>

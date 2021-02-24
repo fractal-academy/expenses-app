@@ -45,7 +45,7 @@ const StatisticAll = (props) => {
       {data && (
         <StatisticProvider>
           <FiltersWithCollapse />
-          <Container pb={4}>
+          <Container pb={4} mx={1} mt={2}>
             <Row v="center" h="center" noGutters>
               <Col>
                 <Typography align="center" variant="h5">
