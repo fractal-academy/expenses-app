@@ -14,7 +14,14 @@ import { useMessageDispatch, types } from 'app/context/MessageContext'
 
 const CategoryCombined = (props) => {
   // INTERFACE
-  const { title, typeModalEdit, children, categoryId, showName = true } = props
+  const {
+    title,
+    typeModalEdit,
+    children,
+    categoryId,
+    showName = true,
+    budget
+  } = props
 
   // STATE
   const [open, setOpen] = useState(!!children && !children)
@@ -23,13 +30,16 @@ const CategoryCombined = (props) => {
   const [openSnackbarError, setOpenSnackbarError] = useState(false)
 
   // [ADDITIONAL_HOOKS]
-  const form = useForm({})
-  const user = useSession()
-  const messageDispatch = useMessageDispatch()
-  // [ADDITIONAL_HOOKS]
   const [value] = useCollectionData(getCollectionRef(COLLECTIONS.CATEGORIES), {
     idField: 'id'
   })
+
+  // [ADDITIONAL_HOOKS]
+  const form = useForm({
+    defaultValues: (budget && { budgetLimit: budget }) || {}
+  })
+  const user = useSession()
+  const messageDispatch = useMessageDispatch()
 
   // HELPER FUNCTIONS
   const onAddCategory = async (data) => {
@@ -137,6 +147,7 @@ const CategoryCombined = (props) => {
           onClick: handleClose
         }}>
         <CategoryForm
+          fieldProps={{ budgetLimit: { value: budget } }}
           form={form}
           show={[
             showName && 'nameCategory',
