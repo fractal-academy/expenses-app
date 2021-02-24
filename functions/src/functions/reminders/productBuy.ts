@@ -10,34 +10,12 @@ export default functions.pubsub
   .timeZone('Europe/Kiev')
   .onRun(
     async (): Promise<null> => {
-      const currentTimestamp = admin.firestore.Timestamp.now()
-      const products = await admin
-        .firestore()
-        .collection(COLLECTIONS.REGULAR_PRODUCTS)
-        .where('remind', '!=', 'null')
-        .get()
-
-      type remindProduct = {
+      // [TYPES]
+      type remindedProduct = {
         name: string
         date: firebaseTypes.Timestamp
         userId: string
       }
-      const remindedProducts: remindProduct[] = await products.docs
-        .map((item) => ({
-          name: item.data().name,
-          date: item.data().remind,
-          userId: item.data().assign
-        }))
-        .filter(
-          (item) => moment(item.date).date() === moment(currentTimestamp).date()
-        )
-
-      const adminsInfo = await admin
-        .firestore()
-        .collection(COLLECTIONS.USERS)
-        .where('role', '==', 'admin')
-        .get()
-
       type adminsMap = {
         idsMap: string[]
         idsViewed: {
@@ -45,14 +23,47 @@ export default functions.pubsub
         }
       }
 
+      // [COMPUTED_PROPERTIES]
+      const currentTimestamp: firebaseTypes.Timestamp = admin.firestore.Timestamp.now()
+
+      // [HELPER_FUNCTIONS]
+      const collectionRef = (name: string) => admin.firestore().collection(name)
+
+      // Get all products
+      const productsRes = await collectionRef(COLLECTIONS.REGULAR_PRODUCTS)
+        .where('remind', '!=', 'null')
+        .get()
+      const products = productsRes.docs
+
+      // Select only product what should be reminded
+      const remindedProducts: remindedProduct[] = await products
+        .map(
+          (item): remindedProduct => ({
+            name: item.data().name,
+            date: item.data().remind,
+            userId: item.data().assign
+          })
+        )
+        .filter(
+          (item) => moment(item.date).date() === moment(currentTimestamp).date()
+        )
+
+      // Get all admins
+      const adminRes = await collectionRef(COLLECTIONS.USERS)
+        .where('role', '==', 'admin')
+        .get()
+      const adminsData = adminRes.docs
+
+      // Prepare admin data for notification
       const admins: adminsMap = {
-        idsMap: adminsInfo.docs.map((item) => item.id),
+        idsMap: adminsData.map((item) => item.id),
         idsViewed: {}
       }
-      adminsInfo.docs.forEach(
+      adminsData.forEach(
         (item) => (admins.idsViewed = { ...admins.idsViewed, [item.id]: false })
       )
 
+      // Add notification
       if (remindedProducts) {
         remindedProducts.forEach((item) => {
           const notification: Notification = {
@@ -62,10 +73,7 @@ export default functions.pubsub
             viewed: item.userId ? { [item.userId]: false } : admins.idsViewed
           }
 
-          admin
-            .firestore()
-            .collection(COLLECTIONS.NOTIFICATIONS)
-            .add(notification)
+          collectionRef(COLLECTIONS.NOTIFICATIONS).add(notification)
         })
       }
 
