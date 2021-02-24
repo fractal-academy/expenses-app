@@ -52,7 +52,7 @@ const CategoryCombined = (props) => {
     } catch (error) {
       messageDispatch({
         type: types.OPEN_ERROR_MESSAGE,
-        payload: `This name is already exist`
+        payload: error.message
       })
     }
   }

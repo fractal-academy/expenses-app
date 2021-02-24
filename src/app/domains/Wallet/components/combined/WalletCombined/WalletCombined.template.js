@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Modal, FabButton } from 'app/components/Lib'
 import { WalletForm } from 'app/domains/Wallet/components/form/WalletForm'
-import { setData, addData } from 'app/services/Firestore'
+import { setData, addData, getCollectionRef } from 'app/services/Firestore'
 import PropTypes from 'prop-types'
 import { COLLECTIONS } from 'app/constants'
 import { useSession } from 'app/context/SessionContext/hooks'
@@ -76,32 +76,33 @@ const WalletCombined = (props) => {
 
     try {
       setLoading(true)
-      idWallet
-        ? await setData(COLLECTIONS.WALLETS, idWallet, {
-            ...data,
-            idCurrency: 'UAH'
-          })
-        : addData(COLLECTIONS.WALLETS, {
+      const wallet = await getCollectionRef(COLLECTIONS.WALLETS)
+        .where('nameWallet', '==', data.nameWallet)
+        .get()
+      if (!wallet.empty) throw new Error('Change the wallet`s name')
+
+      !idWallet
+        ? addData(COLLECTIONS.WALLETS, {
             ...data,
             idCurrency: 'UAH'
           }).then((doc) =>
             setData(COLLECTIONS.WALLETS, doc.id, {
-              ...data,
-              idCurrency: 'UAH',
               id: doc.id
             })
           )
+        : setData(COLLECTIONS.WALLETS, idWallet, {
+            ...data,
+            idCurrency: 'UAH'
+          })
       Logger(action, description, session)
       messageDispatch({
         type: types.OPEN_SUCCESS_MESSAGE,
-        payload: typeModalEdit
-          ? 'Wallet successfully edited'
-          : 'Wallet successfully added'
+        payload: description
       })
     } catch (error) {
       messageDispatch({
         type: types.OPEN_ERROR_MESSAGE,
-        payload: error
+        payload: error.message
       })
     }
     typeModalEdit ? form.reset(data) : form.reset({})
