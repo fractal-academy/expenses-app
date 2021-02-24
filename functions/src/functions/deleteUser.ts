@@ -10,6 +10,7 @@ export default functions.https.onRequest((req, res) => {
     const email: string = req.body.data.email
     let uid: string | undefined = req.body.data.uid
 
+    // [LOGIC]
     try {
       await admin
         .firestore()

@@ -1,4 +1,4 @@
-import { sendMail } from './sendInvitationEmail'
+import sendMail from './sendInvitationEmail'
 import deleteUser from './deleteUser'
 import * as reminder from './reminders'
 
