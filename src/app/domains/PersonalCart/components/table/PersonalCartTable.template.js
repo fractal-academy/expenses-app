@@ -13,6 +13,7 @@ import { useSession } from 'app/context/SessionContext/hooks'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 import { useMessageDispatch, types } from 'app/context/MessageContext'
 import { WalletCombinedWithSelect } from 'app/domains/Wallet/components/combined/WalletCombinedWithSelect'
+import { Logger } from 'app/utils'
 
 const PersonalCartTable = (props) => {
   // INTERFACE
@@ -62,6 +63,23 @@ const PersonalCartTable = (props) => {
     /*
     count - how many items with empty fields*/
     return count
+  }
+
+  const PersonalCartLogger = async (selectedItems, type) => {
+    const prodPromises = selectedItems.map((prodId) =>
+      getData(COLLECTIONS.CART, prodId)
+    )
+    const productsData = await Promise.allSettled(prodPromises)
+    let prodNames = await productsData.map(({ value }) => value.name)
+
+    prodNames = await prodNames.join(', ')
+    const description = `${prodNames}${
+      selectedItems.length > 1 ? ' were' : ' was'
+    } ${
+      type === 'Delete' ? `${type}d` : `${type}`
+    } in personal cart table`.toLowerCase()
+
+    Logger(`${type} products`, description, session)
   }
 
   const updateCategories = async (selectedProducts) => {
@@ -114,7 +132,8 @@ const PersonalCartTable = (props) => {
       sum which will be minus from wallet`s balance     */
     let sum = 0
 
-    selectedItems.map(async (item) => {
+    await PersonalCartLogger(selectedItems, 'Bought')
+    await selectedItems.map(async (item) => {
       try {
         /*
         get info about product in card      */
@@ -169,6 +188,7 @@ const PersonalCartTable = (props) => {
     try {
       setDeleteLoading(true)
 
+      await PersonalCartLogger(selectedItems, 'Delete')
       for (let item of selectedItems) {
         await deleteData(COLLECTIONS.CART, item)
       }
