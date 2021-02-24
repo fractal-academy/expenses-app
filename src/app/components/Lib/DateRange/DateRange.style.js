@@ -42,9 +42,6 @@ export const useStyles = makeStyles((theme) => ({
     },
     '& .rdrDateInput': {
       backgroundColor: MuiCustomTheme.palette.background.paper
-    },
-    '& ': {
-      // border: '1px solid transparent';
     }
   }
 }))
