@@ -23,7 +23,8 @@ const CollapseDateRangeTemplate = () => {
           primary="Custom period"
           primaryTypographyProps={{
             variant: 'overline',
-            color: open ? 'primary' : 'textSecondary'
+            color: open ? 'primary' : 'textSecondary',
+            size: '20px'
           }}
         />
         {open ? (
