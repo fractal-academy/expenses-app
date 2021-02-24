@@ -5,7 +5,7 @@ const COLOR = {
   },
   PEACH: {
     color: '#c37fbc',
-    name: 'Peach'
+    name: 'Lavander'
   },
   CORAL: {
     color: '#feb95a',
