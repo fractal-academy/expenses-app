@@ -76,44 +76,29 @@ const WalletCombined = (props) => {
 
     try {
       setLoading(true)
+      const wallet = await getCollectionRef(COLLECTIONS.WALLETS)
+        .where('nameWallet', '==', data.nameWallet)
+        .get()
+      if (!wallet.empty) throw new Error('Change the wallet`s name')
 
-      const addWallet = async () => {
-        const wallet = await getCollectionRef(COLLECTIONS.WALLETS)
-          .where('nameWallet', '==', data.nameWallet)
-          .get()
-        try {
-          if (!wallet.empty) throw new Error('Change the wallet`s name')
-          const doc = await addData(COLLECTIONS.WALLETS, {
+      !idWallet
+        ? addData(COLLECTIONS.WALLETS, {
+            ...data,
+            idCurrency: 'UAH'
+          }).then((doc) =>
+            setData(COLLECTIONS.WALLETS, doc.id, {
+              id: doc.id
+            })
+          )
+        : setData(COLLECTIONS.WALLETS, idWallet, {
             ...data,
             idCurrency: 'UAH'
           })
-          await setData(COLLECTIONS.WALLETS, doc.id, {
-            id: doc.id
-          })
-          messageDispatch({
-            type: types.OPEN_SUCCESS_MESSAGE,
-            payload: 'Wallet successfully added'
-          })
-          Logger(action, description, session)
-        } catch (error) {
-          messageDispatch({
-            type: types.OPEN_ERROR_MESSAGE,
-            payload: error.message
-          })
-        }
-      }
-      const editWallet = async () => {
-        await setData(COLLECTIONS.WALLETS, idWallet, {
-          ...data,
-          idCurrency: 'UAH'
-        })
-        messageDispatch({
-          type: types.OPEN_SUCCESS_MESSAGE,
-          payload: 'Wallet successfully edited'
-        })
-        Logger(action, description, session)
-      }
-      idWallet ? editWallet() : addWallet()
+      Logger(action, description, session)
+      messageDispatch({
+        type: types.OPEN_SUCCESS_MESSAGE,
+        payload: description
+      })
     } catch (error) {
       messageDispatch({
         type: types.OPEN_ERROR_MESSAGE,
