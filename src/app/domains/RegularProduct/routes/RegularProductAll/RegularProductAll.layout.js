@@ -3,7 +3,7 @@ import { Container } from '@qonsoll/react-design'
 import { RegularProductCombined } from 'domains/RegularProduct/components/combined'
 
 const RegularProductAll = () => (
-  <Container py={2}>
+  <Container>
     <RegularProductsTable />
     <RegularProductCombined title="Add new regular product" />
   </Container>
