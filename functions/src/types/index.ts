@@ -1,3 +1,5 @@
 import * as UserTypes from './user.types'
 import Notification from './notification.types'
-export { UserTypes, Notification }
+import RegularProduct from './product.types'
+
+export { UserTypes, Notification, RegularProduct }

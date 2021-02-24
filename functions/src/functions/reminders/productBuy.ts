@@ -3,7 +3,7 @@ import * as admin from 'firebase-admin'
 import * as moment from 'moment'
 import * as firebaseTypes from '@firebase/firestore-types'
 import { COLLECTIONS } from 'src/constants'
-import { Notification } from 'src/types'
+import { Notification, RegularProduct } from 'src/types'
 
 export default functions.pubsub
   .schedule('0 5 * * *')
@@ -38,11 +38,14 @@ export default functions.pubsub
       // Select only product what should be reminded
       const remindedProducts: remindedProduct[] = await products
         .map(
-          (item): remindedProduct => ({
-            name: item.data().name,
-            date: item.data().remind,
-            userId: item.data().assign
-          })
+          (item): remindedProduct => {
+            const product: RegularProduct = <RegularProduct>item.data()
+            return {
+              name: product.name,
+              date: product.remind,
+              userId: product.assign
+            }
+          }
         )
         .filter(
           (item) => moment(item.date).date() === moment(currentTimestamp).date()
