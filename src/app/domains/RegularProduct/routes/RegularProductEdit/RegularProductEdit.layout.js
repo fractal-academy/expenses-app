@@ -11,6 +11,8 @@ import { COLLECTIONS } from 'app/constants'
 import { Spinner } from 'app/components/Lib'
 import React, { useEffect, useState } from 'react'
 import { useMessageDispatch, types } from 'app/context/MessageContext'
+import { Logger } from 'app/utils'
+import { useSession } from 'app/context/SessionContext'
 
 const RegularProductEdit = () => {
   const history = useHistory()
@@ -18,10 +20,13 @@ const RegularProductEdit = () => {
   const [value] = useDocumentData(
     firestore.collection(COLLECTIONS.REGULAR_PRODUCTS).doc(id)
   )
+  const user = useSession()
+
   const [loading, setLoading] = useState(true)
   const [dataForDefaultValue, setDataForDefaultValue] = useState()
   const messageDispatch = useMessageDispatch()
 
+  // [USE_EFFECTS]
   useEffect(() => {
     const fetchData = async () => {
       const dataUsers =
@@ -44,6 +49,8 @@ const RegularProductEdit = () => {
 
   const onEditProduct = async (data) => {
     try {
+      var description = `Regular product '${value?.name}' was edited.
+        ${value?.name === data.name ? '' : `Name changed on '${data.name}'`}`
       await setData(COLLECTIONS.REGULAR_PRODUCTS, id, {
         id: id,
         name: data.name,
@@ -54,10 +61,9 @@ const RegularProductEdit = () => {
         price: data.price,
         quantity: data.quantity,
         measures: data?.measures || '',
-        remind: data.remind
-          ? getTimestamp().fromDate(new Date(data.remind))
-          : null
+        remind: getTimestamp().fromDate(new Date(data.remind)) || null
       })
+      Logger('Edit regular product', description, user)
       messageDispatch({
         type: types.OPEN_SUCCESS_MESSAGE,
         payload: 'Products were successfully edited.'

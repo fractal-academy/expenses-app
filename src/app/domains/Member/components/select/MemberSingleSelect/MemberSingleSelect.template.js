@@ -20,7 +20,7 @@ const MemberSingleSelect = (props) => {
   const { value, ...rest } = props
 
   // [ADDITIONAL_HOOKS]
-  const [members] = useCollectionData(
+  const [members, loading] = useCollectionData(
     getCollectionRef(COLLECTIONS.USERS)
       .where('isPending', '==', false)
       .where('role', '==', 'admin'),
@@ -46,7 +46,12 @@ const MemberSingleSelect = (props) => {
 
   // [TEMPLATE]
   return (
-    <Select data={user || members} value={value} {...rest}>
+    <Select
+      entity="members"
+      loading={loading}
+      data={user || members}
+      value={value}
+      {...rest}>
       {(item, index) => (
         <MenuItem key={item.id || index} value={item}>
           {getUserDisplayName(item)}

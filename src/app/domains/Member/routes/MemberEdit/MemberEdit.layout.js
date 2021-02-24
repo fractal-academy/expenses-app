@@ -8,6 +8,7 @@ import { useSession } from 'app/context/SessionContext'
 import { MemberAdvancedForm } from 'domains/Member/components/forms'
 import { Spinner } from 'app/components/Lib'
 import { COLLECTIONS } from 'app/constants'
+import { Logger } from 'app/utils'
 
 /**
  * @info MemberEdit (18 Jan 2021) // CREATION DATE
@@ -40,12 +41,24 @@ const MemberEdit = () => {
   const onSubmit = async (data) => {
     setLoading(true)
     try {
+      var description = `Member '${userData?.firstName} ${
+        userData?.surname
+      }' data was edited.
+        ${
+          userData?.firstName === data.firstName
+            ? ''
+            : ` Name changed on '${data.firstName}'.`
+        } ${
+        userData?.surname === data.surname
+          ? ''
+          : ` Surname changed on '${data.surname}'.`
+      }`
       //delete avatar field if it undefined
       if (!data.avatarURL) {
         delete data.avatarURL
       }
       await setData(COLLECTIONS.USERS, id, data)
-
+      Logger('Edit member', description, user)
       history.goBack()
     } catch (e) {
       console.log(e)

@@ -11,16 +11,27 @@ import { useHistory, useParams } from 'react-router-dom'
 import { useDocumentData } from 'react-firebase-hooks/firestore'
 import { ProductAdvancedForm } from 'domains/Product/components/forms/ProductAdvancedForm'
 import React, { useEffect, useState } from 'react'
+import { Logger } from 'app/utils'
+import { useSession } from 'app/context/SessionContext'
+import { useMessageDispatch } from 'app/context/MessageContext'
+import determineDateBuy from 'domains/Cart/routes/CartEdit/determineDateBuy'
 
 const CartEdit = (props) => {
+  //STATE
+  const [loading, setLoading] = useState(true)
+  const [dataForDefaultValue, setDataForDefaultValue] = useState()
+  //CUSTOM HOOKS
+  const messageDispatch = useMessageDispatch()
+
+  // [ADITIONAL HOOKS]
   const history = useHistory()
+  const user = useSession()
   const { id } = useParams()
   const [value] = useDocumentData(
     firestore.collection(COLLECTIONS.CART).doc(id)
   )
-  const [loading, setLoading] = useState(true)
-  const [dataForDefaultValue, setDataForDefaultValue] = useState()
 
+  //USE EFFECTS
   useEffect(() => {
     const fetchData = async () => {
       const dataUsers =
@@ -41,8 +52,12 @@ const CartEdit = (props) => {
     value && fetchData()
   }, [value])
 
+  //HELPER FUNCTIONS
   const onEditProduct = async (data) => {
     try {
+      const dateBuy = determineDateBuy(data, messageDispatch)
+      var description = `Product '${value?.name}' was edited in cart table.
+        ${value?.name === data.name ? '' : `Name changed on '${data.name}'`}`
       await setData(COLLECTIONS.CART, id, {
         id: id,
         name: data.name,
@@ -53,25 +68,27 @@ const CartEdit = (props) => {
         price: data.price,
         quantity: data.quantity,
         measures: data?.measures || '',
-        dateBuy: data.dateBuy
-          ? getTimestamp().fromDate(new Date(data.dateBuy))
-          : getTimestamp().fromDate(new Date())
+        dateBuy: dateBuy
       })
+
       addData(COLLECTIONS.NOTIFICATIONS, {
         date: getTimestamp().now(),
         text: `You were assigned to buy '${data.name}' in Cart`,
-        userId: [data.assign.id]
+        userId: [data.assign.id],
+        viewed: { [data.assign.id]: false }
       })
+      Logger(`'${value?.name}' was edited`, description, user)
       history.goBack()
     } catch (error) {
       console.log(error)
     }
   }
+  const onCancel = () => history.goBack()
 
+  //TEMPLATE
   if (loading || !dataForDefaultValue) {
     return <Spinner />
   }
-  const onCancel = () => history.goBack()
   return (
     <ProductAdvancedForm
       formData={dataForDefaultValue}

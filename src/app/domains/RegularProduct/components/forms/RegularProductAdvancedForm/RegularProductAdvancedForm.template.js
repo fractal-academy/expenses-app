@@ -4,7 +4,7 @@ import {
   FormGenerator,
   FormButtons
 } from 'mui-form-generator-fractal-band-2'
-import { CategorySingleSelect } from 'app/domains/Category/components/select'
+import { CategorySelectWithCreate } from 'app/domains/Category/components/select'
 import { MemberSingleSelect } from 'app/domains/Member/components/select'
 import PropTypes from 'prop-types'
 
@@ -24,8 +24,11 @@ const config = [
   {
     label: 'Category',
     name: 'category',
-    Component: CategorySingleSelect,
-    defaultValue: ''
+    Component: CategorySelectWithCreate,
+    defaultValue: '',
+    rules: {
+      required: 'Select category'
+    }
   },
   {
     label: 'Assignee',

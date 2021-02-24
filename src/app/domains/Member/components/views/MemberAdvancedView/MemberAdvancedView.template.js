@@ -2,13 +2,15 @@ import PropTypes from 'prop-types'
 import moment from 'moment'
 import { useHistory } from 'react-router-dom'
 import { Typography, IconButton, Chip } from '@material-ui/core'
-import CreateRoundedIcon from '@material-ui/icons/CreateRounded'
-import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty'
 import { Container, Row, Col, Box } from '@qonsoll/react-design'
 import { RoleSimpleView } from 'domains/Role/components/views'
 import { Avatar, Dropdown } from 'components/Lib'
 import { ROUTES_PATHS } from 'app/constants'
-import { MoreHorizOutlined } from '@material-ui/icons'
+import {
+  MoreHorizOutlined,
+  CreateRounded,
+  HourglassEmpty
+} from '@material-ui/icons'
 
 /**
  * @info MemberAdvancedView (18 Jan 2021) // CREATION DATE
@@ -55,7 +57,7 @@ const MemberAdvancedView = (props) => {
                 {profile ? (
                   <IconButton
                     onClick={() => props.id && history.push(EDIT_PATH)}>
-                    <CreateRoundedIcon />
+                    <CreateRounded />
                   </IconButton>
                 ) : (
                   <Dropdown overlay={DropdownList}>
@@ -79,7 +81,7 @@ const MemberAdvancedView = (props) => {
                     <Chip
                       size="small"
                       label="Pending"
-                      icon={<HourglassEmptyIcon />}
+                      icon={<HourglassEmpty />}
                     />
                   </Box>
                 )}

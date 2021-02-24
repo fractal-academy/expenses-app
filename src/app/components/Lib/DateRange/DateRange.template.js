@@ -9,8 +9,7 @@ import moment from 'moment'
 import MuiCustomTheme from '../../../config/qonsollTheme/MuiCustomTheme'
 import { useStyles } from 'components/Lib/DateRange/DateRange.style'
 
-const DateRange = (props) => {
-  const { startDate, endDate } = props
+const DateRange = () => {
   const { state, setState } = useStatisticContext()
   const classes = useStyles()
   const [date, setDate] = useState({
@@ -24,7 +23,6 @@ const DateRange = (props) => {
         <Col>
           <Range
             className={classes.dateStyles}
-            // style={{ backgroundColor: 'pink' }}
             locale={locales.enGB}
             editableDateInputs={true}
             onChange={(item) => {

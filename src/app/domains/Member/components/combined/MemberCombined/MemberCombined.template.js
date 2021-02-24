@@ -7,6 +7,8 @@ import { setData, getData } from 'app/services/Firestore'
 import { COLLECTIONS } from 'app/constants'
 import md5 from 'md5'
 import { useMessageDispatch, types } from 'app/context/MessageContext'
+import { Logger } from 'app/utils'
+import { useSession } from 'app/context/SessionContext'
 
 /**
  * @info MemberCombined (21 Jan 2020) // CREATION DATE
@@ -23,11 +25,13 @@ const MemberCombined = () => {
   // [COMPONENT_STATE_HOOKS]
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
+
   const form = useForm({
     defaultValues: {
       role: 'user'
     }
   })
+  const user = useSession()
 
   // [HELPER_FUNCTIONS]
   const onSubmit = async (data) => {
@@ -58,6 +62,11 @@ const MemberCombined = () => {
         .functions()
         .httpsCallable('sendMail', { timeout: 0 })
       await func({ email })
+      Logger(
+        'Invite new user',
+        `New user with '${email}' email was invited`,
+        user
+      )
       messageDispatch({
         type: types.OPEN_SUCCESS_MESSAGE,
         payload: 'Invitation successfully sent.'

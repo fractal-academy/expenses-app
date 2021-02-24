@@ -1,17 +1,16 @@
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
+import { CardContent, Card } from '@material-ui/core'
 import { COLORS } from 'app/constants'
-import styles from './ColorSimpleView.styles'
-import { makeStyles } from '@material-ui/core/styles'
 import PropTypes from 'prop-types'
+import { useStyles } from './ColorSimpleView.styles'
 
-const useStyles = makeStyles(styles)
+// COMPONENT CONSTANTS
+const { COLOR } = COLORS
 
 const ColorSimpleView = ({ children, color }) => {
-  const { COLOR } = COLORS
-
+  // [ADDITIONAL_HOOKS]
   const classes = useStyles()
 
+  //TEMPLATE
   return (
     <Card
       className={classes.colorView}

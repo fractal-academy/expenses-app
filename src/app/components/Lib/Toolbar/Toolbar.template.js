@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { useState, useEffect, Fragment } from 'react'
+import { useState, useEffect } from 'react'
 import { ROUTES_PATHS } from 'app/constants'
 import { useHistory } from 'react-router-dom'
 import { Confirmation } from 'components/Lib'
@@ -14,12 +14,18 @@ import {
 import {
   Check,
   Delete,
+  FaceRounded,
   ReceiptRounded,
   StarBorderRounded
 } from '@material-ui/icons/'
 import { useStyles } from './Toolbar.styles'
 
 const toolbarItems = [
+  {
+    path: ROUTES_PATHS.PERSONAL_CART_ALL,
+    icon: <FaceRounded />,
+    label: 'Personal'
+  },
   { path: ROUTES_PATHS.CART_ALL, icon: <ReceiptRounded />, label: 'To buy' },
   {
     path: ROUTES_PATHS.WISHES_ALL,
@@ -32,14 +38,15 @@ const CustomToolbar = (props) => {
   const {
     numRows,
     selectedItems,
+    setSelected,
     handleDelete,
     handleMove,
     onCheckClick,
     confirm,
     setConfirm,
     deleteLoading,
-    setStatusMessage,
-    WrapperForCheck = Box
+    WrapperForCheck = Box,
+    titleForWrapperForCheck
   } = props
 
   // [ADDITIONAL_HOOKS]
@@ -75,10 +82,10 @@ const CustomToolbar = (props) => {
                   <Col cw="auto">
                     <IconButton color="primary">
                       <WrapperForCheck
-                        setStatusMessage={setStatusMessage}
-                        onClick={() => onCheckClick(selectedItems)}
+                        title={titleForWrapperForCheck}
+                        onClick={() => onCheckClick(selectedItems, setSelected)}
                         onSubmitFunction={(data) =>
-                          handleMove(data, selectedItems)
+                          handleMove(data, selectedItems, setSelected)
                         }>
                         <Check />
                       </WrapperForCheck>
@@ -89,7 +96,9 @@ const CustomToolbar = (props) => {
                       open={confirm}
                       setOpen={setConfirm}
                       loading={deleteLoading}
-                      onConfirm={() => handleDelete(selectedItems)}>
+                      onConfirm={() =>
+                        handleDelete(selectedItems, setSelected)
+                      }>
                       <IconButton color="primary">
                         <Delete />
                       </IconButton>

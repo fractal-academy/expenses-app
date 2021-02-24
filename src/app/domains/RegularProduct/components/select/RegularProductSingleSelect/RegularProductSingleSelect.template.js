@@ -21,24 +21,37 @@ const RegularProductSingleSelect = (props) => {
     value || ''
   )
   const [regularProducts, setRegularProducts] = useState([])
+  const [loading, setLoading] = useState(false)
 
   // [USE_EFFECTS]
   useEffect(() => {
     const fetchCategories = async () => {
-      const data = await getData(COLLECTIONS.REGULAR_PRODUCTS)
-      const dataArray = Object.values(data).map((item) => item.name)
+      setLoading(true)
+      let data
+      try {
+        data = await getData(COLLECTIONS.REGULAR_PRODUCTS)
+      } catch (e) {
+        data = {}
+      }
+      const dataArray = Object.values(data).map((item) => item)
       setRegularProducts(dataArray)
       setCurrentRegularProduct(dataArray[0])
+      setLoading(false)
     }
     fetchCategories()
   }, [])
 
   // [TEMPLATE]
   return (
-    <Select value={currentRegularProduct} data={regularProducts} {...rest}>
+    <Select
+      loading={loading}
+      entity="regular product"
+      value={currentRegularProduct}
+      data={regularProducts}
+      {...rest}>
       {(item) => (
         <MenuItem value={item} key={item}>
-          {item}
+          {item.name}
         </MenuItem>
       )}
     </Select>
