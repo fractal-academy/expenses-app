@@ -18,6 +18,7 @@ const CategoryCombined = (props) => {
 
   // STATE
   const [open, setOpen] = useState(!!children && !children)
+  const [loading, setLoading] = useState(false)
   const [openSnackbarSuccess, setOpenSnackbarSuccess] = useState(false)
   const [openSnackbarError, setOpenSnackbarError] = useState(false)
 
@@ -33,6 +34,7 @@ const CategoryCombined = (props) => {
   // HELPER FUNCTIONS
   const onAddCategory = async (data) => {
     try {
+      setLoading(true)
       value.map((item) => {
         if (item.nameCategory === data.nameCategory) {
           throw new Error('This name is already exist')
@@ -46,6 +48,7 @@ const CategoryCombined = (props) => {
       })
       Logger('New category', `Category ${data.nameCategory} was added`, user)
       setOpen(false)
+      setLoading(false)
     } catch (error) {
       messageDispatch({
         type: types.OPEN_ERROR_MESSAGE,
@@ -56,6 +59,7 @@ const CategoryCombined = (props) => {
 
   const onEditCategory = async (data) => {
     try {
+      setLoading(true)
       await setData(COLLECTIONS.CATEGORIES, categoryId, {
         colorCategory: data.color,
         budget: Number(data.budgetLimit)
@@ -66,6 +70,7 @@ const CategoryCombined = (props) => {
         user
       )
       setOpen(false)
+      setLoading(false)
     } catch (error) {
       messageDispatch({
         type: types.OPEN_ERROR_MESSAGE,
@@ -123,7 +128,8 @@ const CategoryCombined = (props) => {
           text: typeModalEdit ? 'Save' : 'Submit',
           variant: 'contained',
           color: 'primary',
-          onClick: submitForm
+          onClick: submitForm,
+          loading
         }}
         buttonCancelProps={{
           text: 'Cancel',
