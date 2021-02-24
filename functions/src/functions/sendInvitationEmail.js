@@ -3,15 +3,11 @@ const nodemailer = require('nodemailer')
 const cors = require('cors')({ origin: true })
 const nodemailerSendgrid = require('nodemailer-sendgrid')
 
-//change 'dev'||'prod' config
-const config = require('../config').config.dev
-
 exports.sendMail = functions.https.onRequest((req, res) => {
   cors(req, res, async () => {
     let transporter = nodemailer.createTransport(
       nodemailerSendgrid({
-        apiKey:
-          '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'
+        apiKey: functions.config().sendgrid.key
       })
     )
     // getting dest email
@@ -20,7 +16,9 @@ exports.sendMail = functions.https.onRequest((req, res) => {
       from: 'Senseteq corp. <maks.27.04.2002@gmail.com>', // Something like: Jane Doe <janedoe@gmail.com>
       to: email,
       subject: 'Invitation to Senseteq expenses app.', // email subject
-      html: `<p style="font-size: 16px;">You was invited to Senseteq expenses app: <a href="${config.FIREBASE_HOST}">Click here.</a></p>`
+      html: `<p style="font-size: 16px;">You was invited to Senseteq expenses app: <a href="${
+        functions.config().config.host
+      }">Click here.</a></p>`
     }
 
     try {

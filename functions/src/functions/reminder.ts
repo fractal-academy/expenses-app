@@ -1,8 +1,8 @@
-const functions = require('firebase-functions')
-const admin = require('firebase-admin')
-const moment = require('moment')
+import * as functions from 'firebase-functions'
+import * as admin from 'firebase-admin'
+import * as moment from 'moment'
 
-exports.reminder = functions.pubsub
+export default functions.pubsub
   .schedule('0 5 * * *')
   .timeZone('Europe/Kiev')
   .onRun(async () => {
@@ -30,7 +30,7 @@ exports.reminder = functions.pubsub
       .collection('users')
       .where('role', '==', 'admin')
       .get()
-    let admins = {}
+    const admins: any = {}
     admins.idsMap = adminsInfo.docs.map((item) => item.id)
     admins.idsViewed = {}
     adminsInfo.docs.forEach(
