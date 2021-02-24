@@ -68,10 +68,10 @@ const CartTable = (props) => {
   }
   const CartLogger = async (selectedItems, type) => {
     const prodPromises = selectedItems.map((prodId) =>
-      getData(COLLECTIONS.WISHES, prodId)
+      getData(COLLECTIONS.CART, prodId)
     )
     const productsData = await Promise.allSettled(prodPromises)
-    var prodNames = productsData.map(({ value }) => value.name)
+    let prodNames = await productsData.map(({ value }) => value.name)
 
     prodNames = await prodNames.join(', ')
     const description = `${prodNames}${
@@ -189,7 +189,7 @@ const CartTable = (props) => {
     try {
       setDeleteLoading(true)
 
-      CartLogger(selectedItems, 'Delete')
+      await CartLogger(selectedItems, 'Delete')
       for (let item of selectedItems) {
         await deleteData(COLLECTIONS.CART, item)
       }

@@ -7,7 +7,7 @@ import { LogList } from 'domains/Log/components/list'
 const LogAll = () => {
   // [CUSTOM_HOOKS]
   const [data, loading] = useCollectionData(
-    getCollectionRef(COLLECTIONS.LOGS).orderBy('dateTime')
+    getCollectionRef(COLLECTIONS.LOGS).orderBy('dateTime', 'desc')
   )
 
   // TEMPLATE
