@@ -9,7 +9,7 @@ const COLOR = {
   },
   CORAL: {
     color: '#feb95a',
-    name: 'Lavender'
+    name: 'Coral'
   },
   SALMON: {
     color: '#ee786c',
