@@ -57,7 +57,7 @@ const CartEdit = (props) => {
     try {
       const dateBuy = determineDateBuy(data, messageDispatch)
       var description = `Product '${value?.name}' was edited in cart table.
-        ${value?.name !== data.name ? '' : `Name changed on '${data.name}'`}`
+        ${value?.name === data.name ? '' : `Name changed on '${data.name}'`}`
       await setData(COLLECTIONS.CART, id, {
         id: id,
         name: data.name,

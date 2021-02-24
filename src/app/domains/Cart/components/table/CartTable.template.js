@@ -27,7 +27,6 @@ const CartTable = (props) => {
 
   const session = useSession()
   const messageDispatch = useMessageDispatch()
-
   // STATE
   const [confirm, setConfirm] = useState(false)
   const [deleteLoading, setDeleteLoading] = useState(false)
