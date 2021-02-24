@@ -68,10 +68,10 @@ const CartTable = (props) => {
   }
   const CartLogger = async (selectedItems, type) => {
     const prodPromises = selectedItems.map((prodId) =>
-      getData(COLLECTIONS.WISHES, prodId)
+      getData(COLLECTIONS.CART, prodId)
     )
     const productsData = await Promise.allSettled(prodPromises)
-    var prodNames = productsData.map(({ value }) => value.name)
+    let prodNames = productsData.map(({ value }) => value.name)
 
     prodNames = await prodNames.join(', ')
     const description = `${prodNames}${
