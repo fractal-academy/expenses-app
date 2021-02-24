@@ -69,7 +69,7 @@ const ProductAdvancedView = (props) => {
     }
   }
   // [INTERFACES]
-  const { type, data, id, setStatusMessage, dropdownItem } = props
+  const { type, data, id, dropdownItem } = props
 
   // [COMPONENT_STATE_HOOKS]
   const [confirm, setConfirm] = useState(false)
@@ -95,7 +95,7 @@ const ProductAdvancedView = (props) => {
     } catch (error) {
       messageDispatch({
         type: types.OPEN_ERROR_MESSAGE,
-        payload: 'You cant delete'
+        payload: 'You can not delete'
       })
     }
     setDeleteLoading(false)
@@ -122,7 +122,7 @@ const ProductAdvancedView = (props) => {
     } catch (error) {
       messageDispatch({
         type: types.OPEN_ERROR_MESSAGE,
-        payload: 'You cant get category'
+        payload: 'You can not get category'
       })
     }
   }
@@ -132,6 +132,7 @@ const ProductAdvancedView = (props) => {
       /*
       get data about current product */
       const product = await getData(COLLECTIONS.CART, id)
+
       /*
        set product to collection purchase  with additional fields (info about user)*/
       await setData(COLLECTIONS.PURCHASES, id, {
@@ -149,14 +150,16 @@ const ProductAdvancedView = (props) => {
         balance: wallet.balance - product.price
       })
       /*set spended money to category spendings*/
-      let categoryIs = false
       const category = await getProductCategory()
       if (category.docs.length === 0) {
         await setData(COLLECTIONS.PURCHASES, id, {
           ...product,
           category: 'Other'
         })
-        categoryIs = true
+        messageDispatch({
+          type: types.OPEN_WARNING_MESSAGE,
+          payload: `Category was changed to other`
+        })
       } else {
         await setData(COLLECTIONS.CATEGORIES, category.docs[0].id, {
           spent: category.docs[0].data().spent + parseInt(data.price)
@@ -172,11 +175,6 @@ const ProductAdvancedView = (props) => {
         type: types.OPEN_SUCCESS_MESSAGE,
         payload: `Product was bought`
       })
-      if (categoryIs)
-        messageDispatch({
-          type: types.OPEN_WARNING_MESSAGE,
-          payload: `Category was changed to other`
-        })
       /*
         delete current product from collection card */
       await deleteData(COLLECTIONS.CART, id)
@@ -184,7 +182,7 @@ const ProductAdvancedView = (props) => {
     } catch (error) {
       messageDispatch({
         type: types.OPEN_ERROR_MESSAGE,
-        payload: 'You cant buy, because current category was removed'
+        payload: 'You can not buy, because current category was removed'
       })
     }
     return true
