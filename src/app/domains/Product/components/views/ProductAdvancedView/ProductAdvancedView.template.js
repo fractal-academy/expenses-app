@@ -260,7 +260,7 @@ const ProductAdvancedView = (props) => {
   )
 
   return (
-    <Container>
+    <Container my={2}>
       <Row h="center">
         <Col>
           <Row h="between" display="flex" ml={2} mb={2}>

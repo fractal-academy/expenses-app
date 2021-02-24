@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { useDocumentData } from 'react-firebase-hooks/firestore'
-import { Box } from '@qonsoll/react-design'
+import { Box, Container } from '@qonsoll/react-design'
 import { Delete, Edit } from '@material-ui/icons'
 import { useSession } from 'app/context/SessionContext'
 import firebase from 'app/services/Firebase'
@@ -60,7 +60,7 @@ const MemberShow = () => {
 
   // DROPDOWN OVERLAY ELEMENT
   const DropdownList = (
-    <Box>
+    <Container>
       <DropdownItem onClick={() => history.push(EDIT_PATH)}>
         <Box mr={2}>
           <Edit />
@@ -81,7 +81,7 @@ const MemberShow = () => {
           Delete
         </DropdownItem>
       </Confirmation>
-    </Box>
+    </Container>
   )
 
   //[TEMPLATE]

@@ -87,7 +87,7 @@ const CustomTable = (props) => {
   const additionalInfo = tableTypeMap[type].additionalInfo
 
   return (
-    <Container>
+    <Container my={2}>
       <Row h="center">
         <Col>
           {actions && multiselect && (

@@ -10,7 +10,7 @@ import {
 import { Container, Row, Col } from '@qonsoll/react-design'
 import { useHistory } from 'react-router-dom'
 import { ROUTES_PATHS } from 'app/constants'
-import COLOR from '../../constants/colors'
+import COLOR from 'app/constants/colors'
 
 const SETTINGS_MENU = [
   {
