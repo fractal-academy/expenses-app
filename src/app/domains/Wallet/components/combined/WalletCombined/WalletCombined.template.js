@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Modal, FabButton } from 'app/components/Lib'
 import { WalletForm } from 'app/domains/Wallet/components/form/WalletForm'
-import { setData, addData } from 'app/services/Firestore'
+import { setData, addData, getCollectionRef } from 'app/services/Firestore'
 import PropTypes from 'prop-types'
 import { COLLECTIONS } from 'app/constants'
 import { useSession } from 'app/context/SessionContext/hooks'
@@ -76,32 +76,48 @@ const WalletCombined = (props) => {
 
     try {
       setLoading(true)
-      idWallet
-        ? await setData(COLLECTIONS.WALLETS, idWallet, {
+
+      const addWallet = async () => {
+        const wallet = await getCollectionRef(COLLECTIONS.WALLETS)
+          .where('nameWallet', '==', data.nameWallet)
+          .get()
+        try {
+          if (!wallet.empty) throw new Error('Change the wallet`s name')
+          const doc = await addData(COLLECTIONS.WALLETS, {
             ...data,
             idCurrency: 'UAH'
           })
-        : addData(COLLECTIONS.WALLETS, {
-            ...data,
-            idCurrency: 'UAH'
-          }).then((doc) =>
-            setData(COLLECTIONS.WALLETS, doc.id, {
-              ...data,
-              idCurrency: 'UAH',
-              id: doc.id
-            })
-          )
-      Logger(action, description, session)
-      messageDispatch({
-        type: types.OPEN_SUCCESS_MESSAGE,
-        payload: typeModalEdit
-          ? 'Wallet successfully edited'
-          : 'Wallet successfully added'
-      })
+          await setData(COLLECTIONS.WALLETS, doc.id, {
+            id: doc.id
+          })
+          messageDispatch({
+            type: types.OPEN_SUCCESS_MESSAGE,
+            payload: 'Wallet successfully added'
+          })
+          Logger(action, description, session)
+        } catch (error) {
+          messageDispatch({
+            type: types.OPEN_ERROR_MESSAGE,
+            payload: error.message
+          })
+        }
+      }
+      const editWallet = async () => {
+        await setData(COLLECTIONS.WALLETS, idWallet, {
+          ...data,
+          idCurrency: 'UAH'
+        })
+        messageDispatch({
+          type: types.OPEN_SUCCESS_MESSAGE,
+          payload: 'Wallet successfully edited'
+        })
+        Logger(action, description, session)
+      }
+      idWallet ? editWallet() : addWallet()
     } catch (error) {
       messageDispatch({
         type: types.OPEN_ERROR_MESSAGE,
-        payload: error
+        payload: error.message
       })
     }
     typeModalEdit ? form.reset(data) : form.reset({})
