@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
-import { Typography, Divider } from '@material-ui/core'
+import { Typography, Divider, Paper } from '@material-ui/core'
 import { Row, Col, Container, Box } from '@qonsoll/react-design'
 import { MemberSimpleView } from 'domains/Member/components/views'
 import { setData, getData } from 'app/services/Firestore'
@@ -51,28 +51,30 @@ const NotificationAdvancedView = (props) => {
 
   // [TEMPLATE]
   return (
-    <Container mb={2}>
-      <Row v={verticalAlignment} h={horizontalAlignment} p={2}>
-        <Col cw="auto" v="flex-start">
-          <MemberSimpleView avatarURL={userAvatar} avatarSize="sm" />
-        </Col>
-        <Col>
-          <Box display="flex" justifyContent="space-between">
-            <Typography align="right" variant="caption">
-              {notificationDate}
-            </Typography>
-            <Typography align="left" variant="caption">
-              {viewed ? (
-                <DoneAllIcon fontSize="inherit" />
-              ) : (
-                <DoneIcon fontSize="inherit" />
-              )}
-            </Typography>
-          </Box>
-          <Typography>{notificationText}</Typography>
-        </Col>
-      </Row>
-      <Divider />
+    <Container my={2} px={2}>
+      <Paper>
+        <Row v={verticalAlignment} h={horizontalAlignment} p={2}>
+          <Col cw="auto" v="flex-start">
+            <MemberSimpleView avatarURL={userAvatar} avatarSize="sm" />
+          </Col>
+          <Col>
+            <Box display="flex" justifyContent="space-between">
+              <Typography align="right" variant="caption">
+                {notificationDate}
+              </Typography>
+              <Typography align="left" variant="caption">
+                {viewed ? (
+                  <DoneAllIcon fontSize="inherit" />
+                ) : (
+                  <DoneIcon fontSize="inherit" />
+                )}
+              </Typography>
+            </Box>
+            <Typography>{notificationText}</Typography>
+          </Col>
+        </Row>
+        <Divider />
+      </Paper>
     </Container>
   )
 }

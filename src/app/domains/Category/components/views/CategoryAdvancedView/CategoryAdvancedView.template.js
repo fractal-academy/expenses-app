@@ -62,7 +62,7 @@ const CategoryAdvancedView = (props) => {
   // TEMPLATE
   return (
     <>
-      <Container mb={3} className={classes.paper}>
+      <Container my={2} className={classes.paper}>
         <Row>
           <Col>
             <Paper>

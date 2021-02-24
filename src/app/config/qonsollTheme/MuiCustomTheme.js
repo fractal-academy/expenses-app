@@ -164,7 +164,7 @@ const MuiCustomTheme = createMuiTheme({
       fontWeight: fontWeights.fontWeight.regular,
       fontSize: fontSizes.overlay,
       lineHeight: lineHeights.overline,
-      color: Colors.text.primary
+      color: Colors.text.secondary
     }
   },
   overrides: {

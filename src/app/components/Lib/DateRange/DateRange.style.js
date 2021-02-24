@@ -39,6 +39,9 @@ export const useStyles = makeStyles((theme) => ({
     '& .rdrDayToday .rdrDayNumber span:after': { display: 'none' },
     '& .rdrMonthAndYearPickers select option': {
       color: MuiCustomTheme.palette.text.secondary
+    },
+    '& .rdrDateInput': {
+      backgroundColor: MuiCustomTheme.palette.background.paper
     }
   }
 }))

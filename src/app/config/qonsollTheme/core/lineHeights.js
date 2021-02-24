@@ -11,6 +11,6 @@ const lineHeights = {
   body2: '1.75rem',
   button: '1.43rem',
   caption: '1.4rem',
-  overline: '2.66rem'
+  overline: '1.4rem'
 }
 export default lineHeights
