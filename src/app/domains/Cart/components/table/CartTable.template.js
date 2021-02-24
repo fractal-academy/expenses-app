@@ -71,7 +71,7 @@ const CartTable = (props) => {
       getData(COLLECTIONS.CART, prodId)
     )
     const productsData = await Promise.allSettled(prodPromises)
-    let prodNames = productsData.map(({ value }) => value.name)
+    let prodNames = await productsData.map(({ value }) => value.name)
 
     prodNames = await prodNames.join(', ')
     const description = `${prodNames}${
