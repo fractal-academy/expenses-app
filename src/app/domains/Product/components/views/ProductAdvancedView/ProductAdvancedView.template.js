@@ -232,6 +232,7 @@ const ProductAdvancedView = (props) => {
         firstElement && firstElement
       ) : (
         <WrapperForItem
+          title="Select a wallet"
           onSubmitFunction={handleMoveProduct}
           onClick={prevFunctionForItem || handleMoveProduct}>
           {user.role === 'admin' && (
