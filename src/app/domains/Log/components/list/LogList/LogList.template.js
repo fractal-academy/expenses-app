@@ -1,5 +1,5 @@
 import List from '@material-ui/core/List'
-import { LogAdvancedView } from '../../views/LogAdvancedView'
+import { LogAdvancedView } from 'domains/Log/components/views'
 import { Row } from '@qonsoll/react-design'
 
 const LogList = (props) => {
