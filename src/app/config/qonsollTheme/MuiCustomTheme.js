@@ -162,7 +162,7 @@ const MuiCustomTheme = createMuiTheme({
     overline: {
       fontFamily: fontFamilies.fontFamily.helvetica,
       fontWeight: fontWeights.fontWeight.regular,
-      fontSize: fontSizes.overlay,
+      fontSize: fontSizes.body2,
       lineHeight: lineHeights.overline,
       color: Colors.text.secondary
     }
@@ -187,9 +187,6 @@ const MuiCustomTheme = createMuiTheme({
       icon: {
         color: Colors.text.primary
       }
-    },
-    '& .MuiSwitch-track': {
-      background: 'pink'
     }
   }
 })
