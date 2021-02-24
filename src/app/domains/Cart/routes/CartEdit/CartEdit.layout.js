@@ -13,11 +13,16 @@ import { ProductAdvancedForm } from 'domains/Product/components/forms/ProductAdv
 import React, { useEffect, useState } from 'react'
 import { Logger } from 'app/utils'
 import { useSession } from 'app/context/SessionContext'
+import { useMessageDispatch } from 'app/context/MessageContext'
+import determineDateBuy from 'domains/Cart/routes/CartEdit/determineDateBuy'
 
 const CartEdit = (props) => {
   //STATE
   const [loading, setLoading] = useState(true)
   const [dataForDefaultValue, setDataForDefaultValue] = useState()
+  //CUSTOM HOOKS
+  const messageDispatch = useMessageDispatch()
+
   // [ADITIONAL HOOKS]
   const history = useHistory()
   const user = useSession()
@@ -50,6 +55,7 @@ const CartEdit = (props) => {
   //HELPER FUNCTIONS
   const onEditProduct = async (data) => {
     try {
+      const dateBuy = determineDateBuy(data, messageDispatch)
       var description = `Product '${value?.name}' was edited in cart table.
         ${value?.name === data.name ? '' : `Name changed on '${data.name}'`}`
       await setData(COLLECTIONS.CART, id, {
@@ -62,10 +68,9 @@ const CartEdit = (props) => {
         price: data.price,
         quantity: data.quantity,
         measures: data?.measures || '',
-        dateBuy: data.dateBuy
-          ? getTimestamp().fromDate(new Date(data.dateBuy))
-          : getTimestamp().fromDate(new Date())
+        dateBuy: dateBuy
       })
+
       addData(COLLECTIONS.NOTIFICATIONS, {
         date: getTimestamp().now(),
         text: `You were assigned to buy '${data.name}' in Cart`,

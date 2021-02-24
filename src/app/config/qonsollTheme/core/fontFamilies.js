@@ -1,7 +1,7 @@
 const fontFamilies = {
   fontFamily: {
-    roboto: 'Roboto',
     helvetica: 'Helvetica',
+    roboto: 'Roboto',
     arial: 'Arial',
     sansSerif: 'sans-serif',
     openSans: 'Open Sans',

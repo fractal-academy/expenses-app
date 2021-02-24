@@ -4,7 +4,6 @@ import MuiCustomTheme from '../../config/qonsollTheme/MuiCustomTheme'
 export const useStyles = makeStyles((theme) => ({
   appBar: {
     position: 'sticky',
-    marginBottom: theme.spacing(1),
     boxShadow: 'none',
     background: MuiCustomTheme.palette.background.paper
   },

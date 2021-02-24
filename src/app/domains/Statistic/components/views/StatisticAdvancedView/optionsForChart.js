@@ -1,5 +1,5 @@
-import MuiCustomTheme from '../../../../../config/qonsollTheme/MuiCustomTheme'
-
+import MuiCustomTheme from 'app/config/qonsollTheme/MuiCustomTheme'
+import COLOR from 'app/constants/colors'
 const optionsForChart = {
   chart: {
     id: 'basic-bar',
@@ -42,9 +42,9 @@ const optionsForChart = {
           show: true,
           name: {
             show: true,
-            fontSize: '22px',
-            fontFamily: 'Helvetica, Arial, sans-serif',
-            fontWeight: 600,
+            fontSize: MuiCustomTheme.typography.fontSize['h6'],
+            fontFamily: MuiCustomTheme.typography.fontFamily['h6'],
+            fontWeight: MuiCustomTheme.typography.fontWeightBold,
             color: undefined,
             offsetY: -10,
             formatter: function (val) {
@@ -53,9 +53,6 @@ const optionsForChart = {
           },
           value: {
             show: true,
-            fontSize: '16px',
-            fontFamily: 'Helvetica, Arial, sans-serif',
-            fontWeight: 400,
             color: undefined,
             offsetY: 16,
             formatter: function (val) {
@@ -68,8 +65,6 @@ const optionsForChart = {
             color: MuiCustomTheme.palette.text.primary,
             showAlways: true,
             label: 'Total',
-            fontSize: '22px',
-            fontFamily: 'Helvetica, Arial, sans-serif',
             formatter: function (w) {
               const tmpRes = w.globals.series.reduce((a, b) => {
                 return a + b
@@ -83,8 +78,13 @@ const optionsForChart = {
       }
     }
   },
-
-  colors: ['#20bfa9', '#c37fbc', '#feb95a', '#ee786c', '#1065CD'],
+  colors: [
+    COLOR.AQUAMARINE.color,
+    COLOR.PEACH.color,
+    COLOR.CORAL.color,
+    COLOR.SALMON.color,
+    COLOR.BLUE.color
+  ],
   labels: [],
   dataLabels: {
     enabled: true,

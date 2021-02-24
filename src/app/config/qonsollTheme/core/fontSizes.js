@@ -9,7 +9,8 @@ const fontSizes = {
   subtitle2: '0.875rem',
   body1: '1rem',
   body2: '0.875rem',
-  caption1: '0.75rem',
-  button: '0.875rem'
+  caption: '0.75rem',
+  button: '0.875rem',
+  overlay: '0.75rem'
 }
 export default fontSizes

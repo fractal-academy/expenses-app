@@ -5,20 +5,24 @@ import { DateRange as Range } from 'react-date-range'
 import * as locales from 'react-date-range/dist/locale'
 import { Row, Container, Col } from '@qonsoll/react-design'
 import { useStatisticContext } from 'app/context/StatisticsContext'
+import moment from 'moment'
+import MuiCustomTheme from '../../../config/qonsollTheme/MuiCustomTheme'
+import { useStyles } from 'components/Lib/DateRange/DateRange.style'
 
 const DateRange = () => {
   const { state, setState } = useStatisticContext()
-
+  const classes = useStyles()
   const [date, setDate] = useState({
     ...state.date,
     key: 'selection'
   })
   useEffect(() => setDate((prev) => ({ ...prev, ...state.date })), [state.date])
   return (
-    <Container width="100%">
+    <Container>
       <Row h="center" noGutters>
         <Col>
           <Range
+            className={classes.dateStyles}
             locale={locales.enGB}
             editableDateInputs={true}
             onChange={(item) => {
@@ -27,6 +31,7 @@ const DateRange = () => {
             }}
             moveRangeOnFirstSelection={false}
             ranges={[date]}
+            rangeColors={['orange']}
           />
         </Col>
       </Row>

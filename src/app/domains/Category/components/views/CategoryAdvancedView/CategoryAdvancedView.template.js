@@ -11,6 +11,7 @@ import { deleteData } from 'app/services/Firestore'
 import formatCurrency from 'format-currency'
 import { Logger } from 'app/utils'
 import { useSession } from 'app/context/SessionContext'
+import COLOR from 'app/constants/colors'
 
 const CategoryAdvancedView = (props) => {
   // INTERFACE
@@ -65,7 +66,10 @@ const CategoryAdvancedView = (props) => {
         <Row>
           <Col>
             <Paper>
-              <Box className={classes.border} background={colorCategory} />
+              <Box
+                className={classes.border}
+                background={COLOR[colorCategory.toUpperCase()].color}
+              />
               {/* Row colorBox */}
               <Row height="100%" pr="0.25rem" pl="0rem">
                 <Col p={2}>
