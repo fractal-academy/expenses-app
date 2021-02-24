@@ -1,9 +1,5 @@
-import { Row, Col, Box } from '@qonsoll/react-design'
-import {
-  KeyboardArrowDown,
-  KeyboardArrowUp,
-  AccountCircle
-} from '@material-ui/icons'
+import { Row, Col, Box, Container } from '@qonsoll/react-design'
+import { KeyboardArrowDown, KeyboardArrowUp } from '@material-ui/icons'
 import { Typography, Avatar, Paper } from '@material-ui/core'
 import moment from 'moment'
 import { useState } from 'react'
@@ -22,45 +18,48 @@ const LogAdvancedView = (props) => {
 
   const [detailed, setDetailed] = useState(false)
   return (
-    <Paper>
-      <Box p={2}>
-        <Row v="center" h="between">
-          <Col>
-            <Row v="center">
-              <Col cw="auto">
-                <Avatar alt="User" src={userAvatar}>
-                  {/** Change this block to UserSimpleView when it will be ready */}
-                  <AccountCircle />
-                </Avatar>
-              </Col>
-              <Col>
-                <Typography>{action}</Typography>
-              </Col>
-              <Col cw="auto">
-                <Typography>
-                  {moment(formatedDate).format('H:mm, DD.MM.YYYY')}
-                </Typography>
-              </Col>
-            </Row>
-          </Col>
-          <Col cw="auto" onClick={() => setDetailed(!detailed)}>
-            <Box>{detailed ? <KeyboardArrowUp /> : <KeyboardArrowDown />}</Box>
-          </Col>
-        </Row>
-        {detailed && (
-          <Row>
+    <Container>
+      <Paper>
+        <Box p={2}>
+          <Row v="center">
+            <Col cw="auto">
+              <Avatar alt="User" src={userAvatar} />
+            </Col>
             <Col>
-              <Row h="center">
-                <Typography>{userMail}</Typography>
-              </Row>
-              <Row h="center">
-                <Typography>{actionDescription}</Typography>
-              </Row>
+              <Typography>{action}</Typography>
+            </Col>
+            <Col cw="auto">
+              <Typography variant="body2">
+                {moment(formatedDate).format('H:mm, DD.MM.YYYY')}
+              </Typography>
+            </Col>
+            <Col cw="auto" onClick={() => setDetailed(!detailed)}>
+              <Box>
+                {detailed ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+              </Box>
             </Col>
           </Row>
-        )}
-      </Box>
-    </Paper>
+          {detailed && (
+            <Row>
+              <Col>
+                <Row h="right">
+                  <Col cw="auto">
+                    <Typography variant="body2">{userMail}</Typography>
+                  </Col>
+                </Row>
+                <Row h="center">
+                  <Col>
+                    <Box pl={4}>
+                      <Typography>{actionDescription}</Typography>
+                    </Box>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          )}
+        </Box>
+      </Paper>
+    </Container>
   )
 }
 

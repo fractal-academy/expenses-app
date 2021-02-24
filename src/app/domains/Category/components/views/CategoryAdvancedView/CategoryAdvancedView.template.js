@@ -40,9 +40,9 @@ const CategoryAdvancedView = (props) => {
       <CategoryCombined
         title="Edit category"
         showName={false}
-        onClick={() => console.log(id)}
         typeModalEdit
-        categoryId={id}>
+        categoryId={id}
+        budget={budget}>
         <DropdownItem>
           <Box mr={2}>
             <Edit />

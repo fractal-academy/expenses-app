@@ -61,9 +61,9 @@ const CategoryForm = (props) => {
     onSubmitFail,
     form,
     buttonProps,
-    formProps
+    formProps,
+    fieldProps
   } = props
-
   // TEMPLATE
   return (
     <Form
@@ -72,7 +72,7 @@ const CategoryForm = (props) => {
       onSubmitFail={onSubmitFail}
       defaultValues={formData}
       {...formProps}>
-      <FormGenerator config={CONFIG} show={show} />
+      <FormGenerator config={CONFIG} show={show} fieldProps={fieldProps} />
       <FormButtons Button={Button} {...buttonProps} />
     </Form>
   )
