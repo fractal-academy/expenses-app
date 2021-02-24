@@ -69,7 +69,7 @@ const ProductAdvancedView = (props) => {
     }
   }
   // [INTERFACES]
-  const { type, data, id, setStatusMessage, dropdownItem } = props
+  const { type, data, id, dropdownItem } = props
 
   // [COMPONENT_STATE_HOOKS]
   const [confirm, setConfirm] = useState(false)
@@ -95,7 +95,7 @@ const ProductAdvancedView = (props) => {
     } catch (error) {
       messageDispatch({
         type: types.OPEN_ERROR_MESSAGE,
-        payload: error
+        payload: 'You can not delete'
       })
     }
     setDeleteLoading(false)
@@ -118,12 +118,11 @@ const ProductAdvancedView = (props) => {
       const category = await getCollectionRef(COLLECTIONS.CATEGORIES)
         .where('nameCategory', '==', data.category)
         .get()
-
       return category
     } catch (error) {
       messageDispatch({
         type: types.OPEN_ERROR_MESSAGE,
-        payload: error
+        payload: 'You can not get category'
       })
     }
   }
@@ -133,6 +132,7 @@ const ProductAdvancedView = (props) => {
       /*
       get data about current product */
       const product = await getData(COLLECTIONS.CART, id)
+
       /*
        set product to collection purchase  with additional fields (info about user)*/
       await setData(COLLECTIONS.PURCHASES, id, {
@@ -149,12 +149,23 @@ const ProductAdvancedView = (props) => {
       await setData(COLLECTIONS.WALLETS, wallet.id, {
         balance: wallet.balance - product.price
       })
-      /*
-        set spended money to category spendings*/
+      /*set spended money to category spendings*/
       const category = await getProductCategory()
-      await setData(COLLECTIONS.CATEGORIES, category.docs[0].id, {
-        spent: category.docs[0].data().spent + parseInt(data.price)
-      })
+      if (category.docs.length === 0) {
+        await setData(COLLECTIONS.PURCHASES, id, {
+          ...product,
+          category: 'Other'
+        })
+        messageDispatch({
+          type: types.OPEN_WARNING_MESSAGE,
+          payload: `Category was changed to other`
+        })
+      } else {
+        await setData(COLLECTIONS.CATEGORIES, category.docs[0].id, {
+          spent: category.docs[0].data().spent + parseInt(data.price)
+        })
+      }
+
       Logger(
         'Move product to the wishes',
         `Product '${data.name}' was moved to the wishes table`,
@@ -171,7 +182,7 @@ const ProductAdvancedView = (props) => {
     } catch (error) {
       messageDispatch({
         type: types.OPEN_ERROR_MESSAGE,
-        payload: error
+        payload: 'You can not buy, because current category was removed'
       })
     }
     return true
@@ -193,7 +204,7 @@ const ProductAdvancedView = (props) => {
     } catch (error) {
       messageDispatch({
         type: types.OPEN_ERROR_MESSAGE,
-        payload: error
+        payload: 'Product can not move to cart'
       })
     }
   }
