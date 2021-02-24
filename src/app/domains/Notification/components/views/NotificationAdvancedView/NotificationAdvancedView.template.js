@@ -51,7 +51,7 @@ const NotificationAdvancedView = (props) => {
 
   // [TEMPLATE]
   return (
-    <Container my={2} pl={2} pr={2}>
+    <Container my={2} px={2}>
       <Paper>
         <Row v={verticalAlignment} h={horizontalAlignment} p={2}>
           <Col cw="auto" v="flex-start">
