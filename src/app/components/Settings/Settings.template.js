@@ -16,17 +16,17 @@ const SETTINGS_MENU = [
   {
     title: 'Members',
     path: ROUTES_PATHS.MEMBERS_ALL,
-    icon: <Group style={{ color: COLOR.YELLOW.color }} />
+    icon: <Group style={{ color: COLOR.CORAL.color }} />
   },
   {
     title: 'Categories',
     path: ROUTES_PATHS.CATEGORIES_ALL,
-    icon: <AccountBalanceWallet style={{ color: COLOR.GREEN.color }} />
+    icon: <AccountBalanceWallet style={{ color: COLOR.AQUAMARINE.color }} />
   },
   {
     title: 'Logs',
     path: ROUTES_PATHS.LOGS_ALL,
-    icon: <Assignment style={{ color: COLOR.LAVENDER.color }} />
+    icon: <Assignment style={{ color: COLOR.PEACH.color }} />
   },
   {
     title: 'Regular products',
@@ -36,12 +36,12 @@ const SETTINGS_MENU = [
   {
     title: 'Purchases',
     path: ROUTES_PATHS.PURCHASE_ALL,
-    icon: <Receipt style={{ color: COLOR.RED.color }} />
+    icon: <Receipt style={{ color: COLOR.SALMON.color }} />
   },
   {
     title: 'Wallets',
     path: ROUTES_PATHS.WALLETS_ALL,
-    icon: <CreditCard style={{ color: COLOR.GREEN.color }} />
+    icon: <CreditCard style={{ color: COLOR.AQUAMARINE.color }} />
   }
 ]
 

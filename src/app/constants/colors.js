@@ -1,31 +1,23 @@
 const COLOR = {
-  GREEN: {
-    name: 'Aquamarine',
-    // name: 'Green',
-    // color: 'rgba(0, 245, 127, 0.25)'
-    color: '#20bfa9'
+  AQUAMARINE: {
+    color: '#20bfa9',
+    name: 'Aquamarine'
   },
-  LAVENDER: {
-    // name: 'Lavender',
-    name: 'Peach',
-    // color: 'rgba(147, 78, 244, 0.25)'
-    color: '#c37fbc'
+  PEACH: {
+    color: '#c37fbc',
+    name: 'Lavander'
   },
-  YELLOW: {
-    // name: 'Yellow',
-    name: 'Coral',
-    // color: 'rgba(255, 255, 0, 0.25)'
-    color: '#feb95a'
+  CORAL: {
+    color: '#feb95a',
+    name: 'Coral'
   },
-  RED: {
-    name: 'Salmon',
-    // color: 'rgba(242, 82, 54, 0.25)'
-    color: '#ee786c'
+  SALMON: {
+    color: '#ee786c',
+    name: 'Salmon'
   },
   BLUE: {
-    name: 'Blue',
-    // color: 'rgba(25, 64, 240, 0.25)'
-    color: '#1065CD'
+    color: '#1065CD',
+    name: 'Blue'
   }
 }
 
