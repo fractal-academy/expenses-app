@@ -2,7 +2,6 @@ const functions = require('firebase-functions')
 const admin = require('firebase-admin')
 const cors = require('cors')({ origin: true })
 const md5 = require('md5')
-
 exports.deleteUser = functions.https.onRequest((req, res) => {
   cors(req, res, async () => {
     let { email, uid } = req.body.data

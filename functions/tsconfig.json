@@ -6,8 +6,16 @@
     "allowJs": true,
     "outDir": "build",
     "sourceMap": true,
-    "target": "ES2017"
-  },
+    "target": "ES2017",
+    "baseUrl": ".",
+    "paths": {
+      "src/*": ["src/*"]
+    },
+    "plugins": [
+      // Transform paths in output .js files
+      { "transform": "typescript-transform-paths" }
+      ]
+    },
   "include": [
     "src"
   ],

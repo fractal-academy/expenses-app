@@ -1,5 +1,5 @@
 import { sendMail } from './sendInvitationEmail'
 import { deleteUser } from './deleteUser'
-import reminder from './reminder'
+import * as reminder from './reminders'
 
 export { sendMail, deleteUser, reminder }
