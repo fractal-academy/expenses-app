@@ -31,27 +31,21 @@ const CategoryCombined = (props) => {
   })
 
   // HELPER FUNCTIONS
-  const onAddCategory = (data) => {
+  const onAddCategory = async (data) => {
     try {
       value.map((item) => {
         if (item.nameCategory === data.nameCategory) {
           throw new Error('This name is already exist')
         }
       })
-      addData(COLLECTIONS.CATEGORIES, {
+      await addData(COLLECTIONS.CATEGORIES, {
         nameCategory: data.nameCategory,
         colorCategory: data.color,
         spent: 0,
         budget: Number(data.budgetLimit)
-      }).then(
-        () =>
-          Logger(
-            'New category',
-            `Category ${data.nameCategory} was added`,
-            user
-          ),
-        setOpen(false)
-      )
+      })
+      Logger('New category', `Category ${data.nameCategory} was added`, user)
+      setOpen(false)
     } catch (error) {
       messageDispatch({
         type: types.OPEN_ERROR_MESSAGE,
@@ -60,20 +54,18 @@ const CategoryCombined = (props) => {
     }
   }
 
-  const onEditCategory = (data) => {
+  const onEditCategory = async (data) => {
     try {
-      setData(COLLECTIONS.CATEGORIES, categoryId, {
+      await setData(COLLECTIONS.CATEGORIES, categoryId, {
         colorCategory: data.color,
         budget: Number(data.budgetLimit)
-      }).then(
-        () =>
-          Logger(
-            'Edit category',
-            `Category ${value?.nameCategory} was edited`,
-            user
-          ),
-        setOpen(false)
+      })
+      Logger(
+        'Edit category',
+        `Category ${value?.nameCategory} was edited`,
+        user
       )
+      setOpen(false)
     } catch (error) {
       messageDispatch({
         type: types.OPEN_ERROR_MESSAGE,
