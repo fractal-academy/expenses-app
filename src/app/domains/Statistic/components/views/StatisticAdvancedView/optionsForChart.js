@@ -80,10 +80,15 @@ const optionsForChart = {
   },
   colors: [
     COLOR.AQUAMARINE.color,
-    COLOR.PEACH.color,
+    COLOR.LAVENDER.color,
     COLOR.CORAL.color,
     COLOR.SALMON.color,
-    COLOR.BLUE.color
+    COLOR.BLUE.color,
+    COLOR.AZURE.color,
+    COLOR.BLUE_VIOLET.color,
+    COLOR.WINTER_SKY.color,
+    COLOR.VIRIDIAN_GREEN.color,
+    COLOR.BURNT_SIENNA.color
   ],
   labels: [],
   dataLabels: {

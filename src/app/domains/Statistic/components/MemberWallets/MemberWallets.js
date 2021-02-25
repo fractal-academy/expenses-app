@@ -36,15 +36,17 @@ const MemberWallets = (props) => {
                   </Typography>
                 }
               />
-              <ListItemText>
-                <CurrencySimpleView
-                  style={{
-                    fontSize: 15,
-                    color: MuiCustomTheme.palette.text.secondary
-                  }}
-                  value={typeCurrency ? 'UAH' : 'USD'}
-                />
-              </ListItemText>
+              <Box ml={1}>
+                <ListItemText>
+                  <CurrencySimpleView
+                    style={{
+                      fontSize: 15,
+                      color: MuiCustomTheme.palette.text.secondary
+                    }}
+                    value={typeCurrency ? 'UAH' : 'USD'}
+                  />
+                </ListItemText>
+              </Box>
             </Box>
           </Col>
         </Row>

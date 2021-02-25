@@ -26,7 +26,7 @@ const SETTINGS_MENU = [
   {
     title: 'Logs',
     path: ROUTES_PATHS.LOGS_ALL,
-    icon: <Assignment style={{ color: COLOR.PEACH.color }} />
+    icon: <Assignment style={{ color: COLOR.LAVENDER.color }} />
   },
   {
     title: 'Regular products',
@@ -41,7 +41,7 @@ const SETTINGS_MENU = [
   {
     title: 'Wallets',
     path: ROUTES_PATHS.WALLETS_ALL,
-    icon: <CreditCard style={{ color: COLOR.AQUAMARINE.color }} />
+    icon: <CreditCard style={{ color: COLOR.BLUE_VIOLET.color }} />
   }
 ]
 

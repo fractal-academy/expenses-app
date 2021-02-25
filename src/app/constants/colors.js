@@ -3,9 +3,9 @@ const COLOR = {
     color: '#20bfa9',
     name: 'Aquamarine'
   },
-  PEACH: {
+  LAVENDER: {
     color: '#c37fbc',
-    name: 'Lavander'
+    name: 'Lavender'
   },
   CORAL: {
     color: '#feb95a',
@@ -18,6 +18,26 @@ const COLOR = {
   BLUE: {
     color: '#1065CD',
     name: 'Blue'
+  },
+  AZURE: {
+    color: '#3a86ff',
+    name: 'Azure'
+  },
+  BLUE_VIOLET: {
+    color: '#8338ec',
+    name: 'Blue Violet'
+  },
+  WINTER_SKY: {
+    color: '#ff006e',
+    name: 'Winter Sky'
+  },
+  VIRIDIAN_GREEN: {
+    color: '#0e9594',
+    name: 'Viridian Green'
+  },
+  BURNT_SIENNA: {
+    color: '#e76f51',
+    name: 'Burnt Sienna'
   }
 }
 

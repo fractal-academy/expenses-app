@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import { CollapseDateRange } from 'domains/Statistic/components/CollapseDateRange'
 import { StatisticSimpleFilter } from 'domains/Statistic/components/filters'
 

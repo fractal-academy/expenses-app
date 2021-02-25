@@ -41,7 +41,9 @@ const CategoryCombined = (props) => {
   const user = useSession()
   const messageDispatch = useMessageDispatch()
 
-  // HELPER FUNCTIONS
+  // [COMPUTED_PROPERTIES]
+  let currentCategory = value?.filter((item) => item.id === categoryId)[0]
+  // [HELPER_FUNCTIONS]
   const onAddCategory = async (data) => {
     try {
       setLoading(true)
@@ -76,7 +78,7 @@ const CategoryCombined = (props) => {
       })
       Logger(
         'Edit category',
-        `Category ${value?.nameCategory} was edited`,
+        `Category ${currentCategory.nameCategory} was edited`,
         user
       )
       setOpen(false)
@@ -147,7 +149,6 @@ const CategoryCombined = (props) => {
           onClick: handleClose
         }}>
         <CategoryForm
-          fieldProps={{ budgetLimit: { value: budget } }}
           form={form}
           show={[
             showName && 'nameCategory',
