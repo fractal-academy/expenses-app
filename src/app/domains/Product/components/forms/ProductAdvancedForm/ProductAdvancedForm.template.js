@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import Button from '@material-ui/core/Button'
 import {
   Form,
   FormGenerator,
@@ -8,8 +7,9 @@ import {
 import { MemberSingleSelect } from 'app/domains/Member/components/select'
 import { CategorySelectWithCreate } from 'app/domains/Category/components/select'
 import { MeasureSingleSelectWithCreate } from 'app/domains/Measure/components/select'
-import { CurrencySingleSelect } from 'domains/Currency/components/select'
+import { LoadingButton } from 'components/Lib'
 
+// form configuration map
 const config = [
   {
     type: 'text',
@@ -30,57 +30,73 @@ const config = [
     placeholder: 'Enter description'
   },
   {
-    inlineLayout: [
-      {
-        type: 'number',
-        label: 'Price',
-        name: 'price',
-        placeholder: 'Enter price',
-        rules: {
-          required: 'Enter price'
-        }
-      },
-      {
-        name: 'Currency',
-        colProps: { cw: 'auto', style: { flex: 0 } },
-        Component: CurrencySingleSelect
-      }
-    ]
-  },
-  {
-    label: 'Measures',
-    name: 'measures',
-    Component: MeasureSingleSelectWithCreate
+    type: 'number',
+    label: 'Price',
+    name: 'price',
+    placeholder: 'Enter price',
+    rules: {
+      required: 'Enter price'
+    }
   },
   {
     label: 'Assign',
     name: 'assign',
-    Component: MemberSingleSelect
+    Component: MemberSingleSelect,
+    rules: {
+      required: 'select assigned'
+    }
   },
   {
     label: 'Category',
     name: 'category',
-    Component: CategorySelectWithCreate
+    Component: CategorySelectWithCreate,
+    rules: {
+      required: 'select category'
+    }
   },
   {
     type: 'date',
     label: 'remind',
-    name: 'Remind'
+    name: 'remind'
   },
   {
     type: 'date',
     label: 'Date',
-    name: 'dateBuy'
+    props: { disableFuture: true },
+    name: 'dateBuy',
+    props: { disableFuture: true },
+    rules: {
+      required: 'select date buy'
+    }
   },
   {
-    type: 'number',
-    label: 'Quantity',
-    name: 'quantity',
-    placeholder: 'Enter quantity'
+    inlineLayout: [
+      {
+        type: 'number',
+        label: 'Quantity',
+        name: 'quantity',
+        placeholder: 'Enter quantity'
+      },
+      {
+        label: 'Measures',
+        name: 'measures',
+        Component: MeasureSingleSelectWithCreate,
+        colProps: { v: 'center' }
+      }
+    ]
   }
 ]
 
+/**
+ * @info ProductAdvancedForm (18 Jan 2021) // CREATION DATE
+ *
+ * @since 16 Feb 2021 ( v.0.1.0 ) // LAST-EDIT DATE
+ *
+ * @return {ReactComponent}
+ */
+
 const ProductAdvancedForm = (props) => {
+  // [INTERFACES]
   const {
     formData,
     show,
@@ -90,7 +106,8 @@ const ProductAdvancedForm = (props) => {
     buttonProps,
     formProps
   } = props
-  console.log(formData)
+
+  // [TEMPLATE]
   return (
     <Form
       form={form}
@@ -99,7 +116,7 @@ const ProductAdvancedForm = (props) => {
       defaultValues={formData}
       {...formProps}>
       <FormGenerator config={config} show={show} />
-      <FormButtons Button={Button} {...buttonProps} />
+      <FormButtons Button={LoadingButton} {...buttonProps} />
     </Form>
   )
 }
@@ -112,5 +129,7 @@ ProductAdvancedForm.propTypes = {
   buttonProps: PropTypes.object,
   formProps: PropTypes.object
 }
-
+ProductAdvancedForm.defaultProps = {
+  remind: ''
+}
 export default ProductAdvancedForm

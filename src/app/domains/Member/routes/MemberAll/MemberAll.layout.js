@@ -12,6 +12,7 @@ import { COLLECTIONS } from 'app/constants'
  *
  * @return {ReactComponent}
  */
+
 const MemberAll = () => {
   // [ADDITIONAL_HOOKS]
   const [users, loading] = useCollectionData(
@@ -23,7 +24,7 @@ const MemberAll = () => {
     return <Spinner />
   }
 
-  //TEMPLATE
+  // [TEMPLATE]
   return (
     <>
       <MemberList users={users} />

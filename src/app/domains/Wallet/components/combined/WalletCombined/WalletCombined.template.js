@@ -1,16 +1,25 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Modal, FabButton } from 'app/components/Lib'
-import { Message } from 'app/components/Lib/Message'
 import { WalletForm } from 'app/domains/Wallet/components/form/WalletForm'
-import { setData } from 'app/services'
+import { setData, addData, getCollectionRef } from 'app/services/Firestore'
 import PropTypes from 'prop-types'
 import { COLLECTIONS } from 'app/constants'
-import md5 from 'md5'
 import { useSession } from 'app/context/SessionContext/hooks'
+import { useMessageDispatch, types } from 'app/context/MessageContext'
+import { Logger } from 'app/utils'
+import md5 from 'md5'
+
+/**
+ * @info WalletCombined (03 Feb 2020) // CREATION DATE
+ *
+ * @since 17 Feb 2021 ( v.0.1.0 ) // LAST-EDIT DATE
+ *
+ * @return {ReactComponent}
+ */
 
 const WalletCombined = (props) => {
-  // INTERFACE
+  // [INTERFACE]
   const {
     idWallet,
     nameWallet,
@@ -23,21 +32,11 @@ const WalletCombined = (props) => {
     children
   } = props
 
-  // STATE
+  // [STATE]
   const [open, setOpen] = useState(children && !children)
   const [loading, setLoading] = useState(false)
-  const [statusMessage, setStatusMessage] = useState({
-    open: false,
-    message: '',
-    type: ''
-  })
 
-  const handleClose = () => {
-    setStatusMessage({ open: false, message: '', type: '' })
-    setOpen(false)
-  }
-  // CUSTOM HOOKS
-  const session = useSession()
+  // [COMPUTED_PROPERTIES]
   const data = {
     idWallet,
     nameWallet,
@@ -46,35 +45,65 @@ const WalletCombined = (props) => {
     privateWallet,
     idMember
   }
+
+  // [CUSTOM_HOOKS]
+  const session = useSession()
+  const messageDispatch = useMessageDispatch()
   const form = useForm({
     defaultValues: (data && data) || {}
   })
+
   // HELPER FUNCTIONS
+  const handleClose = () => {
+    setOpen(false)
+  }
+
   const onSubmit = async (data) => {
-    const { privateWallet } = data
-
-    !!privateWallet && idMember
-      ? (data.idMember = idMember)
-      : !!privateWallet
+    const action = `${typeModalEdit ? 'Edit wallet' : 'Add new wallet'}`
+    const description = `${
+      typeModalEdit
+        ? `Wallet '${data.nameWallet}' was edited`
+        : `New wallet '${data.nameWallet}' was added`
+    }`
+    //it needs refactor
+    data.privateWallet
       ? (data.idMember = md5(session.email))
-      : delete data.idMember
-
-    if (typeof data.idCurrency === 'object')
-      data.idCurrency = data.idCurrency.cc
+      : privateWallet && idMember
+      ? (data.idMember = idMember)
+      : privateWallet
+      ? (data.idMember = md5(session.email))
+      : delete data.idMember && (data.privateWallet = false)
 
     try {
       setLoading(true)
-      await setData(COLLECTIONS.WALLETS, idWallet, data)
+      const wallet = await getCollectionRef(COLLECTIONS.WALLETS)
+        .where('nameWallet', '==', data.nameWallet)
+        .get()
+      if (!wallet.empty) throw new Error('Change the wallet`s name')
 
-      setStatusMessage({
-        open: true,
-        message: typeModalEdit
-          ? 'Wallet successfully edited'
-          : 'Wallet successfully added',
-        type: 'success'
+      !idWallet
+        ? addData(COLLECTIONS.WALLETS, {
+            ...data,
+            idCurrency: 'UAH'
+          }).then((doc) =>
+            setData(COLLECTIONS.WALLETS, doc.id, {
+              id: doc.id
+            })
+          )
+        : setData(COLLECTIONS.WALLETS, idWallet, {
+            ...data,
+            idCurrency: 'UAH'
+          })
+      Logger(action, description, session)
+      messageDispatch({
+        type: types.OPEN_SUCCESS_MESSAGE,
+        payload: description
       })
     } catch (error) {
-      setStatusMessage({ open: true, message: error, type: 'error' })
+      messageDispatch({
+        type: types.OPEN_ERROR_MESSAGE,
+        payload: error.message
+      })
     }
     typeModalEdit ? form.reset(data) : form.reset({})
     setLoading(false)
@@ -94,16 +123,7 @@ const WalletCombined = (props) => {
         React.cloneElement(children, { onClick: handleClickOpen })) || (
         <FabButton onClick={handleClickOpen} />
       )}
-      <Message
-        open={statusMessage.open}
-        message={statusMessage.message}
-        vertical="top"
-        horizontal="center"
-        autoHideDuration={1500}
-        variant="filled"
-        severity={statusMessage.type}
-        onClose={handleClose}
-      />
+
       <Modal
         open={open}
         title={title}
@@ -126,8 +146,16 @@ const WalletCombined = (props) => {
           onClick: handleClose
         }}>
         <WalletForm
+          fieldProps={{
+            idCurrency: { value: 'UAH' }
+          }}
           form={form}
-          show={['nameWallet', 'balance', 'idCurrency', 'privateWallet']}
+          show={[
+            !typeModalEdit && 'nameWallet',
+            'balance',
+            'idCurrency',
+            !typeModalEdit && 'privateWallet'
+          ]}
           onSubmit={onSubmit}
           buttonProps={{ visible: false }}
         />

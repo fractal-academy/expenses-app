@@ -6,12 +6,8 @@ import {
   FormButtons
 } from 'mui-form-generator-fractal-band-2'
 import { ColorSingleSelect } from 'app/domains/Color/components/select'
-import { CurrencySingleSelect } from 'app/domains/Currency/components/select'
-import { CURRENCIES } from 'app/constants'
+import { CurrencySimpleView } from 'app/domains/Currency/components/views'
 import { COLOR_VALUE } from 'app/constants/colors'
-
-// COMPONENT CONSTANTS
-const { CURRENCY_VALUES } = CURRENCIES
 
 const CONFIG = [
   {
@@ -21,10 +17,26 @@ const CONFIG = [
     Component: ColorSingleSelect
   },
   {
-    label: 'Currency',
-    name: 'currency',
-    defaultValue: CURRENCY_VALUES[0],
-    Component: CurrencySingleSelect
+    inlineLayout: [
+      {
+        type: 'number',
+        label: 'Budget',
+        name: 'budgetLimit',
+        placeholder: 'Enter budget limit',
+        rules: {
+          required: 'Enter budget limit'
+        }
+      },
+      {
+        label: 'Currency',
+        name: 'currency',
+        Component: CurrencySimpleView,
+        props: {
+          value: 'UAH'
+        },
+        colProps: { cw: 'auto' }
+      }
+    ]
   },
   {
     type: 'text',
@@ -36,15 +48,6 @@ const CONFIG = [
       pattern: {
         value: 'word'
       }
-    }
-  },
-  {
-    type: 'number',
-    label: 'Budget',
-    name: 'budgetLimit',
-    placeholder: 'Enter budget limit',
-    rules: {
-      required: 'Enter budget limit'
     }
   }
 ]
@@ -58,9 +61,9 @@ const CategoryForm = (props) => {
     onSubmitFail,
     form,
     buttonProps,
-    formProps
+    formProps,
+    fieldProps
   } = props
-
   // TEMPLATE
   return (
     <Form
@@ -69,7 +72,7 @@ const CategoryForm = (props) => {
       onSubmitFail={onSubmitFail}
       defaultValues={formData}
       {...formProps}>
-      <FormGenerator config={CONFIG} show={show} />
+      <FormGenerator config={CONFIG} show={show} fieldProps={fieldProps} />
       <FormButtons Button={Button} {...buttonProps} />
     </Form>
   )

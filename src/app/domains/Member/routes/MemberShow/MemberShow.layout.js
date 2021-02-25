@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { useDocumentData } from 'react-firebase-hooks/firestore'
-import { Box } from '@qonsoll/react-design'
+import { Box, Container } from '@qonsoll/react-design'
 import { Delete, Edit } from '@material-ui/icons'
 import { useSession } from 'app/context/SessionContext'
 import firebase from 'app/services/Firebase'
@@ -10,6 +10,7 @@ import { MemberAdvancedView } from 'domains/Member/components/views'
 import { Confirmation, DropdownItem, Spinner } from 'app/components/Lib'
 import { COLLECTIONS, ROUTES_PATHS } from 'app/constants'
 import { useStyles } from './MemberShow.styles'
+import { Logger } from 'app/utils'
 
 /**
  * @info MemberShow (18 Jan 2021) // CREATION DATE
@@ -29,7 +30,6 @@ const MemberShow = () => {
     getCollectionRef(COLLECTIONS.USERS).doc(id),
     { idField: 'id' }
   )
-
   // [COMPONENT_STATE_HOOKS]
   const [deleteLoading, setDeleteLoading] = useState(false)
   const [confirm, setConfirm] = useState(false)
@@ -40,6 +40,11 @@ const MemberShow = () => {
     const func = firebase
       .functions()
       .httpsCallable('deleteUser', { timeout: 0 })
+    Logger(
+      'Delete user',
+      `User with email '${userData.email}' was deleted`,
+      user
+    )
     await func({ email: userData.email })
     setDeleteLoading(false)
     setConfirm(false)
@@ -55,7 +60,7 @@ const MemberShow = () => {
 
   // DROPDOWN OVERLAY ELEMENT
   const DropdownList = (
-    <Box>
+    <Container>
       <DropdownItem onClick={() => history.push(EDIT_PATH)}>
         <Box mr={2}>
           <Edit />
@@ -76,7 +81,7 @@ const MemberShow = () => {
           Delete
         </DropdownItem>
       </Confirmation>
-    </Box>
+    </Container>
   )
 
   //[TEMPLATE]

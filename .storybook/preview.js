@@ -1,6 +1,6 @@
 import React from 'react'
 import {ThemeProvider} from '@qonsoll/react-design'
-import Theme from 'app/config/theme'
+import Theme from 'app/config/QonsollTheme'
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },

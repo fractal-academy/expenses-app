@@ -103,7 +103,7 @@ const MemberAdvancedForm = (props) => {
         }
       }
     ],
-    []
+    [profile]
   )
   const onClickCancel = (data) => {
     onCancel && onCancel(data)

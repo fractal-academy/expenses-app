@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react'
 import 'react-date-range/dist/styles.css' // main css file
 import 'react-date-range/dist/theme/default.css' // theme css file
@@ -7,11 +6,12 @@ import * as locales from 'react-date-range/dist/locale'
 import { Row, Container, Col } from '@qonsoll/react-design'
 import { useStatisticContext } from 'app/context/StatisticsContext'
 import moment from 'moment'
+import MuiCustomTheme from '../../../config/qonsollTheme/MuiCustomTheme'
+import { useStyles } from 'components/Lib/DateRange/DateRange.style'
 
-const DateRange = (props) => {
-  const { startDate, endDate } = props
+const DateRange = () => {
   const { state, setState } = useStatisticContext()
-
+  const classes = useStyles()
   const [date, setDate] = useState({
     ...state.date,
     key: 'selection'
@@ -19,9 +19,10 @@ const DateRange = (props) => {
   useEffect(() => setDate((prev) => ({ ...prev, ...state.date })), [state.date])
   return (
     <Container>
-      <Row h="center">
+      <Row h="center" noGutters>
         <Col>
           <Range
+            className={classes.dateStyles}
             locale={locales.enGB}
             editableDateInputs={true}
             onChange={(item) => {
@@ -30,6 +31,7 @@ const DateRange = (props) => {
             }}
             moveRangeOnFirstSelection={false}
             ranges={[date]}
+            rangeColors={['orange']}
           />
         </Col>
       </Row>

@@ -13,6 +13,7 @@ const ROUTES_PATHS = {
   WISHES_SHOW: '/wishes/:id',
   WISHES_EDIT: '/wishes/:id/edit',
   CART_ALL: '/cart',
+  PERSONAL_CART_ALL: '/personal-cart',
   STATISTICS_ALL: '/statistics',
   SETTINGS: '/settings',
   WALLETS_ALL: '/wallets',
@@ -20,7 +21,9 @@ const ROUTES_PATHS = {
   CART_EDIT: '/cart/:id/edit',
   REGULAR_PRODUCTS_ALL: '/regular-products',
   REGULAR_PRODUCT_SHOW: '/regular-products/:id',
-  REGULAR_PRODUCT_EDIT: '/regular-products/:id'
+  REGULAR_PRODUCT_EDIT: '/regular-products/:id',
+  QR_ADD_WISH: '/add-wish/:id',
+  QR: '/add-wish'
 }
 
 export default ROUTES_PATHS

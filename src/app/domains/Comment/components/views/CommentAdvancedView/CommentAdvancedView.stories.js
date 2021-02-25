@@ -1,6 +1,6 @@
 import CommentAdvancedView from './CommentAdvancedView.template'
 import { ThemeProvider } from '@qonsoll/react-design'
-import Theme from 'app/config/theme'
+import Theme from 'app/config/QonsollTheme'
 import 'app/config/root.scss'
 
 const metadata = {
