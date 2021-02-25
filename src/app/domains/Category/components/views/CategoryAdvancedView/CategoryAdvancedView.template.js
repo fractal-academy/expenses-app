@@ -68,7 +68,9 @@ const CategoryAdvancedView = (props) => {
             <Paper>
               <Box
                 className={classes.border}
-                background={COLOR[colorCategory.toUpperCase()].color}
+                background={
+                  COLOR[colorCategory.replace(' ', '_').toUpperCase()].color
+                }
               />
               {/* Row colorBox */}
               <Row height="100%" pr="0.25rem" pl="0rem">

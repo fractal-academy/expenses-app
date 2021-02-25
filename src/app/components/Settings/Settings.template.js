@@ -41,7 +41,7 @@ const SETTINGS_MENU = [
   {
     title: 'Wallets',
     path: ROUTES_PATHS.WALLETS_ALL,
-    icon: <CreditCard style={{ color: COLOR.AQUAMARINE.color }} />
+    icon: <CreditCard style={{ color: COLOR.BLUE_VIOLET.color }} />
   }
 ]
 
