@@ -4,9 +4,9 @@ import COLOR from 'app/constants/colors'
 
 export const useStyles = makeStyles((theme) => ({
   dateStyles: {
-    // backgroundColor: pink
     backgroundColor: MuiCustomTheme.palette.background.paper,
-    width: '100%',
+    display: 'flex',
+
     '& span': {
       fontFamily: MuiCustomTheme.typography.fontFamily
     },
@@ -16,8 +16,8 @@ export const useStyles = makeStyles((theme) => ({
     '& select': {
       color: MuiCustomTheme.palette.text.primary
     },
-    '& .rdrMonth': {
-      width: '100%'
+    '& .rdrMonths': {
+      alignSelf: 'center'
     },
     '& .rdrNextPrevButton': {
       backgroundColor: COLOR.CORAL.color
