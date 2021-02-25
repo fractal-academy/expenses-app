@@ -42,9 +42,7 @@ const CategoryCombined = (props) => {
   const messageDispatch = useMessageDispatch()
 
   // [COMPUTED_PROPERTIES]
-  let currentCategory = value?.filter((item) => {
-    if (item.id === categoryId) return item
-  })[0]
+  let currentCategory = value?.filter((item) => item.id === categoryId)[0]
   // [HELPER_FUNCTIONS]
   const onAddCategory = async (data) => {
     try {
