@@ -3,9 +3,9 @@ const COLOR = {
     color: '#20bfa9',
     name: 'Aquamarine'
   },
-  PEACH: {
+  LAVENDER: {
     color: '#c37fbc',
-    name: 'Lavander'
+    name: 'Lavender'
   },
   CORAL: {
     color: '#feb95a',
