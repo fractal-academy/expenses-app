@@ -59,10 +59,12 @@ const WalletCombined = (props) => {
   }
 
   const onSubmit = async (data) => {
+    data = { ...data, idCurrency: 'UAH' }
+    //console.log(data)
     const action = `${typeModalEdit ? 'Edit wallet' : 'Add new wallet'}`
     const description = `${
       typeModalEdit
-        ? `Wallet '${data.nameWallet}' was edited`
+        ? `Wallet '${nameWallet}' was edited`
         : `New wallet '${data.nameWallet}' was added`
     }`
     //it needs refactor
@@ -76,24 +78,18 @@ const WalletCombined = (props) => {
 
     try {
       setLoading(true)
-      const wallet = await getCollectionRef(COLLECTIONS.WALLETS)
-        .where('nameWallet', '==', data.nameWallet)
-        .get()
-      if (!wallet.empty) throw new Error('Change the wallet`s name')
 
-      !idWallet
-        ? addData(COLLECTIONS.WALLETS, {
-            ...data,
-            idCurrency: 'UAH'
-          }).then((doc) =>
-            setData(COLLECTIONS.WALLETS, doc.id, {
-              id: doc.id
-            })
-          )
-        : setData(COLLECTIONS.WALLETS, idWallet, {
-            ...data,
-            idCurrency: 'UAH'
-          })
+      if (!typeModalEdit) {
+        const wallet = await getCollectionRef(COLLECTIONS.WALLETS)
+          .where('nameWallet', '==', data.nameWallet)
+          .get()
+        if (!wallet.empty) throw new Error('Change the wallet`s name')
+        const doc = await addData(COLLECTIONS.WALLETS, data)
+        setData(COLLECTIONS.WALLETS, doc.id, {
+          id: doc.id
+        })
+      } else setData(COLLECTIONS.WALLETS, idWallet, data)
+
       Logger(action, description, session)
       messageDispatch({
         type: types.OPEN_SUCCESS_MESSAGE,
