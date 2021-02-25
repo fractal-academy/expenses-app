@@ -1,4 +1,3 @@
-import { Fragment } from 'react'
 import { List, ListItem, Divider, Paper } from '@material-ui/core'
 import { Row, Col } from '@qonsoll/react-design'
 import { MemberAdvancedView } from 'domains/Member/components/views'

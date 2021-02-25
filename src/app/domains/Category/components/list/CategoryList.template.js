@@ -8,9 +8,7 @@ const CategoryList = (props) => {
   const [data, setData] = useState([])
 
   // CUSTOM HOOKS
-  const [value, loading, error] = useCollection(
-    firestore.collection('categories')
-  )
+  const [value] = useCollection(firestore.collection('categories'))
 
   // USE EFFECTS
   useEffect(() => {

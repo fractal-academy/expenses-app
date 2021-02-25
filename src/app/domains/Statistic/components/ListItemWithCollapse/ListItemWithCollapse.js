@@ -2,7 +2,6 @@ import { useState } from 'react'
 import {
   Collapse,
   Divider,
-  IconButton,
   List,
   ListItem,
   ListItemText
