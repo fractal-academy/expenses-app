@@ -9,6 +9,7 @@ import {
 import { AvatarUploader, LoadingButton } from 'app/components/Lib'
 import { RoleSingleSelect } from 'domains/Role/components/select'
 import { EMAIL_DOMAIN } from 'app/constants'
+import { Container } from '@qonsoll/react-design'
 
 const MemberAdvancedForm = (props) => {
   const {
@@ -111,21 +112,23 @@ const MemberAdvancedForm = (props) => {
   }
 
   return (
-    <Form
-      form={form}
-      onSubmit={onSubmit}
-      onSubmitFail={onSubmitFail}
-      defaultValues={formData}
-      {...formProps}>
-      <FormGenerator config={config} show={show} hide={hide} />
-      <FormButtons
-        Button={LoadingButton}
-        visibleCancel={true}
-        onClickCancel={onClickCancel}
-        buttonPropsSubmit={{ loading }}
-        {...buttonProps}
-      />
-    </Form>
+    <Container mt={2}>
+      <Form
+        form={form}
+        onSubmit={onSubmit}
+        onSubmitFail={onSubmitFail}
+        defaultValues={formData}
+        {...formProps}>
+        <FormGenerator config={config} show={show} hide={hide} />
+        <FormButtons
+          Button={LoadingButton}
+          visibleCancel={true}
+          onClickCancel={onClickCancel}
+          buttonPropsSubmit={{ loading }}
+          {...buttonProps}
+        />
+      </Form>
+    </Container>
   )
 }
 
