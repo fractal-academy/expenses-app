@@ -13,6 +13,7 @@ import { CategoryAll } from 'domains/Category/routes'
 import { LogAll } from 'domains/Log/routes'
 import { WishAll, WishEdit, WishShow } from 'domains/Wish/routes'
 import { CartAll, CartEdit, CartShow } from 'domains/Cart/routes'
+import { PersonalCartAll } from 'domains/PersonalCart/routes'
 import { StatisticAll } from 'domains/Statistic/routes'
 import { RejectLogin } from 'app/components'
 import { Settings } from 'app/components/Settings'
@@ -33,14 +34,12 @@ const ROUTES = {
     exact: true
   },
   MEMBER_SHOW: {
-    component: withLayout({ goBack: true, title: 'Member Profile' })(
-      MemberShow
-    ),
+    component: withLayout({ goBack: true, title: 'Profile' })(MemberShow),
     path: ROUTES_PATHS.MEMBER_SHOW,
     exact: true
   },
   MEMBER_EDIT: {
-    component: withLayout({ goBack: true, title: 'Member Edit' })(MemberEdit),
+    component: withLayout({ goBack: true, title: 'Edit profile' })(MemberEdit),
     path: ROUTES_PATHS.MEMBER_EDIT
   },
   MEMBERS_ALL: {
@@ -50,7 +49,7 @@ const ROUTES = {
   },
   REGULAR_PRODUCTS_ALL: {
     protect: ['admin'],
-    component: withLayout({ goBack: true, title: 'Products' })(
+    component: withLayout({ goBack: true, title: 'Regular products' })(
       RegularProductAll
     ),
     path: ROUTES_PATHS.REGULAR_PRODUCTS_ALL,
@@ -89,6 +88,12 @@ const ROUTES = {
     path: ROUTES_PATHS.CART_ALL,
     exact: true
   },
+  PERSONAL_CART_ALL: {
+    protect: ['admin'],
+    component: withLayout()(PersonalCartAll),
+    path: ROUTES_PATHS.PERSONAL_CART_ALL,
+    exact: true
+  },
   STATISTICS_ALL: {
     protect: ['admin', 'observer'],
     component: withLayout()(StatisticAll),
@@ -106,35 +111,31 @@ const ROUTES = {
   },
   CART_SHOW: {
     protect: ['admin'],
-    component: withLayout({ goBack: true, title: 'Cart Product Card' })(
-      CartShow
-    ),
+    component: withLayout({ goBack: true, title: 'Cart product' })(CartShow),
     path: ROUTES_PATHS.CART_SHOW,
     exact: true
   },
   CART_EDIT: {
     protect: ['admin'],
-    component: withLayout({ goBack: true, title: 'Cart Product Edit' })(
+    component: withLayout({ goBack: true, title: 'Edit cart product' })(
       CartEdit
     ),
     path: ROUTES_PATHS.CART_EDIT
   },
   WISH_SHOW: {
-    component: withLayout({ goBack: true, title: 'Wish Product Card' })(
-      WishShow
-    ),
+    component: withLayout({ goBack: true, title: 'Wish product' })(WishShow),
     path: ROUTES_PATHS.WISHES_SHOW,
     exact: true
   },
   WISH_EDIT: {
-    component: withLayout({ goBack: true, title: 'Wish Product Edit' })(
+    component: withLayout({ goBack: true, title: 'Edit wish product' })(
       WishEdit
     ),
     path: ROUTES_PATHS.WISHES_EDIT
   },
   REGULAR_PRODUCT_SHOW: {
     protect: ['admin'],
-    component: withLayout({ goBack: true, title: 'Product' })(
+    component: withLayout({ goBack: true, title: 'Regular product' })(
       RegularProductShow
     ),
     path: ROUTES_PATHS.REGULAR_PRODUCT_SHOW,
@@ -142,7 +143,7 @@ const ROUTES = {
   },
   REGULAR_PRODUCT_EDIT: {
     protect: ['admin'],
-    component: withLayout({ goBack: true, title: 'Product Edit' })(
+    component: withLayout({ goBack: true, title: 'Edit regular product' })(
       RegularProductEdit
     ),
     path: ROUTES_PATHS.REGULAR_PRODUCT_EDIT
@@ -153,7 +154,7 @@ const ROUTES = {
   },
   QR: {
     protect: ['admin'],
-    component: withLayout({ title: 'Add Wish' })(QRAdd),
+    component: withLayout({ title: 'Add new wish' })(QRAdd),
     path: ROUTES_PATHS.QR_ADD_WISH
   }
 }

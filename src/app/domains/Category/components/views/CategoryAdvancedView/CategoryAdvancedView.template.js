@@ -9,6 +9,9 @@ import { CategoryCombined } from 'domains/Category/components/combined/CategoryC
 import { DropdownItem, Dropdown } from 'app/components/Lib/Dropdown'
 import { deleteData } from 'app/services/Firestore'
 import formatCurrency from 'format-currency'
+import { Logger } from 'app/utils'
+import { useSession } from 'app/context/SessionContext'
+import COLOR from 'app/constants/colors'
 
 const CategoryAdvancedView = (props) => {
   // INTERFACE
@@ -16,7 +19,12 @@ const CategoryAdvancedView = (props) => {
 
   // CUSTOM HOOKS
   const classes = useStyles()
+  const user = useSession()
 
+  const deleteCategory = () => {
+    Logger('Delete Category', `Category ${nameCategory} was deleted`, user)
+    deleteData('categories', id)
+  }
   // COMPUTED PROPERTIES
   const availableBalance = budget - spent
   const valueForProgressBar = 100 - (availableBalance * 100) / budget
@@ -31,9 +39,10 @@ const CategoryAdvancedView = (props) => {
     <div>
       <CategoryCombined
         title="Edit category"
-        onClick={() => console.log(id)}
+        showName={false}
         typeModalEdit
-        categoryId={id}>
+        categoryId={id}
+        budget={budget}>
         <DropdownItem>
           <Box mr={2}>
             <Edit />
@@ -41,12 +50,7 @@ const CategoryAdvancedView = (props) => {
           Edit
         </DropdownItem>
       </CategoryCombined>
-      <DropdownItem
-        danger
-        onClick={() => {
-          deleteData('categories', id)
-          console.log('DELETE')
-        }}>
+      <DropdownItem danger onClick={deleteCategory}>
         <Box mr={2}>
           <Delete />
         </Box>
@@ -58,11 +62,14 @@ const CategoryAdvancedView = (props) => {
   // TEMPLATE
   return (
     <>
-      <Container mb={3} className={classes.paper}>
+      <Container my={2} className={classes.paper}>
         <Row>
           <Col>
             <Paper>
-              <Box className={classes.border} background={colorCategory} />
+              <Box
+                className={classes.border}
+                background={COLOR[colorCategory.toUpperCase()].color}
+              />
               {/* Row colorBox */}
               <Row height="100%" pr="0.25rem" pl="0rem">
                 <Col p={2}>
@@ -88,7 +95,7 @@ const CategoryAdvancedView = (props) => {
                   {/*Row with divider*/}
                   <Row mb={3}>
                     <Col cw={12}>
-                      <Divider />
+                      <Divider className={classes.divColor} />
                     </Col>
                   </Row>
                   {/*Row with spent and left money*/}
@@ -155,18 +162,10 @@ const CategoryAdvancedView = (props) => {
 CategoryAdvancedView.propTypes = {
   nameCategory: PropTypes.string.isRequired,
   colorCategory: PropTypes.string.isRequired,
-  currency: PropTypes.string.isRequired,
+  currency: PropTypes.string,
   spent: PropTypes.number.isRequired,
   budget: PropTypes.number.isRequired,
-  valueForProgressBar: PropTypes.number.isRequired
+  valueForProgressBar: PropTypes.number
 }
-CategoryAdvancedView.defaultProps = {
-  nameCategory: 'Other',
-  colorCategory: 'orange',
-  availableBalance: '2500',
-  spent: '7500',
-  budget: '10000',
-  currency: 'USD',
-  valueForProgressBar: 50
-}
+
 export default CategoryAdvancedView

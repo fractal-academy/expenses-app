@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 import { Row, Col, Container } from '@qonsoll/react-design'
-import { Button, Typography } from '@material-ui/core'
-import GTranslateOutlinedIcon from '@material-ui/icons/GTranslateOutlined'
+import { Button, Typography, SvgIcon } from '@material-ui/core'
 import { useStyles } from './SessionSimpleView.styles'
+import { ReactComponent as GoogleLogo } from 'assets/google.svg'
 
 const SessionSimpleView = (props) => {
   const { login } = props
@@ -21,7 +21,7 @@ const SessionSimpleView = (props) => {
           </Row>
           <Row h="center" my="4">
             <Button variant="outlined" color="primary" onClick={login}>
-              <GTranslateOutlinedIcon />
+              <SvgIcon component={GoogleLogo} viewBox="0 0 30 30" />
               Sign in with Google
             </Button>
           </Row>

@@ -1,27 +1,36 @@
 {
   "name": "functions",
-  "description": "Cloud Functions for Firebase",
   "scripts": {
-    "serve": "firebase emulators:start --only functions",
-    "shell": "firebase functions:shell",
+    "build": "ttsc",
+    "serve": "npm run build && firebase emulators:start --only src/functions",
+    "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
-    "deploy": "firebase deploy --only functions",
+    "deploy:prod": "firebase use production && firebase deploy --only functions",
+    "deploy:dev": "firebase use development && firebase deploy --only functions",
     "logs": "firebase functions:log"
   },
   "engines": {
-    "node": "10"
+    "node": "12"
   },
-  "main": "index.js",
+  "main": "build/index.js",
   "dependencies": {
     "cors": "^2.8.5",
     "firebase-admin": "^9.2.0",
     "firebase-functions": "^3.11.0",
     "md5": "^2.3.0",
+    "moment": "^2.29.1",
     "nodemailer": "^6.4.17",
     "nodemailer-sendgrid": "^1.0.3"
   },
   "devDependencies": {
-    "firebase-functions-test": "^0.2.0"
+    "@firebase/firestore-types": "^2.1.0",
+    "@firebase/functions-types": "^0.4.0",
+    "@typescript-eslint/eslint-plugin": "^4.15.2",
+    "@typescript-eslint/parser": "^4.15.2",
+    "firebase-functions-test": "^0.2.0",
+    "ttypescript": "^1.5.12",
+    "typescript": "^3.9.9",
+    "typescript-transform-paths": "^2.2.3"
   },
   "private": true
 }

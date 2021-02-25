@@ -2,14 +2,24 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Modal, FabButton } from 'app/components/Lib'
 import { WalletForm } from 'app/domains/Wallet/components/form/WalletForm'
-import { setData, addData } from 'app/services/Firestore'
+import { setData, addData, getCollectionRef } from 'app/services/Firestore'
 import PropTypes from 'prop-types'
 import { COLLECTIONS } from 'app/constants'
 import { useSession } from 'app/context/SessionContext/hooks'
+import { useMessageDispatch, types } from 'app/context/MessageContext'
+import { Logger } from 'app/utils'
 import md5 from 'md5'
 
+/**
+ * @info WalletCombined (03 Feb 2020) // CREATION DATE
+ *
+ * @since 17 Feb 2021 ( v.0.1.0 ) // LAST-EDIT DATE
+ *
+ * @return {ReactComponent}
+ */
+
 const WalletCombined = (props) => {
-  // INTERFACE
+  // [INTERFACE]
   const {
     idWallet,
     nameWallet,
@@ -19,15 +29,14 @@ const WalletCombined = (props) => {
     privateWallet,
     title,
     typeModalEdit,
-    children,
-    setStatusMessage
+    children
   } = props
-  // STATE
+
+  // [STATE]
   const [open, setOpen] = useState(children && !children)
   const [loading, setLoading] = useState(false)
 
-  // CUSTOM HOOKS
-  const session = useSession()
+  // [COMPUTED_PROPERTIES]
   const data = {
     idWallet,
     nameWallet,
@@ -37,6 +46,9 @@ const WalletCombined = (props) => {
     idMember
   }
 
+  // [CUSTOM_HOOKS]
+  const session = useSession()
+  const messageDispatch = useMessageDispatch()
   const form = useForm({
     defaultValues: (data && data) || {}
   })
@@ -47,6 +59,12 @@ const WalletCombined = (props) => {
   }
 
   const onSubmit = async (data) => {
+    const action = `${typeModalEdit ? 'Edit wallet' : 'Add new wallet'}`
+    const description = `${
+      typeModalEdit
+        ? `Wallet '${data.nameWallet}' was edited`
+        : `New wallet '${data.nameWallet}' was added`
+    }`
     //it needs refactor
     data.privateWallet
       ? (data.idMember = md5(session.email))
@@ -58,31 +76,34 @@ const WalletCombined = (props) => {
 
     try {
       setLoading(true)
-      idWallet
-        ? await setData(COLLECTIONS.WALLETS, idWallet, {
-            ...data,
-            idCurrency: 'UAH'
-          })
-        : addData(COLLECTIONS.WALLETS, {
+      const wallet = await getCollectionRef(COLLECTIONS.WALLETS)
+        .where('nameWallet', '==', data.nameWallet)
+        .get()
+      if (!wallet.empty) throw new Error('Change the wallet`s name')
+
+      !idWallet
+        ? addData(COLLECTIONS.WALLETS, {
             ...data,
             idCurrency: 'UAH'
           }).then((doc) =>
             setData(COLLECTIONS.WALLETS, doc.id, {
-              ...data,
-              idCurrency: 'UAH',
               id: doc.id
             })
           )
-
-      setStatusMessage({
-        open: true,
-        message: typeModalEdit
-          ? 'Wallet successfully edited'
-          : 'Wallet successfully added',
-        type: 'success'
+        : setData(COLLECTIONS.WALLETS, idWallet, {
+            ...data,
+            idCurrency: 'UAH'
+          })
+      Logger(action, description, session)
+      messageDispatch({
+        type: types.OPEN_SUCCESS_MESSAGE,
+        payload: description
       })
     } catch (error) {
-      setStatusMessage({ open: true, message: error, type: 'error' })
+      messageDispatch({
+        type: types.OPEN_ERROR_MESSAGE,
+        payload: error.message
+      })
     }
     typeModalEdit ? form.reset(data) : form.reset({})
     setLoading(false)

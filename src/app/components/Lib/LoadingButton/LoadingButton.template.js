@@ -18,15 +18,16 @@ const LoadingButton = (props) => {
     <Button
       ref={buttonRef}
       {...rest}
+      disabled={loading}
       color={loading && rest.variant ? 'default' : rest.color}
       startIcon={
         (startIcon && loading && (
-          <CircularProgress color="inherit" size={size.height / 2} />
+          <CircularProgress color="primary" size={size.height / 2} />
         )) ||
         startIcon
       }>
       {!startIcon && loading ? (
-        <CircularProgress color="inherit" size={size.height / 1.5} />
+        <CircularProgress color="primary" size={size.height / 1.5} />
       ) : (
         children
       )}

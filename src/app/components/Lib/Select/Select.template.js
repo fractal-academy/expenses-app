@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { TextField } from '@material-ui/core'
+import { TextField, Typography } from '@material-ui/core'
+import { Spinner } from 'app/components/Lib'
 
 const Select = (props) => {
   const {
     value,
     onChange,
     data,
+    entity,
+    loading,
     children,
     className,
     inputProps,
@@ -14,25 +17,32 @@ const Select = (props) => {
     ...rest
   } = props
   const [currentValue, setCurrentValue] = useState(value)
-  useEffect(() => onChange(value), [])
+  useEffect(() => {
+    onChange(value)
+  }, [])
+
   const handleSelect = (event) => {
     const selectValue = event.target.value
     setCurrentValue(selectValue)
-    onChange && onChange(event, selectValue)
+    onChange && onChange(selectValue)
   }
-  useEffect(() => onChange(value), [])
+  if (loading) return <Spinner />
+
   //in children use your own template
-  return (
+  return Object.keys(data).length ? (
     <TextField
       select
       className={className}
       onChange={handleSelect}
+      defaultValue={value}
       value={currentValue}
       helperText={errorText}
       {...inputProps}
       {...rest}>
       {data.map(children)}
     </TextField>
+  ) : (
+    <Typography>You don`t have any {entity}</Typography>
   )
 }
 

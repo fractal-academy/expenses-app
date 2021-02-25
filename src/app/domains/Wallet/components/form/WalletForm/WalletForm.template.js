@@ -40,7 +40,8 @@ const config = [
       {
         label: 'Currency',
         name: 'idCurrency',
-        Component: CurrencySimpleView
+        Component: CurrencySimpleView,
+        colProps: { cw: 'auto' }
       },
       {
         label: 'Wallet',
@@ -48,7 +49,8 @@ const config = [
         Component: WalletSingleSelect,
         rules: {
           required: 'Select wallet'
-        }
+        },
+        defaultValues: ''
       }
     ]
   }
