@@ -1,7 +1,6 @@
 import { Select } from 'app/components/Lib'
 import MenuItem from '@material-ui/core/MenuItem'
 import { COLLECTIONS } from 'app/constants'
-import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react'
 import { getCollectionRef } from 'app/services/Firestore'
 import { useCollectionData } from 'react-firebase-hooks/firestore'

@@ -5,7 +5,8 @@ import {
   firestore,
   getData,
   setData,
-  getTimestamp
+  getTimestamp,
+  addData
 } from 'app/services/Firestore'
 import { COLLECTIONS } from 'app/constants'
 import { Spinner } from 'app/components/Lib'
@@ -62,6 +63,12 @@ const RegularProductEdit = () => {
         quantity: data.quantity,
         measures: data?.measures || '',
         remind: getTimestamp().fromDate(new Date(data.remind)) || null
+      })
+      addData(COLLECTIONS.NOTIFICATIONS, {
+        date: getTimestamp().now(),
+        text: `You were assigned to buy '${data.name}' in Regular Product`,
+        userId: [data.assign.id],
+        viewed: { [data.assign.id]: false }
       })
       Logger('Edit regular product', description, user)
       messageDispatch({
