@@ -60,7 +60,7 @@ const WalletCombined = (props) => {
 
   const onSubmit = async (data) => {
     data = { ...data, idCurrency: 'UAH' }
-    //console.log(data)
+
     const action = `${typeModalEdit ? 'Edit wallet' : 'Add new wallet'}`
     const description = `${
       typeModalEdit
