@@ -17,6 +17,7 @@ const StatisticAll = (props) => {
   )
   const [checked, setChecked] = useState(false)
   const [data, setData] = useState([])
+  const [disabled, setDisabled] = useState(false)
 
   useEffect(() => {
     checked
@@ -26,12 +27,13 @@ const StatisticAll = (props) => {
             return res
           })
           newVal &&
-            Promise.allSettled(newVal)
+            Promise.allSettled(newVal, setDisabled(true))
               .then((results) => {
                 return results.map((result) => result.value)
               })
               .then((res) => {
                 setData(res)
+                setDisabled(false)
               })
         })()
       : setData(value)
@@ -45,7 +47,7 @@ const StatisticAll = (props) => {
       {data && (
         <StatisticProvider>
           <FiltersWithCollapse />
-          <Container pb={4} mx={1} mt={2}>
+          <Container py={3}>
             <Row v="center" h="center" noGutters>
               <Col>
                 <Typography align="center" variant="h5">
@@ -61,6 +63,7 @@ const StatisticAll = (props) => {
               <Box display="flex" alignItems="baseline">
                 <Typography>UAH</Typography>
                 <Switch
+                  disabled={disabled}
                   checked={checked}
                   onChange={() => {
                     setChecked(!checked)

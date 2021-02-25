@@ -147,7 +147,6 @@ const CategoryCombined = (props) => {
           onClick: handleClose
         }}>
         <CategoryForm
-          fieldProps={{ budgetLimit: { value: budget } }}
           form={form}
           show={[
             showName && 'nameCategory',
