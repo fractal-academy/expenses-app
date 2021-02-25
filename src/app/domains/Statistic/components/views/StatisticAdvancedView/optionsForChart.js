@@ -80,7 +80,7 @@ const optionsForChart = {
   },
   colors: [
     COLOR.AQUAMARINE.color,
-    COLOR.PEACH.color,
+    COLOR.LAVENDER.color,
     COLOR.CORAL.color,
     COLOR.SALMON.color,
     COLOR.BLUE.color

@@ -26,7 +26,7 @@ const SETTINGS_MENU = [
   {
     title: 'Logs',
     path: ROUTES_PATHS.LOGS_ALL,
-    icon: <Assignment style={{ color: COLOR.PEACH.color }} />
+    icon: <Assignment style={{ color: COLOR.LAVENDER.color }} />
   },
   {
     title: 'Regular products',

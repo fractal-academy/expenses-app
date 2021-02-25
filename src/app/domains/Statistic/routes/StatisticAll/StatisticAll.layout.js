@@ -63,7 +63,9 @@ const StatisticAll = (props) => {
                 <Switch
                   checked={checked}
                   onChange={() => {
-                    setChecked(!checked)
+                    setTimeout(() => {
+                      setChecked(!checked)
+                    }, 200)
                   }}
                   name="currencySwitch"
                 />
