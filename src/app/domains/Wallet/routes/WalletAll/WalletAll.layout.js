@@ -5,6 +5,7 @@ import { useCollection } from 'react-firebase-hooks/firestore'
 import { getCollectionRef } from 'app/services'
 import { COLLECTIONS } from 'app/constants'
 import { useSession } from 'app/context/SessionContext/hooks'
+import { Container } from '@qonsoll/react-design'
 
 const WalletAll = () => {
   //CUSTOMS HOOKS
@@ -21,10 +22,10 @@ const WalletAll = () => {
     return <Spinner />
   }
   return (
-    <>
+    <Container py={2}>
       <WalletList dataForListWallets={{ publicWallets, myWallets }} />
       <WalletCombined title={'Create a new wallet'} />
-    </>
+    </Container>
   )
 }
 
