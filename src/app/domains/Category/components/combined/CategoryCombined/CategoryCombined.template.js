@@ -42,10 +42,9 @@ const CategoryCombined = (props) => {
   const messageDispatch = useMessageDispatch()
 
   // [COMPUTED_PROPERTIES]
-  let filterCategories = value?.filter((item) => {
+  let currentCategory = value?.filter((item) => {
     if (item.id === categoryId) return item
-  })
-
+  })[0]
   // [HELPER_FUNCTIONS]
   const onAddCategory = async (data) => {
     try {
@@ -81,7 +80,7 @@ const CategoryCombined = (props) => {
       })
       Logger(
         'Edit category',
-        `Category ${filterCategories[0].nameCategory} was edited`,
+        `Category ${currentCategory.nameCategory} was edited`,
         user
       )
       setOpen(false)
