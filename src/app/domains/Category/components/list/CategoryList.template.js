@@ -1,32 +1,15 @@
 import { CategoryAdvancedView } from 'domains/Category/components/views'
-import { useState, useEffect } from 'react'
 import { getCollectionRef } from 'app/services/Firestore'
-import { useCollection } from 'react-firebase-hooks/firestore'
+import { useCollectionData } from 'react-firebase-hooks/firestore'
 import { Spinner } from 'app/components/Lib'
 import { COLLECTIONS } from 'app/constants'
 
 const CategoryList = (props) => {
-  // STATE
-  const [data, setData] = useState([])
-
   // CUSTOM HOOKS
-  const [value, loading] = useCollection(
-    getCollectionRef(COLLECTIONS.CATEGORIES)
+  const [value, loading] = useCollectionData(
+    getCollectionRef(COLLECTIONS.CATEGORIES),
+    { idField: 'id' }
   )
-
-  // USE EFFECTS
-  useEffect(() => {
-    const recievedData =
-      value &&
-      value.docs.map((item) => {
-        return {
-          id: item.id,
-          ...item.data()
-        }
-      })
-    setData(recievedData)
-    return () => {}
-  }, [value])
 
   // TEMPLATE
   if (loading) {
@@ -35,8 +18,9 @@ const CategoryList = (props) => {
 
   return (
     <>
-      {data &&
-        data.map((item) => <CategoryAdvancedView {...item} key={item.id} />)}
+      {value.map((item) => (
+        <CategoryAdvancedView {...item} key={item.id} />
+      ))}
     </>
   )
 }
