@@ -16,8 +16,12 @@ export const useStyles = makeStyles((theme) => ({
     '& select': {
       color: MuiCustomTheme.palette.text.primary
     },
-    '& .rdrMonths': {
-      alignSelf: 'center'
+    '& .rdrMonths .rdrMonthsVertical': {
+      width: '100%'
+    },
+    '& .rdrMonth': {
+      width: '100%',
+      boxSizing: 'border-box'
     },
     '& .rdrNextPrevButton': {
       backgroundColor: COLOR.CORAL.color
