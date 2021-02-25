@@ -41,7 +41,12 @@ const CategoryCombined = (props) => {
   const user = useSession()
   const messageDispatch = useMessageDispatch()
 
-  // HELPER FUNCTIONS
+  // [COMPUTED_PROPERTIES]
+  let filterCategories = value?.filter((item) => {
+    if (item.id === categoryId) return item
+  })
+
+  // [HELPER_FUNCTIONS]
   const onAddCategory = async (data) => {
     try {
       setLoading(true)
@@ -76,7 +81,7 @@ const CategoryCombined = (props) => {
       })
       Logger(
         'Edit category',
-        `Category ${value?.nameCategory} was edited`,
+        `Category ${filterCategories[0].nameCategory} was edited`,
         user
       )
       setOpen(false)
