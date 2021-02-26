@@ -14,6 +14,7 @@ const QrAdd = () => (
     buttonProps={{ visibleCancel: false, submitText: 'add Wish' }}
     collectionName={COLLECTIONS.REGULAR_PRODUCTS}
     pushTo={ROUTES_PATHS.WISHES_ALL}
+    addWish
   />
 )
 
