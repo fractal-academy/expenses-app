@@ -1,19 +1,36 @@
 import List from '@material-ui/core/List'
 import { LogAdvancedView } from 'domains/Log/components/views'
 import { Col, Row } from '@qonsoll/react-design'
+import { InfiniteScroll } from 'components/HOCs/InfiniteScroll'
+import { useMessageDispatch, types } from 'app/context/MessageContext'
 
-const LogList = (props) => {
-  // INTERFACES
-  const { logs } = props
+import { COLLECTIONS } from 'app/constants'
 
-  // TEMPLATE
+const LogList = () => {
+  // [ADDITIONAL_HOOKS]
+  const messageDispatch = useMessageDispatch()
+
+  // [HELPER_FUNCTIONS]
+  const onReachEndOfList = () =>
+    messageDispatch({
+      type: types.OPEN_WARNING_MESSAGE,
+      payload: 'That all.'
+    })
+
+  // [TEMPLATE]
   return (
-    <List>
-      {logs.map((item, index) => (
+    <InfiniteScroll
+      as={List}
+      collectionName={COLLECTIONS.LOGS}
+      idField="id"
+      limit={20}
+      order={{ field: 'dateTime', type: 'desc' }}
+      onReachEnd={onReachEndOfList}>
+      {(item) => (
         <Row>
           <Col>
             <LogAdvancedView
-              key={index}
+              key={item.id}
               action={item.action}
               userAvatar={item.userAvatar}
               actionDateTime={item.dateTime}
@@ -22,8 +39,8 @@ const LogList = (props) => {
             />
           </Col>
         </Row>
-      ))}
-    </List>
+      )}
+    </InfiniteScroll>
   )
 }
 
