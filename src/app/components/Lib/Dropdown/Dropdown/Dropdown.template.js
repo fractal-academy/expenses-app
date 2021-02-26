@@ -1,4 +1,3 @@
-import Menu from '@material-ui/core/Menu'
 import { Box } from '@qonsoll/react-design'
 import { cloneElement, useState } from 'react'
 import { Popover } from '@material-ui/core'
@@ -8,7 +7,7 @@ const transfBottom = { vertical: 'top', horizontal: 'center' }
 
 const Dropdown = (props) => {
   // INTERFACE
-  const { overlay, children, idMenu, id } = props
+  const { overlay, children, idMenu } = props
 
   // STATE
   const [anchorEl, setAnchorEl] = useState(null)

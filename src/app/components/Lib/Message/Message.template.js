@@ -11,8 +11,7 @@ const Message = (props) => {
     vertical, //vertical position
     horizontal, //horizontal position
     variant, // variant filled or outlined
-    autoHideDuration, //duration for message
-    ...rest
+    autoHideDuration //duration for message
   } = props
 
   return (

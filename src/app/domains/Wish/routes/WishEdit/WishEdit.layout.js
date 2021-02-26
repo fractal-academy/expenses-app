@@ -18,7 +18,7 @@ import { useSession } from 'app/context/SessionContext'
 
 const WishEdit = (props) => {
   // [INTERFACES]
-  const { buttonProps, collectionName, pushTo } = props
+  const { buttonProps, collectionName, pushTo, addWish } = props
 
   // [COMPONENT_STATE_HOOKS]
   const [loading, setLoading] = useState(true)
@@ -37,8 +37,6 @@ const WishEdit = (props) => {
   const onEditProduct = async (data) => {
     setEditLoading(true)
     try {
-      var description = `Wish '${value?.name}' was edited.
-        ${value?.name === data.name ? '' : `Name changed on '${data.name}'`}`
       await setData(COLLECTIONS.WISHES, id, {
         id: id,
         name: data.name,
@@ -50,7 +48,11 @@ const WishEdit = (props) => {
         quantity: data.quantity,
         measures: data?.measures || ''
       })
-      Logger('Edit wish', description, user)
+      const description = `Wish '${value?.name}' was ${
+        addWish ? 'added' : 'edited'
+      }.
+        ${value?.name === data.name ? '' : `Name changed on '${data.name}'`}`
+      Logger(`${addWish ? 'Add' : 'Edit'} wish`, description, user)
       addData(COLLECTIONS.NOTIFICATIONS, {
         date: getTimestamp().now(),
         text: `You were assigned to buy '${data.name}' in Wishes list`,
@@ -120,7 +122,8 @@ const WishEdit = (props) => {
 WishEdit.propTypes = {
   buttonProps: PropTypes.object,
   collectionName: PropTypes.string,
-  pushTo: PropTypes.string
+  pushTo: PropTypes.string,
+  addWish: PropTypes.bool
 }
 
 export default WishEdit
