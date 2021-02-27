@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { TextField, Typography, makeStyles } from '@material-ui/core'
+import { TextField, Typography } from '@material-ui/core'
 import { Spinner } from 'app/components/Lib'
 
 const Select = (props) => {
@@ -37,7 +37,7 @@ const Select = (props) => {
       defaultValue={value}
       value={currentValue}
       helperText={errorText}
-      InputProps={{ style: { height: 'auto' }, className: 'forSelect' }}
+      InputProps={{ className: 'forSelect' }}
       {...inputProps}
       {...rest}>
       {data.map(children)}
