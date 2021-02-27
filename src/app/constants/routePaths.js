@@ -6,6 +6,7 @@ const ROUTES_PATHS = {
   MEMBERS_ALL: '/members',
   PURCHASE_ALL: '/purchases',
   PURCHASE_SHOW: '/purchases/:id',
+  PURCHASE_CREATE: '/purchases/create',
   NOTIFICATIONS_ALL: '/notifications',
   CATEGORIES_ALL: '/categories',
   LOGS_ALL: '/logs',

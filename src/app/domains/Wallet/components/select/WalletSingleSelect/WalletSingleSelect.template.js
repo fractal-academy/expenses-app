@@ -13,22 +13,26 @@ const WalletSingleSelect = (props) => {
 
   // TEMPLATE
   return (
-    <Select
-      entity="wallets"
-      data={Object.values(data)}
-      className={classes.root}
-      value={data[value]}
-      {...rest}>
-      {(item) => (
-        <MenuItem value={item} key={item.id}>
-          <WalletSimpleViewWithCurrency
-            nameWallet={item.nameWallet}
-            balance={item.balance}
-            currency={item.idCurrency}
-          />
-        </MenuItem>
+    <>
+      {value && (
+        <Select
+          entity="wallets"
+          data={Object.values(data)}
+          className={classes.root}
+          value={data[value]}
+          {...rest}>
+          {(item) => (
+            <MenuItem value={item} key={item.id}>
+              <WalletSimpleViewWithCurrency
+                nameWallet={item.nameWallet}
+                balance={item.balance}
+                currency={item.idCurrency}
+              />
+            </MenuItem>
+          )}
+        </Select>
       )}
-    </Select>
+    </>
   )
 }
 
