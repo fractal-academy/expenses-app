@@ -1,31 +1,17 @@
-import { useState } from 'react'
-import { Message } from 'app/components/Lib'
+import { FabButton } from 'app/components/Lib'
 import { PersonalCartTable } from 'app/domains/PersonalCart/components/table'
+import { useHistory } from 'react-router-dom'
+import { ROUTES_PATHS } from 'app/constants'
 
-const PersonalCartAll = (props) => {
-  const [statusMessage, setStatusMessage] = useState({
-    open: false,
-    message: '',
-    type: ''
-  })
-  const handleClose = () => {
-    setStatusMessage({ open: false, message: '', type: '' })
+const PersonalCartAll = () => {
+  const history = useHistory()
+  const handleClickOpen = () => {
+    history.push(ROUTES_PATHS.PURCHASE_CREATE)
   }
-
   return (
     <>
-      <PersonalCartTable setStatusMessage={setStatusMessage} />
-
-      <Message
-        open={statusMessage.open}
-        message={statusMessage.message}
-        vertical="top"
-        horizontal="center"
-        autoHideDuration={1500}
-        variant="filled"
-        severity={statusMessage.type}
-        onClose={handleClose}
-      />
+      <PersonalCartTable />
+      <FabButton onClick={handleClickOpen} />
     </>
   )
 }
