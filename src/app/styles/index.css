@@ -16,3 +16,7 @@ body {
     flex-flow: column;
     height: 100%;
 }
+
+.forSelect>.MuiSelect-root {
+    height: auto;
+}

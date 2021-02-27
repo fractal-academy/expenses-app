@@ -37,6 +37,7 @@ const Select = (props) => {
       defaultValue={value}
       value={currentValue}
       helperText={errorText}
+      InputProps={{ className: 'forSelect' }}
       {...inputProps}
       {...rest}>
       {data.map(children)}

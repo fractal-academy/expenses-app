@@ -10,7 +10,15 @@ import { COLLECTIONS } from 'app/constants'
 
 const WalletCombinedWithSelect = (props) => {
   // INTERFACE
-  const { title, typeModalEdit, children, onSubmitFunction, onClick } = props
+  const {
+    title,
+    typeModalEdit,
+    children,
+    onSubmitFunction,
+    onClick,
+    setClose,
+    ...rest
+  } = props
 
   // STATE
   const [selectData, setSelectData] = useState({})
@@ -54,6 +62,7 @@ const WalletCombinedWithSelect = (props) => {
   }
 
   const handleClose = () => {
+    setClose && setClose(false)
     setOpen(false)
   }
   const onClickPrev = async () => {
@@ -98,7 +107,8 @@ const WalletCombinedWithSelect = (props) => {
           text: 'Cancel',
           variant: 'contained',
           onClick: handleClose
-        }}>
+        }}
+        {...rest}>
         <WalletForm
           fieldProps={{
             select: {
