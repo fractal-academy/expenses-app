@@ -27,8 +27,8 @@ import { callFunction, func } from 'app/services/Functions'
  */
 const activateUser = async (user, userData) => {
   let userName = user.displayName.split(' ')
-  if (!user.displayName) {
-    userName = ['', '']
+  if (!user.displayName || userName.length !== 2) {
+    userName = [userName[0] ?? '', userName[1] ?? '']
   }
   const data = {
     email: user.email,
